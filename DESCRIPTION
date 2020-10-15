@@ -1,0 +1,14 @@
+Package: codeoceanR
+Title: Test R tasks with CodeOcean at HPI
+Version: 0.0.1
+Authors@R: 
+    person(given = "Berry",
+           family = "Boessenkool",
+           role = c("aut", "cre"),
+           email = "berry-b@gmx.de")
+Description: Test R tasks that can be graded using CodeOcean at HPI.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
