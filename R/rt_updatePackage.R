@@ -13,14 +13,15 @@
 #'
 #' @param pack     Name of (already installed) package. DEFAULT: "codeoceanR "
 #' @param user     Github username. repo will then be user/pack. DEFAULT: "openHPI"
-#' @param quiet    Suppress version messages and `remotes::install` output?
-#'                 DEFAULT: FALSE
+#' @param quiet    Suppress version messages output?  DEFAULT: FALSE
+#' @param quietremotes  Suppress `remotes::install` output? DEFAULT: TRUE
 #' @param \dots    Further arguments passed to [remotes::install_github()]
 #'
 rt_updatePackage <- function(
-pack="codeoceanR ",
+pack="codeoceanR",
 user="openHPI",
 quiet=FALSE,
+quietremotes=TRUE,
 ...
 )
 {
@@ -28,7 +29,7 @@ quiet=FALSE,
 Vinst <- suppressWarnings(utils::packageDescription(pack)[c("Date","Version")])
 repo <- paste0(user,"/",pack)
 # date/version in source code
-url <- paste0("https://raw.githubusercontent.com/",repo,"/master/DESCRIPTION")
+url <- paste0("https://raw.githubusercontent.com/",repo,"/main/DESCRIPTION")
 tf <- tempfile("DESCRIPTION")
 download.file(url, tf, quiet=TRUE)
 Vsrc <- read.dcf(file=tf, fields=c("Date","Version"))
@@ -44,17 +45,17 @@ if(!quiet) message(pack, " is up to date, compared to github.com/",repo,
          ". Version ", Vsrc$Version, " (", Vsrc$Date,")")
 return(invisible(output))
 }
+# message installation process:
 if(!quiet) message(pack, " local version ", Vinst$Version, " (", Vinst$Date,
         ") is outdated.\nInstalling development version ",
-        Vsrc$Version, " (", Vsrc$Date,") from github.com/",repo)
+        Vsrc$Version, " (", Vsrc$Date,") from github.com/",repo, "\nThis may take a few seconds...")
 # check availability of remotes:
 if(!requireNamespace("remotes", quietly=TRUE))
 	stop("To use rt_updatePackage, please first install remotes :    install.packages('remotes')", call.=FALSE)
 # unload:
-if(!quiet) message("First unloading ",pack," so it can be installed by remotes::install_github.")
 try(detach(paste0("package:",pack), character.only=TRUE, unload=TRUE), silent=TRUE)
 # actually install
-remotes::install_github(repo=repo, quiet=quiet, ...)
-if(!quiet) message("Please re-load ",pack," now.  library(",pack,")  should do.")
+remotes::install_github(repo=repo, quiet=quietremotes, ...)
+if(!quiet) message("Done!  Please re-load ",pack," now.  library(",pack,")  should do.")
 return(invisible(output))
 }

@@ -4,15 +4,22 @@
 \alias{rt_updatePackage}
 \title{Update codeoceanR package to latest development version}
 \usage{
-rt_updatePackage(pack = "codeoceanR ", user = "openHPI", quiet = FALSE, ...)
+rt_updatePackage(
+  pack = "codeoceanR",
+  user = "openHPI",
+  quiet = FALSE,
+  quietremotes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{pack}{Name of (already installed) package. DEFAULT: "codeoceanR "}
 
 \item{user}{Github username. repo will then be user/pack. DEFAULT: "openHPI"}
 
-\item{quiet}{Suppress version messages and \code{remotes::install} output?
-DEFAULT: FALSE}
+\item{quiet}{Suppress version messages output?  DEFAULT: FALSE}
+
+\item{quietremotes}{Suppress \code{remotes::install} output? DEFAULT: TRUE}
 
 \item{\dots}{Further arguments passed to \code{\link[remotes:install_github]{remotes::install_github()}}}
 }
