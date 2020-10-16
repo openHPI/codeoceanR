@@ -8,7 +8,7 @@ Run the following code:
 ```r
 if(!requireNamespace("remotes", quietly=TRUE))    install.packages("remotes")
 if(!requireNamespace("codeoceanR", quietly=TRUE)) remotes::install_github("openHPI/codeoceanR")
-if(packageVersion("codeoceanR") < "0.0.1")        remotes::install_github("openHPI/codeoceanR")
+codeoceanR::rt_updatePackage()
 ```
 
 Through OpenHPI, go to CodeOcean exercise, then download it to a good location on your PC.  
@@ -21,6 +21,10 @@ codeoceanR::create_task("path/to/ex.zip", "folder/to/be/used")
 This creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
 In the `Files` pane, open the `script_n.R` files.
 
+
+# developers
+
+All functions in the package are prefixed with `rt_` (R test) for autocomplete
 
 # teachers
 
