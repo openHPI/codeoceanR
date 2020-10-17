@@ -2,6 +2,7 @@
 
 export(rt_create_task)
 export(rt_updatePackage)
+export(rt_warn)
 importFrom(berryFunctions,checkFile)
 importFrom(berryFunctions,normalizePathCP)
 importFrom(berryFunctions,openFile)
