@@ -15,7 +15,7 @@ Through OpenHPI, go to CodeOcean exercise, then download it to a good location o
 Run the following code for the zip file you just saved:
 
 ```r
-codeoceanR::create_task("path/to/ex.zip", "folder/to/be/used")
+codeoceanR::rt_create_task("path/to/ex.zip") # optionally exdir="folder/to/be/used"
 ```
 
 This creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
