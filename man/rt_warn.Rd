@@ -18,6 +18,8 @@ pass test messages to Rstudio / CodeOcean.
 Relies on object 'task' to be found, e.g. in globalEnv.
 }
 \examples{
+task <- 5
+rt_warn("This is a CodeOcean message!")
 
 }
 \author{
