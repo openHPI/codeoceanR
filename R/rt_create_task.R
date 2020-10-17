@@ -8,7 +8,7 @@
 #' @importFrom utils unzip
 #' @export
 #' @examples
-#' # rt_create_task(zipfile="C:/Dropbox/R/FREELANCING/HPI_2020_R/CodeOceanTesting/FProg20_R_quiz_1.zip")
+#' # rt_create_task("C:/Dropbox/R/FREELANCING/HPI_2020_R/CodeOceanTesting/FProg20_R_quiz_1.zip")
 #'
 #' @param zipfile Path to zip file. Remember: on Windows, "\" must be changed to "/".
 #' @param exdir   Folder to unzip to, e.g. "." for current wd.
