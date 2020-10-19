@@ -15,10 +15,10 @@ Output of \code{\link[=warning]{warning()}} in interactive mode (RStudio) or
 }
 \description{
 pass test messages to Rstudio / CodeOcean.
-Relies on object 'task' to be found, e.g. in globalEnv.
+Relies on object 'task_id' to be found
 }
 \examples{
-task <- 5
+task_id <- 5
 rt_warn("This is a CodeOcean message!")
 
 }
