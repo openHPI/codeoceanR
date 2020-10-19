@@ -18,12 +18,8 @@ expanded filename, invisibly.
 Add files to the list of Rstudio opened source documents.
 The related .Rproj Rstudio project should be closed at the time of writing.
 }
-\examples{
-# See rt_create_task
-
-}
 \seealso{
-\code{\link[=rt_create_task]{rt_create_task()}}
+\code{\link[=rt_create_task]{rt_create_task()}}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020

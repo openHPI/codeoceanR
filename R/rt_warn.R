@@ -5,7 +5,7 @@
 #'                   [cat()] otherwise (CodeOcean)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @keywords IO error
-# @importFrom package fun1 fun2
+#' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
 #' @examples
 #' task_id <- 5

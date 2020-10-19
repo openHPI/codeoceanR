@@ -36,7 +36,7 @@ If the version number or date is larger on github,
 
 }
 \seealso{
-\code{\link[remotes:install_github]{remotes::install_github()}}
+\code{\link[remotes:install_github]{remotes::install_github()}}, \url{https://github.com/openHPI/codeoceanR}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2019 (rdwd), Oct 2020 (codeoceanR)

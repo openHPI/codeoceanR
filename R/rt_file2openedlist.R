@@ -3,10 +3,8 @@
 #' The related .Rproj Rstudio project should be closed at the time of writing.
 #' @return expanded filename, invisibly.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_create_task()]
+#' @seealso [rt_create_task()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords internal
-#' @examples
-#' # See rt_create_task
 #'
 #' @param file Filename to be added.
 #' @param dir  Target directory with a .Rproj file. DEFAULT: "." (getwd())
@@ -57,7 +55,7 @@ return(invisible(fullfile))
 #' @description Internal function to find the next largest 8 digit hexadecimal id
 #' @return Hexadecimal ID charstring
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_file2openedlist()]
+#' @seealso [rt_file2openedlist()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords internal
 #' @examples
 #' \dontrun{ # non-exported function cannot have autorun examples

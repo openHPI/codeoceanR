@@ -2,12 +2,10 @@
 #' @description Run test script for entire exercise
 #' @return Vector with number of total and passed tests, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso \code{\link{help}}, \code{graphics::\link[graphics]{plot}}
+#' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
 #' @importFrom berryFunctions checkFile
 #' @export
-#' @examples
-#' # ToDo
 #'
 #' @param tfile Path to tests.R file. ToDo: automated detection. DEFAULT: "tests.R"
 #'
@@ -15,7 +13,7 @@ rt_score <- function(tfile="tests.R")
 {
 berryFunctions::checkFile(tfile)
 # ToDo: figure out if unsaved file changes can be detected
-# ToDo: find better system for task_id updates. Tthis is a patchy mess
+# ToDo: find better system for task_id updates. This is a patchy mess
 if(exists("task_id"))
 	{
 	warning("Removing object 'task_id' from globalenv workspace.")

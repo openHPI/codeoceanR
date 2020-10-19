@@ -6,12 +6,10 @@ if(!exists("isFALSE")) isFALSE <- function(x) is.logical(x) && length(x) == 1L &
 #' @description Run script, with informative [rt_warn] message if [source()] fails.
 #' @return FALSE for failure, otherwise contents of the script, output of [readLines()]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_script_runs], [rt_select_script_section], [source]
+#' @seealso [rt_script_runs], [rt_select_script_section],
+#'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #' @export
-#' @examples
-#' # ToDo: link to file
-#' # ToDo: consider adding message from try() to rt_warn
 #'
 #' @param filename Path of script to be run
 #'
@@ -19,6 +17,7 @@ rt_run_script <- function(filename){
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
   e <- try(source(filename), silent=TRUE)
+# ToDo: consider adding message from try() to rt_warn
   if(inherits(e, "try-error")) {
     rt_warn("'", filename, "' can not be executed. ",
             if(!interactive()) "Click 'RUN' to view the error and then fix it." else "Make sure each line can be run.")
@@ -31,10 +30,8 @@ rt_run_script <- function(filename){
 #' @description test whether script can be run
 #' @return Logical. No [rt_warn] message issued, that already happens in [rt_run_script]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_run_script]
+#' @seealso [rt_run_script], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
-#' @examples
-#' # ToDo: link to file
 #'
 #' @param scriptobject Charstring output from [rt_run_script] or [rt_select_script_section].
 #'                     Will be checked with \code{!\link{isFALSE}()}.
@@ -50,12 +47,11 @@ rt_script_runs <- function(scriptobject){
 #' @return FALSE for failure, otherwise selected lines of the script,
 #'         by default collapsed (linebreaks replaced with ;) through [paste]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_run_script], [rt_script_runs], [rt_has_argument]
+#' @seealso [rt_run_script], [rt_script_runs], [rt_has_argument],
+#'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #' @importFrom berryFunctions removeSpace
 #' @export
-#' @examples
-#' # ToDo: link to file
 #'
 #' @param scriptlines Charstring with several elements, normally output from [rt_run_script]
 #' @param task_nr     Task number to be found, eg for task_nr=3, the lines between `t3_start` and `t3_end`.

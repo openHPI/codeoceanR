@@ -22,6 +22,9 @@ task_id <- 5
 rt_warn("This is a CodeOcean message!")
 
 }
+\seealso{
+\href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
+}
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020
 }

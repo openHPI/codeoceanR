@@ -3,11 +3,10 @@
 #' @return Logical: TRUE / FALSE depending on whether condition is met
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @keywords error test
+#' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
 #' @importFrom stats rnorm
 #' @name rt_test_object
-#' @examples
-#' # ToDo / link to example test file
 #'
 #' @param obj    Object to be tested
 #' @param df     Object (data.frame) to be tested

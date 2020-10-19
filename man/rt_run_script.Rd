@@ -15,13 +15,9 @@ FALSE for failure, otherwise contents of the script, output of \code{\link[=read
 \description{
 Run script, with informative \link{rt_warn} message if \code{\link[=source]{source()}} fails.
 }
-\examples{
-# ToDo: link to file
-# ToDo: consider adding message from try() to rt_warn
-
-}
 \seealso{
-\link{rt_script_runs}, \link{rt_select_script_section}, \link{source}
+\link{rt_script_runs}, \link{rt_select_script_section},
+\href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020

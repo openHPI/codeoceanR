@@ -21,12 +21,9 @@ by default collapsed (linebreaks replaced with ;) through \link{paste}
 Select the section of the script code between \verb{t*_start} and \verb{t*_end} for further analysis in tests.
 The code is not executed, as this is already done in \link{rt_run_script}.
 }
-\examples{
-# ToDo: link to file
-
-}
 \seealso{
-\link{rt_run_script}, \link{rt_script_runs}, \link{rt_has_argument}
+\link{rt_run_script}, \link{rt_script_runs}, \link{rt_has_argument},
+\href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020

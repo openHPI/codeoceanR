@@ -68,9 +68,8 @@ Logical: TRUE / FALSE depending on whether condition is met
 \description{
 Diverse object tests calling \code{\link[=rt_warn]{rt_warn()}} with informative and helpful messages.
 }
-\examples{
-# ToDo / link to example test file
-
+\seealso{
+\href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020

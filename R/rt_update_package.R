@@ -4,7 +4,7 @@
 #'         [remotes::install_github()] will be called.
 #' @return data.frame with version information
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2019 (rdwd), Oct 2020 (codeoceanR)
-#' @seealso [remotes::install_github()]
+#' @seealso [remotes::install_github()], <https://github.com/openHPI/codeoceanR>
 #' @keywords file
 #' @importFrom utils packageDescription download.file compareVersion
 #' @export

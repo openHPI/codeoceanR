@@ -2,16 +2,14 @@
 #' @description Test if a function call in stundent's code has certain arguments
 #' @return Logical: TRUE / FALSE depending on whether condition is met
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_select_script_section]
+#' @seealso [rt_select_script_section], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #' @importFrom utils getParseData
 #' @export
-#' @examples
-#' # ToDo
 #'
 #' @param code  Charstring with code, normally from [rt_select_script_section]
 #' @param arg   Charstring with a single argument name to be tested
-#' @param value Value the argument mus have. Use `'escaped "quotation" marks'`.
+#' @param value Value the argument should have. Use `'escaped "quotation" marks'`.
 #'              Can be left NULL if only the presence of the argument is tested, not its value.
 #'
 rt_has_argument <- function(code, arg, value=NULL){
