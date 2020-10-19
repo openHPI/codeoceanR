@@ -1,17 +1,22 @@
 # CodeOcean graded quizzes for R
 
+By Berry Boessenkool, 2020, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 
 # students
 
-Run the following code:
+Run the following code to install the codeoceanR package:
 
 ```r
 if(!requireNamespace("remotes", quietly=TRUE))    install.packages("remotes")
 if(!requireNamespace("codeoceanR", quietly=TRUE)) remotes::install_github("openHPI/codeoceanR")
+```
+
+Once installed, keeping it up to date is easy with
+```r
 codeoceanR::rt_update_package()
 ```
 
-Through OpenHPI, go to CodeOcean exercise, then download it to a good location on your PC.  
+Through OpenHPI, go to the CodeOcean exercise, then download it to a good location on your PC.  
 Run the following code for the zip file you just saved:
 
 ```r
@@ -19,35 +24,34 @@ codeoceanR::rt_create_task("path/to/ex.zip") # optionally exdir="folder/to/be/us
 ```
 
 This creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
-In the `Files` pane, open the `script_n.R` files.
+The `script_n.R` files (should be automatically opened) contain the tasks.  
+`codeoceanR::rt_score()` can be run very often, `codeoceanR::rt_submit()` is once-only and final.
 
-
-# developers
-
-All functions in the package are prefixed with `rt_` (R test) for autocomplete
 
 # teachers
 
-Instructions by Berry Boessenkool, January 2020, <berry-b@gmx.de>  
-with great info from Sebastian Serth, <sebastian.serth@hpi.de>  
-Based on the class "fundamentals of programming in digital health" with 31 participants.
+It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
+The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
 
+Quizzes are accessed through openHPI but run and tested at CodeOcean, from which grades are passed back.
+The tasks can also be solved in Rstudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, debugging (!), keyboard shortcuts and graphics.
 
-The admins will have to create a dummy quiz in OpenHPI for you the first time.  
+Some participants had a hard time getting started in a time-pressed graded quiz setting.  
+I suggest to first use the system at least once non-graded and non-pressured!  
+You can't stress enough that participants need to run "Score" / `rt_score()` very often.  
+
+## initial setup
+
+The openHPI admins will have to create a dummy CodeOcean quiz in OpenHPI for you the first time.  
 To be logged in, open CodeOcean through "Launch exercise tool".  
-Then you can either go to https://codeocean.openhpi.de/exercises/new
-or have the admins copy my [master exercise](https://codeocean.openhpi.de/exercises/642)
-and set you as the author. Once that's done, you can duplicate that one yourself.
-(You cannot duplicate my exercise, to prevent random students from seeing my test scripts.)
-
-Overview of all R quizzes:
-https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28
-
+Then you can either go to <https://codeocean.openhpi.de/exercises/new>
+or copy my [basic exercise](https://codeocean.openhpi.de/exercises/721). 
+Potentially, admins must first duplicate it for you and set you as the author.
 
 ## Quiz acces point on openHPI
 
-On OpenHPI, go to Course administration - Course structure and content, e.g. [url for fprog2019](
-https://open.hpi.de/courses/fprog-wi-2019/sections)  
+On OpenHPI, go to Course administration - Course structure and content, e.g. 
+[url for fprog2019](https://open.hpi.de/courses/fprog-wi-2019/sections).  
 In the desired section, click "Add item"
 
 - **Type**: External exercise tool
@@ -58,40 +62,26 @@ There's no real way to limit the working time.
 The admins have a [java tool](https://github.com/openHPI/codeocean-scraper) 
 to download scores limited to a certain time stamp.
 - **Submission publishing date**: not relevant, can be left empty
-- **Instructions**: Click the button below to launch the exercise.
+- **Instructions**: e.g. Click the button below to launch the exercise.
 - **LTI provider**: CodeOcean
 - **Additional parameters**: locale=en&token=1de7bf22&embed_options_disable_redirect_to_rfcs=true&embed_options_disable_redirect_to_feedback=true&embed_options_disable_interventions=true  
-replace `1de7bf22` with the token from your exercise  
+**replace `1de7bf22` with the token from your exercise!**  
 embedding options:  
--  `redirect_to_rfcs`: disable finished users to be lead to open Request for Comments (RfCs).
--  `redirect_to_feedback`: after "Submit", if there are no open RfCs, 
-a feedback form is presented to 10% of users (min 20) without full score. 
--  `interventions`: disable popups like "You seem to have trouble. Request comments here" while users are working.
+  -  `redirect_to_rfcs`: disable finished users to be lead to open Request for Comments (RfCs).
+  -  `redirect_to_feedback`: after "Submit", if there are no open RfCs, a feedback form is presented to 10% of users (min 20) without full score. 
+  -  `interventions`: disable popups like "You seem to have trouble. Request comments here" while users are working.
 
 
-## CodeOcean exercise specifics
+## CodeOcean exercises
 
-All file types & roles etc can be seen in my master exercise at
-https://codeocean.openhpi.de/exercises/642  
-In editing your own exercise (button at topright or URL below), you need to check the 'Public' box.
-
-Quite a lot of work and experience has gone into this master quiz.
-I'll try to list the most important lessons here.
-
-In the description, you get markdown line breaks with two spaces at the end of the line.
-
-Some participants had a hard time getting started in CodeOcean in a time-pressed graded quiz setting.  
-I suggest to first use the system at least once non-graded and non-pressured!
-
-The first task with an intentional error should help participants get a feel for error debugging.  
-You can't stress enough that participants need to run "Score" very often.  
-
-I suggest participants not to switch between codeOcean and Rstudio. 
-I know Rstudio has autocomplete + keyboard shortcuts + more interactiveness, 
-but in general people were more confused than helped.
+All file types & roles etc can be seen in my basic exercise at <https://codeocean.openhpi.de/exercises/721>  
+The structure of task and test scripts can also be seen at <https://github.com/openHPI/codeoceanR/tree/main/inst/extdata>  
+A collection of exercises is currently in process and can be requested at <berry-b@gmx.de>  
+There's an overview of all R quizzes at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
 
 The Makefile run: could have `Rscript ${FILENAME}` as well, 
-but then the run output does not contain the calls, making error sources harder to find.
+but then the run output does not contain the calls, making error sources harder to find.  
+Hide your exercices if wanted by unchecking the 'Public' box.
 
 If you have data files to be read, make sure to check the box for Read-only.  
 Otherwise users might change the file and your test script might fail,
@@ -101,34 +91,37 @@ emphasize to never touch raw data and use `read.table(...,skip=n)` instead.
 ## Testing
 
 I suggest developing (and testing) the tasks within Rstudio.
-Just source "tests.R" (after the first time, `loctests()` will do that for you).  
-"test_functions.R" contains a local warn function for interactive use
 
 Always test the entire quiz on CodeOcean as well, especially after expanding tests.  
-Example: `has_argument` didn't run online in the first version, 
+Example: `rt_has_argument` didn't run online in the first version, 
 since `parse(code)` needs to have `keep.source=TRUE`. 
 The default option is TRUE only in an interactive R session!
 
 Instead of checking code like in the write.table task, 
 your tests can also execute the code and you test the resulting file.
-This gives participants more freedom in how they stucture the task.  
+This gives participants more freedom in how they structure the task.  
 
-Attenton: if the user script contains line breaks and is read with `parse_script_section(script2, 4)` with the default `collapse=TRUE`,
-`has_argument` leads to a test script failure.
+Attenton: if the user script contains line breaks and is read with `rt_select_script_section` with the default `collapse=TRUE`,
+`rt_has_argument` leads to a test script failure.
 
-In tests, never compare with a result created by the user, even if that is checked in a previous task.  
+In tests, **never compare with a result created by the user**, even if that is checked in a previous task.  
 E.g., your test script could fail if you have the user do
 ```
 df <- read.table("file.txt")
 cmean <- mean(df[,-1])
 ```
 and you test the df in one task and for the next
-`has_value(cmean,  mean(df[,-1]) )`  
-There will be that one user who fails to specify header or sep or whatever,
+`rt_has_value(cmean,  mean(df[,-1]) )`  
+There will be that one student who fails to specify header or sep or whatever,
 meaning that `df` cannot be trusted to be correct.  
 Besides not getting a point for the df task, the test script would fail and give no points at all.  
 Rather read the dataset in the test script just before the cmean tests or hard-code the value.  
 For the same reason, test 1 contains `iris <- datasets::iris`
+
+## CO instead of Rstudio
+
+If students use CodeOcean directly instead of downloading and working locally,
+the following hints are especially important.
 
 You can split up tests to several files (like with the scripts).  
 Users will get several score boxes with green boxes for the successful files.
@@ -145,10 +138,18 @@ at the top of the page, also for statistics.
 
 
 ## Main URLs
-replace 642 with the number of your exercise.  
-https://codeocean.openhpi.de/exercises/642/edit  
-https://codeocean.openhpi.de/exercises/642/implement  
-https://codeocean.openhpi.de/exercises/642/statistics  
-https://codeocean.openhpi.de/exercises/642/requests_for_comments  (not auto-updated)
-https://codeocean.openhpi.de/exercises/642/study_group_dashboard/32  live view (RfCs auto-updated)
+replace 721 with the number of your exercise.  
+https://codeocean.openhpi.de/exercises/721/edit  
+https://codeocean.openhpi.de/exercises/721/implement  
+https://codeocean.openhpi.de/exercises/721/statistics  
+https://codeocean.openhpi.de/exercises/721/requests_for_comments  (not auto-updated)
+https://codeocean.openhpi.de/exercises/721/study_group_dashboard/32  live view (RfCs auto-updated)
 
+
+# developers
+
+All functions in the package are prefixed with `rt_` (R test) for nice autocomplete selection.
+
+This entire project profited from great info from Sebastian Serth, <sebastian.serth@hpi.de>.  
+Experiences are based on the 2019 class "fundamentals of programming in digital health" with 31 participants.  
+For the 2020 class, code was bundeled into an R package. Exercises can now be run locally in Rstudio. 

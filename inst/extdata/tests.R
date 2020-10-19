@@ -1,35 +1,19 @@
 # CodeOcean R Quiz
 # Berry Boessenkool, berry-b@gmx.de, early 2020 + Oct 2020
 
-
-
-# Testing examples included in the package
-
-
-
-# In Rstudio, rt_score will neatly source this script.
-# On CodeOcean, clicking "Score" will run this script.
-
-# Running this script may never fail on CO, hence keep it wrapped in try()
-# The object 'task_id' must be defined here for the error messages through "rt_warn"
-
-# The tests must be connected with "&&", not "&".
-# The single "&" runs the next test (generating multiple messages), even if one fails.
-# This syntax makes it easy to select a single test and run it (when developing tests for new tasks)
-
-# ToDo: move this (and then link) to https://github.com/openHPI/codeoceanR#teachers
-
+# This script is run by `rt_score()` (in Rstudio) or by clicking "Score" (in CodeOcean).
+# Running this script may never fail on CodeOcean, hence keep it wrapped in `try()`.
+# The object 'task_id' must be defined here for the error messages through `rt_warn`.
+# The tests must be connected with "&&", not "&" to avoid generating multiple messages.
+# ("&&" stops evaluating on the first FALSE it encounters).
 # The tests are set up so the rt_warn messages are increasingly specific.
-
+# See also https://github.com/openHPI/codeoceanR#teachers
 
 library(codeoceanR) # for all functions prefixed with rt_
-
 
 ntests <-  3 # number of tests
 npassed <- 0 # number of passed tests
 
-
-task_id <- "_pre"
 
 trytests <- try({
 
@@ -79,13 +63,12 @@ rt_has_argument(sol, "row.names", FALSE)
 
 
 
-
 }, silent=TRUE)
 task_id <- "_post"
 if(inherits(trytests, "try-error")) {
   rt_warn("The test script failed. Sorry for the 0 points right now. ",
   				"You'll have to revert the last thing(s) you did. ",
-  				"Please click 'Request comments' and copypaste the logfile below.\n", trytests)
+  				if(interactive())"Please click 'Request comments' and copypaste the logfile below.\n", trytests)
 }
 # Final output -----------------------------------------------------------------
 
