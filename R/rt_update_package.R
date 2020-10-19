@@ -6,7 +6,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2019 (rdwd), Oct 2020 (codeoceanR)
 #' @seealso [remotes::install_github()]
 #' @keywords file
-#' @importFrom utils packageDescription download.file
+#' @importFrom utils packageDescription download.file compareVersion
 #' @export
 #' @examples
 #' # rt_updatePackage()
