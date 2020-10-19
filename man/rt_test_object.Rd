@@ -10,6 +10,7 @@
 \alias{rt_has_column}
 \alias{rt_has_names}
 \alias{rt_is_identical}
+\alias{rt_contains}
 \alias{rt_has_value}
 \title{test objects in CodeOcean Setting}
 \usage{
@@ -28,6 +29,8 @@ rt_has_column(df, column)
 rt_has_names(obj, n)
 
 rt_is_identical(obj, target)
+
+rt_contains(obj, value)
 
 rt_has_value(obj, value, digits = 6, noise = TRUE)
 }

@@ -88,6 +88,18 @@ rt_is_identical <- function(obj, target){
 
 #' @export
 #' @rdname rt_test_object
+rt_contains <- function(obj, value){
+  objname <- deparse(substitute(obj))
+  jup <- if(is.character(obj)) grepl(pattern=value, x=obj) else
+                               value %in% obj
+  if(jup) return(TRUE)
+  rt_warn(objname, " does not contain ", toString(value))
+  FALSE
+}
+
+
+#' @export
+#' @rdname rt_test_object
 rt_has_value <- function(obj, value, digits=6, noise=TRUE){
   objname <- deparse(substitute(obj))
 
