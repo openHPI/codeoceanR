@@ -19,6 +19,8 @@
 #' @param value  value `obj` should have, can be char / numeric / other.
 #' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison. DEFAULT: 6
 #' @param noise  Add noise, so not the exact difference is reported? DEFAULT: TRUE
+#' @param condition Generic custom condition to be tested
+#' @param \dots     Message passed to [rt_warn] if condition evaluates to FALSE
 #'
 rt_exists <- function(obj) {
   obj <- deparse(substitute(obj)) # charstring of object name
@@ -123,3 +125,13 @@ rt_has_value <- function(obj, value, digits=6, noise=TRUE){
   rt_warn(objname, " has the wrong value. ", dif)
   FALSE
 }
+
+
+#' @export
+#' @rdname rt_test_object
+rt_test <- function(condition, ...){
+  if(condition) return(TRUE)
+  rt_warn(...)
+  FALSE
+}
+

@@ -12,6 +12,7 @@
 \alias{rt_is_identical}
 \alias{rt_contains}
 \alias{rt_has_value}
+\alias{rt_test}
 \title{test objects in CodeOcean Setting}
 \usage{
 rt_exists(obj)
@@ -33,6 +34,8 @@ rt_is_identical(obj, target)
 rt_contains(obj, value)
 
 rt_has_value(obj, value, digits = 6, noise = TRUE)
+
+rt_test(condition, ...)
 }
 \arguments{
 \item{obj}{Object to be tested}
@@ -54,6 +57,10 @@ rt_has_value(obj, value, digits = 6, noise = TRUE)
 \item{digits}{Tolerance - both \code{obj} and \code{value} are \link{round}ed before comparison. DEFAULT: 6}
 
 \item{noise}{Add noise, so not the exact difference is reported? DEFAULT: TRUE}
+
+\item{condition}{Generic custom condition to be tested}
+
+\item{\dots}{Message passed to \link{rt_warn} if condition evaluates to FALSE}
 }
 \value{
 Logical: TRUE / FALSE depending on whether condition is met
