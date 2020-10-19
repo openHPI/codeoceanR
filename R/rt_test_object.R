@@ -22,60 +22,67 @@
 #'
 rt_exists <- function(obj) {
   obj <- deparse(substitute(obj)) # charstring of object name
-  if(base::exists(obj)) TRUE else {rt_warn("The object '",obj,"' does not exist."); FALSE}
+  if(base::exists(obj)) return(TRUE)
+  rt_warn("The object '",obj,"' does not exist.")
+  FALSE
 }
 
 
 #' @export
 #' @rdname rt_test_object
 rt_has_class <- function(obj, class) {
-  if(inherits(obj, class)) TRUE else {
-  rt_warn(deparse(substitute(obj)), " must be '", class,
-       "', not of class '", toString(class(obj)), "'."); FALSE}
+  if(inherits(obj, class)) return(TRUE)
+  rt_warn(deparse(substitute(obj)), " must be '", class, "', not of class '", toString(class(obj)), "'.")
+  FALSE
 }
 
 
 #' @export
 #' @rdname rt_test_object
-rt_has_length <- function(obj, len) {if(length(obj)==len) TRUE else {
-  rt_warn(deparse(substitute(obj)), " must have length ", len,  ", not ", length(obj), "."); FALSE}
+rt_has_length <- function(obj, len) {if(length(obj)==len) return(TRUE)
+  rt_warn(deparse(substitute(obj)), " must have length ", len,  ", not ", length(obj), ".")
+  FALSE
 }
 
 
 #' @export
 #' @rdname rt_test_object
-rt_has_ncols <- function(df, len) {if(ncol(df)==len) TRUE else {
-  rt_warn(deparse(substitute(df)), " must have ", len, " columns, not ", ncol(df), "."); FALSE}
+rt_has_ncols <- function(df, len) {if(ncol(df)==len) return(TRUE)
+  rt_warn(deparse(substitute(df)), " must have ", len, " columns, not ", ncol(df), ".")
+  FALSE
 }
 
 
 #' @export
 #' @rdname rt_test_object
-rt_has_nrows <- function(df, len) {if(nrow(df)==len) TRUE else {
-  rt_warn(deparse(substitute(df)), " must have ", len, " rows, not ", nrow(df), "."); FALSE}
+rt_has_nrows <- function(df, len) {if(nrow(df)==len) return(TRUE)
+  rt_warn(deparse(substitute(df)), " must have ", len, " rows, not ", nrow(df), ".")
+  FALSE
 }
 
 
 #' @export
 #' @rdname rt_test_object
-rt_has_column <- function(df, column) {if(column %in% colnames(df)) TRUE else {
-  rt_warn(deparse(substitute(df)), " must have the column ", column, "."); FALSE}
+rt_has_column <- function(df, column) {if(column %in% colnames(df)) return(TRUE)
+  rt_warn(deparse(substitute(df)), " must have the column ", column, ".")
+  FALSE
 }
 
 
 #' @export
 #' @rdname rt_test_object
-rt_has_names <- function(obj, n) {if(all(n %in% names(obj))) TRUE else {
-  rt_warn(deparse(substitute(x)), " must have the name", if(length(n)>1) "s:", " ", toString(n), "."); FALSE}
+rt_has_names <- function(obj, n) {if(all(n %in% names(obj))) return(TRUE)
+  rt_warn(deparse(substitute(x)), " must have the name", if(length(n)>1) "s:", " ", toString(n), ".")
+  FALSE
 }
 
 
 #' @export
 #' @rdname rt_test_object
 rt_is_identical <- function(obj, target){
-  if(identical(obj,target)) return(TRUE) else
-    {rt_warn(deparse(substitute(obj)), " should be ", toString(target), " but is ", toString(obj));
-    return(FALSE)}
+  if(identical(obj,target)) return(TRUE)
+  rt_warn(deparse(substitute(obj)), " should be ", toString(target), " but is ", toString(obj))
+  FALSE
 }
 
 
@@ -100,5 +107,7 @@ rt_has_value <- function(obj, value, digits=6, noise=TRUE){
   if(noise) dif <- dif + round(rnorm(length(obj)),6)
   dif <- round(dif, digits)
   dif <- paste0("The deviance is",if(noise)" (approximately, with added noise)", ": ", toString(dif))
-  if(all(obj==val)) TRUE else {rt_warn(objname, " has the wrong value. ", dif); FALSE}
+  if(all(obj==val)) return(TRUE)
+  rt_warn(objname, " has the wrong value. ", dif)
+  FALSE
 }
