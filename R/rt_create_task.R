@@ -1,6 +1,6 @@
 #' @title Create Task folder from zip file
-#' @description Create Task folder from zip file, with a `.Rproj` file and try to open that in Rstudio.
-#' @return ReturnValue
+#' @description Create task folder from zip file, with a `.Rproj` file and try to open that in Rstudio.
+#' @return exdir, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @keywords file
 #' @importFrom berryFunctions normalizePathCP checkFile openFile
@@ -33,7 +33,8 @@ cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", 
 # put tasks to Rstudio opened files list:
 lapply(dir(exdir, pattern="script_"), rt_file2openedlist, dir=exdir)
 # try to open Rproject:
+message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
 # Output:
-return(exdir)
+return(invisible(exdir))
 }

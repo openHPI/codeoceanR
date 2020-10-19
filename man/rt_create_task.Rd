@@ -15,10 +15,10 @@ DEFAULT: NULL (path from zipfile).}
 \item{\dots}{Further arguments passed to \code{\link{unzip}}}
 }
 \value{
-ReturnValue
+exdir, invisibly
 }
 \description{
-Create Task folder from zip file, with a \code{.Rproj} file and try to open that in Rstudio.
+Create task folder from zip file, with a \code{.Rproj} file and try to open that in Rstudio.
 }
 \examples{
 # rt_create_task("C:/Dropbox/R/FREELANCING/HPI_2020_R/CodeOceanTesting/FProg20_R_quiz_1.zip")
