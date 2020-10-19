@@ -17,7 +17,7 @@
 #' @param quietremotes  Suppress `remotes::install` output? DEFAULT: TRUE
 #' @param \dots    Further arguments passed to [remotes::install_github()]
 #'
-rt_updatePackage <- function(
+rt_update_package <- function(
 pack="codeoceanR",
 user="openHPI",
 quiet=FALSE,

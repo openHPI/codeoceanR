@@ -8,7 +8,7 @@ Run the following code:
 ```r
 if(!requireNamespace("remotes", quietly=TRUE))    install.packages("remotes")
 if(!requireNamespace("codeoceanR", quietly=TRUE)) remotes::install_github("openHPI/codeoceanR")
-codeoceanR::rt_updatePackage()
+codeoceanR::rt_update_package()
 ```
 
 Through OpenHPI, go to CodeOcean exercise, then download it to a good location on your PC.  
