@@ -31,7 +31,9 @@ repo <- paste0(user,"/",pack)
 # date/version in source code
 url <- paste0("https://raw.githubusercontent.com/",repo,"/main/DESCRIPTION")
 tf <- tempfile("DESCRIPTION")
-download.file(url, tf, quiet=TRUE)
+ee <- suppressWarnings(try(download.file(url, tf, quiet=TRUE), silent=TRUE))
+if(inherits(ee, "try-error")) {warning("Download failed. ", ee); return(ee)}
+
 Vsrc <- read.dcf(file=tf, fields=c("Date","Version"))
 Vsrc <- split(unname(Vsrc),colnames(Vsrc)) # transform matrix to list
 output <- data.frame(Version=c(Vinst$Version, Vsrc$Version),
