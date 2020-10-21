@@ -4,10 +4,10 @@
 \alias{rt_score}
 \title{score complete exercise}
 \usage{
-rt_score(tfile = "tests.R")
+rt_score(dir = ".")
 }
 \arguments{
-\item{tfile}{Path to tests.R file. ToDo: automated detection. DEFAULT: "tests.R"}
+\item{dir}{Path to exercise folder. DEFAULT: "."}
 }
 \value{
 Vector with number of total and passed tests, invisibly

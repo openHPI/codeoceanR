@@ -4,13 +4,18 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
-#' @importFrom berryFunctions checkFile
+#' @importFrom berryFunctions checkFile normalizePathCP
 #' @export
 #'
-#' @param tfile Path to tests.R file. ToDo: automated detection. DEFAULT: "tests.R"
+#' @param dir Path to exercise folder.
+#'            Must contain "tests.R" and all the "script_n.R" files referenced there.
+#'            DEFAULT: "."
 #'
-rt_score <- function(tfile="tests.R")
+rt_score <- function(dir=".")
 {
+dir <- berryFunctions::normalizePathCP(dir)
+berryFunctions::checkFile(dir)
+tfile <- paste0(dir, "/tests.R")
 berryFunctions::checkFile(tfile)
 # ToDo: figure out if unsaved file changes can be detected
 # ToDo: find better system for task_id updates. This is a patchy mess
