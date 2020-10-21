@@ -10,7 +10,9 @@
 #' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #'
 #' @param zipfile Path to zip file. Remember: on Windows, "\" must be changed to "/".
-#' @param exdir   Folder to unzip to, e.g. "." for current wd.
+#' @param exdir   Folder to unzip to, e.g. "./task" for folder at current wd.
+#'                `exdir` may not yet exist, to avoid overwriting previously
+#'                unzipped and potentially edited tasks.
 #'                DEFAULT: NULL (path from zipfile).
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
@@ -24,10 +26,12 @@ exdir=NULL,
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
+if(file.exists(exdir)) stop("exdir already exists. Please choose a new location.")
 # unzip:
 unzip(zipfile=zipfile, exdir=exdir, ...)
 # create .Rproj File
 rprojfile <- paste0(exdir, "/zz_",tools::file_path_sans_ext(basename(zipfile)),".Rproj")
+rprojfile <- berryFunctions::normalizePathCP(rprojfile)
 cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
 # put tasks to Rstudio opened files list:
 lapply(dir(exdir, pattern="script_"), rt_file2openedlist, dir=exdir)

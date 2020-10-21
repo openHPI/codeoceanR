@@ -9,7 +9,9 @@ rt_create_task(zipfile, exdir = NULL, ...)
 \arguments{
 \item{zipfile}{Path to zip file. Remember: on Windows, "\" must be changed to "/".}
 
-\item{exdir}{Folder to unzip to, e.g. "." for current wd.
+\item{exdir}{Folder to unzip to, e.g. "./task" for folder at current wd.
+\code{exdir} may not yet exist, to avoid overwriting previously
+unzipped and potentially edited tasks.
 DEFAULT: NULL (path from zipfile).}
 
 \item{\dots}{Further arguments passed to \code{\link{unzip}}}
