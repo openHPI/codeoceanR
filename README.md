@@ -60,7 +60,9 @@ In the desired section, click "Add item"
 - **Submission deadline**: time before which the CodeOcean task must be **started**.  
 There's no real way to limit the working time.  
 The admins have a [java tool](https://github.com/openHPI/codeocean-scraper) 
-to download scores limited to a certain time stamp.
+to download scores limited to a certain time stamp.  
+In CodeOcean, a deadline and grace period can be set with a nice view in the exerise statistics. 
+But points get transfered to openHPI without regard to that.
 - **Submission publishing date**: not relevant, can be left empty
 - **Instructions**: e.g. Click the button below to launch the exercise.
 - **LTI provider**: CodeOcean
