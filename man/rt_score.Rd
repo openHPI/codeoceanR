@@ -7,7 +7,9 @@
 rt_score(dir = ".")
 }
 \arguments{
-\item{dir}{Path to exercise folder. DEFAULT: "."}
+\item{dir}{Path to exercise folder.
+Must contain "tests.R" and all the "script_n.R" files referenced there.
+DEFAULT: "."}
 }
 \value{
 Vector with number of total and passed tests, invisibly
