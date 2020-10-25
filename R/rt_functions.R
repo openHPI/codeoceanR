@@ -18,6 +18,8 @@ rt_has_argument <- function(code, arg, value=NULL){
   if(!any(grepl(paste0("\\<",arg,"\\>"), code))) # \<arg\> as standalone word
     {rt_warn("Code does not contain argument '",arg,"'."); return(FALSE)}
   if(is.null(value)) return(TRUE)
+  # remove trailing ";" (trips up my processing of the parser result)
+  code <- gsub(";$", "", code)
   cd <- getParseData(parse(text=code, keep.source=TRUE))
   cd <- cd[cd$terminal,c("token","text")]
   cd <- rbind(cd, data.frame(token="SYMBOL_SUB", text="dummy")) # for last argument
