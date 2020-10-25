@@ -17,10 +17,11 @@ rt_run_script <- function(filename){
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
   e <- try(source(filename), silent=TRUE)
-# ToDo: consider adding message from try() to rt_warn
   if(inherits(e, "try-error")) {
     rt_warn("'", filename, "' can not be executed. ",
-            if(!interactive()) "Click 'RUN' to view the error and then fix it." else "Make sure each line can be run.")
+            if(!interactive()) "Click 'RUN' to view the error and then fix it." else
+                               "Make sure each line can be run.",
+            "\n--- The source() error message was: ", e)
     return(FALSE)}
   readLines(filename, warn=FALSE)
 }
