@@ -26,10 +26,14 @@ script2 <- rt_run_script("script_2.R")
 task_id <- 1 # 1 ------
 
 if(
-rt_script_runs(script1)                         &&
-rt_exists(my_first_object)                      &&
-rt_has_class(my_first_object, "numeric")        &&
-rt_has_length(my_first_object, 1)               &&
+rt_script_runs(script1)
+&&
+rt_exists(my_first_object)
+&&
+rt_has_class(my_first_object, "numeric")
+&&
+rt_has_length(my_first_object, 1)
+&&
 rt_has_value(my_first_object, 99, noise=FALSE)
 ) npassed <- npassed + 1
 
@@ -39,10 +43,14 @@ rt_has_value(my_first_object, 99, noise=FALSE)
 task_id <- 2 # 2 -----
 
 if(
-rt_script_runs(script1)                                &&
-rt_exists(my_second_object)                            &&
-rt_has_class(my_second_object, "integer")              &&
-rt_has_length(my_second_object, 11)                    &&
+rt_script_runs(script1)
+&&
+rt_exists(my_second_object)
+&&
+rt_has_class(my_second_object, "integer")
+&&
+rt_has_length(my_second_object, 11)
+&&
 rt_has_value(my_second_object, 5:15, noise=FALSE)
 ) npassed <- npassed + 1
 
@@ -52,12 +60,16 @@ task_id <- 3 # 3 -----
 
 sol <- rt_select_script_section(script2, 3)
 if(
-rt_script_runs(sol)                                           &&
-rt_test(grepl("write.table", sol),
-				"code does not contain the command 'write.table'.")   &&
-rt_has_argument(sol, "x", "iris")                             &&
-rt_has_argument(sol, "file")                                  &&
-rt_has_argument(sol, "sep", '"\\t"')                          &&
+rt_script_runs(sol)
+&&
+rt_test(grepl("write.table", sol), "code does not contain the command 'write.table'.")
+&&
+rt_has_argument(sol, "x", "iris")
+&&
+rt_has_argument(sol, "file")
+&&
+rt_has_argument(sol, "sep", '"\\t"')
+&&
 rt_has_argument(sol, "row.names", FALSE)
 ) npassed <- npassed + 1
 
