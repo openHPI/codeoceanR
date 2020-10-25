@@ -68,7 +68,7 @@ rt_has_argument(sol, "x", "iris")
 &&
 rt_has_argument(sol, "file")
 &&
-rt_has_argument(sol, "sep", '"\\t"')
+rt_has_argument(sol, "sep", "\t")
 &&
 rt_has_argument(sol, "row.names", FALSE)
 ) npassed <- npassed + 1
