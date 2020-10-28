@@ -8,8 +8,8 @@ rt_score(dir = ".")
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
-Must contain ".co", tests.R" and all the "script_n.R" files
-referenced there, with the changes by the student.
+Must contain ".co" and all the "script_n.R" files
+referenced there, with the changes by the student, saved.
 DEFAULT: "."}
 }
 \value{
@@ -19,7 +19,7 @@ DEFAULT: "."}
 upload complete exercise, message CO Score results
 }
 \seealso{
-\href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
+\link{rt_local_score} for teachers, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020
