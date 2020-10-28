@@ -13,7 +13,7 @@
 #'            referenced there, with the changes by the student.
 #'            DEFAULT: "."
 #'
-rt_submit <- function(dir=".")
+rt_score <- function(dir=".")
 {
 # Check directory and file
 dir <- berryFunctions::normalizePathCP(dir)
