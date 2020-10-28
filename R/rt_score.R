@@ -33,6 +33,8 @@ cf <- co[-(1:2)]
 if(length(cf)<1) stop("No filenames found to be submitted in file '.co'")
 cf <- berryFunctions::l2df(strsplit(cf, "="))
 colnames(cf) <- c("name", "id")
+cf$name <-  paste0(dir, "/", cf$name)
+berryFunctions::checkFile(cf$name)
 #
 get_escaped_file_content <- function(fn)
   {
