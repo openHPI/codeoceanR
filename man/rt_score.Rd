@@ -4,13 +4,16 @@
 \alias{rt_score}
 \title{upload exercise to codeOcean}
 \usage{
-rt_score(dir = ".")
+rt_score(dir = ".", final = FALSE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
 Must contain ".co" and all the "script_n.R" files
 referenced there, with the changes by the student, saved.
 DEFAULT: "."}
+
+\item{final}{Print instructions (+ open URL, if available) for final submission?
+DEFAULT: FALSE}
 }
 \value{
 \code{\link[httr:content]{httr::content()}} output of response to http request, invisibly

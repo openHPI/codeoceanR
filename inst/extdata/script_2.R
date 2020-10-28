@@ -14,4 +14,4 @@
 
 # Again, run codeoceanR::rt_score()
 
-# Once time is up / you're content, run codeoceanR::rt_submit()
+# Once time is up / you're content, run codeoceanR::rt_score(final=TRUE)

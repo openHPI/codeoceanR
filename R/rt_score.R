@@ -6,14 +6,17 @@
 #' @keywords test
 #' @importFrom berryFunctions l2df
 #' @importFrom httr POST content_type stop_for_status content
+#' @importFrom utils browseURL
 #' @export
 #'
 #' @param dir Path to (processed) exercise folder.
 #'            Must contain ".co" and all the "script_n.R" files
 #'            referenced there, with the changes by the student, saved.
 #'            DEFAULT: "."
+#' @param final Print instructions (+ open URL, if available) for final submission?
+#'            DEFAULT: FALSE
 #'
-rt_score <- function(dir=".")
+rt_score <- function(dir=".", final=FALSE)
 {
 # Check directory and file
 dir <- berryFunctions::normalizePathCP(dir)
@@ -53,12 +56,31 @@ fileattr <- paste(fileattr[1], collapse=", ")
 body <- paste0('{"remote_evaluation": {"validation_token": "',co[1],
 							 '","files_attributes": [',fileattr,']}}')
 
-# Submit to CodeOcean:
+# Post to CodeOcean:
 r <- httr::POST(url=co[2], body=body, httr::content_type("application/json"))
 httr::stop_for_status(r) # if any, pass http errors to R
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
 message(out$stdout, paste0("score: ", round(out$score*100), "%")) # get back score + messages from codeOcean
+
+# upload for final submission:
+if(final)
+{
+message("For final submission, go to the openHPI task, open CodeOcean from there, click 'SCORE', then 'SUBMIT'.",
+        "\nThis is currently not available from within R, sorry about the inconvenience.")
+# exercise description potentially with openHPI URL:
+desc <- paste0(dir, "/Exercise.txt")
+if(file.exists(desc)) desc <- readLines(desc, warn=FALSE) else desc <- ""
+url <- grep("\\[\\](.*)", desc, value=TRUE)
+if(nchar(url)>0)
+  {
+	url <- gsub("[](", "", url, fixed=TRUE)
+	url <- gsub(")$", "", url)
+	message("At least I'm opening the task: ", url)
+	browseURL(url)
+	}
+} # end final
+# Output:
 return(invisible(out))
 }

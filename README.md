@@ -81,9 +81,13 @@ The structure of task and test scripts can also be seen at <https://github.com/o
 A collection of exercises is currently in process and can be requested at <berry-b@gmx.de>  
 There's an overview of all R quizzes at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
 
+If the description includes an empty link (invisible on CO) to the openHPI excercise, like this `[](openHPI_item_url)`,
+it will be used by `codeoceanR::score(final=TRUE)` for automated opening.
+
+
 The Makefile run: could have `Rscript ${FILENAME}` as well, 
 but then the run output does not contain the calls, making error sources harder to find.  
-Hide your exercices if wanted by unchecking the 'Public' box.
+Hide your exercices if wanted (e.g. during development) by unchecking the 'Public' box.
 
 If you have data files to be read, make sure to check the box for Read-only.  
 Otherwise users might change the file and your test script might fail,
