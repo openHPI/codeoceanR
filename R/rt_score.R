@@ -33,14 +33,16 @@ message("Please make sure to save all scripts after editing.")
 
 # get CO token + url + file IDs
 co <- readLines(cofile)
+co_token <- co[1]
+co_url   <- co[2]
 
 # Get all file contents:
-cf <- co[-(1:2)]
-if(length(cf)<1) stop("No filenames found to be submitted in file '.co'")
-cf <- berryFunctions::l2df(strsplit(cf, "="))
-colnames(cf) <- c("name", "id")
-cf$name <-  paste0(dir, "/", cf$name)
-berryFunctions::checkFile(cf$name)
+co_files <- co[-(1:2)]
+if(length(co_files)<1) stop("No filenames found to be submitted in file '.co'")
+co_files <- berryFunctions::l2df(strsplit(co_files, "="))
+colnames(co_files) <- c("name", "id")
+co_files$name <-  paste0(dir, "/", co_files$name)
+berryFunctions::checkFile(co_files$name)
 #
 get_escaped_file_content <- function(fn)
   {
@@ -51,16 +53,16 @@ get_escaped_file_content <- function(fn)
   d <- gsub("'", "\\'", d, fixed=TRUE)
   d
   }
-fileattr <- sapply(1:nrow(cf), function(i) paste0('{"file_id": ',cf$id[i],
-							',"content": "',get_escaped_file_content(cf$name[i]),'"}'))
+fileattr <- sapply(1:nrow(co_files), function(i) paste0('{"file_id": ',co_files$id[i],
+							',"content": "',get_escaped_file_content(co_files$name[i]),'"}'))
 fileattr <- paste(fileattr[1], collapse=", ")
 
 # put into http request body:
-body <- paste0('{"remote_evaluation": {"validation_token": "',co[1],
+body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
 							 '","files_attributes": [',fileattr,']}}')
 
 # Post to CodeOcean:
-r <- httr::POST(url=co[2], body=body, httr::content_type("application/json"))
+r <- httr::POST(url=co_url, body=body, httr::content_type("application/json"))
 httr::stop_for_status(r) # if any, pass http errors to R
 
 # Output:
