@@ -14,7 +14,6 @@ taskenvironment$success <- NULL
 #'
 rt_signal_success <- function(tnumber)
 {
-# assign(name, TRUE, envir=taskenvironment)#parent.env())
 taskenvironment$success <- c(taskenvironment$success, tnumber)
 return(TRUE)
 }
@@ -34,12 +33,6 @@ return(TRUE)
 #'
 rt_succeeded <- function(tnumber, msg="Please first solve task ")
 {
-# taskobj <- try(get(name, envir=taskenvironment), silent=TRUE)
-#                                    taskobj <- try(get(name                       ), silent=TRUE)
-# if(inherits(taskobj, "try-error")) taskobj <- try(get(name, envir=parent.frame(1)), silent=TRUE)
-# if(inherits(taskobj, "try-error")) taskobj <- try(get(name, envir=parent.frame(2)), silent=TRUE)
-# if(inherits(taskobj, "try-error")) taskobj <- try(get(name, envir=parent.frame(3)), silent=TRUE)
-# if(inherits(taskobj, "try-error")) return("name was not found")
 if(tnumber %in% taskenvironment$success) return(TRUE)
 rt_warn(msg, tnumber)
 return(FALSE)
