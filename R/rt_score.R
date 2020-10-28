@@ -6,6 +6,7 @@
 #' @keywords test
 #' @importFrom berryFunctions l2df
 #' @importFrom httr POST content_type stop_for_status content
+#' @importFrom rjson toJSON
 #' @importFrom utils browseURL
 #' @export
 #'
@@ -47,10 +48,9 @@ berryFunctions::checkFile(co_files$name)
 get_escaped_file_content <- function(fn)
   {
   d <- paste(readLines(fn), collapse="\n")
-  d <- gsub("\\", "\\\\", d, fixed=TRUE)
-  d <- gsub("\n", "\\n", d, fixed=TRUE)
-  d <- gsub('\"', '\\"', d, fixed=TRUE)
-  d <- gsub("'", "\\'", d, fixed=TRUE)
+  d <- rjson::toJSON(d)
+  d <- gsub("^\"", "", d) # remove leading + trailing quotation marks
+  d <- gsub("\"$", "", d)
   d
   }
 fileattr <- sapply(1:nrow(co_files), function(i) paste0('{"file_id": ',co_files$id[i],
