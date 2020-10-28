@@ -18,6 +18,9 @@
 #'
 rt_score <- function(dir=".", final=FALSE)
 {
+# Avoid recursive posting in case students leave rt_score() in the exercise script:
+if(!interactive()) return(NULL)
+
 # Check directory and file
 dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
