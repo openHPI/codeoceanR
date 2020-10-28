@@ -22,6 +22,11 @@ exdir=NULL,
 ...
 )
 {
+# Notify about closing tab:
+message("If you haven't already, please close the browser tab with the CodeOcean task.",
+				"\nOtherwise CodeOcean will autosave the _empty_ script there.")
+rl <- readline("I have closed the browser tab (y/n, then Enter): ")
+if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 # File name management:
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
