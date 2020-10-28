@@ -4,10 +4,11 @@
 \alias{rt_create_task}
 \title{Create Task folder from zip file}
 \usage{
-rt_create_task(zipfile, exdir = NULL, ...)
+rt_create_task(zipfile = file.choose(), exdir = NULL, ...)
 }
 \arguments{
-\item{zipfile}{Path to zip file. Remember: on Windows, "\" must be changed to "/".}
+\item{zipfile}{Path to zip file. Remember: on Windows, "\" must be changed to "/".
+DEFAULT: \code{\link[=file.choose]{file.choose()}}}
 
 \item{exdir}{Folder to unzip to, e.g. "./task" for folder at current wd.
 \code{exdir} may not yet exist, to avoid overwriting previously

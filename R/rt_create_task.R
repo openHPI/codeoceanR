@@ -10,6 +10,7 @@
 #' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #'
 #' @param zipfile Path to zip file. Remember: on Windows, "\" must be changed to "/".
+#'                DEFAULT: [file.choose()]
 #' @param exdir   Folder to unzip to, e.g. "./task" for folder at current wd.
 #'                `exdir` may not yet exist, to avoid overwriting previously
 #'                unzipped and potentially edited tasks.
@@ -17,7 +18,7 @@
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create_task <- function(
-zipfile,
+zipfile=file.choose(),
 exdir=NULL,
 ...
 )

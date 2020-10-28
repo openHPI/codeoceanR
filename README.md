@@ -20,12 +20,14 @@ Through OpenHPI, go to the CodeOcean exercise, then download it to a good locati
 Run the following code for the zip file you just saved:
 
 ```r
-codeoceanR::rt_create_task("path/to/ex.zip") # optionally exdir="folder/to/be/used"
+codeoceanR::rt_create_task() # with the arguments:
+# - zipfile: defaults to interactive file choice, could be "C:/Dropbox/R/FProg20_R_quiz_1.zip"
+# - exdir: defaults to folder without zip extension, could be e.g "./newFolder_at_wd/quiz1"
 ```
 
 This creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
 The `script_n.R` files (should be automatically opened) contain the tasks.  
-`codeoceanR::rt_score()` can be run very often, `codeoceanR::rt_submit()` is once-only and final.
+`codeoceanR::rt_score()` can and should be run very often.
 
 
 # teachers
