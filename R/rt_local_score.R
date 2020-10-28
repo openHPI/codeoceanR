@@ -1,8 +1,10 @@
-#' @title score complete exercise
-#' @description Run test script for entire exercise
+#' @title locally score complete exercise
+#' @description Run test script for entire exercise without server access.
+#'              Intended for teacher / trainer use only.
+#'              Requires tests.R script to be present (hidden on CodeOcean and not downloaded in zip folder).
 #' @return Vector with number of total and passed tests, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
+#' @seealso [rt_score] for students. [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
 #' @importFrom berryFunctions checkFile normalizePathCP
 #' @export
@@ -11,7 +13,7 @@
 #'            Must contain "tests.R" and all the "script_n.R" files referenced there.
 #'            DEFAULT: "."
 #'
-rt_score <- function(dir=".")
+rt_local_score <- function(dir=".")
 {
 dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
