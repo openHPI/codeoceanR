@@ -12,7 +12,7 @@ codeoceanR::rt_update_package() # see (Rstudio SHIFT + click) https://github.com
 # Create an object named my_first_object with the number 99
 
 
-# Make sure to save script (CTRL + S) before running the following:
+# Make sure to save the script (CTRL + S) before running the following:
 # codeoceanR::rt_score()
 
 
