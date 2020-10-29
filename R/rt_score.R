@@ -28,9 +28,8 @@ berryFunctions::checkFile(dir)
 cofile <- paste0(dir, "/.co")
 berryFunctions::checkFile(cofile)
 
-# Message about saving files
-message("Please make sure to save all scripts after editing.")
-# ToDo: figure out if unsaved file changes can be detected
+# Stop if files are changed but not saved:
+rt_check_for_unsaved_files(dir)
 
 # get CO token + url + file IDs
 co <- readLines(cofile)
