@@ -17,7 +17,7 @@ dir <- berryFunctions::normalizePathCP(paste0(dir, "/.Rproj.user"))
 berryFunctions::checkFile(dir, warnonly=warnonly)
 # find folder:
 dir <- dir(dir, pattern="^[a-zA-Z0-9]{8}$", full.names=TRUE)
-dir <- paste0(dir, "/sources") # ToDo: maybe find ID instead of hardcoded
+dir <- paste0(dir, "/sources")
 berryFunctions::checkFile(dir, warnonly=warnonly)
 # temporary id folder:
 dir <- dir(dir, pattern="^s-[a-zA-Z0-9]{8}$", full.names=TRUE)
