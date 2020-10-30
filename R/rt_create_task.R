@@ -32,7 +32,7 @@ if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
-if(file.exists(exdir)) stop("exdir already exists. Please choose a new location.")
+if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location.")
 # unzip:
 unzip(zipfile=zipfile, exdir=exdir, ...)
 # create .Rproj File

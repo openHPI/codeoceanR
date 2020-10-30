@@ -68,7 +68,7 @@ if(!id %in% tdb$ID) stop("ID is not in tdb: ", id)
 # dir management:
 dir <- berryFunctions::normalizePathCP(dir)
 dir <- paste0(dir, "/", folder)
-if(!file.exists(dir)) dir.create(dir, recursive=TRUE)
+if(!dir.exists(dir)) dir.create(dir, recursive=TRUE)
 
 # TASK ----
 taskfile <- paste0(dir, "/script_",  script_nr, ".R")
