@@ -63,6 +63,8 @@ folder="Quiz1"
 )
 {
 
+if(!id %in% tdb$ID) stop("ID is not in tdb: ", id)
+
 # dir management:
 dir <- berryFunctions::normalizePathCP(dir)
 dir <- paste0(dir, "/", folder)
@@ -97,8 +99,18 @@ tlines <- readLines(testfile)
 rs <- paste0("rt_run_script(script",script_nr,")")
 if(!any(grepl(rs, tlines, fixed=TRUE))) tlines <- sub("# RUN SCRIPT", paste0(rs,"\n# RUN SCRIPT"), tlines)
 
+# test code from database
+tt <- tdb[id,"Test"]
+if(is.na(tt) || tt=="---")
+  {
+  toprint <- paste0("task_id <- ",task_nr," # ",task_nr," ------\n\n# ", tt, "\n\n")
+  tlines <- sub("# TEST TASK", paste0(toprint,"\n# TEST TASK"), tlines)
+  writeLines(tlines, testfile)
+  return(dir)
+  }
+
 # Find pre + post test code:
-tt <- strsplit(tdb[id,"Test"], "\n")[[1]]
+tt <- strsplit(tt, "\n")[[1]]
 
 pp <- substr(tt, 1,3)!="rt_"
 l <- length(pp)
