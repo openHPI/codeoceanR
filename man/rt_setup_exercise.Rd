@@ -7,7 +7,7 @@
 rt_setup_exercise(df, dir = ".", folder = "Quiz1")
 }
 \arguments{
-\item{df}{Data.frame with id, task, script. See example.}
+\item{df}{Data.frame with id, task, script. See examples.}
 
 \item{dir}{Directory, pasted together with \code{folder}. DEFAULT: "."}
 
@@ -31,6 +31,11 @@ Q10_2   2     1
 Q12_10  3     2
 Q11_2   4     3
 Q11_3   5     3"))
+
+if(FALSE)
+rt_setup_exercise(df=data.frame(id="pack3", task=1, script=1),
+                  dir="C:/Users/berry/Desktop/CORQUIZ",
+                  folder="")
 
 }
 \author{

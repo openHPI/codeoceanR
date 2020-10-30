@@ -17,7 +17,12 @@
 #' Q11_2   4     3
 #' Q11_3   5     3"))
 #'
-#' @param df        Data.frame with id, task, script. See example.
+#' if(FALSE)
+#' rt_setup_exercise(df=data.frame(id="pack3", task=1, script=1),
+#'                   dir="C:/Users/berry/Desktop/CORQUIZ",
+#'                   folder="")
+#'
+#' @param df        Data.frame with id, task, script. See examples.
 #' @param dir       Directory, pasted together with `folder`. DEFAULT: "."
 #' @param folder    Folder at `dir`. DEFAULT: "Quiz1"
 #'
