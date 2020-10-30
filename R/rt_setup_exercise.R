@@ -116,6 +116,8 @@ if(is.na(tt) || tt=="---")
 
 # text of test:
 tt <- strsplit(tt, "\n")[[1]]
+tt <- gsub("\\<scriptx\\>", paste0("script",script_nr), tt)
+tt <- gsub("\\<taskx\\>", task_nr, tt)
 
 # Find pre + post test code:
 pp <- substr(tt, 1,3)!="rt_"
