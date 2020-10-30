@@ -15,11 +15,13 @@
 #'                `exdir` may not yet exist, to avoid overwriting previously
 #'                unzipped and potentially edited tasks.
 #'                DEFAULT: NULL (path from zipfile).
+#' @param deletezip If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create_task <- function(
 zipfile=file.choose(),
 exdir=NULL,
+deletezip=TRUE,
 ...
 )
 {
@@ -29,6 +31,7 @@ message("If you haven't already, please close the browser tab with the CodeOcean
 rl <- readline("I have closed the browser tab (y/n, then Enter): ")
 if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 # File name management:
+if(missing(zipfile)) message("The interactive file choice window may be hidden")
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
@@ -44,6 +47,8 @@ lapply(dir(exdir, pattern="script_"), rt_file2openedlist, dir=exdir)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
+# delete zipfile
+if(deletezip) file.remove(zipfile)
 # Output:
 return(invisible(exdir))
 }

@@ -23,6 +23,7 @@ Run the following code for the zip file you just saved:
 codeoceanR::rt_create_task() # with the arguments:
 # - zipfile: defaults to interactive file choice, could be "C:/Dropbox/R/FProg20_R_quiz_1.zip"
 # - exdir: defaults to folder without zip extension, could be e.g "./newFolder_at_wd/quiz1"
+# - deletezip: defaults to delete the zip file if task creation was successful
 ```
 
 This creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
