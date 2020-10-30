@@ -134,8 +134,7 @@ toprint <- paste0("task_id <- ",task_nr," # ",task_nr," ------\n",
 paste(tt[pre], collapse="\n"),"\nif(\nrt_script_runs(script",script_nr,")\n&&\n",
 paste(tt[mid], collapse="\n&&\n"),"\n) npassed <- npassed + 1\n",
 paste(tt[post], collapse="\n"), "\n")
-
-tlines <- sub("# TEST TASK", paste0(toprint,"\n# TEST TASK"), tlines)
+tlines <- sub("# TEST TASK", paste0(toprint,"\n# TEST TASK"), tlines, fixed=TRUE)
 writeLines(tlines, testfile)
 # Output:
 return(dir)
