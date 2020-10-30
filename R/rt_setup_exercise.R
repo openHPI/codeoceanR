@@ -77,9 +77,14 @@ if(script_nr>1 && !file.exists(taskfile))
 	cat(paste0("\n\n# Now continue in script_",script_nr,".R\n"),
 			file=paste0(dir,"/script_", script_nr-1,".R"), append=TRUE)
 
+# text of exercise:
+te <- tdb[id,'Task']
+te <- gsub("\n", "\n# ", te, fixed=TRUE)
+te <- gsub("tx_start", paste0("t",task_nr,"_start"), te, fixed=TRUE)
+te <- gsub("tx_end"  , paste0("t",task_nr,"_end"  ), te, fixed=TRUE)
+
 # Write task:
-cat(paste0("\n\n# Task ",task_nr," -----\n\n# ",
-					 gsub("\n", "\n# ", tdb[id,'Task'], fixed=TRUE),
+cat(paste0("\n\n# Task ",task_nr," -----\n\n# ", te,
 					 "\n\n\n# Run   codeoceanR::rt_score()\n"),
 		file=taskfile, append=TRUE)
 
@@ -109,9 +114,10 @@ if(is.na(tt) || tt=="---")
   return(dir)
   }
 
-# Find pre + post test code:
+# text of test:
 tt <- strsplit(tt, "\n")[[1]]
 
+# Find pre + post test code:
 pp <- substr(tt, 1,3)!="rt_"
 l <- length(pp)
 b <- min(which(!pp)) # begin actual tests
