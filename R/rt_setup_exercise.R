@@ -3,7 +3,7 @@
 #'              Uses the google spreadsheet as a database from which tasks can be selected by ID.
 #'              To request access to the spreadsheet, go to
 #'              <https://docs.google.com/spreadsheets/d/1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ>
-#' @return NULL
+#' @return dir from last call to [rt_add_task]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @export
 #' @examples
@@ -32,9 +32,9 @@ tdb <- as.data.frame(tdb)
 rownames(tdb) <- tdb$ID
 if(identical(df, "all")) df <- data.frame(id=tdb$ID, task=1:nrow(tdb), script=1)
 if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
-lapply(1:nrow(df), function(i)
+out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir, folder=folder))
-return(NULL)
+return(tail(out,1))
 }
 
 

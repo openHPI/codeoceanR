@@ -13,6 +13,9 @@ rt_setup_exercise(df, dir = ".", folder = "Quiz1")
 
 \item{folder}{Folder at \code{dir}. DEFAULT: "Quiz1"}
 }
+\value{
+dir from last call to \link{rt_add_task}
+}
 \description{
 Set up an entire exercise (\code{script_1.R}, \code{script_1.R}, \code{...}, \code{tests.R}).
 Uses the google spreadsheet as a database from which tasks can be selected by ID.
