@@ -22,7 +22,7 @@ rt_warn <- function(...){
 	if(inherits(task_id, "try-error")) task_id <- "_task_id_not_found_"
 	# now actually warn:
 	if(interactive())
-              warning("T", task_id, ": ", ..., "\n", sep="", call.=FALSE) else
+              message("T", task_id, ": ", ..., "\n", sep="") else
   cat("AssertionError: T", task_id, ": ", ..., "\n", sep="")
 }
 
