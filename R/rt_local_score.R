@@ -19,6 +19,10 @@ dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
 tfile <- paste0(dir, "/tests.R")
 berryFunctions::checkFile(tfile)
+
+# Stop if files are changed but not saved:
+rt_check_for_unsaved_files(dir)
+
 # ToDo: find better system for task_id updates. This is a patchy mess
 if(exists("task_id"))
 	{
