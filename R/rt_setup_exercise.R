@@ -6,6 +6,7 @@
 #' @return dir from last call to [rt_add_task]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @export
+#' @importFrom utils tail
 #' @examples
 #' if(FALSE) # suppress automated runs
 #' rt_setup_exercise(read.table(header=TRUE, text="
