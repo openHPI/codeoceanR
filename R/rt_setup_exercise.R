@@ -96,7 +96,7 @@ if(!file.exists(testfile))
 
 tlines <- readLines(testfile)
 # run_script line:
-rs <- paste0("rt_run_script(script",script_nr,")")
+rs <- paste0("script",script_nr," <- rt_run_script(\"script_",script_nr,".R\")")
 if(!any(grepl(rs, tlines, fixed=TRUE))) tlines <- sub("# RUN SCRIPT", paste0(rs,"\n# RUN SCRIPT"), tlines)
 
 # test code from database
