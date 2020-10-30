@@ -30,6 +30,7 @@ folder="Quiz1"
 tdb <- googlesheets4::read_sheet("1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ")
 tdb <- as.data.frame(tdb)
 rownames(tdb) <- tdb$ID
+if(identical(df, "all")) df <- data.frame(id=tdb$ID, task=1:nrow(tdb), script=1)
 if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
 lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir, folder=folder))
