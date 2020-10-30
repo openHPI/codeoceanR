@@ -18,9 +18,8 @@ rt_run_script <- function(filename){
                                       "'. current getwd: ", getwd()); return(FALSE)}
   e <- try(source(filename), silent=TRUE)
   if(inherits(e, "try-error")) {
-    rt_warn("'", filename, "' can not be executed. ",
-            if(!interactive()) "Click 'RUN' to view the error and then fix it." else
-                               "Make sure each line can be run.",
+    rt_warn("'", filename, "' can not be executed. Make sure each line can be run.",
+            if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
             "\n--- The source() error message was: ", e)
     return(FALSE)}
   readLines(filename, warn=FALSE)
