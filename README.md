@@ -61,16 +61,12 @@ In the desired section, click "Add item"
 - **Exercise type**: Main
 - **Maximal points**: e.g. 10
 - **Submission deadline**: time before which the CodeOcean task must be **started**.  
-There's no real way to limit the working time.  
-The admins have a [java tool](https://github.com/openHPI/codeocean-scraper) 
-to download scores limited to a certain time stamp.  
-In CodeOcean, a deadline and grace period can be set with a nice view in the exerise statistics. 
-But points get transfered to openHPI without regard to that.
+The acutal deadline and grace period (20% score reduction) must be set in the CO task itself (if wanted).
 - **Submission publishing date**: not relevant, can be left empty
 - **Instructions**: e.g. Click the button below to launch the exercise.
 - **LTI provider**: CodeOcean
-- **Additional parameters**: locale=en&token=1de7bf22&embed_options_disable_redirect_to_rfcs=true&embed_options_disable_redirect_to_feedback=true&embed_options_disable_interventions=true  
-**replace `1de7bf22` with the token from your exercise!**  
+- **Additional parameters**: locale=en&token=`8ffd83dc`&embed_options_disable_redirect_to_rfcs=true&embed_options_disable_redirect_to_feedback=true&embed_options_disable_interventions=true  
+**replace `8ffd83dc` with the token from your exercise!**  
 embedding options:  
   -  `redirect_to_rfcs`: disable finished users to be lead to open Request for Comments (RfCs).
   -  `redirect_to_feedback`: after "Submit", if there are no open RfCs, a feedback form is presented to 10% of users (min 20) without full score. 
@@ -81,7 +77,7 @@ embedding options:
 
 All file types & roles etc can be seen in my basic exercise at <https://codeocean.openhpi.de/exercises/721>  
 The structure of task and test scripts can also be seen at <https://github.com/openHPI/codeoceanR/tree/main/inst/extdata>  
-A collection of exercises is currently in process and can be requested at <berry-b@gmx.de>  
+A collection of exercises can be requested through [Berry](mailto:berry-b@gmx.de) or [Sebastian](mailto:sebastian.serth@hpi.de).  
 There's an overview of all R quizzes at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
 
 If the description includes an empty link (invisible on CO) to the openHPI excercise, like this `[](openHPI_item_url)`,
@@ -106,7 +102,7 @@ Example: `rt_has_argument` didn't run online in the first version,
 since `parse(code)` needs to have `keep.source=TRUE`. 
 The default option is TRUE only in an interactive R session!
 
-Instead of checking code like in the write.table task, 
+Instead of checking code like in the [write.table task](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/script_2.R#L9-L13) and [test](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/tests.R#L61-L73), 
 your tests can also execute the code and you test the resulting file.
 This gives participants more freedom in how they structure the task.  
 
