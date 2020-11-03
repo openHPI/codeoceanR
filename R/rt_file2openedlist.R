@@ -19,7 +19,7 @@ dir <- berryFunctions::normalizePathCP(dir)
 # check whether .Rproj file is present:
 if(!any(grepl(".Rproj$", dir(dir)))) stop("No .Rproj file found at dir ", dir)
 # create hidden directory for list of Rstudio opened source documents:
-sfdir <- paste0(dir, "/.Rproj.user/5A57A303/sources/per/t/")
+sfdir <- paste0(dir, "/.Rproj.user/",rt_get_context_id(),"/sources/per/t/")
 if(!dir.exists(sfdir)) dir.create(sfdir, recursive=TRUE)
 # generate (increasing) project-unique ID:
 id <- rt_nextlargestid(  dir(sfdir)[!grepl("contents",dir(sfdir))]   ) # function below
@@ -39,7 +39,7 @@ cat('{
 # copy file content:
 file.copy(from=fullfile, to=paste0(sfdir, id, "-contents"))
 # set active tab to first:
-panedir <- paste0(dir, "/.Rproj.user/5A57A303/pcs/")
+panedir <- paste0(dir, "/.Rproj.user/",rt_get_context_id(),"/pcs/")
 if(!dir.exists(panedir)) dir.create(panedir)
 cat('{
     "activeTab": 0
@@ -48,6 +48,38 @@ cat('{
 return(invisible(fullfile))
 }
 
+
+
+#' @title Get contextIdentifier for .Rproj.user ID
+#' @description Internal function to find the User-specific 8 digit hexadecimal id for .Rproj.user ID
+#' @return Hexadecimal ID charstring
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2020
+#' @seealso [rt_file2openedlist()]
+#' @keywords internal
+#'
+rt_get_context_id <- function()
+{
+# https://stackoverflow.com/a/55940249
+# ToDo: Check if this still works in new RStudio versions: https://github.com/rstudio/rstudio/pull/5069
+#
+# Find Settings file
+# Windows vs Mac / Linux:
+rsdir <- if(Sys.info()["sysname"]=="Windows")
+        paste0(Sys.getenv("LOCALAPPDATA"), "/RStudio-Desktop") else
+        "~/.rstudio-desktop"
+rsfile <- paste0(rsdir, "/monitored/user-settings/user-settings")
+if(!file.exists(rsfile))
+{
+	warning("Rstudio User Settings file cannot be found. Returning arbitrary string.")
+	return("5A57A303")
+}
+#
+# Get ID from settings file:
+rs <- readLines(rsfile) # rs: Rstudio Settings
+id <- grep("contextIdentifier", rs, value=TRUE)
+id <- strsplit(id, '"')[[1]][2]
+return(id)
+}
 
 
 
