@@ -16,8 +16,10 @@
 #'            DEFAULT: "."
 #' @param final Print instructions (+ open URL, if available) for final submission?
 #'            DEFAULT: FALSE
+#' @param wait Number of seconds to wait before opening the url.
+#'            If >60 seconds, it is set to 60 seconds internally. DEFAULT: 15
 #'
-rt_score <- function(dir=".", final=FALSE)
+rt_score <- function(dir=".", final=FALSE, wait=15)
 {
 # Avoid recursive posting in case students leave rt_score() in the exercise script:
 if(!interactive()) return(NULL)
@@ -76,7 +78,7 @@ message(mout) # print messages + score from codeOcean
 if(final)
 {
 message("For final submission, go to the openHPI task, open CodeOcean from there, click 'SCORE', then 'SUBMIT'.",
-        "\nThis is currently not available from within R, sorry about the inconvenience.")
+        "\nSubmit is currently not available from within R, sorry about the inconvenience.")
 # exercise description potentially with openHPI URL:
 desc <- paste0(dir, "/Exercise.txt")
 if(file.exists(desc)) desc <- readLines(desc, warn=FALSE) else desc <- ""
@@ -85,7 +87,9 @@ if(nchar(url)>0)
   {
 	url <- gsub("[](", "", url, fixed=TRUE)
 	url <- gsub(")$", "", url)
-	message("At least I'm opening the task: ", url)
+	message("At least I'm opening the task",if(wait>1)paste0(" in ", wait, " seconds (set wait=0 to reduce)"),": ", url)
+	if(wait>60) wait <- 60
+	Sys.sleep(wait)
 	browseURL(url)
 	}
 } # end final
