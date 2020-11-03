@@ -54,7 +54,7 @@ get_escaped_file_content <- function(fn)
   }
 fileattr <- sapply(1:nrow(co_files), function(i) paste0('{"file_id": ',co_files$id[i],
 							',"content": "',get_escaped_file_content(co_files$name[i]),'"}'))
-fileattr <- paste(fileattr[1], collapse=", ")
+fileattr <- paste(fileattr, collapse=", ")
 
 # put into http request body:
 body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
