@@ -34,6 +34,7 @@ if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 if(missing(zipfile)) message("The interactive file choice window may be hidden")
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
+if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
 if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
 if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location.")
 # unzip:
