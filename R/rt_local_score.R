@@ -12,8 +12,10 @@
 #' @param dir Path to exercise folder.
 #'            Must contain "tests.R" and all the "script_n.R" files referenced there.
 #'            DEFAULT: "."
+#' @param check_unsaved Check if any files are unsaved? Requires dir to be in an .Rproj.
+#'            Runs [rt_check_for_unsaved_files()]. DEFAULT: TRUE
 #'
-rt_local_score <- function(dir=".")
+rt_local_score <- function(dir=".", check_unsaved=TRUE)
 {
 dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
@@ -21,7 +23,7 @@ tfile <- paste0(dir, "/tests.R")
 berryFunctions::checkFile(tfile)
 
 # Stop if files are changed but not saved:
-rt_check_for_unsaved_files(dir)
+if(check_unsaved) rt_check_for_unsaved_files(dir)
 
 # ToDo: find better system for task_id updates. This is a patchy mess
 if(exists("task_id"))
