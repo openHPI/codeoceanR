@@ -66,7 +66,11 @@ httr::stop_for_status(r) # if any, pass http errors to R
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
-message(out$stdout, paste0("score: ", round(out$score*100), "%")) # get back score + messages from codeOcean
+mout <- gsub("Rscript tests.R\n", "", out$stdout, fixed=TRUE)
+mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
+mout <- gsub("\n$", "", mout)
+mout <- paste0(mout, ", score: ", round(out$score*100), "%")
+message(mout) # print messages + score from codeOcean
 
 # upload for final submission:
 if(final)
