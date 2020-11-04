@@ -1,6 +1,6 @@
 Package: codeoceanR
 Title: Test R tasks with CodeOcean at HPI
-Version: 0.2.34
+Version: 0.2.35
 Date: 2020-11-04
 Authors@R: 
     person(given = "Berry",
