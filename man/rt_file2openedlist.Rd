@@ -4,12 +4,14 @@
 \alias{rt_file2openedlist}
 \title{Add files to list of Rstudio opened source documents}
 \usage{
-rt_file2openedlist(file, dir = ".")
+rt_file2openedlist(file, dir = ".", contextid = rt_get_context_id())
 }
 \arguments{
 \item{file}{Filename to be added.}
 
-\item{dir}{Target directory with a .Rproj file. DEFAULT: "." (getwd())}
+\item{dir}{Target directory with a .Rproj file. DEFAULT: "." \code{\link[=getwd]{getwd()}}}
+
+\item{contextid}{Hexadecimal user ID, see \code{\link[=rt_get_context_id]{rt_get_context_id()}}}
 }
 \value{
 expanded filename, invisibly.

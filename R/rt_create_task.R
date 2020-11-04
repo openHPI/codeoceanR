@@ -44,7 +44,8 @@ rprojfile <- paste0(exdir, "/zz_",tools::file_path_sans_ext(basename(zipfile)),"
 rprojfile <- berryFunctions::normalizePathCP(rprojfile)
 cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
 # put tasks to Rstudio opened files list:
-lapply(dir(exdir, pattern="script_"), rt_file2openedlist, dir=exdir)
+id <- rt_get_context_id() # warning for failure wanted only once, hence not in loop
+lapply(dir(exdir, pattern="script_"), rt_file2openedlist, dir=exdir, contextid=id)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)

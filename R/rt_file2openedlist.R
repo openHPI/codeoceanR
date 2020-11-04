@@ -7,9 +7,10 @@
 #' @keywords internal
 #'
 #' @param file Filename to be added.
-#' @param dir  Target directory with a .Rproj file. DEFAULT: "." (getwd())
+#' @param dir  Target directory with a .Rproj file. DEFAULT: "." [getwd()]
+#' @param contextid Hexadecimal user ID, see [rt_get_context_id()]
 #'
-rt_file2openedlist <- function(file, dir=".")
+rt_file2openedlist <- function(file, dir=".", contextid=rt_get_context_id())
 {
 # check file and dir:
 fullfile <- paste0(dir,"/",file)
@@ -19,7 +20,7 @@ dir <- berryFunctions::normalizePathCP(dir)
 # check whether .Rproj file is present:
 if(!any(grepl(".Rproj$", dir(dir)))) stop("No .Rproj file found at dir ", dir)
 # create hidden directory for list of Rstudio opened source documents:
-sfdir <- paste0(dir, "/.Rproj.user/",rt_get_context_id(),"/sources/per/t/")
+sfdir <- paste0(dir, "/.Rproj.user/",contextid,"/sources/per/t/")
 if(!dir.exists(sfdir)) dir.create(sfdir, recursive=TRUE)
 # generate (increasing) project-unique ID:
 id <- rt_nextlargestid(  dir(sfdir)[!grepl("contents",dir(sfdir))]   ) # function below
@@ -39,7 +40,7 @@ cat('{
 # copy file content:
 file.copy(from=fullfile, to=paste0(sfdir, id, "-contents"))
 # set active tab to first:
-panedir <- paste0(dir, "/.Rproj.user/",rt_get_context_id(),"/pcs/")
+panedir <- paste0(dir, "/.Rproj.user/",contextid,"/pcs/")
 if(!dir.exists(panedir)) dir.create(panedir)
 cat('{
     "activeTab": 0
