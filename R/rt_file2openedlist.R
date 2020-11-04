@@ -60,25 +60,40 @@ return(invisible(fullfile))
 #'
 rt_get_context_id <- function()
 {
-# https://stackoverflow.com/a/55940249
-# ToDo: Check if this still works in new RStudio versions: https://github.com/rstudio/rstudio/pull/5069
+# https://stackoverflow.com/a/55940249 , https://github.com/rstudio/rstudio/pull/5069
+failout <- function(txt="found")
+  {
+	warning("Rstudio User Settings file cannot be ",txt, ". Files will not already be opened in .Rproj.", call.=FALSE)
+	return("5A57A303")
+  }
 #
 # Find Settings file
 # Windows vs Mac / Linux:
-rsdir <- if(Sys.info()["sysname"]=="Windows")
-        paste0(Sys.getenv("LOCALAPPDATA"), "/RStudio-Desktop") else
-        "~/.rstudio-desktop"
-rsfile <- paste0(rsdir, "/monitored/user-settings/user-settings")
-if(!file.exists(rsfile))
+if(Sys.info()["sysname"]=="Windows")
 {
-	warning("Rstudio User Settings file cannot be found. Returning arbitrary string.")
-	return("5A57A303")
+rsdir <- Sys.getenv("LOCALAPPDATA")
+rsfile <- paste0(rsdir, "/RStudio-Desktop/monitored/user-settings/user-settings")
+if(!file.exists(rsfile)) rsfile <- paste0(rsdir, "/RStudio/rstudio-desktop.json") # Rstudio 1.4
+if(!file.exists(rsfile)) return(failout())
+} else
+{
+rsfile <- "~/.rstudio-desktop/monitored/user-settings/user-settings"
+if(!file.exists(rsfile)) rsfile <- "~/.config/rstudio/rstudio-desktop.json" # Rstudio 1.4
+if(!file.exists(rsfile)) rsfile <- "~/.rstudio/rstudio-desktop.json" # just a wild guess
+if(!file.exists(rsfile)) return(failout())
 }
 #
 # Get ID from settings file:
-rs <- readLines(rsfile) # rs: Rstudio Settings
-id <- grep("contextIdentifier", rs, value=TRUE)
-id <- strsplit(id, '"')[[1]][2]
+rs <- readLines(rsfile, warn=FALSE) # rs: Rstudio Settings
+                  id <- grep("contextIdentifier", rs, value=TRUE)
+if(length(id)==0) id <- grep("context_id",        rs, value=TRUE) # Rstudio 1.4
+if(length(id)==0) return(failout("processed for ID string"))
+id <- berryFunctions::removeSpace(id)
+id <- sub("contextIdentifier=\"", "", id)
+id <- sub("\"context_id\": \"", "", id)
+id <- gsub("\"", "", id)
+id <- gsub(",", "", id)
+if(nchar(id)==0) return(failout("splitted for ID string"))
 return(id)
 }
 
