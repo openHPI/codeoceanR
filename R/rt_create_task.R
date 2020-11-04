@@ -31,7 +31,7 @@ message("If you haven't already, please close the browser tab with the CodeOcean
 rl <- readline("I have closed the browser tab (y/n, then Enter): ")
 if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 # File name management:
-if(missing(zipfile)) message("The interactive file choice window may be hidden")
+if(missing(zipfile)) message("Choose the Quiz zip file. The interactive file choice window may be hidden...")
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
