@@ -36,7 +36,7 @@ zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
 if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
-if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location.")
+if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location. exdir=", exdir)
 # unzip:
 unzip(zipfile=zipfile, exdir=exdir, ...)
 # create .Rproj File
