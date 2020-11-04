@@ -31,7 +31,7 @@ message("If you haven't already, please close the browser tab with the CodeOcean
 rl <- readline("I have closed the browser tab (y/n, then Enter): ")
 if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 # File name management:
-if(missing(zipfile)) message("Choose the Quiz zip file. The interactive file choice window may be hidden...")
+if(missing(zipfile)) message("Choose the quiz zip file. The interactive file choice window may be hidden...")
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
@@ -46,7 +46,7 @@ cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", 
 # put tasks to Rstudio opened files list:
 id <- rt_get_context_id() # warning for failure wanted only once, hence not in loop
 f2open <- dir(exdir, pattern="script_")
-if(Sys.info()["sysname"]!="Windows") f2open <- rev(f2open)
+if(Sys.info()["sysname"]=="Linux") f2open <- rev(f2open)
 lapply(f2open, rt_file2openedlist, dir=exdir, contextid=id)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
