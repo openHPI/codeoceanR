@@ -34,7 +34,10 @@ cat('{
     "id": "',id,'",
     "path": "',fullfile,'",
     "type": "',type,'",
-    "project_path": "',file,'"
+    "project_path": "',file,'",
+    "created": 0,
+    "dirty": false,
+    "source_on_save": true
 }
 ', file=paste0(sfdir, id), sep="")
 # copy file content:
