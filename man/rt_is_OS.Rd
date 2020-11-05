@@ -14,7 +14,7 @@ OS name if \code{os=NULL}, TRUE/FALSE otherwise (see examples)
 }
 \description{
 Determine or check for OS platform.
-Possible are: Linux, Windows, Darwin (Mac), SunOS (Solaris)
+Possible are: Linux, Windows, Darwin (or Mac), SunOS (for Solaris)
 }
 \examples{
 rt_is_OS()

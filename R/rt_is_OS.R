@@ -1,6 +1,6 @@
 #' @title Determine or check for OS platform
 #' @description Determine or check for OS platform.
-#'              Possible are: Linux, Windows, Darwin (Mac), SunOS (Solaris)
+#'              Possible are: Linux, Windows, Darwin (or Mac), SunOS (for Solaris)
 #' @return OS name if `os=NULL`, TRUE/FALSE otherwise (see examples)
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2020
 #' @export
