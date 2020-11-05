@@ -7,7 +7,7 @@
 rt_create_task(
   zipfile = file.choose(),
   exdir = NULL,
-  isunzipped = rt_is_OS("Windows"),
+  isunzipped = rt_is_OS("Mac"),
   deletezip = TRUE,
   ...
 )
