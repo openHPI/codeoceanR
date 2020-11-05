@@ -33,6 +33,8 @@ with the arguments:
 The `script_n.R` files (should be automatically opened) contain the tasks.  
 `codeoceanR::rt_score()` can and should be run very often.
 
+#### opened files
+
 You might get the warning "Rstudio User Settings file cannot be found. Files will not already be opened in .Rproj.".  
 It is expected on Mac OS with Rstudio development version, but might occur elsewhere, too.  
 In that case, try to run (after Rstudio is opened) the following:
