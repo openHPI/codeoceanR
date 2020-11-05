@@ -6,7 +6,7 @@
 #' @seealso [rt_create_task()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords internal
 #'
-#' @param file Filename to be added.
+#' @param file Filename to be added, without path, must be present at `dir`.
 #' @param dir  Target directory with a .Rproj file. DEFAULT: "." [getwd()]
 #' @param contextid Hexadecimal user ID, see [rt_get_context_id()]
 #'

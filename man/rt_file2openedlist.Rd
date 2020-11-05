@@ -7,7 +7,7 @@
 rt_file2openedlist(file, dir = ".", contextid = rt_get_context_id())
 }
 \arguments{
-\item{file}{Filename to be added.}
+\item{file}{Filename to be added, without path, must be present at \code{dir}.}
 
 \item{dir}{Target directory with a .Rproj file. DEFAULT: "." \code{\link[=getwd]{getwd()}}}
 
