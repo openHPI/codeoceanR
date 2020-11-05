@@ -46,7 +46,7 @@ cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", 
 # put tasks to Rstudio opened files list:
 id <- rt_get_context_id() # warning for failure wanted only once, hence not in loop
 f2open <- dir(exdir, pattern="script_")
-if(Sys.info()["sysname"]=="Linux") f2open <- rev(f2open)
+if(rt_is_OS("Linux")) f2open <- rev(f2open)
 lapply(f2open, rt_file2openedlist, dir=exdir, contextid=id)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")

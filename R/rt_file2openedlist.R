@@ -72,7 +72,7 @@ failout <- function(txt="found")
 #
 # Find Settings file
 # Windows vs Mac / Linux:
-if(Sys.info()["sysname"]=="Windows")
+if(rt_is_OS("Windows"))
 {
 rsdir <- Sys.getenv("LOCALAPPDATA")
 rsfile <- paste0(rsdir, "/RStudio-Desktop/monitored/user-settings/user-settings")
