@@ -14,13 +14,17 @@
 #' @param exdir   Folder to unzip to, e.g. "./task" for folder at current wd.
 #'                `exdir` may not yet exist, to avoid overwriting previously
 #'                unzipped and potentially edited tasks.
+#'                `exdir` must remain NULL if `isunzipped=TRUE`.
 #'                DEFAULT: NULL (path from zipfile).
+#' @param isunzipped Is the quiz already unzipped to a folder? Then that folder will be used.
+#'                DEFAULT: [rt_is_OS]`("Mac")`
 #' @param deletezip If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create_task <- function(
 zipfile=file.choose(),
 exdir=NULL,
+isunzipped=rt_is_OS("Windows"),
 deletezip=TRUE,
 ...
 )
@@ -31,14 +35,23 @@ message("If you haven't already, please close the browser tab with the CodeOcean
 rl <- readline("I have closed the browser tab (y/n, then Enter): ")
 if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 # File name management:
-if(missing(zipfile)) message("Choose the quiz zip file. The interactive file choice window may be hidden...")
+if(missing(zipfile)) message(if(isunzipped) "Choose any file within the quiz folder." else
+	                           "Choose the quiz zip file.",
+														 " The interactive file choice window may be hidden...")
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
+if(isunzipped)
+{
+if(!is.null(exdir)) warning("isunzipped=TRUE, yet exdir is given. It will be ignored.")
+exdir <- dirname(zipfile)
+} else
+{
 if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
 if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
 if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location. exdir=", exdir)
 # unzip:
 unzip(zipfile=zipfile, exdir=exdir, ...)
+}
 # create .Rproj File
 rprojfile <- paste0(exdir, "/zz_",tools::file_path_sans_ext(basename(zipfile)),".Rproj")
 rprojfile <- berryFunctions::normalizePathCP(rprojfile)
@@ -52,7 +65,7 @@ lapply(f2open, rt_file2openedlist, dir=exdir, contextid=id)
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
 # delete zipfile
-if(deletezip) file.remove(zipfile)
+if(deletezip & !isunzipped) file.remove(zipfile)
 # Output:
 return(invisible(exdir))
 }
