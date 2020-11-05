@@ -20,15 +20,28 @@ Through OpenHPI, go to the CodeOcean exercise, then download it to a good locati
 Run the following code for the zip file you just saved:
 
 ```r
-codeoceanR::rt_create_task() # with the arguments:
-# - zipfile: defaults to interactive file choice, could be "C:/Dropbox/R/FProg20_R_quiz_1.zip"
-# - exdir: defaults to folder without zip extension, could be e.g "./newFolder_at_wd/quiz1"
-# - deletezip: defaults to delete the zip file if task creation was successful
+codeoceanR::rt_create_task() 
 ```
+with the arguments:
 
-This creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
+- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip"
+- `exdir`: defaults to folder without zip extension, could be e.g "./newFolder_at_wd/quiz1"
+- `isunzipped`: defaults to TRUE on Mac OS, where the file gets unzipped when downloading
+- `deletezip`: defaults to delete the zip file if task creation was successful, could be FALSE
+
+`rt_create_task` creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
 The `script_n.R` files (should be automatically opened) contain the tasks.  
 `codeoceanR::rt_score()` can and should be run very often.
+
+You might get the warning "Rstudio User Settings file cannot be found. Files will not already be opened in .Rproj.".  
+It is expected on Mac OS with Rstudio development version, but might occur elsewhere, too.  
+In that case, try to run (after Rstudio is opened) the following:
+```r
+codeoceanR:::rt_set_context_id()
+```
+For the next quiz, things should then work fine.
+
+If you're a mac pro, please help figuring out where the settings are stored, see [rt_get_context_id.R](https://github.com/openHPI/codeoceanR/blob/main/R/rt_get_context_id.R).
 
 
 # teachers
