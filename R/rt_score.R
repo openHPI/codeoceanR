@@ -34,7 +34,7 @@ berryFunctions::checkFile(cofile)
 rt_check_for_unsaved_files(dir)
 
 # get CO token + url + file IDs
-co <- readLines(cofile)
+co <- readLines(cofile, warn=FALSE)
 co_token <- co[1]
 co_url   <- co[2]
 
@@ -48,7 +48,7 @@ berryFunctions::checkFile(co_files$name)
 #
 get_escaped_file_content <- function(fn)
   {
-  d <- paste(readLines(fn), collapse="\n")
+  d <- paste(readLines(fn, warn=FALSE), collapse="\n")
   d <- rjson::toJSON(d)
   d <- gsub("^\"", "", d) # remove leading + trailing quotation marks
   d <- gsub("\"$", "", d)
