@@ -44,6 +44,7 @@ if(isunzipped)
 {
 if(!is.null(exdir)) warning("isunzipped=TRUE, yet exdir is given. It will be ignored.")
 exdir <- dirname(zipfile)
+zipfile <- exdir # to get the folder name in rprojfile
 } else
 {
 if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
