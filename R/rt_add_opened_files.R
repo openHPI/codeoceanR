@@ -44,7 +44,7 @@ cat('{
     "project_path": "',file,'",
     "created": 0,
     "dirty": false,
-    "source_on_save": true
+    "source_on_save": false
 }
 ', file=paste0(sfdir, id), sep="")
 # copy file content:
