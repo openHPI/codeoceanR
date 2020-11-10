@@ -7,6 +7,7 @@
 rt_update_package(
   pack = "codeoceanR",
   user = "openHPI",
+  branch = "main",
   quiet = FALSE,
   quietremotes = TRUE,
   ignoreInScripted = TRUE,
@@ -16,7 +17,9 @@ rt_update_package(
 \arguments{
 \item{pack}{Name of (already installed) package. DEFAULT: "codeoceanR "}
 
-\item{user}{Github username. repo will then be user/pack. DEFAULT: "openHPI"}
+\item{user}{Github username. repo will then be user/pack/branch. DEFAULT: "openHPI"}
+
+\item{branch}{Github branch. For many packages, "master" is needed. DEFAULT: "main"}
 
 \item{quiet}{Suppress version messages output?  DEFAULT: FALSE}
 
@@ -39,7 +42,8 @@ If the version number or date is larger on github,
 \code{\link[remotes:install_github]{remotes::install_github()}} will be called.
 }
 \examples{
-# rt_updatePackage()
+# codeoceanR::rt_updatePackage()
+# codeoceanR::rt_update_package("berryFunctions", "brry", "master")
 
 }
 \seealso{

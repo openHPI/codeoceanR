@@ -9,10 +9,12 @@
 #' @importFrom utils packageDescription download.file compareVersion
 #' @export
 #' @examples
-#' # rt_updatePackage()
+#' # codeoceanR::rt_updatePackage()
+#' # codeoceanR::rt_update_package("berryFunctions", "brry", "master")
 #'
 #' @param pack     Name of (already installed) package. DEFAULT: "codeoceanR "
-#' @param user     Github username. repo will then be user/pack. DEFAULT: "openHPI"
+#' @param user     Github username. repo will then be user/pack/branch. DEFAULT: "openHPI"
+#' @param branch   Github branch. For many packages, "master" is needed. DEFAULT: "main"
 #' @param quiet    Suppress version messages output?  DEFAULT: FALSE
 #' @param quietremotes  Suppress `remotes::install` output? DEFAULT: TRUE
 #' @param ignoreInScripted Ignore this function in a scripted instance,
@@ -25,6 +27,7 @@
 rt_update_package <- function(
 pack="codeoceanR",
 user="openHPI",
+branch="main",
 quiet=FALSE,
 quietremotes=TRUE,
 ignoreInScripted=TRUE,
@@ -34,12 +37,12 @@ ignoreInScripted=TRUE,
 if(ignoreInScripted) if(!interactive()) return("Not running 'rt_update_package' because R session is not interactive.")
 # installed date/version:
 Vinst <- suppressWarnings(utils::packageDescription(pack)[c("Date","Version")])
-repo <- paste0(user,"/",pack)
+repo <- paste0(user,"/",pack,"/",branch)
 # date/version in source code
-url <- paste0("https://raw.githubusercontent.com/",repo,"/main/DESCRIPTION")
+url <- paste0("https://raw.githubusercontent.com/",repo,"/DESCRIPTION")
 tf <- tempfile("DESCRIPTION")
 ee <- suppressWarnings(try(download.file(url, tf, quiet=TRUE), silent=TRUE))
-if(inherits(ee, "try-error")) {warning("Download failed. ", ee); return(ee)}
+if(inherits(ee, "try-error")) {warning("Download failed. ", ee); return(invisible(ee))}
 
 Vsrc <- read.dcf(file=tf, fields=c("Date","Version"))
 Vsrc <- split(unname(Vsrc),colnames(Vsrc)) # transform matrix to list
