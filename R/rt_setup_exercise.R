@@ -47,10 +47,7 @@ out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
 #
 # put scripts to Rstudio opened files list:
-id <- rt_get_context_id() # warning for failure wanted only once, hence not in loop
-f2open <- dir(dir, pattern="script_")
-if(rt_is_OS("Linux")) f2open <- rev(f2open)
-lapply(f2open, rt_file2openedlist, dir=dir, contextid=id)
+rt_add_opened_files(dir(dir,pattern="script_"), dir=dir)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
