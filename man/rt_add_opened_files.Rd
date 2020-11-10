@@ -4,17 +4,17 @@
 \alias{rt_add_opened_files}
 \title{Add files to list of Rstudio opened source documents}
 \usage{
-rt_add_opened_files(file, dir = ".", contextid = rt_get_context_id())
+rt_add_opened_files(files, dir = ".", contextid = rt_get_context_id())
 }
 \arguments{
-\item{file}{Filename to be added, without path, must be present at \code{dir}.}
-
 \item{dir}{Target directory with a .Rproj file. DEFAULT: "." \code{\link[=getwd]{getwd()}}}
 
 \item{contextid}{Hexadecimal user ID, see \code{\link[=rt_get_context_id]{rt_get_context_id()}}}
+
+\item{file}{Filename(s) to be added, without path, must be present at \code{dir}.}
 }
 \value{
-expanded filename, invisibly.
+expanded filenames, invisibly.
 }
 \description{
 Add files to the list of Rstudio opened source documents.
