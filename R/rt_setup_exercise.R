@@ -9,13 +9,17 @@
 #' @importFrom utils tail
 #' @examples
 #' if(FALSE) # suppress automated runs
-#' rt_setup_exercise(read.table(header=TRUE, text="
+#' rt_setup_exercise(dir="C:/Users/berry/Desktop/CORQUIZ",
+#' df=read.table(header=TRUE, text="
 #' id      task  script
 #' Q11_1   1     1
 #' Q10_2   2     1
 #' Q12_10  3     2
 #' Q11_2   4     3
 #' Q11_3   5     3"))
+#'
+#' if(FALSE)
+#' unlink("C:/Users/berry/Desktop/CORQUIZ", recursive=TRUE, force=TRUE)
 #'
 #' if(FALSE)
 #' rt_setup_exercise(df=data.frame(id="pack3", task=1, script=1),
@@ -45,6 +49,10 @@ if(identical(df, "all")) df <- data.frame(id=tdb$ID, task=1:nrow(tdb), script=1)
 if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
 out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
+out <- tail(unlist(out),1)
+cat("\n# Once time is up / you're content, follow the instructions you get with",
+    "\n# codeoceanR::rt_score(final=TRUE, wait=15) # CTRL + SHIFT + C to uncomment this line",
+		file=out, append=TRUE)
 #
 # put scripts to Rstudio opened files list:
 rt_add_opened_files(dir(dir,pattern="script_"), dir=dir)
@@ -52,7 +60,7 @@ rt_add_opened_files(dir(dir,pattern="script_"), dir=dir)
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
 #
-return(tail(out,1))
+return(out)
 }
 
 
@@ -91,6 +99,12 @@ taskfile <- paste0(dir, "/script_",  script_nr, ".R")
 if(script_nr>1 && !file.exists(taskfile))
 	cat(paste0("\n\n# Now continue in script_",script_nr,".R\n"),
 			file=paste0(dir,"/script_", script_nr-1,".R"), append=TRUE)
+# start new script with instructions:
+# browser()
+if(!file.exists(taskfile) || !any(grepl("codeoceanR::rt_score", readLines(taskfile), fixed=TRUE)) )
+	cat("# To score, you can source the entire script (CTRL + SHIFT + S) to run",
+      "\ncodeoceanR::rt_score()\n", file=taskfile, append=TRUE)
+
 
 # text of exercise:
 te <- tdb[id,'Task']
@@ -100,7 +114,7 @@ te <- gsub("tx_end"  , paste0("t",task_nr,"_end"  ), te, fixed=TRUE)
 
 # Write task:
 cat(paste0("\n\n# Task ",task_nr," -----\n\n# ", te,
-					 "\n\n\n# Run   codeoceanR::rt_score()\n"),
+					 "\n\n\n# Remember to score now :)\n"),
 		file=taskfile, append=TRUE)
 
 # TEST ----

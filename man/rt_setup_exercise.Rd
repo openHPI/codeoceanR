@@ -22,13 +22,17 @@ To request access to the spreadsheet, go to
 }
 \examples{
 if(FALSE) # suppress automated runs
-rt_setup_exercise(read.table(header=TRUE, text="
+rt_setup_exercise(dir="C:/Users/berry/Desktop/CORQUIZ",
+df=read.table(header=TRUE, text="
 id      task  script
 Q11_1   1     1
 Q10_2   2     1
 Q12_10  3     2
 Q11_2   4     3
 Q11_3   5     3"))
+
+if(FALSE)
+unlink("C:/Users/berry/Desktop/CORQUIZ", recursive=TRUE, force=TRUE)
 
 if(FALSE)
 rt_setup_exercise(df=data.frame(id="pack3", task=1, script=1),
