@@ -32,6 +32,15 @@ dir=".",
 folder="Quiz1"
 )
 {
+dir <- berryFunctions::normalizePathCP(dir)
+fdir <- paste0(dir, "/", folder)
+if(dir.exists(fdir)) stop("dir already exists. Please choose a new location. path=", dir)
+dir.create(fdir, recursive=TRUE)
+# write .Rproj file
+rprojfile <- paste0(fdir, "/zz_development_Rquiz.Rproj")
+rprojfile <- berryFunctions::normalizePathCP(rprojfile)
+cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
+#
 # task database (tdb):
 tdb <- googlesheets4::read_sheet("1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ")
 tdb <- as.data.frame(tdb)
@@ -40,6 +49,16 @@ if(identical(df, "all")) df <- data.frame(id=tdb$ID, task=1:nrow(tdb), script=1)
 if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
 out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir, folder=folder))
+#
+# put scripts to Rstudio opened files list:
+id <- rt_get_context_id() # warning for failure wanted only once, hence not in loop
+f2open <- dir(fdir, pattern="script_")
+if(rt_is_OS("Linux")) f2open <- rev(f2open)
+lapply(f2open, rt_file2openedlist, dir=fdir, contextid=id)
+# try to open Rproject:
+message("Opening ", rprojfile, "\nOpen manually if this fails.")
+berryFunctions::openFile(rprojfile)
+#
 return(tail(out,1))
 }
 
