@@ -51,7 +51,7 @@ out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
 out <- tail(unlist(out),1)
 cat("\n# Once time is up / you're content, follow the instructions you get with",
-    "\n# codeoceanR::rt_score(final=TRUE, wait=15) # CTRL + SHIFT + C to uncomment this line",
+    "\n# codeoceanR::rt_score(final=TRUE, wait=15) # CTRL + SHIFT + C to uncomment this line\n\n",
 		file=out, append=TRUE)
 #
 # put scripts to Rstudio opened files list:
