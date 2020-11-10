@@ -13,7 +13,7 @@ Hexadecimal ID charstring
 Internal function to find the User-specific 8 digit hexadecimal id for .Rproj.user ID
 }
 \seealso{
-\code{\link[=rt_file2openedlist]{rt_file2openedlist()}}
+\code{\link[=rt_add_opened_files]{rt_add_opened_files()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2020

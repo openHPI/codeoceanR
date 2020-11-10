@@ -68,7 +68,7 @@ return(invisible(fullfiles))
 #' @description Internal function to find the next largest 8 digit hexadecimal id
 #' @return Hexadecimal ID charstring
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_file2openedlist()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
+#' @seealso [rt_add_opened_files()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords internal
 #' @examples
 #' \dontrun{ # non-exported function cannot have autorun examples
