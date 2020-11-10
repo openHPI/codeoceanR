@@ -9,6 +9,7 @@ rt_update_package(
   user = "openHPI",
   quiet = FALSE,
   quietremotes = TRUE,
+  ignoreInScripted = TRUE,
   ...
 )
 }
@@ -20,6 +21,12 @@ rt_update_package(
 \item{quiet}{Suppress version messages output?  DEFAULT: FALSE}
 
 \item{quietremotes}{Suppress \code{remotes::install} output? DEFAULT: TRUE}
+
+\item{ignoreInScripted}{Ignore this function in a scripted instance,
+e.g. when R is called through  \code{Rscript} as it is on CodeOcean.
+Determined with \code{\link[=interactive]{interactive()}}.
+DEFAULT: TRUE (so \code{rt_update_package} calls can safely be
+in scripts submitted to CO through \code{\link[=rt_score]{rt_score()}}.)}
 
 \item{\dots}{Further arguments passed to \code{\link[remotes:install_github]{remotes::install_github()}}}
 }

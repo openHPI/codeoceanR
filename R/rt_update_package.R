@@ -15,6 +15,11 @@
 #' @param user     Github username. repo will then be user/pack. DEFAULT: "openHPI"
 #' @param quiet    Suppress version messages output?  DEFAULT: FALSE
 #' @param quietremotes  Suppress `remotes::install` output? DEFAULT: TRUE
+#' @param ignoreInScripted Ignore this function in a scripted instance,
+#'                 e.g. when R is called through  `Rscript` as it is on CodeOcean.
+#'                 Determined with [interactive()].
+#'                 DEFAULT: TRUE (so `rt_update_package` calls can safely be
+#'                 in scripts submitted to CO through [rt_score()].)
 #' @param \dots    Further arguments passed to [remotes::install_github()]
 #'
 rt_update_package <- function(
@@ -22,9 +27,11 @@ pack="codeoceanR",
 user="openHPI",
 quiet=FALSE,
 quietremotes=TRUE,
+ignoreInScripted=TRUE,
 ...
 )
 {
+if(ignoreInScripted) if(!interactive()) return("Not running 'rt_update_package' because R session is not interactive.")
 # installed date/version:
 Vinst <- suppressWarnings(utils::packageDescription(pack)[c("Date","Version")])
 repo <- paste0(user,"/",pack)
