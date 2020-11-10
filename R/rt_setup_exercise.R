@@ -3,7 +3,7 @@
 #'              Uses the google spreadsheet as a database from which tasks can be selected by ID.
 #'              To request access to the spreadsheet, go to
 #'              <https://docs.google.com/spreadsheets/d/1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ>
-#' @return dir from last call to [rt_add_task]
+#' @return taskfile from last call to [rt_add_task]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @export
 #' @importFrom utils tail
@@ -60,7 +60,7 @@ return(tail(out,1))
 #' @title Add task from database to script
 #' @description Add a task from the database to `script_x.R`
 #'              and the corresponding tests to `tests.R`.
-#' @return dir
+#' @return taskfile
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_setup_exercise]
 #'
@@ -151,5 +151,5 @@ paste(tt[post], collapse="\n"), "\n")
 tlines <- sub("# TEST TASK", paste0(toprint,"\n# TEST TASK"), tlines, fixed=TRUE)
 writeLines(tlines, testfile)
 # Output:
-return(dir)
+return(taskfile)
 }

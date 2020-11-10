@@ -12,7 +12,7 @@ rt_setup_exercise(df, dir = "./Quiz1")
 \item{dir}{Directory. May not yet exist to avoid overwriting. DEFAULT: "./Quiz1"}
 }
 \value{
-dir from last call to \link{rt_add_task}
+taskfile from last call to \link{rt_add_task}
 }
 \description{
 Set up an entire exercise (\code{script_1.R}, \code{script_1.R}, \code{...}, \code{tests.R}).

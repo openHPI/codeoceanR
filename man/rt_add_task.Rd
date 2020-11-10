@@ -18,7 +18,7 @@ rt_add_task(tdb, id, task_nr = id, script_nr = 1, dir = "./Quiz1")
 \item{dir}{Directory. DEFAULT: "./Quiz1"}
 }
 \value{
-dir
+taskfile
 }
 \description{
 Add a task from the database to \code{script_x.R}
