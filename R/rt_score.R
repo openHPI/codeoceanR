@@ -64,6 +64,11 @@ body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
 
 # Post to CodeOcean:
 r <- httr::POST(url=co_url, body=body, httr::content_type("application/json"))
+erm <- httr::http_condition(r, "error")$message
+if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
+	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
+	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))',
+	call.=FALSE)
 httr::stop_for_status(r) # if any, pass http errors to R
 
 # Output:
