@@ -16,7 +16,12 @@ if(!exists("isFALSE")) isFALSE <- function(x) is.logical(x) && length(x) == 1L &
 rt_run_script <- function(filename){
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
+  #           # exclude recursive score calls:
+              fcontent <- readLines(filename, warn=FALSE)
+              fnew <- fcontent[!grepl("rt_local_score(", fcontent, fixed=TRUE)]
+              writeLines(fnew, filename)
   e <- try(source(filename), silent=TRUE)
+              writeLines(fcontent, filename)
   if(inherits(e, "try-error")) {
     rt_warn("'", filename, "' can not be executed. Make sure each line can be run.",
             if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
