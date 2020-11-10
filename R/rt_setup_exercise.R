@@ -19,25 +19,21 @@
 #'
 #' if(FALSE)
 #' rt_setup_exercise(df=data.frame(id="pack3", task=1, script=1),
-#'                   dir="C:/Users/berry/Desktop/CORQUIZ",
-#'                   folder="")
+#'                   dir="C:/Users/berry/Desktop/CORQUIZ")
 #'
-#' @param df        Data.frame with id, task, script. See examples.
-#' @param dir       Directory, pasted together with `folder`. DEFAULT: "."
-#' @param folder    Folder at `dir`. DEFAULT: "Quiz1"
+#' @param df  Data.frame with id, task, script. See examples.
+#' @param dir Directory. May not yet exist to avoid overwriting. DEFAULT: "./Quiz1"
 #'
 rt_setup_exercise <- function(
 df,
-dir=".",
-folder="Quiz1"
+dir="./Quiz1"
 )
 {
 dir <- berryFunctions::normalizePathCP(dir)
-fdir <- paste0(dir, "/", folder)
-if(dir.exists(fdir)) stop("dir already exists. Please choose a new location. path=", dir)
-dir.create(fdir, recursive=TRUE)
+if(dir.exists(dir)) stop("dir already exists. Please choose a new location. path = ", dir)
+dir.create(dir, recursive=TRUE)
 # write .Rproj file
-rprojfile <- paste0(fdir, "/zz_development_Rquiz.Rproj")
+rprojfile <- paste0(dir, "/zz_development_Rquiz.Rproj")
 rprojfile <- berryFunctions::normalizePathCP(rprojfile)
 cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
 #
@@ -48,13 +44,13 @@ rownames(tdb) <- tdb$ID
 if(identical(df, "all")) df <- data.frame(id=tdb$ID, task=1:nrow(tdb), script=1)
 if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
 out <- lapply(1:nrow(df), function(i)
-	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir, folder=folder))
+	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
 #
 # put scripts to Rstudio opened files list:
 id <- rt_get_context_id() # warning for failure wanted only once, hence not in loop
-f2open <- dir(fdir, pattern="script_")
+f2open <- dir(dir, pattern="script_")
 if(rt_is_OS("Linux")) f2open <- rev(f2open)
-lapply(f2open, rt_file2openedlist, dir=fdir, contextid=id)
+lapply(f2open, rt_file2openedlist, dir=dir, contextid=id)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
@@ -75,16 +71,14 @@ return(tail(out,1))
 #' @param id        ID to be selected from `tdb`, e.g. "Q10_2"
 #' @param task_nr   Task number to be printed in `script_x.R`, DEFAULT: id
 #' @param script_nr Script number to be used for this task. DEFAULT: 1
-#' @param dir       Directory, pasted together with `folder`. DEFAULT: "."
-#' @param folder    Folder at `dir`. DEFAULT: "Quiz1"
+#' @param dir       Directory. DEFAULT: "./Quiz1"
 #'
 rt_add_task <- function(
 tdb,
 id,
 task_nr=id,
 script_nr=1,
-dir=".",
-folder="Quiz1"
+dir="./Quiz1"
 )
 {
 
@@ -92,7 +86,6 @@ if(!id %in% tdb$ID) stop("ID is not in tdb: ", id)
 
 # dir management:
 dir <- berryFunctions::normalizePathCP(dir)
-dir <- paste0(dir, "/", folder)
 if(!dir.exists(dir)) dir.create(dir, recursive=TRUE)
 
 # TASK ----

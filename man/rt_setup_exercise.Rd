@@ -4,14 +4,12 @@
 \alias{rt_setup_exercise}
 \title{Design complete exercise with tasks from database}
 \usage{
-rt_setup_exercise(df, dir = ".", folder = "Quiz1")
+rt_setup_exercise(df, dir = "./Quiz1")
 }
 \arguments{
 \item{df}{Data.frame with id, task, script. See examples.}
 
-\item{dir}{Directory, pasted together with \code{folder}. DEFAULT: "."}
-
-\item{folder}{Folder at \code{dir}. DEFAULT: "Quiz1"}
+\item{dir}{Directory. May not yet exist to avoid overwriting. DEFAULT: "./Quiz1"}
 }
 \value{
 dir from last call to \link{rt_add_task}
@@ -34,8 +32,7 @@ Q11_3   5     3"))
 
 if(FALSE)
 rt_setup_exercise(df=data.frame(id="pack3", task=1, script=1),
-                  dir="C:/Users/berry/Desktop/CORQUIZ",
-                  folder="")
+                  dir="C:/Users/berry/Desktop/CORQUIZ")
 
 }
 \author{

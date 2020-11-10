@@ -4,7 +4,7 @@
 \alias{rt_add_task}
 \title{Add task from database to script}
 \usage{
-rt_add_task(tdb, id, task_nr = id, script_nr = 1, dir = ".", folder = "Quiz1")
+rt_add_task(tdb, id, task_nr = id, script_nr = 1, dir = "./Quiz1")
 }
 \arguments{
 \item{tdb}{Task database (data.frame with the columns ID, Task, Test)}
@@ -15,9 +15,7 @@ rt_add_task(tdb, id, task_nr = id, script_nr = 1, dir = ".", folder = "Quiz1")
 
 \item{script_nr}{Script number to be used for this task. DEFAULT: 1}
 
-\item{dir}{Directory, pasted together with \code{folder}. DEFAULT: "."}
-
-\item{folder}{Folder at \code{dir}. DEFAULT: "Quiz1"}
+\item{dir}{Directory. DEFAULT: "./Quiz1"}
 }
 \value{
 dir
