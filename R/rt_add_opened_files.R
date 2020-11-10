@@ -10,7 +10,7 @@
 #' @param dir  Target directory with a .Rproj file. DEFAULT: "." [getwd()]
 #' @param contextid Hexadecimal user ID, see [rt_get_context_id()]
 #'
-rt_file2openedlist <- function(file, dir=".", contextid=rt_get_context_id())
+rt_add_opened_files <- function(file, dir=".", contextid=rt_get_context_id())
 {
 # check file and dir:
 fullfile <- paste0(dir,"/",file)
