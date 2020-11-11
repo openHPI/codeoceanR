@@ -47,18 +47,18 @@ if(is.null(zipfile))
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(isunzipped)
-{
-if(!is.null(exdir)) warning("isunzipped=TRUE, yet exdir is given. It will be ignored.")
-exdir <- dirname(zipfile)
-zipfile <- exdir # to get the folder name in rprojfile
-} else
-{
-if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
-if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
-if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location. exdir=", exdir)
-# unzip:
-unzip(zipfile=zipfile, exdir=exdir, ...)
-}
+  {
+  if(!is.null(exdir)) warning("isunzipped=TRUE, yet exdir is given. It will be ignored.")
+  exdir <- dirname(zipfile)
+  zipfile <- exdir # to get the folder name in rprojfile
+ } else
+  {
+  if(tools::file_ext(zipfile)!="zip") stop("The input must be a zip file. It was: ", zipfile)
+  if(is.null(exdir)) exdir <- tools::file_path_sans_ext(zipfile)
+  if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location. exdir=", exdir)
+  # unzip:
+  unzip(zipfile=zipfile, exdir=exdir, ...)
+  }
 # create .Rproj File
 rprojfile <- paste0(exdir, "/zz_",tools::file_path_sans_ext(basename(zipfile)),".Rproj")
 rprojfile <- berryFunctions::normalizePathCP(rprojfile)
