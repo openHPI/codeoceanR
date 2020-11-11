@@ -10,11 +10,13 @@
 #' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #'
 #' @param zipfile Path to zip file. Remember: on Windows, "\" must be changed to "/".
+#'                On Mac OS, the file gets unzipped upon downloading,
+#'                so it must be any one of the files within that folder.
 #'                DEFAULT: [file.choose()]
 #' @param exdir   Folder to unzip to, e.g. "./task" for folder at current wd.
 #'                `exdir` may not yet exist, to avoid overwriting previously
 #'                unzipped and potentially edited tasks.
-#'                `exdir` must remain NULL if `isunzipped=TRUE`.
+#'                `exdir` must remain NULL if `isunzipped=TRUE` (on Mac OS).
 #'                DEFAULT: NULL (path from zipfile).
 #' @param isunzipped Is the quiz already unzipped to a folder? Then that folder will be used.
 #'                DEFAULT: [rt_is_OS]`("Mac")`

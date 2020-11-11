@@ -14,12 +14,14 @@ rt_create_task(
 }
 \arguments{
 \item{zipfile}{Path to zip file. Remember: on Windows, "\" must be changed to "/".
+On Mac OS, the file gets unzipped upon downloading,
+so it must be any one of the files within that folder.
 DEFAULT: \code{\link[=file.choose]{file.choose()}}}
 
 \item{exdir}{Folder to unzip to, e.g. "./task" for folder at current wd.
 \code{exdir} may not yet exist, to avoid overwriting previously
 unzipped and potentially edited tasks.
-\code{exdir} must remain NULL if \code{isunzipped=TRUE}.
+\code{exdir} must remain NULL if \code{isunzipped=TRUE} (on Mac OS).
 DEFAULT: NULL (path from zipfile).}
 
 \item{isunzipped}{Is the quiz already unzipped to a folder? Then that folder will be used.
