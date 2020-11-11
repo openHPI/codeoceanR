@@ -12,7 +12,7 @@
 #' @param zipfile Path to zip file. Remember: on Windows, "\" must be changed to "/".
 #'                On Mac OS, the file gets unzipped upon downloading,
 #'                so it must be any one of the files within that folder.
-#'                DEFAULT: [file.choose()]
+#'                DEFAULT: NULL, meaning to use [file.choose()]
 #' @param exdir   Folder to unzip to, e.g. "./task" for folder at current wd.
 #'                `exdir` may not yet exist, to avoid overwriting previously
 #'                unzipped and potentially edited tasks.
@@ -24,7 +24,7 @@
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create_task <- function(
-zipfile=file.choose(),
+zipfile=NULL,
 exdir=NULL,
 isunzipped=rt_is_OS("Mac"),
 deletezip=TRUE,
@@ -37,9 +37,13 @@ message("If you haven't already, please close the browser tab with the CodeOcean
 rl <- readline("I have closed the browser tab (y/n, then Enter): ")
 if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 # File name management:
-if(missing(zipfile)) message(if(isunzipped) "Choose any file within the quiz folder." else
-	                           "Choose the quiz zip file.",
-														 " The interactive file choice window may be hidden...")
+if(is.null(zipfile))
+	{
+	message(if(isunzipped) "Choose any file within the quiz folder." else
+	                       "Choose the quiz zip file.",
+												 " The interactive file choice window may be hidden...")
+  zipfile <- file.choose()
+  }
 zipfile <- berryFunctions::normalizePathCP(zipfile)
 berryFunctions::checkFile(zipfile)
 if(isunzipped)

@@ -5,7 +5,7 @@
 \title{Create Task folder from zip file}
 \usage{
 rt_create_task(
-  zipfile = file.choose(),
+  zipfile = NULL,
   exdir = NULL,
   isunzipped = rt_is_OS("Mac"),
   deletezip = TRUE,
@@ -16,7 +16,7 @@ rt_create_task(
 \item{zipfile}{Path to zip file. Remember: on Windows, "\" must be changed to "/".
 On Mac OS, the file gets unzipped upon downloading,
 so it must be any one of the files within that folder.
-DEFAULT: \code{\link[=file.choose]{file.choose()}}}
+DEFAULT: NULL, meaning to use \code{\link[=file.choose]{file.choose()}}}
 
 \item{exdir}{Folder to unzip to, e.g. "./task" for folder at current wd.
 \code{exdir} may not yet exist, to avoid overwriting previously
