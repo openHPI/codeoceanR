@@ -4,7 +4,9 @@ By Berry Boessenkool, 2020, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 
 # students
 
-Run the following code to install the codeoceanR package:
+#### initial setup
+
+Run the following code (in R / Rstudio) to install the codeoceanR package:
 
 ```r
 if(!requireNamespace("remotes", quietly=TRUE))    install.packages("remotes")
@@ -16,21 +18,45 @@ Once installed, keeping it up to date is easy with
 codeoceanR::rt_update_package()
 ```
 
-Through OpenHPI, go to the CodeOcean exercise, then download it to a good location on your PC.  
-Run the following code for the zip file you just saved:
+**If you updated/installed between Tue Nov 10, 13:13 and Nov 11, 13:22, please run instead:**  
+`remotes::install_github("openHPI/codeoceanR")`  
+I broke `rt_update_package` iteself during that time...
+
+
+
+#### procedure
+
+- through OpenHPI, go to the CodeOcean exercise
+- download it to a good location on your PC
+- close the browser tab
+- Run the following code (in R / Rstudio) for the zip file you just downloaded:
 
 ```r
 codeoceanR::rt_create_task() 
 ```
 with the arguments:
 
-- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip"
+- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip" 
+  _(On Mac OS, this must be any file within the auto-unzipped folder)_
 - `exdir`: defaults to folder without zip extension, could be e.g "./newFolder_at_wd/quiz1"
 - `isunzipped`: defaults to TRUE on Mac OS, where the file gets unzipped when downloading
 - `deletezip`: defaults to delete the zip file if task creation was successful, could be FALSE
 
-`rt_create_task` creates a new folder with a `.Rproj` file and tries to open that in Rstudio.  
-The `script_n.R` files (should be automatically opened) contain the tasks.  
+the intention is for you to only:
+
+- run `rt_create_task()`
+- confirm to have closed the tab
+- select the folder (if not given as argument `zipfile`)
+
+And then `rt_create_task` in the R package should
+
+- create a new folder with a `.Rproj` file
+- open the Project in Rstudio
+- with the `script_n.R` files already opened
+- have everything prepared so `rt_score()` works out of the box.
+
+
+
 `codeoceanR::rt_score()` can and should be run very often.
 
 #### opened files
@@ -39,7 +65,7 @@ You might get the warning "Rstudio User Settings file cannot be found. Files wil
 It is expected on Mac OS with Rstudio development version, but might occur elsewhere, too.  
 In that case, try to run (after Rstudio is opened) the following:
 ```r
-codeoceanR:::rt_set_context_id()
+codeoceanR::rt_set_context_id()
 ```
 For the next quiz, things should then work fine.
 
