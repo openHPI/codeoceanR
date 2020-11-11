@@ -31,7 +31,7 @@ cofile <- paste0(dir, "/.co")
 berryFunctions::checkFile(cofile)
 
 # Stop if files are changed but not saved:
-rt_check_for_unsaved_files(dir)
+rt_check_for_unsaved_files(dir, warnonly=TRUE)
 
 # get CO token + url + file IDs
 co <- readLines(cofile, warn=FALSE)
