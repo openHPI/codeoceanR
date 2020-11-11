@@ -16,7 +16,8 @@ rt_check_for_unsaved_files <- function(dir=".", warnonly=FALSE)
 dir <- berryFunctions::normalizePathCP(paste0(dir, "/.Rproj.user"))
 berryFunctions::checkFile(dir, warnonly=warnonly)
 # find folder:
-dir <- dir(dir, pattern="^[a-zA-Z0-9]{8}$", full.names=TRUE)
+dir <- dir(dir, pattern="^[a-zA-Z0-9]{6,8}$", full.names=TRUE)
+dir <- dir[!grepl("shared$", dir)] # safety check...
 dir <- paste0(dir, "/sources")
 berryFunctions::checkFile(dir, warnonly=warnonly)
 # temporary id folder:
