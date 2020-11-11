@@ -13,10 +13,11 @@
 #' # codeoceanR::rt_update_package("berryFunctions", "brry", "master")
 #'
 #' @param pack     Name of (already installed) package. DEFAULT: "codeoceanR "
-#' @param user     Github username. repo will then be user/pack/branch. DEFAULT: "openHPI"
-#' @param branch   Github branch. For many packages, "master" is needed. DEFAULT: "main"
+#' @param user     Github username. repo will then be user/pack. DEFAULT: "openHPI"
+#' @param branchdesc Github branch with description file. For many packages, "master" is needed. DEFAULT: "main"
 #' @param quiet    Suppress version messages output?  DEFAULT: FALSE
 #' @param quietremotes  Suppress `remotes::install` output? DEFAULT: TRUE
+#' @param force    Force installation, even if not outdated? DEFAULT: FALSE
 #' @param ignoreInScripted Ignore this function in a scripted instance,
 #'                 e.g. when R is called through  `Rscript` as it is on CodeOcean.
 #'                 Determined with [interactive()].
@@ -27,9 +28,10 @@
 rt_update_package <- function(
 pack="codeoceanR",
 user="openHPI",
-branch="main",
+branchdesc="main",
 quiet=FALSE,
 quietremotes=TRUE,
+force=FALSE,
 ignoreInScripted=TRUE,
 ...
 )
@@ -37,9 +39,9 @@ ignoreInScripted=TRUE,
 if(ignoreInScripted) if(!interactive()) return("Not running 'rt_update_package' because R session is not interactive.")
 # installed date/version:
 Vinst <- suppressWarnings(utils::packageDescription(pack)[c("Date","Version")])
-repo <- paste0(user,"/",pack,"/",branch)
+repo <- paste0(user,"/",pack)
 # date/version in source code
-url <- paste0("https://raw.githubusercontent.com/",repo,"/DESCRIPTION")
+url <- paste0("https://raw.githubusercontent.com/",repo,"/",branchdesc,"/DESCRIPTION")
 tf <- tempfile("DESCRIPTION")
 ee <- suppressWarnings(try(download.file(url, tf, quiet=TRUE), silent=TRUE))
 if(inherits(ee, "try-error")) {warning("Download failed. ", ee); return(invisible(ee))}
@@ -52,6 +54,7 @@ rownames(output) <- paste0(pack,"_",c("Locally_installed", "Github_latest"))
 if(anyNA(output$Date)) stop("Date field is missing, cannot be compared.")
 # install if outdated:
 doinst <-  compareVersion(Vsrc$Version, Vinst$Version)==1   |   Vsrc$Date > Vinst$Date
+doinst <- doinst || force
 if(!doinst)
 {
 if(!quiet) message(pack, " is up to date, compared to github.com/",repo,

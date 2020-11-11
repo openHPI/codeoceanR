@@ -7,9 +7,10 @@
 rt_update_package(
   pack = "codeoceanR",
   user = "openHPI",
-  branch = "main",
+  branchdesc = "main",
   quiet = FALSE,
   quietremotes = TRUE,
+  force = FALSE,
   ignoreInScripted = TRUE,
   ...
 )
@@ -17,13 +18,15 @@ rt_update_package(
 \arguments{
 \item{pack}{Name of (already installed) package. DEFAULT: "codeoceanR "}
 
-\item{user}{Github username. repo will then be user/pack/branch. DEFAULT: "openHPI"}
+\item{user}{Github username. repo will then be user/pack. DEFAULT: "openHPI"}
 
-\item{branch}{Github branch. For many packages, "master" is needed. DEFAULT: "main"}
+\item{branchdesc}{Github branch with description file. For many packages, "master" is needed. DEFAULT: "main"}
 
 \item{quiet}{Suppress version messages output?  DEFAULT: FALSE}
 
 \item{quietremotes}{Suppress \code{remotes::install} output? DEFAULT: TRUE}
+
+\item{force}{Force installation, even if not outdated? DEFAULT: FALSE}
 
 \item{ignoreInScripted}{Ignore this function in a scripted instance,
 e.g. when R is called through  \code{Rscript} as it is on CodeOcean.
