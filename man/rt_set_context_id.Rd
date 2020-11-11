@@ -24,4 +24,3 @@ If successful, it will be saved in "~/.rstudio_context_id_by_codeoceanR.txt".
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2020
 }
-\keyword{internal}

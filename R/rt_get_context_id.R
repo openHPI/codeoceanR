@@ -8,9 +8,11 @@
 rt_get_context_id <- function()
 {
 # https://stackoverflow.com/a/55940249 , https://github.com/rstudio/rstudio/pull/5069
-failout <- function(txt="found")
+failout <- function(txt="found", fn="")
   {
-	warning("Rstudio User Settings file cannot be ",txt, ". Files will not already be opened in .Rproj.", call.=FALSE)
+	warning("Rstudio User Settings file cannot be ",txt, if(fn!="") paste0(fn, ".\n") else ". ",
+					"Files will not already be opened in .Rproj.",
+					"\nSee rt_set_context_id to solve this for next time.", call.=FALSE)
 	return("5A57A303")
   }
 #
@@ -38,13 +40,13 @@ if(!file.exists(rsfile)) return(failout())
 rs <- readLines(rsfile, warn=FALSE) # rs: Rstudio Settings
                   id <- grep("contextIdentifier", rs, value=TRUE)
 if(length(id)==0) id <- grep("context_id",        rs, value=TRUE) # Rstudio 1.4
-if(length(id)==0) return(failout("processed for ID string"))
+if(length(id)==0) return(failout("processed for ID string: ",rsfile))
 id <- berryFunctions::removeSpace(id)
 id <- sub("contextIdentifier=\"", "", id)
 id <- sub("\"context_id\": \"", "", id)
 id <- gsub("\"", "", id)
 id <- gsub(",", "", id)
-if(nchar(id)==0) return(failout("splitted for ID string"))
+if(nchar(id)==0) return(failout("splitted for ID string: ", rsfile))
 return(id)
 }
 
@@ -58,7 +60,7 @@ return(id)
 #' @return Hexadecimal ID charstring
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2020
 #' @seealso [rt_get_context_id()]
-#' @keywords internal
+#' @export
 #' @param dir Path to some folder containing a .Rproj file
 #'            and hence a (hidden) ".Rproj.user" folder. DEFAULT: "."
 #'
