@@ -18,7 +18,8 @@ taskfile from last call to \link{rt_add_task}
 Set up an entire exercise (\code{script_1.R}, \code{script_1.R}, \code{...}, \code{tests.R}).
 Uses the google spreadsheet as a database from which tasks can be selected by ID.
 To request access to the spreadsheet, go to
-\url{https://docs.google.com/spreadsheets/d/1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ}
+\url{https://docs.google.com/spreadsheets/d/1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ}.\cr
+The opposite direction is available with \code{\link[=rt_exercise_to_db]{rt_exercise_to_db()}}.
 }
 \examples{
 if(FALSE) # suppress automated runs

@@ -2,6 +2,7 @@
 
 export(rt_contains)
 export(rt_create_task)
+export(rt_exercise_to_db)
 export(rt_exists)
 export(rt_has_argument)
 export(rt_has_class)

@@ -117,6 +117,7 @@ embedding options:
 ## CodeOcean exercises
 
 All file types & roles etc can be seen in my basic exercise at <https://codeocean.openhpi.de/exercises/721>  
+You can only have one 'main' file, the rest must be 'executable file (similar to main file)'.  
 The structure of task and test scripts can also be seen at <https://github.com/openHPI/codeoceanR/tree/main/inst/extdata>  
 A collection of exercises can be requested through [Berry](mailto:berry-b@gmx.de) or [Sebastian](mailto:sebastian.serth@hpi.de).  
 There's an overview of all R quizzes at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  

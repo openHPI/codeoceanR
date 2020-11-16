@@ -2,7 +2,8 @@
 #' @description Set up an entire exercise (`script_1.R`, `script_1.R`, `...`, `tests.R`).
 #'              Uses the google spreadsheet as a database from which tasks can be selected by ID.
 #'              To request access to the spreadsheet, go to
-#'              <https://docs.google.com/spreadsheets/d/1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ>
+#'              <https://docs.google.com/spreadsheets/d/1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ>.\cr
+#'              The opposite direction is available with [rt_exercise_to_db()].
 #' @return taskfile from last call to [rt_add_task]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @export
