@@ -13,6 +13,8 @@ if(!requireNamespace("remotes", quietly=TRUE))    install.packages("remotes")
 if(!requireNamespace("codeoceanR", quietly=TRUE)) remotes::install_github("openHPI/codeoceanR")
 ```
 
+If you get the error: `Failed to install 'unknown package' from GitHub: HTTP error 404. No commit found for the ref master`, try `remotes::install_github("openHPI/codeoceanR", "main")`
+ 
 Once installed, keeping it up to date is easy with
 ```r
 codeoceanR::rt_update_package()
