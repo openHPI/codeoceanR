@@ -16,6 +16,7 @@
 #' @param n      Charstring to which [names] is compared
 #' @param target Object to be compared to via [identical]
 #' @param value  value `obj` should have, can be char / numeric / other.
+#' @param fixed  Fixed match in [grepl()]? DEFAULT: TRUE
 #' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison. DEFAULT: 6
 #' @param noise  Add noise, so not the exact difference is reported? DEFAULT: TRUE
 #' @param condition Generic custom condition to be tested
@@ -89,9 +90,9 @@ rt_is_identical <- function(obj, target){
 
 #' @export
 #' @rdname rt_test_object
-rt_contains <- function(obj, value){
+rt_contains <- function(obj, value, fixed=TRUE){
   objname <- deparse(substitute(obj))
-  jup <- if(is.character(obj)) grepl(pattern=value, x=obj) else
+  jup <- if(is.character(obj)) grepl(pattern=value, x=obj, fixed=fixed) else
                                value %in% obj
   if(jup) return(TRUE)
   rt_warn(objname, " does not contain ", toString(value))

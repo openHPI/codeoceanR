@@ -31,7 +31,7 @@ rt_has_names(obj, n)
 
 rt_is_identical(obj, target)
 
-rt_contains(obj, value)
+rt_contains(obj, value, fixed = TRUE)
 
 rt_has_value(obj, value, digits = 6, noise = TRUE)
 
@@ -53,6 +53,8 @@ rt_test(condition, ...)
 \item{target}{Object to be compared to via \link{identical}}
 
 \item{value}{value \code{obj} should have, can be char / numeric / other.}
+
+\item{fixed}{Fixed match in \code{\link[=grepl]{grepl()}}? DEFAULT: TRUE}
 
 \item{digits}{Tolerance - both \code{obj} and \code{value} are \link{round}ed before comparison. DEFAULT: 6}
 
