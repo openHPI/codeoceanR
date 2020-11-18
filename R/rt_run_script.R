@@ -14,7 +14,9 @@ rt_run_script <- function(filename){
                                       "'. current getwd: ", getwd()); return(FALSE)}
   #           # exclude recursive score calls:
               fcontent <- readLines(filename, warn=FALSE)
-              fnew <- fcontent[!grepl("rt_local_score(", fcontent, fixed=TRUE)]
+              excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
+                      grepl("rt_score("      , fcontent, fixed=TRUE)
+              fnew <- fcontent[!excl]
               writeLines(fnew, filename)
   e <- try(source(filename), silent=TRUE)
               writeLines(fcontent, filename)
