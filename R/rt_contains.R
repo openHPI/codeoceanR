@@ -9,12 +9,19 @@
 #' @param obj    Object to be tested. Just the name, not a character string.
 #' @param value  value `obj` should have, can be char / numeric / other.
 #' @param fixed  Fixed match in [grepl()]? DEFAULT: TRUE
+#' @param ignore_space Remove spaces before comparison? DEFAULT: FALSE
 #'
-rt_contains <- function(obj, value, fixed=TRUE){
+rt_contains <- function(obj, value, fixed=TRUE, ignore_space=FALSE){
   objname <- deparse(substitute(obj))
-  jup <- if(is.character(obj)) grepl(pattern=value, x=obj, fixed=fixed) else
-                               value %in% obj
-  if(jup) return(TRUE)
+  if(!is.character(obj))
+    {
+    if(value %in% obj) return(TRUE)
+    } else
+    {
+    value2 <- if(ignore_space) gsub(" ", "", value) else value
+    obj2   <- if(ignore_space) gsub(" ", "", obj  ) else obj
+    if(grepl(pattern=value2, x=obj2, fixed=fixed)) return(TRUE)
+    }
   rt_warn(objname, " does not contain ", toString(value))
   FALSE
 }
