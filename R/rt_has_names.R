@@ -10,6 +10,6 @@
 #' @param n      Charstring to which [names] is compared
 #'
 rt_has_names <- function(obj, n) {if(all(n %in% names(obj))) return(TRUE)
-  rt_warn(deparse(substitute(x)), " must have the name", if(length(n)>1) "s:", " ", toString(n), ".")
+  rt_warn(deparse(substitute(obj)), " must have the name", if(length(n)>1) "s:", " ", toString(n), ".")
   FALSE
 }
