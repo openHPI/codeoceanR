@@ -4,39 +4,50 @@ By Berry Boessenkool, 2020, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 
 # students
 
-#### initial setup
+#### install R package
 
-Run the following code (in R / Rstudio) to install the codeoceanR package:
+*(once only)*
+
+Run the following code (in R / Rstudio) to install or update the `codeoceanR` package:
 
 ```r
-if(!requireNamespace("remotes", quietly=TRUE))    install.packages("remotes")
-if(!requireNamespace("codeoceanR", quietly=TRUE)) remotes::install_github("openHPI/codeoceanR")
+if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
+remotes::install_github("openHPI/codeoceanR", "main")
 ```
-
-If you get the error: `Failed to install 'unknown package' from GitHub: HTTP error 404. No commit found for the ref master`, try `remotes::install_github("openHPI/codeoceanR", "main")`
- 
-Once installed, keeping it up to date is easy with
-```r
-codeoceanR::rt_update_package()
-```
-
-**If you updated/installed between Tue Nov 10, 13:13 and Nov 11, 13:22, please run instead:**  
-`remotes::install_github("openHPI/codeoceanR")`  
-I broke `rt_update_package` iteself during that time...
-
 
 
 #### procedure
 
+*(for each quiz)*
+
+prepare quiz:
+
 - through OpenHPI, go to the CodeOcean exercise
 - download it to a good location on your PC
-- close the browser tab
-- Run the following code (in R / Rstudio) for the zip file you just downloaded:
-
+- close the CodeOcean browser tab
+- run the following code (in R / Rstudio) for the zip file you just downloaded:
 ```r
-codeoceanR::rt_create_task() 
+codeoceanR::rt_create_task()  # see optional arguments below
 ```
-with the arguments:
+- confirm to have closed the tab & select the quiz file (if not given as argument `zipfile`)
+- open the Rproject if needed
+
+take quiz:
+
+- work on task 1
+- save & source the script with CTRL + SHIFT + S, this will run `codeoceanR::rt_score()`
+- work on task 2
+- CTRL + SHIFT + S
+- ...
+- when done / time is up: run `codeoceanR::rt_score(final=TRUE)`, which opens the HPI task
+- open the CodeOcean exercise again
+- click `Score`
+- click `Submit`
+
+
+#### design
+
+`rt_create_task()` can be run as-is or with any of the arguments:
 
 - `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip" 
   _(On Mac OS, this must be any file within the auto-unzipped folder)_
@@ -44,22 +55,14 @@ with the arguments:
 - `isunzipped`: defaults to TRUE on Mac OS, where the file gets unzipped when downloading
 - `deletezip`: defaults to delete the zip file if task creation was successful, could be FALSE
 
-the intention is for you to only:
-
-- run `rt_create_task()`
-- confirm to have closed the tab
-- select the folder (if not given as argument `zipfile`)
-
-And then `rt_create_task` in the R package should
+`rt_create_task()` should
 
 - create a new folder with a `.Rproj` file
 - open the Project in Rstudio
 - with the `script_n.R` files already opened
 - have everything prepared so `rt_score()` works out of the box.
 
-
-
-`codeoceanR::rt_score()` can and should be run very often.
+Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring.
 
 #### opened files
 
@@ -83,7 +86,7 @@ Quizzes are accessed through openHPI but run and tested at CodeOcean, from which
 The tasks can also be solved in Rstudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, debugging (!), keyboard shortcuts and graphics.
 
 Some participants had a hard time getting started in a time-pressed graded quiz setting.  
-I suggest to first use the system at least once non-graded and non-pressured!  
+I suggest to first use the system at least twice(!) non-graded or non-time-pressured!  
 You can't stress enough that participants need to run "Score" / `rt_score()` very often.  
 
 ## initial setup
@@ -97,9 +100,10 @@ Potentially, admins must first duplicate it for you and set you as the author.
 ## Quiz acces point on openHPI
 
 On OpenHPI, go to Course administration - Course structure and content, e.g. 
-[url for fprog2019](https://open.hpi.de/courses/fprog-wi-2019/sections).  
+[url for fprog2020](https://open.hpi.de/courses/fprog-wi-2020/sections).  
 In the desired section, click "Add item"
 
+- **Title**: e.g. Quiz 3
 - **Type**: External exercise tool
 - **Exercise type**: Main
 - **Maximal points**: e.g. 10
@@ -109,11 +113,12 @@ The acutal deadline and grace period (20% score reduction) must be set in the CO
 - **Instructions**: e.g. Click the button below to launch the exercise.
 - **LTI provider**: CodeOcean
 - **Additional parameters**: locale=en&token=`8ffd83dc`&embed_options_disable_redirect_to_rfcs=true&embed_options_disable_redirect_to_feedback=true&embed_options_disable_interventions=true  
-**replace `8ffd83dc` with the token from your exercise!**  
+**replace `8ffd83dc` with the token from your CodeOcean exercise!**  
 embedding options:  
   -  `redirect_to_rfcs`: disable finished users to be lead to open Request for Comments (RfCs).
   -  `redirect_to_feedback`: after "Submit", if there are no open RfCs, a feedback form is presented to 10% of users (min 20) without full score. 
   -  `interventions`: disable popups like "You seem to have trouble. Request comments here" while users are working.
+- Remember to **copy the openHPI item link** to the CodeOcean description if you want to enable `rt_score(final=TRUE)`.
 
 
 ## CodeOcean exercises
