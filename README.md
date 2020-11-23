@@ -66,15 +66,12 @@ Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring.
 
 #### opened files
 
-You might get the warning "Rstudio User Settings file cannot be found. Files will not already be opened in .Rproj.".  
-It is expected on Mac OS with Rstudio development version, but might occur elsewhere, too.  
-In that case, try to run (after Rstudio is opened) the following:
+If you get the warning _"Rstudio User Settings file cannot be found. Files will not already be opened in .Rproj."._, open any .Rproj in Rstudio, then run:
 ```r
 codeoceanR::rt_set_context_id()
 ```
 For the next quiz, things should then work fine.
 
-If you're a mac pro, please help figuring out where the settings are stored, see [rt_get_context_id.R](https://github.com/openHPI/codeoceanR/blob/main/R/rt_get_context_id.R).
 
 
 # teachers

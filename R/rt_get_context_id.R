@@ -31,6 +31,7 @@ rsfile <- "~/.rstudio-desktop/monitored/user-settings/user-settings"
 if(!file.exists(rsfile)) rsfile <- "~/.config/rstudio/rstudio-desktop.json" # Rstudio 1.4
 if(!file.exists(rsfile)) rsfile <- "~/.config/rstudio/rstudio-state.json" # guessing from #5069...
 if(!file.exists(rsfile)) rsfile <- "/etc/rstudio/rstudio-desktop.json" # guessing from https://github.com/rstudio/rstudio/issues/5301#issuecomment-533216102
+if(!file.exists(rsfile)) rsfile <- "~/.local/share/rstudio/rstudio-desktop.json" # Mac OS
 if(!file.exists(rsfile)) rsfile <- "~/.rstudio/rstudio-desktop.json" # just a wild guess
 if(!file.exists(rsfile)) rsfile <- "~/.rstudio_context_id_by_codeoceanR.txt" # from rt_set_context_id
 if(!file.exists(rsfile)) return(failout())
