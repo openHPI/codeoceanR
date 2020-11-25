@@ -19,7 +19,9 @@ Logical: TRUE / FALSE depending on whether condition is met
 }
 \description{
 Test if a function call in stundent's code has certain arguments.
-If argument value is a charstring, test with \code{rt_has_argument(code, "arg", '"value"')}.
+If argument value is a charstring, test with \code{rt_has_argument(code, "arg", '"value"')}.\cr
+Attenton: if the user script contains line breaks and is read with
+\code{rt_select_script_section(collapse=TRUE)}, \code{rt_has_argument} signals a failure.
 }
 \seealso{
 \link{rt_select_script_section}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github

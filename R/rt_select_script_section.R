@@ -1,6 +1,8 @@
 #' @title Select section of a script
 #' @description Select the section of the script code between `t*_start` and `t*_end` for further analysis in tests.
-#'              The code is not executed, as this is already done in [rt_run_script].
+#'              The code is not executed, as this is already done in [rt_run_script].\\
+#'              Attenton: if the user script contains line breaks and is read with
+#'              `collapse=TRUE`, [rt_has_argument] leads to a test script failure!
 #' @return FALSE for failure, otherwise selected lines of the script,
 #'         by default collapsed (linebreaks replaced with ;) through [paste]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
@@ -12,9 +14,9 @@
 #'
 #' @param scriptlines Charstring with several elements, normally output from [rt_run_script]
 #' @param task_nr     Task number to be found, eg for task_nr=3, the lines between `t3_start` and `t3_end`.
-#' @param collapse    Replace linebreaks with `;` (e.g. for nice inclusion in messages)? DEFAULT: TRUE
+#' @param collapse    Replace linebreaks with `;` (e.g. for nice inclusion in messages)? DEFAULT: FALSE
 #'
-rt_select_script_section <- function(scriptlines, task_nr, collapse=TRUE){
+rt_select_script_section <- function(scriptlines, task_nr, collapse=FALSE){
   if(isFALSE(scriptlines)) return(FALSE)
   # Find task markers, warn if this fails:
   m1 <- paste0("t",task_nr,"_start") # marker

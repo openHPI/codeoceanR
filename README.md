@@ -152,9 +152,6 @@ Instead of checking code like in the [write.table task](https://github.com/openH
 your tests can also execute the code and you test the resulting file.
 This gives participants more freedom in how they structure the task.  
 
-Attenton: if the user script contains line breaks and is read with `rt_select_script_section` with the default `collapse=TRUE`,
-`rt_has_argument` leads to a test script failure.
-
 In tests, **never compare with a result created by the user**, even if that is checked in a previous task.  
 E.g., your test script could fail if you have the user do
 ```

@@ -4,14 +4,14 @@
 \alias{rt_select_script_section}
 \title{Select section of a script}
 \usage{
-rt_select_script_section(scriptlines, task_nr, collapse = TRUE)
+rt_select_script_section(scriptlines, task_nr, collapse = FALSE)
 }
 \arguments{
 \item{scriptlines}{Charstring with several elements, normally output from \link{rt_run_script}}
 
 \item{task_nr}{Task number to be found, eg for task_nr=3, the lines between \code{t3_start} and \code{t3_end}.}
 
-\item{collapse}{Replace linebreaks with \verb{;} (e.g. for nice inclusion in messages)? DEFAULT: TRUE}
+\item{collapse}{Replace linebreaks with \verb{;} (e.g. for nice inclusion in messages)? DEFAULT: FALSE}
 }
 \value{
 FALSE for failure, otherwise selected lines of the script,
@@ -19,7 +19,9 @@ by default collapsed (linebreaks replaced with ;) through \link{paste}
 }
 \description{
 Select the section of the script code between \verb{t*_start} and \verb{t*_end} for further analysis in tests.
-The code is not executed, as this is already done in \link{rt_run_script}.
+The code is not executed, as this is already done in \link{rt_run_script}.\\
+Attenton: if the user script contains line breaks and is read with
+\code{collapse=TRUE}, \link{rt_has_argument} leads to a test script failure!
 }
 \seealso{
 \link{rt_run_script}, \link{rt_script_runs}, \link{rt_has_argument},

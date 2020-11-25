@@ -1,6 +1,8 @@
 #' @title Test function call for certain arguments
 #' @description Test if a function call in stundent's code has certain arguments.
-#' If argument value is a charstring, test with `rt_has_argument(code, "arg", '"value"')`.
+#' If argument value is a charstring, test with `rt_has_argument(code, "arg", '"value"')`.\cr
+#' Attenton: if the user script contains line breaks and is read with
+#' `rt_select_script_section(collapse=TRUE)`, `rt_has_argument` signals a failure.
 # ToDo: handle escaping slashes etc better, see rt_score
 #' @return Logical: TRUE / FALSE depending on whether condition is met
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
