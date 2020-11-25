@@ -11,6 +11,6 @@
 rt_exists <- function(obj) {
   obj <- deparse(substitute(obj)) # charstring of object name
   if(base::exists(obj)) return(TRUE)
-  rt_warn("The object '",obj,"' does not exist.")
+  rt_warn("Create the object '",obj,"'. It does not yet exist.")
   FALSE
 }
