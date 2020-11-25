@@ -20,7 +20,7 @@ rt_contains <- function(obj, value, fixed=TRUE, ignore_space=FALSE){
     {
     value2 <- if(ignore_space) gsub(" ", "", value) else value
     obj2   <- if(ignore_space) gsub(" ", "", obj  ) else obj
-    if(grepl(pattern=value2, x=obj2, fixed=fixed)) return(TRUE)
+    if(any(grepl(pattern=value2, x=obj2, fixed=fixed))) return(TRUE)
     }
   rt_warn(objname, " does not contain ", toString(value))
   FALSE
