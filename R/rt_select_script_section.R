@@ -33,5 +33,7 @@ rt_select_script_section <- function(scriptlines, task_nr, collapse=TRUE){
   sl <- sl[!grepl("^#", sl)]
   if(length(sl)<1) {rt_warn("The code section t",task_nr," is empty."); return(FALSE)}
   if(collapse) sl <- paste(sl, collapse=";")
+  # remove duplicate ";" if someone has ; at the end of a line in their script already
+  sl <- gsub(";;", ";", sl, fixed=TRUE)
   sl
 }
