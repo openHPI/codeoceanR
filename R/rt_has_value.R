@@ -16,7 +16,7 @@ rt_has_value <- function(obj, value, digits=6, noise=TRUE){
   objname <- deparse(substitute(obj))
 
   if(is.character(obj)) if(all(obj==value)) return(TRUE) else
-    {rt_warn(objname, " should be ", toString(value), " but is ", toString(obj));
+    {rt_warn(objname, " should be  '", toString(value), "'  but is  '", toString(obj), "'.");
     return(FALSE)}
 
   if(  all(is.na(value)) & all(is.na(obj))  ) return(TRUE)
