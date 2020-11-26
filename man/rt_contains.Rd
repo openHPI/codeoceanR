@@ -4,7 +4,7 @@
 \alias{rt_contains}
 \title{test object value}
 \usage{
-rt_contains(obj, value, fixed = TRUE, ignore_space = FALSE)
+rt_contains(obj, value, fixed = TRUE, ignore_space = TRUE)
 }
 \arguments{
 \item{obj}{Object to be tested. Just the name, not a character string.}
@@ -13,7 +13,7 @@ rt_contains(obj, value, fixed = TRUE, ignore_space = FALSE)
 
 \item{fixed}{Fixed match in \code{\link[=grepl]{grepl()}}? DEFAULT: TRUE}
 
-\item{ignore_space}{Remove spaces before comparison? DEFAULT: FALSE}
+\item{ignore_space}{Remove spaces before comparison? DEFAULT: TRUE}
 }
 \value{
 Logical: TRUE / FALSE depending on whether object contains \code{value}.
