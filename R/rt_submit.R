@@ -1,6 +1,7 @@
 #' @title Submit score to CodeOcean and from there to openHPI
 #' @description Submit score to CodeOcean and from there to openHPI
-#' @return JSON array or hash
+#' @return JSON array or hash. It can be analyzed e.g. with
+#'         [httr::content]`(r, "parsed", "application/json")`
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2020
 #' @seealso first run [rt_score()]
 #' @export
@@ -19,9 +20,10 @@ r <- rt_score(dir, submit=TRUE)
 # r is according to Sebastian Serth always JSON: either
 # - array like for rt_score()    or
 # - hash with the keys 'message' and 'status' (HTTP-Statuscode)
-browser()
 
 # Message
+out <- httr::content(r, "parsed", "application/json")[[1]]
+message(out) # print message from codeOcean
 
 # Output
 return(invisible(r))

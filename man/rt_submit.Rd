@@ -13,7 +13,8 @@ referenced there, with the changes by the student, saved.
 DEFAULT: "."}
 }
 \value{
-JSON array or hash
+JSON array or hash. It can be analyzed e.g. with
+\link[httr:content]{httr::content}\verb{(r, "parsed", "application/json")}
 }
 \description{
 Submit score to CodeOcean and from there to openHPI
