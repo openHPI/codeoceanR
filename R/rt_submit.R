@@ -21,9 +21,11 @@ r <- rt_score(dir, submit=TRUE)
 # - array like for rt_score()    or
 # - hash with the keys 'message' and 'status' (HTTP-Statuscode)
 
-# Message
-out <- httr::content(r, "parsed", "application/json")[[1]]
-message(out) # print message from codeOcean
+# Message + score from codeOcean
+out <- httr::content(r, "parsed", "application/json")
+message(out$message, "\nThe submitted score is ", round(out$score,2), "%.",
+				"\nFeel free to continue the quiz including rt_score(), ",
+				"but don't submit again as that will decrease your grade.")
 
 # Output
 return(invisible(r))

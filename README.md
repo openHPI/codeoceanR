@@ -30,7 +30,6 @@ prepare quiz:
 codeoceanR::rt_create_task()  # see optional arguments below
 ```
 - confirm to have closed the tab & select the quiz file (if not given as argument `zipfile`)
-- open the Rproject if needed
 
 take quiz:
 
@@ -39,10 +38,8 @@ take quiz:
 - work on task 2
 - CTRL + SHIFT + S
 - ...
-- when done / time is up: run `codeoceanR::rt_score(final=TRUE)`, which opens the HPI task
-- open the CodeOcean exercise again
-- click `Score`
-- click `Submit`
+- when done / time is up: run `codeoceanR::rt_submit()`
+
 
 
 #### design

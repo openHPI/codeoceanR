@@ -87,6 +87,7 @@ message(mout) # print messages + score from codeOcean
 # upload for final submission:
 if(final)
 {
+warning("rt_score(final=T) will soon be deprecated. Use rt_submit() instead.")
 message("For final submission, go to the openHPI task, open CodeOcean from there, click 'SCORE', then 'SUBMIT'.",
         "\nSubmit is currently not available from within R, sorry about the inconvenience.")
 # exercise description potentially with openHPI URL:
