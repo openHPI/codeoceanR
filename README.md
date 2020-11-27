@@ -102,17 +102,16 @@ In the desired section, click "Add item"
 - **Exercise type**: Main
 - **Maximal points**: e.g. 10
 - **Submission deadline**: time before which the CodeOcean task must be **started**.  
-The acutal deadline and grace period (20% score reduction) must be set in the CO task itself (if wanted).
+The actual deadline and grace period (20% score reduction) must be set in the CO task itself (if wanted).
 - **Submission publishing date**: not relevant, can be left empty
 - **Instructions**: e.g. Click the button below to launch the exercise.
 - **LTI provider**: CodeOcean
-- **Additional parameters**: locale=en&token=`8ffd83dc`&embed_options_disable_redirect_to_rfcs=true&embed_options_disable_redirect_to_feedback=true&embed_options_disable_interventions=true  
-**replace `8ffd83dc` with the token from your CodeOcean exercise!**  
+- **Additional parameters**: locale=en&token=`xxxxxxxx`&embed_options_disable_redirect_to_rfcs=true&embed_options_disable_redirect_to_feedback=true&embed_options_disable_interventions=true  
+**replace `xxxxxxxx` with the token from your CodeOcean exercise!**  
 embedding options:  
   -  `redirect_to_rfcs`: disable finished users to be lead to open Request for Comments (RfCs).
   -  `redirect_to_feedback`: after "Submit", if there are no open RfCs, a feedback form is presented to 10% of users (min 20) without full score. 
   -  `interventions`: disable popups like "You seem to have trouble. Request comments here" while users are working.
-- Remember to **copy the openHPI item link** to the CodeOcean description if you want to enable `rt_score(final=TRUE)`.
 
 
 ## CodeOcean exercises
@@ -123,11 +122,9 @@ The structure of task and test scripts can also be seen at <https://github.com/o
 A collection of exercises can be requested through [Berry](mailto:berry-b@gmx.de) or [Sebastian](mailto:sebastian.serth@hpi.de).  
 There's an overview of all R quizzes at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
 
-If the description includes an empty link (invisible on CO) to the openHPI excercise, like this `[](openHPI_item_url)`,
-it will be used by `codeoceanR::score(final=TRUE)` for automated opening.
-
 The Makefile run: could have `Rscript ${FILENAME}` as well, 
 but then the run output does not contain the calls, making error sources harder to find.  
+
 Hide your exercices if wanted (e.g. during development) by unchecking the 'Public' box.  
 The admins would like you to use a prefix in the quiz name, e.g. Fprog20 for my course.
 
