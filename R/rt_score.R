@@ -72,9 +72,8 @@ if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
 	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))',
 	call.=FALSE)
-httr::stop_for_status(r) # if any, pass http errors to R
-
 if(submit) return(r)
+httr::stop_for_status(r) # if any, pass http errors to R
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
