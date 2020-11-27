@@ -4,7 +4,7 @@
 \alias{rt_score}
 \title{upload exercise to codeOcean}
 \usage{
-rt_score(dir = ".", final = FALSE, wait = 15)
+rt_score(dir = ".", final = FALSE, wait = 15, submit = FALSE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
@@ -17,6 +17,9 @@ DEFAULT: FALSE}
 
 \item{wait}{Number of seconds to wait before opening the url.
 If >60 seconds, it is set to 60 seconds internally. DEFAULT: 15}
+
+\item{submit}{Submit grade to openHPI? To be called from \code{\link[=rt_submit]{rt_submit()}}.
+Will soon replace the 'final' option}
 }
 \value{
 \code{\link[httr:content]{httr::content()}} output of response to http request, invisibly

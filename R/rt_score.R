@@ -18,8 +18,10 @@
 #'            DEFAULT: FALSE
 #' @param wait Number of seconds to wait before opening the url.
 #'            If >60 seconds, it is set to 60 seconds internally. DEFAULT: 15
+#' @param submit Submit grade to openHPI? To be called from [rt_submit()].
+#'            Will soon replace the 'final' option
 #'
-rt_score <- function(dir=".", final=FALSE, wait=15)
+rt_score <- function(dir=".", final=FALSE, wait=15, submit=FALSE)
 {
 # Avoid recursive posting in case students leave rt_score() in the exercise script:
 if(!interactive()) return(NULL)
@@ -37,6 +39,7 @@ rt_check_for_unsaved_files(dir, warnonly=TRUE)
 co <- readLines(cofile, warn=FALSE)
 co_token <- co[1]
 co_url   <- co[2]
+if(submit) co_url <- sub("evaluate", "submit", co_url)
 
 # Get all file contents:
 co_files <- co[-(1:2)]
@@ -70,6 +73,8 @@ if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))',
 	call.=FALSE)
 httr::stop_for_status(r) # if any, pass http errors to R
+
+if(submit) return(r)
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
