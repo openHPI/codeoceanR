@@ -14,11 +14,14 @@
 #'
 rt_submit <- function(dir=".")
 {
+# Avoid error in case students leave rt_submit() in the exercise script
+# on the CO server (non-interactive mode), readline returns ""
+if(!interactive()) return(NULL)
+
 rl <- readline("This is my final grade submission (y/n): ")
 if(tolower(substr(rl,1,1)) != "y") stop("Submission has been canceled.")
 
 r <- rt_score(dir, submit=TRUE)
-if(is.null(r)) return(NULL) # For non-interactive session
 
 # according to Sebastian Serth, r is always JSON:
 # - unlikely: array like for rt_score() if submission went wrong before running the tests
