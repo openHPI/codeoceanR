@@ -20,6 +20,7 @@ task_id <- "_run"
 
 
 # RUN SCRIPT
+# Move these to right before the corresponding tests, see Note in README
 
 
 
@@ -27,13 +28,19 @@ task_id <- "_run"
 
 # TEST TASK
 
+# submission time ----
+
+task_id <- ""
+rt_due_warn("2020-11-30 16:30") # 16:00 CET is 15:00 UTC
+
+
 }, silent=TRUE)
 task_id <- "_post"
-if(inherits(trytests, "try-error")) {
+if(inherits(trytests, "try-error"))
   rt_warn("The test script failed. Sorry for the 0 points right now. ",
   				"You'll have to revert the last thing(s) you did. ",
-  				if(interactive())"Please click 'Request comments' and copypaste the logfile below.\n", trytests)
-}
+  				"Please send Berry the logfile below through email or 'Request comments'.\n", trytests)
+
 # Final output -----------------------------------------------------------------
 
 # Keep the following at the end of the script, for CodeOcean scoring:

@@ -137,6 +137,10 @@ emphasize to never touch raw data and use `read.table(...,skip=n)` instead.
 
 I suggest developing (and testing) the tasks within Rstudio.
 
+In the test script, have `rt_run_script()` right before the actual tests.
+That way, you can check for the value of `n` even if students create `n` 
+for other purposes in a later script, e.g. in a student-defined loop.
+
 Always test the entire quiz on CodeOcean as well, especially after expanding tests.  
 Example: `rt_has_argument` didn't run online in the first version, 
 since `parse(code)` needs to have `keep.source=TRUE`. 
