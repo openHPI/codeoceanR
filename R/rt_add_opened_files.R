@@ -44,6 +44,9 @@ cat('{
     "project_path": "',file,'",
     "created": 0,
     "dirty": false,
+    "properties": {
+        "docOutlineVisible": "1"
+    },
     "source_on_save": false
 }
 ', file=paste0(sfdir, id), sep="")
