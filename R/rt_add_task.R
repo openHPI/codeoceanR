@@ -33,11 +33,10 @@ if(script_nr>1 && !file.exists(taskfile))
 	cat(paste0("\n\n# Now continue in script_",script_nr,".R\n"),
 			file=paste0(dir,"/script_", script_nr-1,".R"), append=TRUE)
 # start new script with instructions:
-# browser()
 if(!file.exists(taskfile) || !any(grepl("codeoceanR::rt_score", readLines(taskfile), fixed=TRUE)) )
-	cat("# To score, you can source the entire script (CTRL + SHIFT + S) to run",
-      "\ncodeoceanR::rt_score()\n", file=taskfile, append=TRUE)
-
+	cat(if(script_nr==1) "# Submission is due 16:00 CET. In the succeeding 15 minutes you still get 80% of the score.\n\n",
+		"# To score, you can save + source the entire script (CTRL + SHIFT + S) to run",
+      "\ncodeoceanR::rt_score()\n", file=taskfile, append=TRUE, sep="")
 
 # text of exercise:
 te <- tdb[id,'Task']

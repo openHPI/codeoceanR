@@ -51,12 +51,12 @@ if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
 out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
 out <- tail(unlist(out),1)
-cat("\n# Once time is up / you're content, follow the instructions you get with",
-    "\n# codeoceanR::rt_score(final=TRUE, wait=15) # CTRL + SHIFT + C to uncomment this line\n\n",
-		file=out, append=TRUE)
+cat("\n\n\n# submit for grading ----\n\n# codeoceanR::rt_submit() # in the console, ",
+		"confirm you really want to submit\n\n", file=out, append=TRUE)
 #
 # put scripts to Rstudio opened files list:
 rt_add_opened_files(dir(dir,pattern="script_"), dir=dir)
+rt_add_opened_files("tests.R", dir=dir)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)

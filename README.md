@@ -146,23 +146,22 @@ Example: `rt_has_argument` didn't run online in the first version,
 since `parse(code)` needs to have `keep.source=TRUE`. 
 The default option is TRUE only in an interactive R session!
 
+If possible, recruit two student assistants just to test-run the quiz. They might find errors you overlooked.  
+Example: in a statement combination task, the solution was meant to be `c(A=4, C=1, D=3)`,
+and I had not thought of students using a different order (which is OK). The solution for the test script:  
+`if(exists("obj")) obj <- obj[order(names(obj))]`
+
+
 Instead of checking code like in the [write.table task](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/script_2.R#L9-L13) and [test](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/tests.R#L61-L73), 
 your tests can also execute the code and you test the resulting file.
 This gives participants more freedom in how they structure the task.  
 
-In tests, **never compare with a result created by the user**, even if that is checked in a previous task.  
-E.g., your test script could fail if you have the user do
-```
-df <- read.table("file.txt")
-cmean <- mean(df[,-1])
-```
-and you test the df in one task and for the next
-`rt_has_value(cmean,  mean(df[,-1]) )`  
-There will be that one student who fails to specify header or sep or whatever,
-meaning that `df` cannot be trusted to be correct.  
-Besides not getting a point for the df task, the test script would fail and give no points at all.  
-Rather read the dataset in the test script just before the cmean tests or hard-code the value.  
-For the same reason, test 1 contains `iris <- datasets::iris`
+In tests, **never use an object created by the students for reference**.
+Even results from a previous task should be created in the test-script.
+Students can have their own copy of e.g. `iris`, hence use `datasets::iris`
+
+
+
 
 ## CO instead of Rstudio
 
