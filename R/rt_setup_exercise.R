@@ -51,7 +51,7 @@ if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
 out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
 out <- tail(unlist(out),1)
-cat("\n\n\n# submit for grading ----\n\n# codeoceanR::rt_submit() # in the console, ",
+cat("\n\n\n# submit for grading ----\n\n# codeoceanR::rt_submit() # in the console (!),",
 		"confirm you really want to submit\n\n", file=out, append=TRUE)
 #
 # put scripts to Rstudio opened files list:
