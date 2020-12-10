@@ -8,7 +8,7 @@ rt_due_warn(
   due,
   tz = "CET",
   format = "\%Y-\%m-\%d \%H:\%M",
-  begin = 7,
+  begin = 90,
   end = -15,
   ...
 )
@@ -21,7 +21,7 @@ Remember 15:00 UTC is 16:00 CET.}
 
 \item{format}{Format for \link{strptime}. DEFAULT: "\%Y-\%m-\%d \%H:\%M"}
 
-\item{begin}{Numeric: remaining time in minutes after which the message is displayed. DEFAULT: 7}
+\item{begin}{Numeric: remaining time in minutes after which the message is displayed. DEFAULT: 90}
 
 \item{end}{Numeric: remaining time in minutes after which the message is no longer displayed. DEFAULT: -15}
 

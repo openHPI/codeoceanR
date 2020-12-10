@@ -15,7 +15,7 @@
 #'              Remember 15:00 UTC is 16:00 CET.
 #' @param tz    Timezone for [strptime]. DEFAULT: "CET"
 #' @param format Format for [strptime]. DEFAULT: "%Y-%m-%d %H:%M"
-#' @param begin Numeric: remaining time in minutes after which the message is displayed. DEFAULT: 7
+#' @param begin Numeric: remaining time in minutes after which the message is displayed. DEFAULT: 90
 #' @param end   Numeric: remaining time in minutes after which the message is no longer displayed. DEFAULT: -15
 #' @param \dots Further arguments passed to [rt_warn()]
 #'
@@ -23,7 +23,7 @@ rt_due_warn <- function(
 due,
 tz="CET",
 format="%Y-%m-%d %H:%M",
-begin=7,
+begin=90,
 end=-15,
 ...
 )
