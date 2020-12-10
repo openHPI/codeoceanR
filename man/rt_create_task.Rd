@@ -4,30 +4,16 @@
 \alias{rt_create_task}
 \title{Create Task folder from zip file}
 \usage{
-rt_create_task(
-  zipfile = NULL,
-  exdir = NULL,
-  isunzipped = rt_is_OS("Mac"),
-  deletezip = TRUE,
-  ...
-)
+rt_create_task(zipfile = NULL, deletezip = TRUE, isunzipped, exdir, ...)
 }
 \arguments{
-\item{zipfile}{Path to zip file. Remember: on Windows, "\" must be changed to "/".
-On Mac OS, the file gets unzipped upon downloading,
-so it must be any one of the files within that folder.
+\item{zipfile}{Path to zip file (or, if unzipped, any of the files within the folder).
+"\" (on Windows) must be changed to "/".
 DEFAULT: NULL, meaning to use \code{\link[=file.choose]{file.choose()}}}
 
-\item{exdir}{Folder to unzip to, e.g. "./task" for folder at current wd.
-\code{exdir} may not yet exist, to avoid overwriting previously
-unzipped and potentially edited tasks.
-\code{exdir} must remain NULL if \code{isunzipped=TRUE} (on Mac OS).
-DEFAULT: NULL (path from zipfile).}
-
-\item{isunzipped}{Is the quiz already unzipped to a folder? Then that folder will be used.
-DEFAULT: \link{rt_is_OS}\code{("Mac")}}
-
 \item{deletezip}{If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE}
+
+\item{isunzipped, exdir}{Ignored arguments.}
 
 \item{\dots}{Further arguments passed to \code{\link{unzip}}}
 }
@@ -36,11 +22,12 @@ exdir, invisibly
 }
 \description{
 Create task folder from zip file, with a \code{.Rproj} file and try to open that in Rstudio.
+On Mac OS, the quiz file gets unzipped upon downloading, hence any file within the folder can be used.
 }
 \seealso{
 \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Dec 2020
 }
 \keyword{file}

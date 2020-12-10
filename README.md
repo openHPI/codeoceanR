@@ -48,8 +48,6 @@ take quiz:
 
 - `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip" 
   _(On Mac OS, this must be any file within the auto-unzipped folder)_
-- `exdir`: defaults to folder without zip extension, could be e.g "./newFolder_at_wd/quiz1"
-- `isunzipped`: defaults to TRUE on Mac OS, where the file gets unzipped when downloading
 - `deletezip`: defaults to delete the zip file if task creation was successful, could be FALSE
 
 `rt_create_task()` should
