@@ -4,7 +4,7 @@
 \alias{rt_score}
 \title{upload exercise to codeOcean}
 \usage{
-rt_score(dir = ".", final = FALSE, wait = 15, submit = FALSE)
+rt_score(dir = ".", final, wait, submit = FALSE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
@@ -12,14 +12,9 @@ Must contain ".co" and all the "script_n.R" files
 referenced there, with the changes by the student, saved.
 DEFAULT: "."}
 
-\item{final}{Print instructions (+ open URL, if available) for final submission?
-DEFAULT: FALSE}
+\item{final, wait}{Deprecated argument.}
 
-\item{wait}{Number of seconds to wait before opening the url.
-If >60 seconds, it is set to 60 seconds internally. DEFAULT: 15}
-
-\item{submit}{Submit grade to openHPI? To be called from \code{\link[=rt_submit]{rt_submit()}}.
-Will soon replace the 'final' option}
+\item{submit}{Submit grade to openHPI? To be called from \code{\link[=rt_submit]{rt_submit()}}.}
 }
 \value{
 \code{\link[httr:content]{httr::content()}} output of response to http request, invisibly

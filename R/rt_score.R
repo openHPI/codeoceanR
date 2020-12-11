@@ -14,17 +14,16 @@
 #'            Must contain ".co" and all the "script_n.R" files
 #'            referenced there, with the changes by the student, saved.
 #'            DEFAULT: "."
-#' @param final Print instructions (+ open URL, if available) for final submission?
-#'            DEFAULT: FALSE
-#' @param wait Number of seconds to wait before opening the url.
-#'            If >60 seconds, it is set to 60 seconds internally. DEFAULT: 15
+#' @param final,wait Deprecated argument.
 #' @param submit Submit grade to openHPI? To be called from [rt_submit()].
-#'            Will soon replace the 'final' option
 #'
-rt_score <- function(dir=".", final=FALSE, wait=15, submit=FALSE)
+rt_score <- function(dir=".", final, wait, submit=FALSE)
 {
 # Avoid recursive posting in case students leave rt_score() in the exercise script:
 if(!interactive()) return(NULL)
+
+if(!missing(final) || !missing(wait))
+	stop("rt_score(final=TRUE) has been deprecated. Use rt_submit() instead.")
 
 # Check directory and file
 dir <- berryFunctions::normalizePathCP(dir)
@@ -92,27 +91,5 @@ mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
 mout <- gsub("\n$", "", mout)
 mout <- paste0(mout, ", score: ", round(out$score*100), "%")
 message(mout) # print messages + score from codeOcean
-
-# upload for final submission:
-if(final)
-{
-warning("rt_score(final=T) will soon be deprecated. Use rt_submit() instead.")
-message("For final submission, go to the openHPI task, open CodeOcean from there, click 'SCORE', then 'SUBMIT'.",
-        "\nSubmit is currently not available from within R, sorry about the inconvenience.")
-# exercise description potentially with openHPI URL:
-desc <- paste0(dir, "/Exercise.txt")
-if(file.exists(desc)) desc <- readLines(desc, warn=FALSE) else desc <- ""
-url <- grep("\\[\\](.*)", desc, value=TRUE)
-if(nchar(url)>0)
-  {
-	url <- gsub("[](", "", url, fixed=TRUE)
-	url <- gsub(")$", "", url)
-	message("At least I'm opening the task",if(wait>1)paste0(" in ", wait, " seconds (set wait=0 to reduce)"),": ", url)
-	if(wait>60) wait <- 60
-	Sys.sleep(wait)
-	browseURL(url)
-	}
-} # end final
-# Output:
 return(invisible(out))
 }
