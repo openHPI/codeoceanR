@@ -30,6 +30,12 @@ if(!interactive()) return(NULL)
 dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
 cofile <- paste0(dir, "/.co")
+# run rt_local_score in quiz development folder with tests.R:
+if(!file.exists(cofile) && file.exists(paste0(dir,"/tests.R")))
+	{
+	message(".co folder does not exist, running rt_local_score()")
+	return(rt_local_score(dir))
+  }
 berryFunctions::checkFile(cofile)
 
 # Stop if files are changed but not saved:
