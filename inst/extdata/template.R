@@ -16,7 +16,6 @@ ntests <- 10 # number of tests
 npassed <- 0 # number of passed tests
 
 trytests <- try({
-task_id <- "_run"
 
 
 # RUN SCRIPT
