@@ -44,6 +44,7 @@ cat('{
     "project_path": "',file,'",
     "created": 0,
     "dirty": false,
+    "relative_order": ',rt_nextlargestorder(sfdir),',
     "properties": {
         "docOutlineVisible": "1"
     },
