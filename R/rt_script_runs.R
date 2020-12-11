@@ -9,5 +9,8 @@
 #'                     Will be checked with \code{!\link{isFALSE}()}.
 #'
 rt_script_runs <- function(scriptobject){
+	# in case things like gsub("'", "\"", code) have been run:
+	if(is.character(scriptobject)) !identical(scriptobject,"FALSE") else
+	# otherwise regular test:
   !isFALSE(scriptobject)
 }
