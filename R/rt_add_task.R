@@ -45,8 +45,7 @@ te <- gsub("tx_start", paste0("t",task_nr,"_start"), te, fixed=TRUE)
 te <- gsub("tx_end"  , paste0("t",task_nr,"_end"  ), te, fixed=TRUE)
 
 # Write task:
-cat(paste0("\n\n# Task ",task_nr," -----\n\n# ", te,
-					 "\n\n\n# Remember to score now :)\n"),
+cat(paste0("\n\n# Task ",task_nr," -----\n\n# ", te, "\n\n"),
 		file=taskfile, append=TRUE)
 
 # TEST ----
@@ -72,7 +71,7 @@ if(is.na(tt) || tt=="---")
   toprint <- paste0("task_id <- ",task_nr," # ",task_nr," ------\n\n# ", tt, "\n\n")
   tlines <- sub("# TEST TASK", paste0(toprint,"\n# TEST TASK"), tlines)
   writeLines(tlines, testfile)
-  return(dir)
+  return(taskfile)
   }
 
 # text of test:
