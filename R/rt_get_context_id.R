@@ -12,7 +12,8 @@ failout <- function(txt="found", fn="")
   {
 	warning("Rstudio User Settings file cannot be ",txt, if(fn!="") paste0(fn, ".\n") else ". ",
 					"Files will not already be opened in .Rproj.",
-					"\nSee rt_set_context_id to solve this for next time.", call.=FALSE)
+					"\nOpen any .Rproj in Rstudio, then run:  codeoceanR::rt_set_context_id()  ",
+					"to solve this for next time.", call.=FALSE)
 	return("5A57A303")
   }
 #

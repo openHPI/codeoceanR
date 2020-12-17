@@ -59,15 +59,6 @@ take quiz:
 
 Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring.
 
-#### opened files
-
-If you get the warning _"Rstudio User Settings file cannot be found. Files will not already be opened in .Rproj."._, open any .Rproj in Rstudio, then run:
-```r
-codeoceanR::rt_set_context_id()
-```
-For the next quiz, things should then work fine.
-
-
 
 # teachers
 
