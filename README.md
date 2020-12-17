@@ -25,18 +25,15 @@ prepare quiz:
 - through OpenHPI, go to the CodeOcean exercise
 - download it to a good location on your PC
 - close the CodeOcean browser tab
-- run the following code (in R / Rstudio) for the zip file you just downloaded:
-```r
-codeoceanR::rt_create_task()  # see optional arguments below
-```
-- confirm to have closed the tab & select the quiz file (if not given as argument `zipfile`)
+- run (in R / Rstudio) `codeoceanR::rt_create_task()`
+- confirm to have closed the tab & select the quiz file (if not given as argument `zipfile`, see below)
 
 take quiz:
 
 - work on task 1
-- save & source the script with CTRL + SHIFT + S, this will run `codeoceanR::rt_score()`
+- save & source the script with `CTRL + SHIFT + S`, this will run `codeoceanR::rt_score()`
 - work on task 2
-- CTRL + SHIFT + S
+- `CTRL + SHIFT + S`
 - ...
 - when done / time is up: run `codeoceanR::rt_submit()`
 
@@ -44,10 +41,10 @@ take quiz:
 
 #### design
 
-`rt_create_task()` can be run as-is or with any of the arguments:
+`rt_create_task()` can be run as-is or with the arguments:
 
-- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip" 
-  _(On Mac OS, this must be any file within the auto-unzipped folder)_
+- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip"  
+  _If the quiz is unzipped (the default on Mac OS Safari), any file within the folder_
 - `deletezip`: defaults to delete the zip file if task creation was successful, could be FALSE
 
 `rt_create_task()` should
@@ -57,7 +54,8 @@ take quiz:
 - with the `script_n.R` files already opened
 - have everything prepared so `rt_score()` works out of the box.
 
-Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring.
+Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring.  
+`codeoceanR::rt_submit()` at the end submits the score to openHPI.
 
 
 # teachers
@@ -138,7 +136,12 @@ The default option is TRUE only in an interactive R session!
 If possible, recruit two student assistants just to test-run the quiz. They might find errors you overlooked.  
 Example: in a statement combination task, the solution was meant to be `c(A=4, C=1, D=3)`,
 and I had not thought of students using a different order (which is OK). The solution for the test script:  
-`if(exists("obj")) obj <- obj[order(names(obj))]`
+`if(exists("obj")) obj <- obj[order(names(obj))]`  
+Another example: I once had a task where I tested `rt_has_nrows(df_object, 6)` 
+accidentally without first testing `rt_has_class(df_object, "data.frame")`. 
+Someone used `readLines` instead of `read.table` and the test script failed.
+
+
 
 
 Instead of checking code like in the [write.table task](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/script_2.R#L9-L13) and [test](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/tests.R#L61-L73), 
