@@ -32,13 +32,13 @@ cofile <- paste0(dir, "/.co")
 # run rt_local_score in quiz development folder with tests.R:
 if(!file.exists(cofile) && file.exists(paste0(dir,"/tests.R")))
 	{
-	message(".co folder does not exist, running rt_local_score()")
+	message(".co file does not exist, running rt_local_score()")
 	return(rt_local_score(dir))
   }
 # check if dir is a quiz directory
 if(!file.exists(cofile)) stop("You're not in a quiz directory. ",
-					"The folder '.co' does not exist. \nYou're at '", dir, "'\n",
-					"Make sure you have run rt_create_task() and the 'zz_quiz_n.Rproj' file has been opened.\n",
+					"The file '.co' does not exist. \nYou're at '", dir, "'\n",
+					"Make sure you have run rt_create_task() and the 'zz_quiz_*.Rproj' file has been opened.\n",
 					"In Rstudio on the top right, the R Project symbol should show the quiz name.")
 
 # Warn if files are changed but not saved:
