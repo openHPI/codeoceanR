@@ -99,6 +99,7 @@ embedding options:
   -  `redirect_to_rfcs`: disable finished users to be lead to open Request for Comments (RfCs).
   -  `redirect_to_feedback`: after "Submit", if there are no open RfCs, a feedback form is presented to 10% of users (min 20) without full score. 
   -  `interventions`: disable popups like "You seem to have trouble. Request comments here" while users are working.
+  -  [all options](https://github.com/openHPI/codeocean/blob/master/app/controllers/concerns/lti.rb#L212-L225)
 
 
 ## CodeOcean exercises
