@@ -23,10 +23,10 @@ remotes::install_github("openHPI/codeoceanR", "main")
 prepare exercise:
 
 - through OpenHPI, go to the CodeOcean exercise
-- download it to a good location on your PC
-- close the CodeOcean browser tab
-- run (in R / Rstudio) `codeoceanR::rt_create_task()`
-- confirm to have closed the tab & select the exercise file (if not given as argument `zipfile`, see below)
+- **download** it to a good location on your PC, no need to unzip
+- **close** the CodeOcean browser **tab**
+- **run** (in R / Rstudio) `codeoceanR::rt_create_task()`
+- **confirm** to have closed the tab & **select** the exercise file (if unzipped, any file within the folder, see `zipfile` below)
 
 take exercise:
 
@@ -43,9 +43,9 @@ take exercise:
 
 `rt_create_task()` can be run as-is or with the arguments:
 
-- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_Rex_1.zip"  
+- `zipfile`: defaults to interactive file choice, could also be e.g. "C:/Dropbox/R/FProg20_Rex_1.zip"  
   _If the exercise is unzipped (the default on Mac OS Safari), any file within the folder_
-- `deletezip`: defaults to delete the zip file if task creation was successful, could be FALSE
+- `deletezip`: defaults to delete the zip file if task creation was successful, could also be FALSE
 
 `rt_create_task()` should
 
@@ -54,8 +54,8 @@ take exercise:
 - with the `script_n.R` files already opened
 - have everything prepared so `rt_score()` works out of the box.
 
-Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring.  
-`codeoceanR::rt_submit()` at the end submits the score to openHPI.
+Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
+`codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.
 
 
 # teachers
