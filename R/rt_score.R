@@ -66,13 +66,13 @@ get_escaped_file_content <- function(fn)
   d <- gsub("\"$", "", d)
   d
   }
-fileattr <- sapply(1:nrow(co_files), function(i) paste0('{"file_id": ',co_files$id[i],
+fileattr <- sapply(1:nrow(co_files), function(i) paste0('"',i-1,'": {"file_id": ',co_files$id[i],
 							',"content": "',get_escaped_file_content(co_files$name[i]),'"}'))
 fileattr <- paste(fileattr, collapse=", ")
 
 # put into http request body:
 body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
-							 '","files_attributes": [',fileattr,']}}')
+							 '","files_attributes": {',fileattr,'}}}')
 
 # Post to CodeOcean:
 r <- httr::POST(url=co_url, body=body, httr::content_type("application/json"))
