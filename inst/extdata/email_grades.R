@@ -31,9 +31,10 @@ clipr::write_clip(paste0("Dear ", unname(grades[i,2]),
 			 "\n\nPlease let me know if anything is wrong.",
 			 "\n\nKind regards,\nBerry"))
 beepr::beep(1)
-if(i == nrow(grades)) {Sys.sleep(2) ; beepr::beep(3)} else
-Sys.sleep(6.5)
+Sys.sleep(if(i==nrow(grades)) 1.5 else 6.5)
 })
+beepr::beep(3)
+
 
 
 # clipr::write_clip("Quiz scores")
