@@ -1,4 +1,4 @@
-# CodeOcean graded quizzes for R
+# CodeOcean graded exercises for R
 
 By Berry Boessenkool, 2020-2021, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 
@@ -18,17 +18,17 @@ remotes::install_github("openHPI/codeoceanR", "main")
 
 #### procedure
 
-*(for each quiz)*
+*(for each exercise)*
 
-prepare quiz:
+prepare exercise:
 
 - through OpenHPI, go to the CodeOcean exercise
 - download it to a good location on your PC
 - close the CodeOcean browser tab
 - run (in R / Rstudio) `codeoceanR::rt_create_task()`
-- confirm to have closed the tab & select the quiz file (if not given as argument `zipfile`, see below)
+- confirm to have closed the tab & select the exercise file (if not given as argument `zipfile`, see below)
 
-take quiz:
+take exercise:
 
 - work on task 1
 - save & source the script with `CTRL + SHIFT + S`, this will run `codeoceanR::rt_score()`
@@ -43,8 +43,8 @@ take quiz:
 
 `rt_create_task()` can be run as-is or with the arguments:
 
-- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_R_quiz_1.zip"  
-  _If the quiz is unzipped (the default on Mac OS Safari), any file within the folder_
+- `zipfile`: defaults to interactive file choice, could be e.g. "C:/Dropbox/R/FProg20_Rex_1.zip"  
+  _If the exercise is unzipped (the default on Mac OS Safari), any file within the folder_
 - `deletezip`: defaults to delete the zip file if task creation was successful, could be FALSE
 
 `rt_create_task()` should
@@ -63,28 +63,28 @@ Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring.
 It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
 
-Quizzes are accessed through openHPI but run and tested at CodeOcean, from which grades are passed back.
+Exercises are accessed through openHPI but run and tested at CodeOcean, from which grades are passed back.
 The tasks can also be solved in Rstudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, debugging (!), keyboard shortcuts and graphics.
 
-Some participants had a hard time getting started in a time-pressed graded quiz setting.  
+Some participants had a hard time getting started in a time-pressed graded exercise setting.  
 I suggest to first use the system at least twice(!) non-graded or non-time-pressured!  
 You can't stress enough that participants need to run "Score" / `rt_score()` very often.  
 
 ## initial setup
 
-The openHPI admins will have to create a dummy CodeOcean quiz in OpenHPI for you the first time.  
+The openHPI admins will have to create a dummy CodeOcean exercise in OpenHPI for you the first time.  
 To be logged in, open CodeOcean through "Launch exercise tool".  
 Then you can either go to <https://codeocean.openhpi.de/exercises/new>
 or copy my [basic exercise](https://codeocean.openhpi.de/exercises/721). 
 Potentially, admins must first duplicate it for you and set you as the author.
 
-## Quiz acces point on openHPI
+## exercise acces point on openHPI
 
 On OpenHPI, go to Course administration - Course structure and content, e.g. 
 [url for fprog2020](https://open.hpi.de/courses/fprog-wi-2020/sections).  
 In the desired section, click "Add item"
 
-- **Title**: e.g. Quiz 3
+- **Title**: e.g. exercise 3
 - **Type**: External exercise tool
 - **Exercise type**: Main
 - **Maximal points**: e.g. 10
@@ -108,13 +108,13 @@ All file types & roles etc can be seen in my basic exercise at <https://codeocea
 You can only have one 'main' file, the rest must be 'executable file (similar to main file)'.  
 The structure of task and test scripts can also be seen at <https://github.com/openHPI/codeoceanR/tree/main/inst/extdata>  
 A collection of exercises can be requested through [Berry](mailto:berry-b@gmx.de) or [Sebastian](mailto:sebastian.serth@hpi.de).  
-There's an overview of all R quizzes at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
+There's an overview of all R exercises at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
 
 The Makefile run: could have `Rscript ${FILENAME}` as well, 
 but then the run output does not contain the calls, making error sources harder to find.  
 
 Hide your exercices if wanted (e.g. during development) by unchecking the 'Public' box.  
-The admins would like you to use a prefix in the quiz name, e.g. Fprog20 for my course.
+The admins would like you to use a prefix in the exercise name, e.g. Fprog20 for my course.
 
 If you have data files to be read, make sure to check the box for Read-only.  
 Otherwise users might change the file and your test script might fail,
@@ -129,12 +129,12 @@ In the test script, have `rt_run_script()` right before the actual tests.
 That way, you can check for the value of `n` even if students create `n` 
 for other purposes in a later script, e.g. in a student-defined loop.
 
-Always test the entire quiz on CodeOcean as well, especially after expanding tests.  
+Always test the entire exercise on CodeOcean as well, especially after expanding tests.  
 Example: `rt_has_argument` didn't run online in the first version, 
 since `parse(code)` needs to have `keep.source=TRUE`. 
 The default option is TRUE only in an interactive R session!
 
-If possible, recruit two student assistants just to test-run the quiz. They might find errors you overlooked.  
+If possible, recruit two student assistants just to test-run the exercise. They might find errors you overlooked.  
 Example: in a statement combination task, the solution was meant to be `c(A=4, C=1, D=3)`,
 and I had not thought of students using a different order (which is OK). The solution for the test script:  
 `if(exists("obj")) obj <- obj[order(names(obj))]`  
