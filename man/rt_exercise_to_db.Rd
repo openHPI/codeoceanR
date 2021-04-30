@@ -4,10 +4,12 @@
 \alias{rt_exercise_to_db}
 \title{Format exercise tasks for database}
 \usage{
-rt_exercise_to_db(dir = "./Quiz1")
+rt_exercise_to_db(dir = "./Quiz1", ntasks = 10)
 }
 \arguments{
 \item{dir}{Directory with \code{script_1.R}, \code{script_1.R}, \code{...}, \code{tests.R}. DEFAULT: "./Quiz1"}
+
+\item{ntasks}{Number of tasks to obtain. DEFAULT: 10}
 }
 \value{
 location of tempfile with data.frame with tasks and reduced tests.

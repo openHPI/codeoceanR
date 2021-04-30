@@ -11,9 +11,11 @@
 #' rt_exercise_to_db("C:/Users/berry/Desktop/CORQUIZ")
 #'
 #' @param dir Directory with `script_1.R`, `script_1.R`, `...`, `tests.R`. DEFAULT: "./Quiz1"
+#' @param ntasks Number of tasks to obtain. DEFAULT: 10
 #'
 rt_exercise_to_db <- function(
-dir="./Quiz1"
+dir="./Quiz1",
+ntasks=10
 )
 {
 dir <- berryFunctions::normalizePathCP(dir)
@@ -25,7 +27,7 @@ if(!file.exists(ft)) stop("No 'tests.R' file was found at dir: ", dir)
 #
 select_parts <- function(r, tag="# Task .* -----")
 {
-lapply(1:10, function(i)
+lapply(1:ntasks, function(i)
   {
   tbeg <- grep(gsub(".*",i,tag, fixed=TRUE), r, fixed=TRUE)
   if(length(tbeg)==0) return()
