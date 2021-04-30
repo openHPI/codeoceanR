@@ -14,7 +14,10 @@
 #'
 #' @param scriptlines Charstring with several elements, normally output from [rt_run_script]
 #' @param task_nr     Task number to be found, eg for task_nr=3, the lines between `t3_start` and `t3_end`.
-#' @param collapse    Replace linebreaks with `;` (e.g. for nice inclusion in messages)? DEFAULT: FALSE
+#' @param collapse    Replace linebreaks with `;` (e.g. for nice inclusion in messages)?
+#'                    Also helpful if you want do run your own grepl tests on it
+#'                    to not have a vector and if(grepl(...)) error the condition has length > 1.
+#'                    DEFAULT: FALSE
 #'
 rt_select_script_section <- function(scriptlines, task_nr, collapse=FALSE){
   if(isFALSE(scriptlines)) return(FALSE)

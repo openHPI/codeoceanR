@@ -11,7 +11,10 @@ rt_select_script_section(scriptlines, task_nr, collapse = FALSE)
 
 \item{task_nr}{Task number to be found, eg for task_nr=3, the lines between \code{t3_start} and \code{t3_end}.}
 
-\item{collapse}{Replace linebreaks with \verb{;} (e.g. for nice inclusion in messages)? DEFAULT: FALSE}
+\item{collapse}{Replace linebreaks with \verb{;} (e.g. for nice inclusion in messages)?
+Also helpful if you want do run your own grepl tests on it
+to not have a vector and if(grepl(...)) error the condition has length > 1.
+DEFAULT: FALSE}
 }
 \value{
 FALSE for failure, otherwise selected lines of the script,
