@@ -28,10 +28,12 @@
 #'
 #' @param df  Data.frame with id, task, script. See examples.
 #' @param dir Directory. May not yet exist to avoid overwriting. DEFAULT: "./Quiz1"
+#' @param email Google email account with access to the spreadsheet.
 #'
 rt_setup_exercise <- function(
 df,
-dir="./Quiz1"
+dir="./Quiz1",
+email="berryboessenkool@hotmail.com"
 )
 {
 dir <- berryFunctions::normalizePathCP(dir)
@@ -43,6 +45,7 @@ rprojfile <- berryFunctions::normalizePathCP(rprojfile)
 cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
 #
 # task database (tdb):
+googlesheets4::gs4_auth(email)
 tdb <- googlesheets4::read_sheet("1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ")
 tdb <- as.data.frame(tdb)
 rownames(tdb) <- tdb$ID

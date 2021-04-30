@@ -4,12 +4,14 @@
 \alias{rt_setup_exercise}
 \title{Design complete exercise with tasks from database}
 \usage{
-rt_setup_exercise(df, dir = "./Quiz1")
+rt_setup_exercise(df, dir = "./Quiz1", email = "berryboessenkool@hotmail.com")
 }
 \arguments{
 \item{df}{Data.frame with id, task, script. See examples.}
 
 \item{dir}{Directory. May not yet exist to avoid overwriting. DEFAULT: "./Quiz1"}
+
+\item{email}{Google email account with access to the spreadsheet.}
 }
 \value{
 taskfile from last call to \link{rt_add_task}
