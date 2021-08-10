@@ -4,15 +4,13 @@
 \alias{rt_score}
 \title{upload exercise to codeOcean}
 \usage{
-rt_score(dir = ".", final, wait, submit = FALSE)
+rt_score(dir = ".", submit = FALSE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
 Must contain ".co" and all the "script_n.R" files
 referenced there, with the changes by the student, saved.
 DEFAULT: "."}
-
-\item{final, wait}{Deprecated argument.}
 
 \item{submit}{Submit grade to openHPI? To be called from \code{\link[=rt_submit]{rt_submit()}}.}
 }

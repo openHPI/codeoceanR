@@ -1,6 +1,7 @@
 # CodeOcean R Quiz
 # Berry Boessenkool, berry-b@gmx.de, early 2020 + Oct 2020
 
+
 # This script is run by `rt_score()` (in Rstudio) or by clicking "Score" (in CodeOcean).
 # Running this script may never fail on CodeOcean, hence keep it wrapped in `try()`.
 # The object 'task_id' must be defined here for the error messages through `rt_warn`.
@@ -13,7 +14,6 @@ library(codeoceanR) # for all functions prefixed with rt_
 
 ntests <-  3 # number of tests
 npassed <- 0 # number of passed tests
-
 
 trytests <- try({
 
@@ -77,12 +77,12 @@ rt_has_argument(sol, "row.names", FALSE)
 
 }, silent=TRUE)
 task_id <- "_post"
-if(inherits(trytests, "try-error")) {
+if(inherits(trytests, "try-error"))
   rt_warn("The test script failed. Sorry for the 0 points right now. ",
   				"You'll have to revert the last thing(s) you did. ",
-  				if(interactive())"Please click 'Request comments' and copypaste the logfile below.\n", trytests)
-}
+  				"Please send Berry the logfile below through email or 'Request comments'.\n", trytests)
+
 # Final output -----------------------------------------------------------------
 
-# Keep the following at the end of the script, for CodeOcean scoring:
+if(npassed>ntests) npassed <- ntests # for Bonus points
 cat(ntests, "examples,", npassed, "passed\n")

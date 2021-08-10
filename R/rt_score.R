@@ -14,16 +14,12 @@
 #'            Must contain ".co" and all the "script_n.R" files
 #'            referenced there, with the changes by the student, saved.
 #'            DEFAULT: "."
-#' @param final,wait Deprecated argument.
 #' @param submit Submit grade to openHPI? To be called from [rt_submit()].
 #'
-rt_score <- function(dir=".", final, wait, submit=FALSE)
+rt_score <- function(dir=".", submit=FALSE)
 {
-# Avoid recursive posting in case students leave rt_score() in the exercise script:
+# Avoid recursive posting, so we can have rt_score() in the exercise script:
 if(!interactive()) return(NULL)
-
-if(!missing(final) || !missing(wait))
-	stop("rt_score(final=TRUE) has been deprecated. Use rt_submit() instead.")
 
 # Check directory and file
 dir <- berryFunctions::normalizePathCP(dir)
