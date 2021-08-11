@@ -1,4 +1,4 @@
-# CodeOcean R Quiz
+# CodeOcean R exercises
 # Berry Boessenkool, berry-b@gmx.de, Jan 2020 - Aug 2021
 
 # This script is run by `rt_score()` (in Rstudio) or by clicking "Score" (in CodeOcean).

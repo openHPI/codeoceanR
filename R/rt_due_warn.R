@@ -1,5 +1,5 @@
-#' @title Warn about quiz submission time
-#' @description Warn quiz participant about due time.
+#' @title Warn about exercise submission time
+#' @description Warn exercise participant about due time.
 #' @return output of [rt_warn()]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2020
 #' @seealso [rt_warn()]

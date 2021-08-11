@@ -22,7 +22,7 @@ exdir, invisibly
 }
 \description{
 Create task folder from zip file, with a \code{.Rproj} file and try to open that in Rstudio.
-On Mac OS, the quiz file gets unzipped upon downloading, hence any file within the folder can be used.
+On Mac OS, the exercise file gets unzipped upon downloading, hence any file within the folder can be used.
 }
 \seealso{
 \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github

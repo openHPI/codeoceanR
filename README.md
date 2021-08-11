@@ -43,7 +43,7 @@ take exercise:
 
 `rt_create_task()` can be run as-is or with the arguments:
 
-- `zipfile`: defaults to interactive file choice, could also be e.g. "C:/Dropbox/R/FProg20_Rex_1.zip"  
+- `zipfile`: defaults to interactive file choice, could also be given as "C:/Dropbox/R/exercise_1.zip"  
   _If the exercise is unzipped (the default on Mac OS Safari), any file within the folder_
 - `deletezip`: defaults to delete the zip file if task creation was successful, could also be FALSE
 

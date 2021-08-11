@@ -10,11 +10,11 @@
 #' if(FALSE) # suppress automated runs
 #' rt_exercise_to_db("C:/Users/berry/Desktop/CORQUIZ")
 #'
-#' @param dir Directory with `script_1.R`, `script_1.R`, `...`, `tests.R`. DEFAULT: "./Quiz1"
+#' @param dir Directory with `script_1.R`, `script_1.R`, `...`, `tests.R`. DEFAULT: "exercise99"
 #' @param ntasks Number of tasks to obtain. DEFAULT: 10
 #'
 rt_exercise_to_db <- function(
-dir="./Quiz1",
+dir="exercise99",
 ntasks=10
 )
 {

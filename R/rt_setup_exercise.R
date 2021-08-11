@@ -27,12 +27,12 @@
 #'                   dir="C:/Users/berry/Desktop/CORQUIZ")
 #'
 #' @param df  Data.frame with id, task, script. See examples.
-#' @param dir Directory. May not yet exist to avoid overwriting. DEFAULT: "./Quiz1"
+#' @param dir Directory. May not yet exist to avoid overwriting. DEFAULT: "exercise99"
 #' @param email Google email account with access to the spreadsheet.
 #'
 rt_setup_exercise <- function(
 df,
-dir="./Quiz1",
+dir="exercise99",
 email="berryboessenkool@hotmail.com"
 )
 {
@@ -40,7 +40,7 @@ dir <- berryFunctions::normalizePathCP(dir)
 if(dir.exists(dir)) stop("dir already exists. Please choose a new location. path = ", dir)
 dir.create(dir, recursive=TRUE)
 # write .Rproj file
-rprojfile <- paste0(dir, "/zz_development_Rquiz.Rproj")
+rprojfile <- paste0(dir, "/zz_R_exercise.Rproj")
 rprojfile <- berryFunctions::normalizePathCP(rprojfile)
 cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
 #

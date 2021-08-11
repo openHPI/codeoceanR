@@ -42,7 +42,7 @@ httr::stop_for_status(r) # if any, pass http errors to R
 # Message + score from codeOcean
 out <- httr::content(r, "parsed", "application/json")
 message(out$message, "\nThe submitted score is ", round(out$score,2), "%.",
-				"\nFeel free to continue the quiz including rt_score(), ",
+				"\nFeel free to continue the exercise, including running rt_score(), ",
 				"but don't submit again.")
 
 # Output

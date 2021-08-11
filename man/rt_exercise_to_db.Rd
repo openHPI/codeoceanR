@@ -4,10 +4,10 @@
 \alias{rt_exercise_to_db}
 \title{Format exercise tasks for database}
 \usage{
-rt_exercise_to_db(dir = "./Quiz1", ntasks = 10)
+rt_exercise_to_db(dir = "exercise99", ntasks = 10)
 }
 \arguments{
-\item{dir}{Directory with \code{script_1.R}, \code{script_1.R}, \code{...}, \code{tests.R}. DEFAULT: "./Quiz1"}
+\item{dir}{Directory with \code{script_1.R}, \code{script_1.R}, \code{...}, \code{tests.R}. DEFAULT: "exercise99"}
 
 \item{ntasks}{Number of tasks to obtain. DEFAULT: 10}
 }

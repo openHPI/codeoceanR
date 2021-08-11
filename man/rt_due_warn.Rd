@@ -2,7 +2,7 @@
 % Please edit documentation in R/rt_due_warn.R
 \name{rt_due_warn}
 \alias{rt_due_warn}
-\title{Warn about quiz submission time}
+\title{Warn about exercise submission time}
 \usage{
 rt_due_warn(
   due,
@@ -31,7 +31,7 @@ Remember 15:00 UTC is 16:00 CET.}
 output of \code{\link[=rt_warn]{rt_warn()}}
 }
 \description{
-Warn quiz participant about due time.
+Warn exercise participant about due time.
 }
 \examples{
 rt_due_warn("2020-11-30 16:00")

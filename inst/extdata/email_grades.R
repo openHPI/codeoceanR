@@ -23,10 +23,10 @@ clipr::write_clip(paste0("Dear ", unname(grades[i,2]),
 			 "\nBefore we send the final grade, please check if the following scores are correct.",
 			 "\nIf a score is higher than you expected, there's no need to contact me :).\n",
 			 paste(colnames(grades2), grades2[i,], sep=": ", collapse="\n"),
-			 "\nAverage quiz score (excluding two worst): ", grades$`avg Q`[i], " / 10",
+			 "\nAverage exercise score (excluding two worst): ", grades$`avg Q`[i], " / 10",
 			 "\nMidterm: ", grades$QM[i], " / 30",
 			 "\nFinal: ", grades$QF[i], " / 13",
-			 "\nTotal score (weights: Quizzes 40%, Midterm + Final each 30%): ", grades$total[i], " / 10",
+			 "\nTotal score (weights: exercise 40%, Midterm + Final each 30%): ", grades$total[i], " / 10",
 			 "\nGrade: ", grades$Grade[i],
 			 "\n\nPlease let me know if anything is wrong.",
 			 "\n\nKind regards,\nBerry"))
@@ -37,7 +37,7 @@ beepr::beep(3)
 
 
 
-# clipr::write_clip("Quiz scores")
+# clipr::write_clip("Exercise scores")
 # clipr::write_clip(paste0("Dear ", unname(grades[i,2]),
 # 			 ",\n\nI'm writing to check if our grading sheet is correct.",
 # 			 "\nCurrently, I have the following scores:\n",

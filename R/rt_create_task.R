@@ -1,6 +1,6 @@
 #' @title Create Task folder from zip file
 #' @description Create task folder from zip file, with a `.Rproj` file and try to open that in Rstudio.
-#'              On Mac OS, the quiz file gets unzipped upon downloading, hence any file within the folder can be used.
+#'              On Mac OS, the exercise file gets unzipped upon downloading, hence any file within the folder can be used.
 #' @return exdir, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Dec 2020
 #' @keywords file
@@ -37,7 +37,7 @@ if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
 # File management:
 if(is.null(zipfile))
 	{
-	message("Choose the Quiz zip file. If it is unzipped, any file within the Quiz folder.",
+	message("Choose the exercise zip file. If it is unzipped, any file within the folder.",
 					"\nThe interactive file choice window may be hidden...")
 	Sys.sleep(0.1) # so the message gets displayed on Mac OS before file selection
   zipfile <- file.choose()
@@ -47,10 +47,10 @@ berryFunctions::checkFile(zipfile)
 
 # exdir:
 zipped <- grepl("\\.zip$", zipfile)
-exdir <- dirname(zipfile) # remove   sth.ext   from   path/to/quiz/sth.ext
+exdir <- dirname(zipfile) # remove   sth.ext   from   path/to/exercise/sth.ext
 if(zipped)
   {
-	exdir <- sub("\\.zip$", "", zipfile)  # remove   .zip   from   path/to/quiz.zip
+	exdir <- sub("\\.zip$", "", zipfile)  # remove   .zip   from   path/to/exercise.zip
   if(dir.exists(exdir)) stop("exdir already exists. Please choose a new location. exdir='", exdir, "'")
   unzip(zipfile=zipfile, exdir=exdir, ...)
   }
@@ -63,6 +63,7 @@ cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", 
 
 # put tasks to Rstudio opened files list:
 rt_add_opened_files(dir(exdir,pattern="script_"), dir=exdir)
+# ToDo: get from co File!!
 
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")

@@ -9,14 +9,14 @@
 #' @param id        ID to be selected from `tdb`, e.g. "Q10_2"
 #' @param task_nr   Task number to be printed in `script_x.R`, DEFAULT: id
 #' @param script_nr Script number to be used for this task. DEFAULT: 1
-#' @param dir       Directory. DEFAULT: "./Quiz1"
+#' @param dir       Directory. DEFAULT: "exercise99"
 #'
 rt_add_task <- function(
 tdb,
 id,
 task_nr=id,
 script_nr=1,
-dir="./Quiz1"
+dir="exercise99"
 )
 {
 

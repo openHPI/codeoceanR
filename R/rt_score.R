@@ -25,17 +25,17 @@ if(!interactive()) return(NULL)
 dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
 cofile <- paste0(dir, "/.co")
-# run rt_local_score in quiz development folder with *tests.R:
+# run rt_local_score in exercise development folder with *tests.R:
 if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
 	{
 	message(".co file does not exist, running rt_local_score()")
 	return(rt_local_score())
   }
-# check if dir is a quiz directory
-if(!file.exists(cofile)) stop("You're not in a quiz directory. ",
+# check if dir is an exercise directory
+if(!file.exists(cofile)) stop("You're not in a CodeOcean exercise directory. ",
 					"The file '.co' does not exist. \nYou're at '", dir, "'\n",
-					"Make sure you have run rt_create_task() and the 'zz_quiz_*.Rproj' file has been opened.\n",
-					"In Rstudio on the top right, the R Project symbol should show the quiz name.")
+					"Make sure you have run rt_create_task() and the 'zz_exercise*.Rproj' file has been opened.\n",
+					"In Rstudio on the top right, the R Project symbol should show the exercise name.")
 
 # Warn if files are changed but not saved:
 rt_check_for_unsaved_files(dir, warnonly=TRUE)
