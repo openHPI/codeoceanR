@@ -4,7 +4,6 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_local_score] for teachers, [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
-#' @importFrom berryFunctions l2df
 #' @importFrom httr POST content_type stop_for_status content
 #' @importFrom rjson toJSON
 #' @importFrom utils browseURL
@@ -31,29 +30,20 @@ if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
 	message(".co file does not exist, running rt_local_score()")
 	return(rt_local_score())
   }
-# check if dir is an exercise directory
-if(!file.exists(cofile)) stop("You're not in a CodeOcean exercise directory. ",
-					"The file '.co' does not exist. \nYou're at '", dir, "'\n",
-					"Make sure you have run rt_create_task() and the 'zz_exercise*.Rproj' file has been opened.\n",
-					"In Rstudio on the top right, the R Project symbol should show the exercise name.")
 
 # Warn if files are changed but not saved:
 rt_check_for_unsaved_files(dir, warnonly=TRUE)
 
-# get CO token + url + file IDs
-co <- readLines(cofile, warn=FALSE)
-co_token <- co[1]
-co_url   <- co[2]
+# get CO token + url + file IDs/names:
+co <- rt_read_cofile(cofile)
+co_token <- co$token
+co_url   <- co$url
+co_files <- co$files
 if(submit) co_url <- sub("evaluate", "submit", co_url)
-
-# Get all file contents:
-co_files <- co[-(1:2)]
-if(length(co_files)<1) stop("No filenames found to be submitted in file '.co'")
-co_files <- berryFunctions::l2df(strsplit(co_files, "="))
-colnames(co_files) <- c("name", "id")
 co_files$name <-  paste0(dir, "/", co_files$name)
 berryFunctions::checkFile(co_files$name)
-#
+
+# Get all file contents:
 get_escaped_file_content <- function(fn)
   {
   d <- paste(readLines(fn, warn=FALSE), collapse="\n")
@@ -82,7 +72,7 @@ httr::stop_for_status(r) # if any, pass http errors to R
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
-mout <- gsub("Rscript tests.R\n", "", out$stdout, fixed=TRUE)
+mout <- gsub("Rscript .*tests.R\n", "", out$stdout, fixed=TRUE)
 mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
 mout <- gsub("\n$", "", mout)
 mout <- paste0(mout, ", score: ", round(out$score*100), "%")
