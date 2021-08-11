@@ -1,6 +1,5 @@
 # CodeOcean R Quiz
-# Berry Boessenkool, berry-b@gmx.de, early 2020 + Oct 2020
-
+# Berry Boessenkool, berry-b@gmx.de, Jan 2020 - Aug 2021
 
 # This script is run by `rt_score()` (in Rstudio) or by clicking "Score" (in CodeOcean).
 # Running this script may never fail on CodeOcean, hence keep it wrapped in `try()`.
@@ -11,19 +10,15 @@
 # See also https://github.com/openHPI/codeoceanR#teachers
 
 library(codeoceanR) # for all functions prefixed with rt_
-
 ntests <-  3 # number of tests
 npassed <- 0 # number of passed tests
-
 trytests <- try({
-
-task_id <- "_run"
-script1 <- rt_run_script("script_1.R")
-script2 <- rt_run_script("script_2.R")
 
 
 
 task_id <- 1 # 1 ------
+
+script1 <- rt_run_script("script_1.R") # script 1 ----
 
 if(
 rt_script_runs(script1)
@@ -36,7 +31,6 @@ rt_has_length(my_first_object, 1)
 &&
 rt_has_value(my_first_object, 99, noise=FALSE)
 ) npassed <- npassed + 1
-
 
 
 
@@ -57,6 +51,8 @@ rt_has_value(my_second_object, 5:15, noise=FALSE)
 
 
 task_id <- 3 # 3 -----
+
+script2 <- rt_run_script("script_2.R") # script 2 ----
 
 sol <- rt_select_script_section(script2, 3)
 if(
