@@ -71,6 +71,8 @@ test_that("rt_has_argument works correctly for data.frame task", {
 due_test <- if(interactive()) testthat::expect_message else testthat::expect_output
 task_id <- ""
 test_that("rt_due_warn works correctly",{
-  due_test(rt_due_warn(Sys.time()+125, format="%F %T"), "T: Submission is due in 2.1 mins.")
-  due_test(rt_due_warn(Sys.time()+ 30, format="%F %T"), "T: Submission is due in 0.5 mins. --> Please submit now!")
+  due_test(rt_due_warn(Sys.time()+125, tz=Sys.timezone(), format="%F %T"),
+           "T: Submission is due in 2.1 mins.")
+  due_test(rt_due_warn(Sys.time()+ 30, tz=Sys.timezone(), format="%F %T"),
+           "T: Submission is due in 0.5 mins. --> Please submit now!")
 })
