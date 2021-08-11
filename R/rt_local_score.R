@@ -1,7 +1,7 @@
 #' @title locally score complete exercise
 #' @description Run test script for entire exercise without server access.
 #'              Intended for teacher / trainer use only.
-#'              Requires tests.R script to be present (hidden on CodeOcean and not downloaded in zip folder).
+#'              Requires *tests.R script to be present (hidden on CodeOcean and not downloaded in zip folder).
 #' @return Vector with number of total and passed tests, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_score] for students. [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
@@ -9,21 +9,24 @@
 #' @importFrom berryFunctions checkFile normalizePathCP
 #' @export
 #'
-#' @param dir Path to exercise folder.
-#'            Must contain "tests.R" and all the "script_n.R" files referenced there.
-#'            DEFAULT: "."
+#' @param tfile Name of *tests.R file to be run.
+#'              DEFAULT: NULL (will be obtained from currently open File in Rstudio)
 #' @param check_unsaved Check if any files are unsaved? Requires dir to be in an .Rproj.
 #'            Runs [rt_check_for_unsaved_files()]. DEFAULT: TRUE
 #'
-rt_local_score <- function(dir=".", check_unsaved=TRUE)
+rt_local_score <- function(tfile=NULL, check_unsaved=TRUE)
 {
-dir <- berryFunctions::normalizePathCP(dir)
-berryFunctions::checkFile(dir)
-tfile <- paste0(dir, "/tests.R")
+# Obtain test file for currently selected document:
+if(is.null(tfile)) tfile <- sub("_?[0-9]*\\.R$", "_tests.R",
+																sub("_tests\\.R$",".R",rstudioapi::documentPath()))
+# aufgabe_03_3_listen.R                            -> aufgabe_03_3_listen_tests.R
+# aufgabe_03_4_arrays_1.R, aufgabe_03_4_arrays_2.R -> aufgabe_03_4_arrays_tests.R
+
 berryFunctions::checkFile(tfile)
+if(!grepl("tests\\.R$", tfile)) stop("tfile must end in *tests.R, but does not. ", tfile)
 
 # Stop if files are changed but not saved:
-if(check_unsaved) rt_check_for_unsaved_files(dir)
+if(check_unsaved) rt_check_for_unsaved_files(dirname(tfile))
 
 # ToDo: find better system for task_id updates. This is a patchy mess
 if(exists("task_id"))

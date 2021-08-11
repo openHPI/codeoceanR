@@ -25,11 +25,11 @@ if(!interactive()) return(NULL)
 dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
 cofile <- paste0(dir, "/.co")
-# run rt_local_score in quiz development folder with tests.R:
-if(!file.exists(cofile) && file.exists(paste0(dir,"/tests.R")))
+# run rt_local_score in quiz development folder with *tests.R:
+if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
 	{
 	message(".co file does not exist, running rt_local_score()")
-	return(rt_local_score(dir))
+	return(rt_local_score())
   }
 # check if dir is a quiz directory
 if(!file.exists(cofile)) stop("You're not in a quiz directory. ",

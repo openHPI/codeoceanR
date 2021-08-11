@@ -4,12 +4,11 @@
 \alias{rt_local_score}
 \title{locally score complete exercise}
 \usage{
-rt_local_score(dir = ".", check_unsaved = TRUE)
+rt_local_score(tfile = NULL, check_unsaved = TRUE)
 }
 \arguments{
-\item{dir}{Path to exercise folder.
-Must contain "tests.R" and all the "script_n.R" files referenced there.
-DEFAULT: "."}
+\item{tfile}{Name of *tests.R file to be run.
+DEFAULT: NULL (will be obtained from currently open File in Rstudio)}
 
 \item{check_unsaved}{Check if any files are unsaved? Requires dir to be in an .Rproj.
 Runs \code{\link[=rt_check_for_unsaved_files]{rt_check_for_unsaved_files()}}. DEFAULT: TRUE}
@@ -20,7 +19,7 @@ Vector with number of total and passed tests, invisibly
 \description{
 Run test script for entire exercise without server access.
 Intended for teacher / trainer use only.
-Requires tests.R script to be present (hidden on CodeOcean and not downloaded in zip folder).
+Requires *tests.R script to be present (hidden on CodeOcean and not downloaded in zip folder).
 }
 \seealso{
 \link{rt_score} for students. \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
