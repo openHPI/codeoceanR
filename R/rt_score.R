@@ -27,7 +27,6 @@ cofile <- paste0(dir, "/.co")
 # run rt_local_score in exercise development folder with *tests.R:
 if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
 	{
-	message(".co file does not exist, running rt_local_score()")
 	return(rt_local_score(check_unsaved=FALSE))
   }
 

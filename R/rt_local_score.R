@@ -29,6 +29,8 @@ if(!endsWith(tfile, "tests.R"))
 # aufgabe_03_4_arrays_2.R      ->  all 3:  aufgabe_03_4_arrays_tests.R
 # aufgabe_03_4_arrays_tests.R  -> /
 
+message("-- running rt_local_score on", tfile)
+
 berryFunctions::checkFile(tfile)
 if(!grepl("tests\\.R$", tfile)) stop("tfile must end in *tests.R, but does not. ", tfile)
 
@@ -41,6 +43,7 @@ if(exists("task_id"))
 	warning("Removing object 'task_id' from globalenv workspace.")
 	rm(task_id, envir=globalenv())
   }
+
 source(tfile, local=TRUE) # to keep this local, rt_warn must search for 'task_id'
 # Output:
 return(invisible(c(ntests=ntests, npassed=npassed)))
