@@ -2,6 +2,7 @@
 #' @description get echoed output from running certain code, e.g. messages + [cat()] outputs.
 #' @return Charstring vector from [readLines()]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2020
+#' @seealso [capture.output()]
 #' @export
 #' @examples
 #'

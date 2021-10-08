@@ -21,6 +21,9 @@ get echoed output from running certain code, e.g. messages + \code{\link[=cat]{c
 rt_get_echo(cat("things\nwith linebreaks"))
 
 }
+\seealso{
+\code{\link[=capture.output]{capture.output()}}
+}
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Dec 2020
 }

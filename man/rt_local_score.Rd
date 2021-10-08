@@ -8,6 +8,7 @@ rt_local_score(tfile = NULL, check_unsaved = TRUE)
 }
 \arguments{
 \item{tfile}{Name of *tests.R file to be run.
+Or name of exercise file, will be changed according to MOOC system.
 DEFAULT: NULL (will be obtained from currently open File in Rstudio)}
 
 \item{check_unsaved}{Check if any files are unsaved? Requires dir to be in an .Rproj.
