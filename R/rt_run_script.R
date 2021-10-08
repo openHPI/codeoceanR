@@ -10,6 +10,7 @@
 #' @param filename Path of script to be run
 #'
 rt_run_script <- function(filename){
+  taskenvironment$task_id <- paste0(" ", filename)
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
   #           # exclude recursive score calls:
@@ -21,7 +22,7 @@ rt_run_script <- function(filename){
   e <- try(source(filename), silent=TRUE)
               writeLines(fcontent, filename)
   if(inherits(e, "try-error")) {
-    rt_warn("'", filename, "' can not be executed. Make sure each line can be run.",
+    rt_warn("can not be executed. Make sure each line can be run.",
             if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
             "\n--- The source() error message was: ", e)
     return(FALSE)}

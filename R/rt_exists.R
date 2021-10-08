@@ -9,7 +9,7 @@
 #' @param obj    Object to be tested. Just the name, not a character string.
 #'
 rt_exists <- function(obj) {
-  obj <- deparse(substitute(obj)) # charstring of object name
+  if(!is.character(obj)) obj <- deparse(substitute(obj)) # charstring of object name
   if(base::exists(obj)) return(TRUE)
   rt_warn("Create the object '",obj,"'. It does not yet exist.")
   FALSE
