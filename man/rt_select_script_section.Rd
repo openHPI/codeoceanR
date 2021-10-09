@@ -18,7 +18,7 @@ DEFAULT: FALSE}
 }
 \value{
 FALSE for failure, otherwise selected lines of the script,
-by default collapsed (linebreaks replaced with ;) through \link{paste}
+by default NOT collapsed (linebreaks replaced with ;) through \link{paste}
 }
 \description{
 Select the section of the script code between \verb{t*_start} and \verb{t*_end} for further analysis in tests.

@@ -4,7 +4,7 @@
 #'              Attenton: if the user script contains line breaks and is read with
 #'              `collapse=TRUE`, [rt_has_argument] leads to a test script failure!
 #' @return FALSE for failure, otherwise selected lines of the script,
-#'         by default collapsed (linebreaks replaced with ;) through [paste]
+#'         by default NOT collapsed (linebreaks replaced with ;) through [paste]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_run_script], [rt_script_runs], [rt_has_argument],
 #'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
