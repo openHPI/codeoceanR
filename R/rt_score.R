@@ -13,7 +13,7 @@
 #'            Must contain ".co" and all the "script_n.R" files
 #'            referenced there, with the changes by the student, saved.
 #'            DEFAULT: "."
-#' @param submit Submit grade to openHPI? To be called from [rt_submit()].
+#' @param submit Submit grade to openHPI? Only to be set when called from [rt_submit()]!.
 #'
 rt_score <- function(dir=".", submit=FALSE)
 {

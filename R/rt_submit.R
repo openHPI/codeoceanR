@@ -22,6 +22,7 @@ rl <- readline("This is my final grade submission (y/n): ")
 if(tolower(substr(rl,1,1)) != "y") stop("Submission has been canceled.")
 
 r <- rt_score(dir, submit=TRUE)
+if(is.null(r)) stop("rt_score result is NULL, probably rt_local_score has been invoked.")
 
 # according to Sebastian Serth, r is always JSON:
 # - unlikely: array like for rt_score() if submission went wrong before running the tests

@@ -12,7 +12,7 @@ Must contain ".co" and all the "script_n.R" files
 referenced there, with the changes by the student, saved.
 DEFAULT: "."}
 
-\item{submit}{Submit grade to openHPI? To be called from \code{\link[=rt_submit]{rt_submit()}}.}
+\item{submit}{Submit grade to openHPI? Only to be set when called from \code{\link[=rt_submit]{rt_submit()}}!.}
 }
 \value{
 \code{\link[httr:content]{httr::content()}} output of response to http request, invisibly
