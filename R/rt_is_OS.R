@@ -16,7 +16,9 @@
 #'
 rt_is_OS <- function(os=NULL)
 {
-sysos <- Sys.info()["sysname"] #
+sysos <- Sys.info()["sysname"]
 sysos <- unname(sysos)
-if(!is.null(os)) tolower(sysos) %in% sub("mac", "darwin", tolower(os)) else sysos
+if(is.null(os)) return(sysos)
+os <- sub("mac", "darwin", tolower(os))
+tolower(sysos) %in% os
 }
