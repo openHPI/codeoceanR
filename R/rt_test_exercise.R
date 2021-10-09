@@ -45,7 +45,6 @@ cat(length(taskenvironment$success), "tests,",
 #'
 rt_test_task <- function(
 tnumber,
-...,
 script=NULL,
 object=NULL,
 class=NULL,
@@ -54,19 +53,55 @@ nrows=NULL,
 ncols=NULL,
 names=NULL,
 value=NULL,
-noise=FALSE
+noise=FALSE,
+...
 )
 {
+n <- deparse(substitute(object))
 taskenvironment$task_id <- tnumber
-if(!is.null(script)) if(!rt_script_runs(script)      ) return(rt_success(tnumber, v=FALSE))
-if(!is.null(object)) if(!rt_exists(object)           ) return(rt_success(tnumber, v=FALSE))
-if(!is.null(class) ) if(!rt_has_class(object, class) ) return(rt_success(tnumber, v=FALSE))
-if(!is.null(length)) if(!rt_has_length(object,length)) return(rt_success(tnumber, v=FALSE))
-if(!is.null(nrows) ) if(!rt_has_nrows(object, nrows) ) return(rt_success(tnumber, v=FALSE))
-if(!is.null(ncols) ) if(!rt_has_ncols(object, ncols) ) return(rt_success(tnumber, v=FALSE))
-if(!is.null(names) ) if(!rt_has_names(object, names) ) return(rt_success(tnumber, v=FALSE))
-if(!is.null(value) ) if(!rt_has_value(object, value, noise=noise) ) return(rt_success(tnumber, v=FALSE))
+
+if(!is.null(script) && !rt_script_runs(script)) return(rt_success(tnumber, v=FALSE))
+
+if(n!="NULL" && !base::exists(n))
+  {
+  rt_warn("Create the object '",n,"'. It does not yet exist.")
+	return(rt_success(tnumber, v=FALSE))
+  }
+
+if(!is.null(class) && !inherits(object, class))
+	{
+  rt_warn(n," must be '", class, "', not of class '", toString(class(object)), "'.")
+	return(rt_success(tnumber, v=FALSE))
+  }
+
+if(!is.null(length) && length(object)!=length)
+  {
+  rt_warn(n," must have length ", length,  ", not ", length(object), ".")
+	return(rt_success(tnumber, v=FALSE))
+  }
+
+if(!is.null(nrows) && nrow(object)!=nrows)
+  {
+  rt_warn(n," must have ", nrows, " rows, not ", nrow(object), ".")
+	return(rt_success(tnumber, v=FALSE))
+  }
+
+if(!is.null(ncols) && ncol(object)!=ncols)
+  {
+  rt_warn(n," must have ", ncols, " columns, not ", ncol(object), ".")
+	return(rt_success(tnumber, v=FALSE))
+  }
+
+if(!is.null(names) && !all(names %in% base::names(object)))
+  {
+  rt_warn(n, " must have the name", if(length(names)>1) "s:", " ", toString(n), ".")
+	return(rt_success(tnumber, v=FALSE))
+  }
+
+if(!is.null(value) && !rt_has_value( object, value,n, noise=noise)) return(rt_success(tnumber, v=FALSE))
+
 for(i in seq_len(...length())  )
    if(!...elt(i)) return(rt_success(tnumber, v=FALSE))
+
 return(rt_success(tnumber, v=TRUE)) # set to TRUE if all tests passed :)
 }
