@@ -6,7 +6,6 @@
 \usage{
 rt_test_task(
   tnumber,
-  ...,
   script = NULL,
   object = NULL,
   class = NULL,
@@ -15,13 +14,12 @@ rt_test_task(
   ncols = NULL,
   names = NULL,
   value = NULL,
-  noise = FALSE
+  noise = FALSE,
+  ...
 )
 }
 \arguments{
 \item{tnumber}{Number of task.}
-
-\item{\dots}{Further tests, comma-separated}
 
 \item{script}{DEFAULT: NULL}
 
@@ -40,6 +38,8 @@ rt_test_task(
 \item{value}{DEFAULT: NULL}
 
 \item{noise}{DEFAULT: FALSE}
+
+\item{\dots}{Further tests, comma-separated}
 }
 \value{
 TRUE or FALSE, indicating whterh all tests passed

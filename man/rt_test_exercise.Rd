@@ -7,7 +7,7 @@
 rt_test_exercise(expr)
 }
 \arguments{
-\item{expr}{calls to \link{rt_test_task}, in brackets}
+\item{expr}{calls to \link{rt_test_task}, in curly brackets}
 }
 \value{
 NULL, writes to the console with \link{cat}.
@@ -15,12 +15,8 @@ NULL, writes to the console with \link{cat}.
 \description{
 Wrapper for test script for complete exercise
 }
-\examples{
-rt_test_exercise(rnorm(20))
-
-}
 \seealso{
-\link{rt_test_task}, tests.R in the \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
+\link{rt_test_task}, _tests.R in the \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2021

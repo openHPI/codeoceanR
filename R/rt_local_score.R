@@ -36,18 +36,6 @@ if(!grepl("tests\\.R$", tfile)) stop("tfile must end in *tests.R, but does not. 
 
 # Stop if files are changed but not saved:
 if(check_unsaved) rt_check_for_unsaved_files(dirname(tfile), warnonly=TRUE)
-
-# ToDo: find better system for task_id updates. This is a patchy mess
-if(exists("task_id"))
-	{
-	warning("Removing object 'task_id' from globalenv workspace.")
-	rm(task_id, envir=globalenv())
-  }
-
-source(tfile, local=TRUE) # to keep this local, rt_warn must search for 'task_id'
-# Output:
-return(invisible(c(ntests=ntests, npassed=npassed)))
+source(tfile, local=TRUE)
+return(NULL)
 }
-
-# Suppress CRAN check note 'no visible binding for global variable':
-if(getRversion() >= "2.15.1")  utils::globalVariables(c("ntests", "npassed"))

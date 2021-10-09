@@ -31,7 +31,7 @@ end=-15,
 due <- strptime(due, format=format, tz=tz)
 remaining <- difftime(due, Sys.time(), units="mins")
 remaining <- as.numeric(round(remaining,1))
-task_id <- ""
+taskenvironment$task_id <- ""
 if(remaining<begin && remaining>end)
 rt_warn("Submission is due in ", remaining, " mins.",
 				if(remaining<1 && remaining>0) " --> Please submit now!", ...)

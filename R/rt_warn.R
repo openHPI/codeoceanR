@@ -7,7 +7,6 @@
 #' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
 #' @examples
-#' task_id <- 5
 #' rt_warn("This is a CodeOcean message!")
 #'
 #' @param \dots Message components passed to [warning()] or [cat()].
@@ -18,4 +17,4 @@ rt_warn <- function(...){
   cat("AssertionError: T", taskenvironment$task_id, ": ", ..., "\n", sep="")
 }
 
-# taskenvironment$task_id is defined in rt_success.R
+# taskenvironment$task_id is defined in rt_test_exercise

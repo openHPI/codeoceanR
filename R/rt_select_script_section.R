@@ -20,6 +20,7 @@
 #'                    DEFAULT: FALSE
 #'
 rt_select_script_section <- function(scriptlines, task_nr, collapse=FALSE){
+  taskenvironment$task_id <- task_nr
   if(isFALSE(scriptlines)) return(FALSE)
   # Find task markers, warn if this fails:
   m1 <- paste0("t",task_nr,"_start") # marker

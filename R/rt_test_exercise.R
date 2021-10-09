@@ -1,19 +1,19 @@
+taskenvironment <- new.env()
+taskenvironment$success <- vector()
+taskenvironment$task_id <- "na"
+
 #' @title Wrapper for test script for complete exercise
 #' @return NULL, writes to the console with [cat].
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2021
-#' @seealso [rt_test_task], tests.R in the [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
+#' @seealso [rt_test_task], _tests.R in the [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
-# @importFrom package fun1 fun2
 #' @export
-#' @examples
-#' rt_test_exercise(rnorm(20))
-#'
-#' @param expr calls to [rt_test_task], in brackets
+#' @param expr calls to [rt_test_task], in curly brackets
 #'
 rt_test_exercise <- function(expr)
 {
 trytests <- try(expr, silent=TRUE)
-task_id <- "t"
+taskenvironment$task_id <- "t"
 if(inherits(trytests, "try-error"))
   rt_warn("The internal test script failed. This should never happen. Sorry!!\n",
           "To get scores again, please revert the last thing(s) you did.\n",
