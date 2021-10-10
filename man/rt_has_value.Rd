@@ -19,6 +19,8 @@ rt_has_value(
 
 \item{digits}{Tolerance - both \code{obj} and \code{value} are \link{round}ed before comparison. DEFAULT: 6}
 
+\item{name}{Object name for \link{rt_warn} messages. DEFAULT: \code{deparse(substitute(obj))}}
+
 \item{noise}{Add noise, so not the exact difference is reported? DEFAULT: TRUE}
 }
 \value{

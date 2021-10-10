@@ -18,7 +18,7 @@ Logical: TRUE / FALSE depending on whether object has the desired column.
 Test colnames of object, calling \code{\link[=rt_warn]{rt_warn()}} with informative and helpful message if needed.
 }
 \seealso{
-\link{rt_has_ncols}, \link{rt_has_names}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
+\code{names} and \code{ncols} in \link{rt_test_task}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020

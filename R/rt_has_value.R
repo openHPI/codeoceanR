@@ -10,6 +10,7 @@
 #' @param obj    Object to be tested. Just the name, not a character string.
 #' @param value  value `obj` should have, can be char / numeric / other.
 #' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison. DEFAULT: 6
+#' @param name   Object name for [rt_warn] messages. DEFAULT: `deparse(substitute(obj))`
 #' @param noise  Add noise, so not the exact difference is reported? DEFAULT: TRUE
 
 rt_has_value <- function(obj, value, digits=6, name=deparse(substitute(obj)), noise=TRUE){
