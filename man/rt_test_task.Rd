@@ -6,6 +6,7 @@
 \usage{
 rt_test_task(
   tnumber,
+  ...,
   script = NULL,
   object = NULL,
   class = NULL,
@@ -15,11 +16,13 @@ rt_test_task(
   names = NULL,
   value = NULL,
   noise = FALSE,
-  ...
+  zero = TRUE
 )
 }
 \arguments{
-\item{tnumber}{Number of task.}
+\item{tnumber}{Number of task. Must be numeric, as it will be used for pass/fail in \link{rt_env}.}
+
+\item{\dots}{Further tests, comma-separated}
 
 \item{script}{DEFAULT: NULL}
 
@@ -39,7 +42,7 @@ rt_test_task(
 
 \item{noise}{DEFAULT: FALSE}
 
-\item{\dots}{Further tests, comma-separated}
+\item{zero}{DEFAULT: TRUE}
 }
 \value{
 TRUE or FALSE, indicating whterh all tests passed
