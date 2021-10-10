@@ -2,7 +2,7 @@
 # Started Nov 2020
 
 
-# run scriptEx ----
+# testing setup ----
 
 owd <- "."
 if(grepl("codeoceanR$", getwd()))
@@ -12,6 +12,12 @@ library(testthat)
 }
 
 
+rt_test_env <- new.env()
+rt_test_env$success <- vector()
+rt_env(id="na")
+
+
+# rt_run_script ----
 
 script <- rt_run_script("scriptEx.R")
 
@@ -76,3 +82,9 @@ test_that("rt_due_warn works correctly",{
   due_test(rt_due_warn(Sys.time()+ 30, tz=Sys.timezone(), format="%F %T"),
            "T: Submission is due in 0.5 mins. --> Please submit now!")
 })
+
+
+
+# cleanup ----
+setwd(owd); rm(owd)
+rm(rt_test_env)
