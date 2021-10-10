@@ -11,7 +11,7 @@ By Berry Boessenkool, 2020-2021, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 Run the following code (in R / Rstudio) to install or update the `codeoceanR` package:
 
 ```r
-if(!requireNamespace("remotes", quietly=TRUE)) install.packages("remotes")
+install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR", "main")
 ```
 
