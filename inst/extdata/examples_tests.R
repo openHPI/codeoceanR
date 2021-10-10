@@ -9,6 +9,8 @@
 # Only one message should ever be given for a task, hence the usage of `return()` in rt_test_task.
 # See also https://github.com/openHPI/codeoceanR#teachers
 
+# To run this script in Rstudio within zz_codeoceanR.Rproj, set WD:  setwd("inst/extdata/")
+
 library(codeoceanR) # for all functions prefixed with rt_
 
 rt_test_exercise({
