@@ -13,8 +13,6 @@
 #'
 rt_warn <- function(...){
 	if(interactive())
-              message("T", taskenvironment$task_id, ": ", ...,       sep="") else
-  cat("AssertionError: T", taskenvironment$task_id, ": ", ..., "\n", sep="")
+              message("T", rt_env()$id, ": ", ...,       sep="") else
+  cat("AssertionError: T", rt_env()$id, ": ", ..., "\n", sep="")
 }
-
-# taskenvironment$task_id is defined in rt_test_exercise

@@ -10,7 +10,7 @@
 #' @param filename Path of script to be run
 #'
 rt_run_script <- function(filename){
-  taskenvironment$task_id <- paste0(" ", filename)
+  rt_env(id=paste0(" ", filename))
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
   #           # exclude recursive score calls:
