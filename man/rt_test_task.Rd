@@ -9,46 +9,63 @@ rt_test_task(
   ...,
   script = NULL,
   object = NULL,
+  zero = TRUE,
   class = NULL,
   length = NULL,
   nrows = NULL,
   ncols = NULL,
   names = NULL,
   value = NULL,
-  noise = FALSE,
-  zero = TRUE
+  noise = FALSE
 )
 }
 \arguments{
 \item{tnumber}{Number of task. Must be numeric, as it will be used for pass/fail in \link{rt_env}.}
 
-\item{\dots}{Further tests, comma-separated}
+\item{\dots}{Further tests, comma-separated, can be given at the end.
+Need to yield TRUE/FALSE and take care of \link{rt_warn} individually.
+The \verb{rt_*} test functions are designed for just that :).}
 
-\item{script}{DEFAULT: NULL}
+\item{script}{Exercise script content that needs to be non-empty.
+This is the only test that will not generate an \link{rt_warn} message,
+as \link{rt_run_script} or \link{rt_select_script_section} already do.
+DEFAULT: NULL}
 
-\item{object}{DEFAULT: NULL}
+\item{object}{Object that needs to be created in student script.
+Regular object name, not quoted. DEFAULT: NULL}
 
-\item{class}{DEFAULT: NULL}
+\item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: TRUE}
 
-\item{length}{DEFAULT: NULL}
+\item{class}{Required object \link{class}. DEFAULT: NULL}
 
-\item{nrows}{DEFAULT: NULL}
+\item{length}{Required object \link{length}. DEFAULT: NULL}
 
-\item{ncols}{DEFAULT: NULL}
+\item{nrows}{Required \link{nrow} of object. DEFAULT: NULL}
 
-\item{names}{DEFAULT: NULL}
+\item{ncols}{Required \link{ncol} of object. DEFAULT: NULL}
 
-\item{value}{DEFAULT: NULL}
+\item{names}{Required object \link{names}. DEFAULT: NULL}
 
-\item{noise}{DEFAULT: FALSE}
+\item{value}{Intended value, see \link{rt_has_value}. DEFAULT: NULL}
 
-\item{zero}{DEFAULT: TRUE}
+\item{noise}{noise parameter in \link{rt_has_value}, if \code{value} != NULL. DEFAULT: FALSE}
 }
 \value{
-TRUE or FALSE, indicating whterh all tests passed
+TRUE or FALSE, indicating whether all tests passed
 }
 \description{
 Wrapper for test script for an individual task within an exercise
+}
+\details{
+NULL arguments mean that their respective tests are not performed.\cr
+Tests are performed in order of arguments for increasingly specific
+messages that do not give away the solution too early.\cr
+\dots must be the first argument so custom tests are not matched to them.
+(except for \code{tnumber}, the other tests are optional).
+Hence all other arguments need to be specified by full name.\cr
+Common test functions may get their own arguments
+(like \link{rt_has_value} through \code{value}) or be incorporated completely,
+like the formerly separate \code{rt_has_class}.
 }
 \seealso{
 \link{rt_test_exercise}, tests.R in the \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github

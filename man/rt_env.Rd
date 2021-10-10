@@ -7,11 +7,11 @@
 rt_env(id = NULL, pass = NULL, fail = NULL)
 }
 \arguments{
-\item{id}{Num or charstring to be set as task ID for \link{rt_warn} messages. DEFAULT: NULL}
+\item{id}{Number or charstring to be set as task ID for \link{rt_warn} messages. DEFAULT: NULL}
 
-\item{pass}{Number of task to set as successfull. DEFAULT: NULL}
+\item{pass}{Number of task(s) to set as successfull. DEFAULT: NULL}
 
-\item{fail}{Number of task to set as failed. DEFAULT: NULL}
+\item{fail}{Number of task(s) to set as failed. DEFAULT: NULL}
 }
 \value{
 If env not found, list with id="_no_id".\cr
