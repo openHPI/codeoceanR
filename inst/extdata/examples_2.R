@@ -7,8 +7,8 @@ codeoceanR::rt_score() # Instructions in the course video / PDF section 1.4 Exer
 # Write your code between the two markers.
 # t3_start # do not change this line
 
-# t3_end # do not change this line
 
+# t3_end # do not change this line
 # Again, run codeoceanR::rt_score()
 
 

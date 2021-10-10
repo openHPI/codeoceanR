@@ -34,7 +34,7 @@ rt_test_task(3, script=sol,
 # Commas on separate lines enable sending a single line during test development
 
 # To build on previous task (don't do this too much, students find it frustrating
-# to loose 2 points if they cannot solve the first task):
+# to lose 2 points if they cannot solve the first task):
 rt_test_task(4, rt_test(rt_env()$success[3], "Please first solve task 3."),
    rt_has_argument(sol, "row.names", FALSE) )
 
