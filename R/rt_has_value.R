@@ -12,18 +12,17 @@
 #' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison. DEFAULT: 6
 #' @param noise  Add noise, so not the exact difference is reported? DEFAULT: TRUE
 
-rt_has_value <- function(obj, value, digits=6, noise=TRUE){
-  objname <- deparse(substitute(obj))
-
+rt_has_value <- function(obj, value, digits=6, name=deparse(substitute(obj)), noise=TRUE){
+  force(name)
   if(is.character(obj)) if(all(obj==value)) return(TRUE) else
-    {rt_warn(objname, " should be  '", toString(value), "'  but is  '", toString(obj), "'.");
+    {rt_warn("'", name, "' should be  '", toString(value), "'  but is  '", toString(obj), "'.");
     return(FALSE)}
 
   if(  all(is.na(value)) & all(is.na(obj))  ) return(TRUE)
 
   l <- length(obj)
   n <- sum(is.na(obj))
-  if(n>0) {rt_warn(objname, if(l==1) " is NA." else paste0(" has NAs", " (", n, "/", l, ").")) ; return(FALSE)}
+  if(n>0) {rt_warn("'", name, "'", if(l==1) " is NA." else paste0(" has NAs", " (", n, "/", l, ").")) ; return(FALSE)}
 
   obj <- round(obj, digits)
   val <- round(value, digits)
@@ -32,6 +31,6 @@ rt_has_value <- function(obj, value, digits=6, noise=TRUE){
   dif <- round(dif, digits)
   dif <- paste0("The deviance is",if(noise)" (approximately, with added noise)", ": ", toString(dif))
   if(all(obj==val)) return(TRUE)
-  rt_warn(objname, " has the wrong value. ", dif)
+  rt_warn("'", name, "' has the wrong value. ", dif)
   FALSE
 }

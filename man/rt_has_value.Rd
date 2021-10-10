@@ -4,7 +4,13 @@
 \alias{rt_has_value}
 \title{test object value}
 \usage{
-rt_has_value(obj, value, digits = 6, noise = TRUE)
+rt_has_value(
+  obj,
+  value,
+  digits = 6,
+  name = deparse(substitute(obj)),
+  noise = TRUE
+)
 }
 \arguments{
 \item{obj}{Object to be tested. Just the name, not a character string.}
