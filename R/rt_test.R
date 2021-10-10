@@ -10,7 +10,7 @@
 #' @param \dots     Message passed to [rt_warn] if condition evaluates to FALSE
 #'
 rt_test <- function(condition, ...){
-  if(condition) return(TRUE)
+  if(isTRUE(condition)) return(TRUE)
   rt_warn(...)
   FALSE
 }
