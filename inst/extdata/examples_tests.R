@@ -39,4 +39,9 @@ rt_test_task(4, rt_test(rt_env()$success[3], "Please first solve task 3."),
    rt_has_argument(sol, "row.names", FALSE) )
 
 
+# To require several objects for a task but give only one message in total:
+rt_test_task(5, script=script2, object=half_pi,   class="numeric", length=1, value=pi/2)
+if(rt_env()$success[5])
+rt_test_task(5, script=script2, object=double_pi, class="numeric", length=1, value=pi*2)
+
 })

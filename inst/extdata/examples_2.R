@@ -18,4 +18,11 @@ codeoceanR::rt_score() # Instructions in the course video / PDF section 1.4 Exer
 # Adapt your solution in the t3 section above.
 
 
+
+# Task 5 ----
+# Create two objects, according to their name.
+half_pi <- 0
+double_pi <- 0
+
+
 # Once time is up / you're content, run codeoceanR::rt_submit()
