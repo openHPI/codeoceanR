@@ -10,7 +10,7 @@ rt_warn(...)
 \item{\dots}{Message components passed to \code{\link[=warning]{warning()}} or \code{\link[=cat]{cat()}}.}
 }
 \value{
-Output of \code{\link[=warning]{warning()}} in interactive mode (RStudio) or
+invisible FALSE and console printout of \code{\link[=message]{message()}} in interactive mode (RStudio) or
 \code{\link[=cat]{cat()}} otherwise (CodeOcean)
 }
 \description{
