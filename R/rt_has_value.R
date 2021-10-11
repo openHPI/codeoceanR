@@ -27,11 +27,11 @@ rt_has_value <- function(obj, value, digits=6, name=deparse(substitute(obj)), no
 
   obj <- round(obj, digits)
   val <- round(value, digits)
+  if(all(obj==val)) return(TRUE)
+  if(!noise) return(rt_warn("'", name, "' should be ",toString(val),", not ", toString(obj)))
   dif <- obj - val
-  if(noise) dif <- dif + round(rnorm(length(obj)),6)
+  dif <- dif + round(rnorm(length(obj)),6)
   dif <- round(dif, digits)
   dif <- paste0("The deviance is",if(noise)" (approximately, with added noise)", ": ", toString(dif))
-  if(all(obj==val)) return(TRUE)
   rt_warn("'", name, "' has the wrong value. ", dif)
-  FALSE
 }
