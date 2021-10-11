@@ -17,8 +17,8 @@ rt_test_exercise({
 
 script1 <- rt_run_script("examples_1.R") # script 1 ----
 
-rt_test_task(1, script=script1, object=my_first_object , class="numeric", length=1 , value=99)
-rt_test_task(2, script=script1, object=my_second_object, class="integer", length=11, value=5:15)
+rt_test_task(1, script=script1, object=my_first_object , value=99)
+rt_test_task(2, script=script1, object=my_second_object, value=5:15)
 
 
 script2 <- rt_run_script("examples_2.R") # script 2 ----
@@ -42,8 +42,8 @@ rt_test_task(4, rt_test(rt_env()$success[3], "Please first solve task 3."),
 
 
 # To require several objects for a task but give only one message in total:
-rt_test_task(5, script=script2, object=half_pi,   class="numeric", length=1, value=pi/2)
+rt_test_task(5, script=script2, object=half_pi,   value=pi/2)
 if(rt_env()$success[5])
-rt_test_task(5, script=script2, object=double_pi, class="numeric", length=1, value=pi*2)
+rt_test_task(5, script=script2, object=double_pi, value=pi*2)
 
 })

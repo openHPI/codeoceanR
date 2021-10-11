@@ -10,13 +10,9 @@ rt_test_task(
   script = NULL,
   object = NULL,
   zero = TRUE,
-  class = NULL,
-  length = NULL,
-  nrows = NULL,
-  ncols = NULL,
-  names = NULL,
   value = NULL,
-  noise = FALSE
+  noise = FALSE,
+  names = FALSE
 )
 }
 \arguments{
@@ -36,19 +32,12 @@ Regular object name, not quoted. DEFAULT: NULL}
 
 \item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: TRUE}
 
-\item{class}{Required object \link{class}. DEFAULT: NULL}
+\item{value}{Intended value. Class and dimensions are checked first,
+then \link{rt_has_value} is called. DEFAULT: NULL}
 
-\item{length}{Required object \link{length}. DEFAULT: NULL}
+\item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
 
-\item{nrows}{Required \link{nrow} of object. DEFAULT: NULL}
-
-\item{ncols}{Required \link{ncol} of object. DEFAULT: NULL}
-
-\item{names}{Required object \link{names}. DEFAULT: NULL}
-
-\item{value}{Intended value, see \link{rt_has_value}. DEFAULT: NULL}
-
-\item{noise}{noise parameter in \link{rt_has_value}, if \code{value} != NULL. DEFAULT: FALSE}
+\item{names}{Test whether \code{object} has the same \link{names} as \code{value}? DEFAULT: FALSE}
 }
 \value{
 TRUE or FALSE, indicating whether all tests passed

@@ -24,13 +24,10 @@
 #' @param object   Object that needs to be created in student script.
 #'                 Regular object name, not quoted. DEFAULT: NULL
 #' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: TRUE
-#' @param class    Required object [class]. DEFAULT: NULL
-#' @param length   Required object [length]. DEFAULT: NULL
-#' @param nrows    Required [nrow] of object. DEFAULT: NULL
-#' @param ncols    Required [ncol] of object. DEFAULT: NULL
-#' @param names    Required object [names]. DEFAULT: NULL
-#' @param value    Intended value, see [rt_has_value]. DEFAULT: NULL
-#' @param noise    noise parameter in [rt_has_value], if `value` != NULL. DEFAULT: FALSE
+#' @param value    Intended value. Class and dimensions are checked first,
+#'                 then [rt_has_value] is called. DEFAULT: NULL
+#' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
+#' @param names    Test whether `object` has the same [names] as `value`? DEFAULT: FALSE
 #'
 rt_test_task <- function(
 tnumber,
@@ -38,13 +35,9 @@ tnumber,
 script=NULL,
 object=NULL,
 zero=TRUE,
-class=NULL,
-length=NULL,
-nrows=NULL,
-ncols=NULL,
-names=NULL,
 value=NULL,
-noise=FALSE
+noise=FALSE,
+names=FALSE
 )
 {
 n <- deparse(substitute(object))
@@ -70,44 +63,51 @@ if(zero && identical(object, 0))
 	return(rt_env(fail=tnumber))
   }
 
+if(!is.null(value))
+{
 # class ----
-if(!is.null(class) && !inherits(object, class))
+class <- class(value)[1]
+if(!inherits(object, class))
 	{
   rt_warn(n," must be '", class, "', not of class '", toString(class(object)), "'.")
 	return(rt_env(fail=tnumber))
   }
 
-# length ----
-if(!is.null(length) && length(object)!=length)
+# length or nrows + ncols----
+if(is.null(dim(value))) # vector, list
+{
+if(length(object)!=length(value))
   {
-  rt_warn(n," must have length ", length,  ", not ", length(object), ".")
+  rt_warn(n," must have length ", length(value),  ", not ", length(object), ".")
 	return(rt_env(fail=tnumber))
   }
-
-# nrows ----
-if(!is.null(nrows) && nrow(object)!=nrows)
+} else # dataframe, matrix, array
+{
+if(nrow(object)!=nrow(value))
   {
-  rt_warn(n," must have ", nrows, " rows, not ", nrow(object), ".")
+  rt_warn(n," must have ", nrow(value), " rows, not ", nrow(object), ".")
 	return(rt_env(fail=tnumber))
   }
-
-# ncols ----
-if(!is.null(ncols) && ncol(object)!=ncols)
+if(ncol(object)!=ncol(value))
   {
-  rt_warn(n," must have ", ncols, " columns, not ", ncol(object), ".")
+  rt_warn(n," must have ", ncol(value), " columns, not ", ncol(object), ".")
 	return(rt_env(fail=tnumber))
   }
+}
 
 # names ----
-if(!is.null(names) && !all(names %in% base::names(object)))
+if(names)
   {
-  rt_warn(n, " must have the name", if(length(names)>1) "s:", " ", toString(n), ".")
+  nv <- names(value)
+  if(!all(nv %in% base::names(object)))
+  rt_warn(n, " must have the name", if(length(nv)>1) "s:", " ", toString(nv), ".")
 	return(rt_env(fail=tnumber))
   }
 
 # value ----
-if(!is.null(value) && !rt_has_value(object, value, name=n, noise=noise))
+if(!rt_has_value(object, value, name=n, noise=noise))
 	return(rt_env(fail=tnumber))
+} # end !null(value)
 
 # further tests ----
 for(i in seq_len(...length())  )
