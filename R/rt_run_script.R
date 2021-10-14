@@ -13,14 +13,15 @@ rt_run_script <- function(filename){
   rt_env(id=paste0(" ", filename))
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
-  #           # exclude recursive score calls:
-              fcontent <- readLines(filename, warn=FALSE)
-              excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
-                      grepl("rt_score("      , fcontent, fixed=TRUE)
-              fnew <- fcontent[!excl]
-              writeLines(fnew, filename)
-  e <- try(source(filename, local=parent.frame()), silent=TRUE)
-              writeLines(fcontent, filename)
+  # exclude recursive score calls:
+  fcontent <- readLines(filename, warn=FALSE)
+  excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
+          grepl("rt_score("      , fcontent, fixed=TRUE)
+  fnew <- fcontent[!excl]
+  tfile <- tempfile(fileext=".R")
+  writeLines(fnew, tfile)
+  # actually source the (modified) file:
+  e <- try(source(tfile, local=parent.frame()), silent=TRUE)
   if(inherits(e, "try-error")) {
     rt_warn("can not be executed. Make sure each line can be run.",
             if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
