@@ -17,14 +17,14 @@ rt_test_exercise({
 
 script1 <- rt_run_script("examples_1.R") # script 1 ----
 
-rt_test_task(1, script=script1, object=my_first_object , value=99)
-rt_test_task(2, script=script1, object=my_second_object, value=5:15)
+rt_test_task(1, script1, my_first_object , 99)
+rt_test_task(2, script1, my_second_object, 5:15)
 
 
 script2 <- rt_run_script("examples_2.R") # script 2 ----
 sol <- rt_select_script_section(script2, 3)
 
-rt_test_task(3, script=sol,
+rt_test_task(3, script=sol, object=NULL, value=NULL,
    rt_test(grepl("write.table", sol), "code does not contain the command 'write.table'."),
    rt_has_argument(sol, "x", "iris"),
    rt_has_argument(sol, "file")
@@ -35,15 +35,15 @@ rt_test_task(3, script=sol,
 
 # To build on previous task (don't do this too much, students find it frustrating
 # to lose 2 points if they cannot solve the first task):
-rt_test_task(4, rt_test(rt_env()$success[3], "Please first solve task 3."),
+rt_test_task(4, NULL, NULL, NULL, rt_test(rt_env()$success[3], "Please first solve task 3."),
    rt_has_argument(sol, "row.names", FALSE) )
 
 
 # To require several objects for a task but give only one message in total:
-rt_test_task(5, script=script2, object=half_pi,   value=pi/2) &&
-rt_test_task(5, script=script2, object=double_pi, value=pi*2)
+rt_test_task(5, script2, half_pi,   pi/2) &&
+rt_test_task(5, script2, double_pi, pi*2)
 
 
 # For multiple choice tasks, the options can be given in any order:
-rt_test_task(6, script=script2, object=multiChoice, value=c(2,4), hasval=FALSE)
+rt_test_task(6, script2, multiChoice, c(2,4), hasval=FALSE)
 })

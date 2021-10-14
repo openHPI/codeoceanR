@@ -1,34 +1,31 @@
 #' @title Wrapper for test script for an individual task within an exercise
 #' @details NULL arguments mean that their respective tests are not performed.\cr
-#'          Tests are performed in order of arguments for increasingly specific
+#'          Tests are performed in an order for increasingly specific
 #'          messages that do not give away the solution too early.\cr
-#'          \dots must be the first argument so custom tests are not matched to them.
-#'          (except for `tnumber`, the other tests are optional).
-#'          Hence all other arguments need to be specified by full name.\cr
-#'          Common test functions may get their own arguments
-#'          (like [rt_has_value] through `value`) or be incorporated completely,
-#'          like the formerly separate `rt_has_class`.
+#'          Arguments after \dots need to be specified by full name.
+#'          `tnumber` must always be given, `script`, `object` and `value`
+#'          must be given (can be NULL) so later custom tests are not matched to them.
 #' @return TRUE or FALSE, indicating whether all tests passed
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2021
 #' @seealso [rt_test_exercise], tests.R in the [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
 #'
 #' @param tnumber  Number of task. Must be numeric, as it will be used for pass/fail in [rt_env].
-#' @param \dots    Further tests, comma-separated, can be given at the end.
-#'                 Need to yield TRUE/FALSE and take care of [rt_warn] individually.
-#'                 The `rt_*` test functions are designed for just that :).
 #' @param script   Exercise script content that needs to be non-empty.
 #'                 This is the only test that will not generate an [rt_warn] message,
 #'                 as [rt_run_script] or [rt_select_script_section] already do.
 #'                 DEFAULT: NULL
 #' @param object   Object that needs to be created in student script.
 #'                 Regular object name, not quoted. DEFAULT: NULL
-#' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval
 #' @param value    Intended value. Existence, class and dimensions are checked first,
 #'                 then [rt_has_value] is called if hasval=TRUE. DEFAULT: NULL
+#' @param \dots    Further tests, comma-separated, can be given at the end.
+#'                 Need to yield TRUE/FALSE and take care of [rt_warn] individually.
+#'                 The `rt_*` test functions are designed for just that :).
 #' @param hasval   After checks for existence, class and dimension, run [rt_has_value]?
 #'                 can be FALSE for custom messages, e.g in multiple choice tasks.
 #'                 DEFAULT: TRUE
+#' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval
 #' @param dim      Check dimension (length or nrow+ncol)? DEFAULT: hasval
 #' @param correct  Custom value message for multiple choice tasks? DEFAULT: !hasval
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
@@ -36,11 +33,11 @@
 #'
 rt_test_task <- function(
 tnumber,
-...,
 script=NULL,
 object=NULL,
-zero=hasval,
 value=NULL,
+...,
+zero=hasval,
 hasval=TRUE,
 dim=hasval,
 correct=!hasval,

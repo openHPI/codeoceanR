@@ -6,11 +6,11 @@
 \usage{
 rt_test_task(
   tnumber,
-  ...,
   script = NULL,
   object = NULL,
-  zero = hasval,
   value = NULL,
+  ...,
+  zero = hasval,
   hasval = TRUE,
   dim = hasval,
   correct = !hasval,
@@ -21,10 +21,6 @@ rt_test_task(
 \arguments{
 \item{tnumber}{Number of task. Must be numeric, as it will be used for pass/fail in \link{rt_env}.}
 
-\item{\dots}{Further tests, comma-separated, can be given at the end.
-Need to yield TRUE/FALSE and take care of \link{rt_warn} individually.
-The \verb{rt_*} test functions are designed for just that :).}
-
 \item{script}{Exercise script content that needs to be non-empty.
 This is the only test that will not generate an \link{rt_warn} message,
 as \link{rt_run_script} or \link{rt_select_script_section} already do.
@@ -33,10 +29,14 @@ DEFAULT: NULL}
 \item{object}{Object that needs to be created in student script.
 Regular object name, not quoted. DEFAULT: NULL}
 
-\item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval}
-
 \item{value}{Intended value. Existence, class and dimensions are checked first,
 then \link{rt_has_value} is called if hasval=TRUE. DEFAULT: NULL}
+
+\item{\dots}{Further tests, comma-separated, can be given at the end.
+Need to yield TRUE/FALSE and take care of \link{rt_warn} individually.
+The \verb{rt_*} test functions are designed for just that :).}
+
+\item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval}
 
 \item{hasval}{After checks for existence, class and dimension, run \link{rt_has_value}?
 can be FALSE for custom messages, e.g in multiple choice tasks.
@@ -58,14 +58,11 @@ Wrapper for test script for an individual task within an exercise
 }
 \details{
 NULL arguments mean that their respective tests are not performed.\cr
-Tests are performed in order of arguments for increasingly specific
+Tests are performed in an order for increasingly specific
 messages that do not give away the solution too early.\cr
-\dots must be the first argument so custom tests are not matched to them.
-(except for \code{tnumber}, the other tests are optional).
-Hence all other arguments need to be specified by full name.\cr
-Common test functions may get their own arguments
-(like \link{rt_has_value} through \code{value}) or be incorporated completely,
-like the formerly separate \code{rt_has_class}.
+Arguments after \dots need to be specified by full name.
+\code{tnumber} must always be given, \code{script}, \code{object} and \code{value}
+must be given (can be NULL) so later custom tests are not matched to them.
 }
 \seealso{
 \link{rt_test_exercise}, tests.R in the \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
