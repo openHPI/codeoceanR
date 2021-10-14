@@ -25,5 +25,14 @@ half_pi <- 0
 double_pi <- 0
 
 
+# Task 6 ----
+# Select the right option(s):
+# 1. Not the answer
+# 2. Yes, select this
+# 3. Another false possibility
+# 4. This one is correct, too.
+multichoice <- 4
+
+
 # When you are done, submit your score to openHPI with:
 # codeoceanR::rt_submit()

@@ -23,12 +23,14 @@
 #'                 DEFAULT: NULL
 #' @param object   Object that needs to be created in student script.
 #'                 Regular object name, not quoted. DEFAULT: NULL
-#' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: TRUE
+#' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval
 #' @param value    Intended value. Existence, class and dimensions are checked first,
 #'                 then [rt_has_value] is called if hasval=TRUE. DEFAULT: NULL
 #' @param hasval   After checks for existence, class and dimension, run [rt_has_value]?
-#'                 can be FALSE for custom messages, e.g in correctAnswer tasks.
+#'                 can be FALSE for custom messages, e.g in multiple choice tasks.
 #'                 DEFAULT: TRUE
+#' @param dim      Check dimension (length or nrow+ncol)? DEFAULT: hasval
+#' @param correct  Custom value message for multiple choice tasks? DEFAULT: !hasval
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
 #' @param names    Test whether `object` has the same [names] as `value`? DEFAULT: FALSE
 #'
@@ -37,9 +39,11 @@ tnumber,
 ...,
 script=NULL,
 object=NULL,
-zero=TRUE,
+zero=hasval,
 value=NULL,
 hasval=TRUE,
+dim=hasval,
+correct=!hasval,
 noise=FALSE,
 names=FALSE
 )
@@ -73,11 +77,12 @@ if(!is.null(value))
 class <- class(value)[1]
 if(!inherits(object, class))
 	{
-  rt_warn(n," must be '", class, "', not of class '", toString(class(object)), "'.")
+  rt_warn("'", n,"' must be '", class, "', not of class '", toString(class(object)), "'.")
 	return(rt_env(fail=tnumber))
   }
 
 # length or nrows + ncols----
+if(dim)
 if(is.null(dim(value))) # vector, list
 {
 if(length(object)!=length(value))
@@ -103,14 +108,20 @@ if(ncol(object)!=ncol(value))
 if(names)
   {
   nv <- names(value)
-  if(!all(nv %in% base::names(object)))
+  if(!all(nv %in% base::names(object))){
   rt_warn(n, " must have the name", if(length(nv)>1) "s:", " ", toString(nv), ".")
 	return(rt_env(fail=tnumber))
-  }
+  }}
 
 # value ----
 if(hasval && !rt_has_value(object, value, name=n, noise=noise))
 	return(rt_env(fail=tnumber))
+if(correct && !identical(sort(object),sort(value)))
+	{
+	rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
+	return(rt_env(fail=tnumber))
+  }
+
 } # end !null(value)
 
 # further tests ----

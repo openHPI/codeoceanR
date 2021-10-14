@@ -42,8 +42,10 @@ rt_test_task(4, rt_test(rt_env()$success[3], "Please first solve task 3."),
 
 
 # To require several objects for a task but give only one message in total:
-rt_test_task(5, script=script2, object=half_pi,   value=pi/2)
-if(rt_env()$success[5])
+rt_test_task(5, script=script2, object=half_pi,   value=pi/2) &&
 rt_test_task(5, script=script2, object=double_pi, value=pi*2)
 
+
+# For multiple choice tasks, the options can be given in any order.
+rt_test_task(6, script=script2, object=multichoice, value=c(2,4), hasval=FALSE)
 })

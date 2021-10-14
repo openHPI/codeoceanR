@@ -9,9 +9,11 @@ rt_test_task(
   ...,
   script = NULL,
   object = NULL,
-  zero = TRUE,
+  zero = hasval,
   value = NULL,
   hasval = TRUE,
+  dim = hasval,
+  correct = !hasval,
   noise = FALSE,
   names = FALSE
 )
@@ -31,14 +33,18 @@ DEFAULT: NULL}
 \item{object}{Object that needs to be created in student script.
 Regular object name, not quoted. DEFAULT: NULL}
 
-\item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: TRUE}
+\item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval}
 
 \item{value}{Intended value. Existence, class and dimensions are checked first,
 then \link{rt_has_value} is called if hasval=TRUE. DEFAULT: NULL}
 
 \item{hasval}{After checks for existence, class and dimension, run \link{rt_has_value}?
-can be FALSE for custom messages, e.g in correctAnswer tasks.
+can be FALSE for custom messages, e.g in multiple choice tasks.
 DEFAULT: TRUE}
+
+\item{dim}{Check dimension (length or nrow+ncol)? DEFAULT: hasval}
+
+\item{correct}{Custom value message for multiple choice tasks? DEFAULT: !hasval}
 
 \item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
 
