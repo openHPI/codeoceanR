@@ -25,15 +25,13 @@ script2 <- rt_run_script("examples_2.R") # script 2 ----
 sol <- rt_select_script_section(script2, 3)
 
 rt_test_task(3, script=sol,
-   rt_test(grepl("write.table", sol), "code does not contain the command 'write.table'.")
-   ,
-   rt_has_argument(sol, "x", "iris")
-   ,
+   rt_test(grepl("write.table", sol), "code does not contain the command 'write.table'."),
+   rt_has_argument(sol, "x", "iris"),
    rt_has_argument(sol, "file")
-   ,
+   , # Commas on separate lines enable sending a single line during test development
    rt_has_argument(sol, "sep", "\t")
    )
-# Commas on separate lines enable sending a single line during test development
+
 
 # To build on previous task (don't do this too much, students find it frustrating
 # to lose 2 points if they cannot solve the first task):
@@ -46,6 +44,6 @@ rt_test_task(5, script=script2, object=half_pi,   value=pi/2) &&
 rt_test_task(5, script=script2, object=double_pi, value=pi*2)
 
 
-# For multiple choice tasks, the options can be given in any order.
-rt_test_task(6, script=script2, object=multichoice, value=c(2,4), hasval=FALSE)
+# For multiple choice tasks, the options can be given in any order:
+rt_test_task(6, script=script2, object=multiChoice, value=c(2,4), hasval=FALSE)
 })

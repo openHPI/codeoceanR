@@ -19,12 +19,12 @@ rt_run_script <- function(filename){
                       grepl("rt_score("      , fcontent, fixed=TRUE)
               fnew <- fcontent[!excl]
               writeLines(fnew, filename)
-  e <- try(source(filename), silent=TRUE)
+  e <- try(source(filename, local=parent.frame()), silent=TRUE)
               writeLines(fcontent, filename)
   if(inherits(e, "try-error")) {
     rt_warn("can not be executed. Make sure each line can be run.",
             if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
-            "\n--- The source() error message was: ", e)
+            "\n--- The source() error message was: ", sub("\n$","",e))
     return(FALSE)}
   readLines(filename, warn=FALSE)
 }

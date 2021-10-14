@@ -31,7 +31,7 @@ double_pi <- 0
 # 2. Yes, select this
 # 3. Another false possibility
 # 4. This one is correct, too.
-multichoice <- 4
+multiChoice <- 0
 
 
 # When you are done, submit your score to openHPI with:

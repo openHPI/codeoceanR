@@ -58,7 +58,7 @@ rt_env(id=tnumber)
 if(!is.null(script) && !rt_script_runs(script)) return(rt_env(fail=tnumber))
 
 # object ----
-if(n!="NULL" && !base::exists(n))
+if(n!="NULL" && !exists(n, envir=parent.frame()))
   {
   rt_warn("Create the object '",n,"'. It does not yet exist.")
 	return(rt_env(fail=tnumber))

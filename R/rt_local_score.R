@@ -40,12 +40,7 @@ if(!grepl("tests\\.R$", tfile)) stop("tfile must end in *tests.R, but does not. 
 # Stop if files are changed but not saved:
 if(check_unsaved) rt_check_for_unsaved_files(dirname(tfile), warnonly=TRUE)
 
-# Check for old objects from test development:
-# browser()
-ll <- length(ls(1))
-if(ll>0) message("-- there are ", ll, " objects in .GlobalEnv. Clean it to not be ",
-		"confused by old objects (deleted from script but not workspace).")
 # Actually run tests:
-source(tfile, local=TRUE)
-return(NULL)
+source(tfile, local=parent.frame())
+return(invisible(NULL))
 }
