@@ -25,4 +25,5 @@ half_pi <- 0
 double_pi <- 0
 
 
-# Once time is up / you're content, run codeoceanR::rt_submit()
+# When you are done, submit your score to openHPI with:
+# codeoceanR::rt_submit()
