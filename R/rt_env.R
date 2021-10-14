@@ -1,7 +1,6 @@
 #' @title interact with rt_test_env
 #' @description interact with rt_test_env, see [rt_test_exercise]
-#' @return If env not found, list with id="_no_id".\cr
-#'         If `id` or no arguments are given, list with the env content.\cr
+#' @return If `id` or no arguments are given, list with the env content.\cr
 #'         If `pass` or `fail` are given, TRUE or FALSE respectively.\cr
 #'         Later arguments are ignored if a prior argument is given.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2021
@@ -17,8 +16,8 @@ pass=NULL,
 fail=NULL
 )
 {
-env <- dynGet("rt_test_env", ifnotfound={warning("rt_test_env not found.", call.=FALSE);NULL}, minframe=0)
-if(is.null(env)) return(list(id="_no_id", success=vector()))
+env <- dynGet("rt_test_env", ifnotfound={warning("rt_test_env not found.", call.=FALSE)
+	                                       list(id="_no_id", success=vector())}, minframe=0)
 
 if(!is.null(id))   {env$id <- id; return(as.list(env))}
 if(!is.null(pass)) {stopifnot(is.numeric(pass)); return(env$success[pass] <- TRUE)}

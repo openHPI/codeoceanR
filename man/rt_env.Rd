@@ -14,7 +14,6 @@ rt_env(id = NULL, pass = NULL, fail = NULL)
 \item{fail}{Number of task(s) to set as failed. DEFAULT: NULL}
 }
 \value{
-If env not found, list with id="_no_id".\cr
 If \code{id} or no arguments are given, list with the env content.\cr
 If \code{pass} or \code{fail} are given, TRUE or FALSE respectively.\cr
 Later arguments are ignored if a prior argument is given.
