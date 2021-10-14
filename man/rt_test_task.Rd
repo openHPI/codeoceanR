@@ -11,6 +11,7 @@ rt_test_task(
   object = NULL,
   zero = TRUE,
   value = NULL,
+  hasval = TRUE,
   noise = FALSE,
   names = FALSE
 )
@@ -32,8 +33,12 @@ Regular object name, not quoted. DEFAULT: NULL}
 
 \item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: TRUE}
 
-\item{value}{Intended value. Class and dimensions are checked first,
-then \link{rt_has_value} is called. DEFAULT: NULL}
+\item{value}{Intended value. Existence, class and dimensions are checked first,
+then \link{rt_has_value} is called if hasval=TRUE. DEFAULT: NULL}
+
+\item{hasval}{After checks for existence, class and dimension, run \link{rt_has_value}?
+can be FALSE for custom messages, e.g in correctAnswer tasks.
+DEFAULT: TRUE}
 
 \item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
 

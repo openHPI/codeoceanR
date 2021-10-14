@@ -24,8 +24,11 @@
 #' @param object   Object that needs to be created in student script.
 #'                 Regular object name, not quoted. DEFAULT: NULL
 #' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: TRUE
-#' @param value    Intended value. Class and dimensions are checked first,
-#'                 then [rt_has_value] is called. DEFAULT: NULL
+#' @param value    Intended value. Existence, class and dimensions are checked first,
+#'                 then [rt_has_value] is called if hasval=TRUE. DEFAULT: NULL
+#' @param hasval   After checks for existence, class and dimension, run [rt_has_value]?
+#'                 can be FALSE for custom messages, e.g in correctAnswer tasks.
+#'                 DEFAULT: TRUE
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
 #' @param names    Test whether `object` has the same [names] as `value`? DEFAULT: FALSE
 #'
@@ -36,6 +39,7 @@ script=NULL,
 object=NULL,
 zero=TRUE,
 value=NULL,
+hasval=TRUE,
 noise=FALSE,
 names=FALSE
 )
@@ -105,7 +109,7 @@ if(names)
   }
 
 # value ----
-if(!rt_has_value(object, value, name=n, noise=noise))
+if(hasval && !rt_has_value(object, value, name=n, noise=noise))
 	return(rt_env(fail=tnumber))
 } # end !null(value)
 
