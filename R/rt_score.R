@@ -27,7 +27,7 @@ cofile <- paste0(dir, "/.co")
 # run rt_local_score in exercise development folder with *tests.R:
 if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
 	{
-	return(rt_local_score(check_unsaved=FALSE))
+	return(rt_local_score())
   }
 
 # Warn if files are changed but not saved:
