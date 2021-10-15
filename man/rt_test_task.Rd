@@ -11,6 +11,7 @@ rt_test_task(
   value = NULL,
   ...,
   zero = hasval,
+  class = NULL,
   hasval = TRUE,
   dim = hasval,
   correct = !hasval,
@@ -38,6 +39,9 @@ Need to yield TRUE/FALSE and take care of \link{rt_warn} individually.
 The \verb{rt_*} test functions are designed for just that :).}
 
 \item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval}
+
+\item{class}{Class(es) that are acceptable. Test is passed if any of the classes matches.
+Test is skipped if \code{class="any"}. DEFAULT: NULL (class of \code{value})}
 
 \item{hasval}{After checks for existence, class and dimension, run \link{rt_has_value}?
 can be FALSE for custom messages, e.g in multiple choice tasks.

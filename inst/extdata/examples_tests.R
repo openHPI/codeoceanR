@@ -18,7 +18,8 @@ rt_test_exercise({
 script1 <- rt_run_script("examples_1.R") # script 1 ----
 
 rt_test_task(1, script1, my_first_object , 99)
-rt_test_task(2, script1, my_second_object, 5:15)
+# either class is fine,  5:15  and  seq(5,15,1)  are both correct:
+rt_test_task(2, script1, my_second_object, 5:15, class=c("integer","numeric"))
 
 
 script2 <- rt_run_script("examples_2.R") # script 2 ----

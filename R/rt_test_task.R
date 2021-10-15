@@ -26,6 +26,8 @@
 #'                 can be FALSE for custom messages, e.g in multiple choice tasks.
 #'                 DEFAULT: TRUE
 #' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval
+#' @param class    Class(es) that are acceptable. Test is passed if any of the classes matches.
+#'                 Test is skipped if `class="any"`. DEFAULT: NULL (class of `value`)
 #' @param dim      Check dimension (length or nrow+ncol)? DEFAULT: hasval
 #' @param correct  Custom value message for multiple choice tasks? DEFAULT: !hasval
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
@@ -39,6 +41,7 @@ object=NULL,
 value=NULL,
 ...,
 zero=hasval,
+class=NULL,
 hasval=TRUE,
 dim=hasval,
 correct=!hasval,
@@ -80,10 +83,10 @@ if(zero && identical(object, 0))
 if(!is.null(value))
 {
 # class ----
-class <- class(value)[1]
-if(!inherits(object, class))
+if(is.null(class)) class <- class(value)
+if(!identical(class, "any") && !any(class(object) %in% class))
 	{
-  rt_warn("'", n,"' must be '", class, "', not of class '", toString(class(object)), "'.")
+  rt_warn("'", n,"' must be ", paste(class, collapse=" or "), ", not of class '", toString(class(object)), "'.")
 	return(rt_env(fail=tnumber))
   }
 
