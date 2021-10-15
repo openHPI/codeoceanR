@@ -35,8 +35,7 @@ rt_test_task(3, script=sol, object=NULL, value=NULL,
 
 # To build on previous task (don't do this too much, students find it frustrating
 # to lose 2 points if they cannot solve the first task):
-rt_test_task(4, NULL, NULL, NULL, rt_test(rt_env()$success[3], "Please first solve task 3."),
-   rt_has_argument(sol, "row.names", FALSE) )
+rt_test_task(4, NULL, NULL, NULL, solved=3, rt_has_argument(sol, "row.names", FALSE))
 
 
 # To require several objects for a task but give only one message in total:

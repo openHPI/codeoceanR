@@ -15,6 +15,7 @@ rt_test_task(
   dim = hasval,
   correct = !hasval,
   noise = FALSE,
+  solved = NULL,
   names = FALSE
 )
 }
@@ -47,6 +48,8 @@ DEFAULT: TRUE}
 \item{correct}{Custom value message for multiple choice tasks? DEFAULT: !hasval}
 
 \item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
+
+\item{solved}{Task number that must be solved before other tests are run. DEFAULT: NULL}
 
 \item{names}{Test whether \code{object} has the same \link{names} as \code{value}? DEFAULT: FALSE}
 }

@@ -29,6 +29,7 @@
 #' @param dim      Check dimension (length or nrow+ncol)? DEFAULT: hasval
 #' @param correct  Custom value message for multiple choice tasks? DEFAULT: !hasval
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
+#' @param solved   Task number that must be solved before other tests are run. DEFAULT: NULL
 #' @param names    Test whether `object` has the same [names] as `value`? DEFAULT: FALSE
 #'
 rt_test_task <- function(
@@ -42,6 +43,7 @@ hasval=TRUE,
 dim=hasval,
 correct=!hasval,
 noise=FALSE,
+solved=NULL,
 names=FALSE
 )
 {
@@ -50,6 +52,13 @@ if(!is.numeric(tnumber)) stop("tnumber must be numeric, not ", toString(class(tn
 rt_env(id=tnumber)
 
 # Exit this function through return() right after the first rt_warn message
+
+# solved ----
+if(!is.null(solved))
+	{
+	if(!rt_test(rt_env()$success[solved], "Please first solve task ",solved,"."))
+		return(rt_env(fail=tnumber))
+  }
 
 # script ----
 if(!is.null(script) && !rt_script_runs(script)) return(rt_env(fail=tnumber))
