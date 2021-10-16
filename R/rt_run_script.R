@@ -23,11 +23,11 @@ rt_run_script <- function(filename){
   # actually source the (modified) file:
   e <- try(source(tfile, local=parent.frame()), silent=TRUE)
   if(inherits(e, "try-error")) {
-    e <- sub("^Error in source.*_coscript.R:"," line:column ",e)
+    e <- sub("^Error in source.*_coscript.R:","Error in line:column ",e)
     e <- sub("\n.*$","",e)
     rt_warn("can not be executed. Make sure each line can be run.",
             if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
-            "\n--- The source() error message occured at", e)
+            "\n--- source() message: ", e)
     return(FALSE)}
   readLines(filename, warn=FALSE)
 }
