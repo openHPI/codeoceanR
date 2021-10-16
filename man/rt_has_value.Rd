@@ -9,7 +9,8 @@ rt_has_value(
   value,
   digits = 6,
   name = deparse(substitute(obj)),
-  noise = TRUE
+  noise = FALSE,
+  stepwise = length(obj) > 1
 )
 }
 \arguments{
@@ -21,7 +22,10 @@ rt_has_value(
 
 \item{name}{Object name for \link{rt_warn} messages. DEFAULT: \code{deparse(substitute(obj))}}
 
-\item{noise}{Add noise, so not the exact difference is reported? DEFAULT: TRUE}
+\item{noise}{Add noise, so not the exact difference is reported? DEFAULT: FALSE}
+
+\item{stepwise}{Compare vectors (in future also: matrices and data.frames)
+stepwise? only if noise=FALSE. DEFAULT: length(obj)>1}
 }
 \value{
 Logical: TRUE / FALSE depending on whether object has the given value.

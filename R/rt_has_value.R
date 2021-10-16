@@ -11,9 +11,16 @@
 #' @param value  value `obj` should have, can be char / numeric / other.
 #' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison. DEFAULT: 6
 #' @param name   Object name for [rt_warn] messages. DEFAULT: `deparse(substitute(obj))`
-#' @param noise  Add noise, so not the exact difference is reported? DEFAULT: TRUE
+#' @param noise  Add noise, so not the exact difference is reported? DEFAULT: FALSE
+#' @param stepwise Compare vectors (in future also: matrices and data.frames)
+#'                 stepwise? only if noise=FALSE. DEFAULT: length(obj)>1
 
-rt_has_value <- function(obj, value, digits=6, name=deparse(substitute(obj)), noise=TRUE){
+rt_has_value <- function(
+	obj, value, digits=6,
+	name=deparse(substitute(obj)),
+	noise=FALSE,
+	stepwise=length(obj)>1
+	){
   force(name)
   if(is.character(obj)) if(all(obj==value)) return(TRUE) else
     {rt_warn("'", name, "' should be  '", toString(value), "'  but is  '", toString(obj), "'.");
@@ -27,11 +34,18 @@ rt_has_value <- function(obj, value, digits=6, name=deparse(substitute(obj)), no
 
   obj <- round(obj, digits)
   val <- round(value, digits)
-  if(all(obj==val)) return(TRUE)
-  if(!noise) return(rt_warn("'", name, "' should be ",toString(val),", not ", toString(obj)))
-  dif <- obj - val
-  dif <- dif + round(rnorm(length(obj)),6)
-  dif <- round(dif, digits)
-  dif <- paste0("The deviance is",if(noise)" (approximately, with added noise)", ": ", toString(dif))
-  rt_warn("'", name, "' has the wrong value. ", dif)
+  if(identical(obj,val)) return(TRUE)
+  if(noise) return(rt_warn("'", name, "' has the wrong value. The deviance is ",
+  												 "(approximately, with added noise): ",
+  												 toString(round(obj - val + rnorm(length(obj)), digits))))
+  if(!stepwise) return(rt_warn("'", name, "' should be ", toString(val),
+  														 ", not ", toString(obj)))
+  # stepwise check:
+  for(i in seq_len(l))
+  {
+  v <- val[i]
+  o <- obj[i]
+  if(o!=v) return(rt_warn("'", name, "[",i,"]' should be ",
+  												toString(v),", not ", toString(o)))
+  }
 }
