@@ -56,15 +56,15 @@ rt_env(id=tnumber)
 
 # Exit this function through return() right after the first rt_warn message
 
+# script ----
+if(!is.null(script) && !rt_script_runs(script)) return(rt_env(fail=tnumber))
+
 # solved ----
 if(!is.null(solved))
 	{
 	if(!rt_test(rt_env()$success[solved], "Please first solve task ",solved,"."))
 		return(rt_env(fail=tnumber))
   }
-
-# script ----
-if(!is.null(script) && !rt_script_runs(script)) return(rt_env(fail=tnumber))
 
 # object ----
 if(n!="NULL" && !exists(n, envir=parent.frame()))
