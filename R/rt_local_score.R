@@ -32,7 +32,8 @@ if(!endsWith(tfile, "tests.R"))
 # aufgabe_03_4_arrays_2.R      ->  all 3:  aufgabe_03_4_arrays_tests.R
 # aufgabe_03_4_arrays_tests.R  -> /
 
-message("-- running rt_local_score on ", tfile, if(!is.null(callfile)) paste0(", called from ", callfile))
+message("-- running rt_local_score on ", basename(tfile),
+				if(!is.null(callfile)) paste0(", called from ", callfile))
 
 berryFunctions::checkFile(tfile)
 if(!grepl("tests\\.R$", tfile)) stop("tfile must end in *tests.R, but does not. ", tfile)
