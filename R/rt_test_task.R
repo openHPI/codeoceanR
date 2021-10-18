@@ -147,9 +147,10 @@ if(zero && try(object(), silent=TRUE)==0)
 if(!is.null(inputs))
 for(i in seq_along(inputs))
   {
-  uc <- paste0("object(",toString(inputs[[i]]),")") # user call
-  cc <- paste0("value(",toString(inputs[[i]]),")") # correct call
-  pc <- names(inputs)[i] ; if(is.null(pc)) pc <- inputs[[i]]
+	vec <- function(x) if(length(x)==1) x else paste0("c(",toString(x),")")
+  uc <- paste0("object(",vec(inputs[[i]]),")") # user call
+  cc <- paste0("value(",vec(inputs[[i]]),")") # correct call
+  pc <- names(inputs)[i] ; if(is.null(pc)||pc=="") pc <- vec(inputs[[i]])
   pc <- paste0(n,"(",pc,")") # print call
 	res    <- try(eval(str2lang(uc)), silent=TRUE)
 	target <- try(eval(str2lang(cc)), silent=TRUE)
@@ -160,12 +161,8 @@ for(i in seq_along(inputs))
     rt_warn("'",pc,"' should not yield Error: ",res)
     return(rt_env(fail=tnumber))
     }
-	if(!identical(res, target))
-     {
-		 if(!rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))
-		 rt_has_value(res, target, name=pc)
-     return(rt_env(fail=tnumber))
-     }
+	if(!rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))
+	if(!rt_has_value(res, target, name=pc)) return(rt_env(fail=tnumber))
 	} # end for loop
 }
 # pass ----
