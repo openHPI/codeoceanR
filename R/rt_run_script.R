@@ -21,7 +21,7 @@ rt_run_script <- function(filename){
   tfile <- tempfile(fileext="_coscript.R")
   writeLines(fnew, tfile)
   # actually source the (modified) file:
-  e <- try(source(tfile, local=parent.frame()), silent=TRUE)
+  e <- try(suppressWarnings(source(tfile, local=parent.frame())), silent=TRUE)
   if(inherits(e, "try-error")) {
     e <- sub("^Error in source.*_coscript.R:","Error in line:column ",e)
     e <- sub("\n.*$","",e)
