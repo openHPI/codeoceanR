@@ -76,7 +76,7 @@ if(n!="NULL" && !exists(n, envir=parent.frame()))
 # zero ----
 if(zero && identical(object, 0))
   {
-  rt_warn("Replace the 0 for '",n,"' with code to compute the solution.")
+  rt_warn("Replace the 0 for '",n,"' with code with the solution.")
 	return(rt_env(fail=tnumber))
   }
 
