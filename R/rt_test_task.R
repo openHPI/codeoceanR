@@ -90,28 +90,15 @@ if(!identical(class, "any") && !any(class(object) %in% class))
 	return(rt_env(fail=tnumber))
   }
 
-# length or nrows + ncols----
-if(dim)
-if(is.null(dim(value))) # vector, list
-{
-if(length(object)!=length(value))
+if(is.function(value))
   {
-  rt_warn(n," must have length ", length(value),  ", not ", length(object), ".")
-	return(rt_env(fail=tnumber))
+	dim <- FALSE
+  hasval <- FALSE
+  correct <- FALSE
   }
-} else # dataframe, matrix, array
-{
-if(nrow(object)!=nrow(value))
-  {
-  rt_warn(n," must have ", nrow(value), " rows, not ", nrow(object), ".")
-	return(rt_env(fail=tnumber))
-  }
-if(ncol(object)!=ncol(value))
-  {
-  rt_warn(n," must have ", ncol(value), " columns, not ", ncol(object), ".")
-	return(rt_env(fail=tnumber))
-  }
-}
+
+# dim ----
+if(dim && !rt_has_dim(object, value, name=n)) return(rt_env(fail=tnumber))
 
 # names ----
 if(names)
