@@ -12,13 +12,13 @@ rt_has_dim <- function(obj, value, name=deparse(substitute(obj)))
 if(is.null(dim(value))) # vector, list, function
 {
 if(length(obj)!=length(value))
-  return(rt_warn(name," must have length ",length(value),", not ",length(obj), "."))
+  return(rt_warn("'",name,"' must have length ",length(value),", not ",length(obj), "."))
 } else # dataframe, matrix, array
 {
 if(nrow(obj)!=nrow(value))
-  return(rt_warn(name," must have ",nrow(value)," rows, not ",nrow(obj), "."))
+  return(rt_warn("'",name,"' must have ",nrow(value)," rows, not ",nrow(obj), "."))
 if(ncol(obj)!=ncol(value))
-  return(rt_warn(name," must have ",ncol(value)," columns, not ",ncol(obj), "."))
+  return(rt_warn("'",name,"' must have ",ncol(value)," columns, not ",ncol(obj), "."))
 }
 return(TRUE)
 }
