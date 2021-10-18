@@ -12,7 +12,7 @@ rt_test_env <- new.env()
 rt_test_env$success <- vector()
 rt_env(id="na")
 # eval + substitute: https://stackoverflow.com/q/69570220/1587132
-trytests <- try(eval(substitute(expr)), silent=TRUE) # rt_test_task calls
+trytests <- rt_try(eval(substitute(expr))) # rt_test_task calls
 #rt_env(id="t")
 if(inherits(trytests, "try-error"))
   {
