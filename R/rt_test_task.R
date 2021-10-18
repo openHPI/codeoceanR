@@ -23,15 +23,26 @@
 #'                 Need to yield TRUE/FALSE and take care of [rt_warn] individually.
 #'                 The `rt_*` test functions are designed for just that :).
 #' @param hasval   After checks for existence, class and dimension, run [rt_has_value]?
-#'                 can be FALSE for custom messages, e.g in multiple choice tasks.
+#'                 Can be FALSE for custom messages, e.g in multiple choice tasks.
+#'                 Will be FALSE if `value` is a function.
 #'                 DEFAULT: TRUE
 #' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval
 #' @param class    Class(es) that are acceptable. Test is passed if any of the classes matches.
 #'                 Test is skipped if `class="any"`. DEFAULT: NULL (class of `value`)
-#' @param dim      Check dimension (length or nrow+ncol)? DEFAULT: hasval
-#' @param correct  Custom value message for multiple choice tasks? DEFAULT: !hasval
+#' @param dim      Check dimension (length or nrow+ncol) with [rt_has_dim]?
+#'                 Will be FALSE if `value` is a function. DEFAULT: hasval
+#' @param correct  Custom value message for multiple choice tasks?
+#'                 Will be FALSE if `value` is a function. DEFAULT: !hasval
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
 #' @param solved   Task number that must be solved before other tests are run. DEFAULT: NULL
+#' @param inputs   List or vector with (named) charstrings with code to be called
+#'                 if `object` and `value` are functions.
+#'                 Will be called with `eval(str2lang(paste0("object(",input_i,")")))`.
+#'                 Object names within rt_test_exercise are not available within rt_test_task.
+#'                 Use a named object for a custom object name in rt_warn messages.
+#'                 For single-argument functions, numerical input works fine, too.
+#'                 These are the only tests run AFTER ...-tests are run.
+#'                 DEFAULT: NULL
 #' @param names    Test whether `object` has the same [names] as `value`? DEFAULT: FALSE
 #'
 rt_test_task <- function(
@@ -47,6 +58,7 @@ dim=hasval,
 correct=!hasval,
 noise=FALSE,
 solved=NULL,
+inputs=NULL,
 names=FALSE
 )
 {
@@ -124,6 +136,38 @@ if(correct && !identical(sort(object),sort(value)))
 for(i in seq_len(...length())  )
    if(!...elt(i)) return(rt_env(fail=tnumber))
 
+# function inputs ----
+if(is.function(value))
+{
+if(zero && try(object(), silent=TRUE)==0)
+  {
+  rt_warn("'",n,"()' should not return 0.")
+  return(rt_env(fail=tnumber))
+  }
+if(!is.null(inputs))
+for(i in seq_along(inputs))
+  {
+  uc <- paste0("object(",toString(inputs[[i]]),")") # user call
+  cc <- paste0("value(",toString(inputs[[i]]),")") # correct call
+  pc <- names(inputs)[i] ; if(is.null(pc)) pc <- inputs[[i]]
+  pc <- paste0(n,"(",pc,")") # print call
+	res    <- try(eval(str2lang(uc)), silent=TRUE)
+	target <- try(eval(str2lang(cc)), silent=TRUE)
+	if(inherits(res, "try-error"))
+	  {
+		res <- sub("^Error in .*?:", "", res)
+		res <- gsub("\n", "", res)
+    rt_warn("'",pc,"' should not yield Error: ",res)
+    return(rt_env(fail=tnumber))
+    }
+	if(!identical(res, target))
+     {
+		 if(!rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))
+		 rt_has_value(res, target, name=pc)
+     return(rt_env(fail=tnumber))
+     }
+	} # end for loop
+}
 # pass ----
 # set rt_test_env$success[tnumber] to TRUE if all tests passed:
 rt_env(pass=tnumber)

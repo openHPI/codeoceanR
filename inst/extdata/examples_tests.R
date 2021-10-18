@@ -46,4 +46,20 @@ rt_test_task(5, script2, double_pi, pi*2)
 
 # For multiple choice tasks, the options can be given in any order:
 rt_test_task(6, script2, multiChoice, c(2,4), hasval=FALSE)
+
+
+inputVec <- round(rnorm(30),1)
+# Functions can be checked with different inputs:
+solution <- function(x) sqrt(replace(x, x<0, NaN)) # could also use suppressWarnings()
+rt_test_task(7, script2, silentRoot, solution, inputs=inputVec)
+
+# a <- function(x) {aa <- "stuff"; b(x)}
+# b <- function(y) {
+# 	print(ls(parent.frame()))            # parent.frame: aa, x      env in which the function was called
+# 	print(ls(parent.env(environment())) )# parent.env: a, b   enclosing env in which function was defined
+# 	message(aa) # # error: 'aa' not found         -      dynGet("aa") would work
+# 	}
+# a(7)
+
+
 })

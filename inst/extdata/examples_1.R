@@ -6,7 +6,8 @@
 
 # Make sure to save the script (CTRL + S) before running the following:
 codeoceanR::rt_score()
-# You can conveniently save + source (= run full script) in one go with  CTRL + SHIFT + S.
+# You can conveniently save + source (= run full script including previous line)
+# by clicking on "Source" (topright if script window) or pressing  CTRL + SHIFT + S.
 
 
 

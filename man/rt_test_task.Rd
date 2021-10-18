@@ -17,6 +17,7 @@ rt_test_task(
   correct = !hasval,
   noise = FALSE,
   solved = NULL,
+  inputs = NULL,
   names = FALSE
 )
 }
@@ -44,16 +45,28 @@ The \verb{rt_*} test functions are designed for just that :).}
 Test is skipped if \code{class="any"}. DEFAULT: NULL (class of \code{value})}
 
 \item{hasval}{After checks for existence, class and dimension, run \link{rt_has_value}?
-can be FALSE for custom messages, e.g in multiple choice tasks.
+Can be FALSE for custom messages, e.g in multiple choice tasks.
+Will be FALSE if \code{value} is a function.
 DEFAULT: TRUE}
 
-\item{dim}{Check dimension (length or nrow+ncol)? DEFAULT: hasval}
+\item{dim}{Check dimension (length or nrow+ncol) with \link{rt_has_dim}?
+Will be FALSE if \code{value} is a function. DEFAULT: hasval}
 
-\item{correct}{Custom value message for multiple choice tasks? DEFAULT: !hasval}
+\item{correct}{Custom value message for multiple choice tasks?
+Will be FALSE if \code{value} is a function. DEFAULT: !hasval}
 
 \item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
 
 \item{solved}{Task number that must be solved before other tests are run. DEFAULT: NULL}
+
+\item{inputs}{List or vector with (named) charstrings with code to be called
+if \code{object} and \code{value} are functions.
+Will be called with \code{eval(str2lang(paste0("object(",input_i,")")))}.
+Object names within rt_test_exercise are not available within rt_test_task.
+Use a named object for a custom object name in rt_warn messages.
+For single-argument functions, numerical input works fine, too.
+These are the only tests run AFTER ...-tests are run.
+DEFAULT: NULL}
 
 \item{names}{Test whether \code{object} has the same \link{names} as \code{value}? DEFAULT: FALSE}
 }
