@@ -24,7 +24,8 @@ rt_run_script <- function(filename){
   e <- try(suppressWarnings(source(tfile, local=parent.frame())), silent=TRUE)
   if(inherits(e, "try-error")) {
     e <- sub("^Error in source.*_coscript.R:","Error in line:column ",e)
-    e <- sub("\n.*$","",e)
+    e <- gsub("\n"," ",e)
+    e <- gsub("\\s+", " ", e)
     rt_warn("can not be executed. Make sure each line can be run.",
             if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
             "\n--- source() message: ", e)
