@@ -41,7 +41,6 @@ silentRoot <- function(x) 0
 sqrt(-3:3) # warning
 silentRoot(-3:3) # should not give a warning
 
-silentRoot <- function(x) x
 
 # When you are done, submit your score to openHPI with:
 # codeoceanR::rt_submit()
