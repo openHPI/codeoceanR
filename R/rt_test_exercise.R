@@ -16,9 +16,9 @@ trytests <- rt_try(eval(substitute(expr))) # rt_test_task calls
 #rt_env(id="t")
 if(inherits(trytests, "try-error"))
   {
-  rt_warn("The internal test script failed. This should never happen. Sorry!!\n",
+  rt_warn(" ----------\nThe internal test script failed. This should never happen. Sorry!!\n",
           "To get scores again, please revert the last thing(s) you did.\n",
-          "Please send Berry the logfile below through email or 'Request comments':\n", trytests)
+          "Please send Berry the logfile below through email or 'Request comments':\n----------\n", trytests, "\n----------")
 	rt_env(fail=1:99) # reset to zero to avoid 100% score up to failed rt_test_task
   }
 # For succesfull testing, write results in CodeOcean format:
