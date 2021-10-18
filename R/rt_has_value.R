@@ -30,20 +30,24 @@ rt_has_value <- function(
 
   l <- length(obj)
   n <- sum(is.na(obj))
-  if(n>0) {rt_warn("'", name, "'", if(l==1) " is NA." else paste0(" has NAs", " (", n, "/", l, ").")) ; return(FALSE)}
+  if(n>0 && sum(is.na(obj))==0) return(rt_warn("'", name, "'",
+  							if(l==1) " is NA." else paste0(" has NAs", " (", n, "/", l, ").")))
 
-  obj <- round(obj, digits)
-  val <- round(value, digits)
-  if(identical(obj,val)) return(TRUE)
+  if(!is.logical(value))
+  	{
+    obj <- round(obj, digits)
+    value <- round(value, digits)
+    }
+  if(isTRUE(all.equal(obj,value))) return(TRUE)
   if(noise) return(rt_warn("'", name, "' has the wrong value. The deviance is ",
   												 "(approximately, with added noise): ",
-  												 toString(round(obj - val + rnorm(length(obj)), digits))))
-  if(!stepwise) return(rt_warn("'", name, "' should be ", toString(val),
+  												 toString(round(obj - value + rnorm(length(obj)), digits))))
+  if(!stepwise) return(rt_warn("'", name, "' should be ", toString(value),
   														 ", not ", toString(obj)))
   # stepwise check:
   for(i in seq_len(l))
   {
-  v <- val[i]
+  v <- value[i]
   o <- obj[i]
   if(o!=v) return(rt_warn("'", name, "[",i,"]' should be ",
   												toString(v),", not ", toString(o)))

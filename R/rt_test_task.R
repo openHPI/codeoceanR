@@ -124,7 +124,7 @@ if(names)
 # value ----
 if(hasval && !rt_has_value(object, value, name=n, noise=noise))
 	return(rt_env(fail=tnumber))
-if(correct && !identical(sort(object),sort(value)))
+if(correct && !isTRUE(all.equal(sort(object),sort(value))))
 	{
 	rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
 	return(rt_env(fail=tnumber))
