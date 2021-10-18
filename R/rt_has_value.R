@@ -48,4 +48,5 @@ rt_has_value <- function(
   if(o!=v) return(rt_warn("'", name, "[",i,"]' should be ",
   												toString(v),", not ", toString(o)))
   }
+  return(TRUE)
 }
