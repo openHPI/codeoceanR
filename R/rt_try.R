@@ -54,12 +54,3 @@ out <- try(withCallingHandlers(expr, error=efun, warning=wfun), silent=TRUE)
 if(T||inherits(out, "try-error")) out[1] <- paste(tryenv$msg, collapse="\n\n")
 return(invisible(out))
 }
-
-if(F){
-a <- function(x) {log(x) ; if(F)log(as.character(x))}
-b <- function(y) a(y)
-#b(y="2")
-d <- function(ex) rt_try(b(y=ex))
-message(d(ex="2"))
-message(d(ex=-2))
-}
