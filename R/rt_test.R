@@ -11,6 +11,8 @@
 #'
 rt_test <- function(condition, ...){
   if(isTRUE(condition)) return(TRUE)
+	if(length(condition)>1) stop("condition should have length 1, not ",
+															 length(condition))
   rt_warn(...)
   FALSE
 }
