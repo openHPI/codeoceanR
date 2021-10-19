@@ -59,8 +59,8 @@ rt_test_task(8, script2, silentRoot, solution, inputs=list("y=6", rt_vec(inputVe
 
 # a <- function(x) {aa <- "stuff"; b(x)}
 # b <- function(y) {
-# 	print(ls(parent.frame()))            # parent.frame: aa, x      env in which the function was called
-# 	print(ls(parent.env(environment())) )# parent.env: a, b   enclosing env in which function was defined
+# 	print(ls(parent.frame()))            # parent.frame: aa, x      env in which the function was called  - dynamic scoping
+# 	print(ls(parent.env(environment())) )# parent.env: a, b   enclosing env in which function was defined - lexical scoping
 # 	message(aa) # # error: 'aa' not found         -      dynGet("aa") would work
 # 	}
 # a(7)
