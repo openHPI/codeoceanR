@@ -12,22 +12,27 @@
 #' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison,
 #'               if target `value` is numeric. DEFAULT: 6
 #' @param name   Object name for [rt_warn] messages. DEFAULT: `deparse(substitute(obj))`
-#' @param noise  Add noise, so not the exact difference is reported? DEFAULT: FALSE
-#' @param stepwise Compare vectors (in future also: matrices and data.frames)
-#'                 stepwise? only if noise=FALSE. DEFAULT: length(obj)>1
+#' @param noise  Add noise, so not the exact difference is reported?
+#'               Only used if `value` is numeric. DEFAULT: FALSE
+#' @param stepwise Compare `obj` and `value` stepwise?
+#'               For numerical objects: only used if noise=FALSE.
+#'               DEFAULT: NULL, meaning `length(obj)>1`
 
 rt_has_value <- function(
 	obj, value, digits=6,
 	name=deparse(substitute(obj)),
 	noise=FALSE,
-	stepwise=length(obj)>1
+	stepwise=NULL
 	){
   force(name)
-  if(is.character(obj)) if(all(obj==value)) return(TRUE) else
-    return(rt_warn("'",name,"' should be  '",toString(value),"'  but is  '",toString(obj),"'."))
-
   if(isTRUE(all.equal(obj,value))) return(TRUE)
-
+	if(is.null(stepwise)) stepwise <- length(obj)>1
+	# Reduce message line breaks e.g. in intended try() error messages:
+	if(is.character(obj) && length(obj)==1)
+		{
+		obj   <- sub("\n$", "", obj)
+		value <- sub("\n$", "", value)
+	  }
   if(is.numeric(value))
   	{
     obj <- round(obj, digits)
@@ -35,16 +40,17 @@ rt_has_value <- function(
     if(noise) return(rt_warn("'",name,"' has the wrong value. The deviance ",
   		"(with added noise) is: ", toString(round(obj-value+rnorm(length(obj)), digits))))
     }
-  if(!stepwise) return(rt_warn("'", name, "' should be ", toString(value),
-  														 ", not ", toString(obj)))
+  if(!stepwise) return(rt_warn("'", name, "' should be '", toString(value),
+  														 "', not '", toString(obj),"'"))
   # stepwise check:
   for(i in seq_along(obj))
   {
   v <- value[i]
   o <- obj[i]
   neq <- if(is.na(v)|is.na(o)) !isTRUE(all.equal(o,v)) else o!=v
-  if(neq) return(rt_warn("'", name, "[",i,"]' should be ",
-  												toString(v),", not ", toString(o)))
+  if(neq) return(rt_warn("'", name, "[",i,"]' should be '",
+  												toString(v),"', not '", toString(o),"'"))
   }
-  return(TRUE) # e.g. if obj has names and value doesn't, all.equal has not caught it
+  rt_warn("Note to Berry: rt_has_value found equality where all.equal dit not.") # temporary to find where this happens
+	return(TRUE) # e.g. if obj has names and value doesn't, all.equal has not caught it
 }
