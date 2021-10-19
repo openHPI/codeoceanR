@@ -154,7 +154,7 @@ if(!is.null(inputs) && !is.null(export))
 if(!is.null(inputs))
 for(i in inputs)
   {
-	vec <- function(x) if(length(x)==1) x else paste0("c(",toString(x),")")
+	vec <- function(x) if(length(x)==1) x else rt_vec(x)
   uc <- paste0("object(",vec(i),")") # user call
   cc <- paste0( "value(",vec(i),")") # correct call
   pc <- paste0(    n,"(",vec(i),")") # print call
