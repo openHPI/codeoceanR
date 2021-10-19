@@ -18,7 +18,8 @@ rt_has_value(
 
 \item{value}{value \code{obj} should have, can be char / numeric / other.}
 
-\item{digits}{Tolerance - both \code{obj} and \code{value} are \link{round}ed before comparison. DEFAULT: 6}
+\item{digits}{Tolerance - both \code{obj} and \code{value} are \link{round}ed before comparison,
+if target \code{value} is numeric. DEFAULT: 6}
 
 \item{name}{Object name for \link{rt_warn} messages. DEFAULT: \code{deparse(substitute(obj))}}
 

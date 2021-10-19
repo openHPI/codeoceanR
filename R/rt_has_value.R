@@ -9,7 +9,8 @@
 #'
 #' @param obj    Object to be tested. Just the name, not a character string.
 #' @param value  value `obj` should have, can be char / numeric / other.
-#' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison. DEFAULT: 6
+#' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison,
+#'               if target `value` is numeric. DEFAULT: 6
 #' @param name   Object name for [rt_warn] messages. DEFAULT: `deparse(substitute(obj))`
 #' @param noise  Add noise, so not the exact difference is reported? DEFAULT: FALSE
 #' @param stepwise Compare vectors (in future also: matrices and data.frames)
@@ -23,34 +24,27 @@ rt_has_value <- function(
 	){
   force(name)
   if(is.character(obj)) if(all(obj==value)) return(TRUE) else
-    {rt_warn("'", name, "' should be  '", toString(value), "'  but is  '", toString(obj), "'.");
-    return(FALSE)}
+    return(rt_warn("'",name,"' should be  '",toString(value),"'  but is  '",toString(obj),"'."))
 
-  if(  all(is.na(value)) & all(is.na(obj))  ) return(TRUE)
+  if(isTRUE(all.equal(obj,value))) return(TRUE)
 
-  l <- length(obj)
-  n <- sum(is.na(obj))
-  if(n>0 && sum(is.na(obj))==0) return(rt_warn("'", name, "'",
-  							if(l==1) " is NA." else paste0(" has NAs", " (", n, "/", l, ").")))
-
-  if(!is.logical(value))
+  if(is.numeric(value))
   	{
     obj <- round(obj, digits)
     value <- round(value, digits)
+    if(noise) return(rt_warn("'",name,"' has the wrong value. The deviance ",
+  		"(with added noise) is: ", toString(round(obj-value+rnorm(length(obj)), digits))))
     }
-  if(isTRUE(all.equal(obj,value))) return(TRUE)
-  if(noise) return(rt_warn("'", name, "' has the wrong value. The deviance is ",
-  												 "(approximately, with added noise): ",
-  												 toString(round(obj - value + rnorm(length(obj)), digits))))
   if(!stepwise) return(rt_warn("'", name, "' should be ", toString(value),
   														 ", not ", toString(obj)))
   # stepwise check:
-  for(i in seq_len(l))
+  for(i in seq_along(obj))
   {
   v <- value[i]
   o <- obj[i]
-  if(o!=v) return(rt_warn("'", name, "[",i,"]' should be ",
+  neq <- if(is.na(v)|is.na(o)) !isTRUE(all.equal(o,v)) else o!=v
+  if(neq) return(rt_warn("'", name, "[",i,"]' should be ",
   												toString(v),", not ", toString(o)))
   }
-  return(TRUE)
+  return(TRUE) # e.g. if obj has names and value doesn't, all.equal has not caught it
 }
