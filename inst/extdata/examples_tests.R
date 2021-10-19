@@ -50,13 +50,11 @@ rt_test_task(6, script2, multiChoice, c(2,4), hasval=FALSE)
 
 # Functions can be checked with different inputs:
 inputVec <- round(rnorm(30),1)
-solution <- function(x) sqrt(replace(x, x<0, NaN)) # could also use suppressWarnings()
-rt_test_task(7, script2, silentRoot, solution, inputs=inputVec,
+solution <- function(y) sqrt(replace(y, y<0, NaN)) # could also use suppressWarnings()
+rt_test_task(7, script2, silentRoot, solution, inputs='inputVec', export="inputVec",
              rt_gives_warning(silentRoot(-5), ""))
-# with explicitely named argument and a vector at the same time,
-# with a differing warning message: 'silentRoot(aVec) must have length 8, not 1.
-# inputVec <- paste(rt_get_echo(dput(inputVec[1:8])), collapse="")
-# rt_test_task(7, script2, silentRoot, solution, inputs=list("x=6", aVec=inputVec))
+# with explicitely named argument and a vector at the same time:
+rt_test_task(8, script2, silentRoot, solution, inputs=list("y=6", rt_vec(inputVec[1:10])))
 
 
 # a <- function(x) {aa <- "stuff"; b(x)}

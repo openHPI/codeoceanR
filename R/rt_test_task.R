@@ -38,10 +38,12 @@
 #' @param inputs   List or vector with (named) charstrings with code to be called
 #'                 if `object` and `value` are functions.
 #'                 Will be called with `eval(str2lang(paste0("object(",input_i,")")))`.
-#'                 Object names within rt_test_exercise are not available within rt_test_task.
-#'                 Use a named object for a custom object name in rt_warn messages.
+#'                 Object names within rt_test_exercise are not available within rt_test_task,
+#'                 unlisst listed in `export`.
 #'                 For single-argument functions, numerical input works fine, too.
 #'                 These are the only tests run AFTER ...-tests are run.
+#'                 DEFAULT: NULL
+#' @param export   Character vector with object names to be assigned into evaluation environment.
 #'                 DEFAULT: NULL
 #' @param names    Test whether `object` has the same [names] as `value`? DEFAULT: FALSE
 #'
@@ -59,6 +61,7 @@ correct=!hasval,
 noise=FALSE,
 solved=NULL,
 inputs=NULL,
+export=NULL,
 names=FALSE
 )
 {
@@ -144,14 +147,17 @@ if(zero && try(object(), silent=TRUE)==0)
   rt_warn("'",n,"()' should not return 0.")
   return(rt_env(fail=tnumber))
   }
+if(!is.null(inputs) && !is.null(export))
+	{
+	for(e in export) assign(e, dynGet(e)) # get from parent frame (not parent env)
+  }
 if(!is.null(inputs))
-for(i in seq_along(inputs))
+for(i in inputs)
   {
 	vec <- function(x) if(length(x)==1) x else paste0("c(",toString(x),")")
-  uc <- paste0("object(",vec(inputs[[i]]),")") # user call
-  cc <- paste0("value(",vec(inputs[[i]]),")") # correct call
-  pc <- names(inputs)[i] ; if(is.null(pc)||pc=="") pc <- vec(inputs[[i]])
-  pc <- paste0(n,"(",pc,")") # print call
+  uc <- paste0("object(",vec(i),")") # user call
+  cc <- paste0( "value(",vec(i),")") # correct call
+  pc <- paste0(    n,"(",vec(i),")") # print call
 	res    <- try(eval(str2lang(uc)), silent=TRUE)
 	target <- try(eval(str2lang(cc)), silent=TRUE)
 	if(inherits(res, "try-error"))

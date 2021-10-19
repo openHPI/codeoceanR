@@ -18,6 +18,7 @@ rt_test_task(
   noise = FALSE,
   solved = NULL,
   inputs = NULL,
+  export = NULL,
   names = FALSE
 )
 }
@@ -62,10 +63,13 @@ Will be FALSE if \code{value} is a function. DEFAULT: !hasval}
 \item{inputs}{List or vector with (named) charstrings with code to be called
 if \code{object} and \code{value} are functions.
 Will be called with \code{eval(str2lang(paste0("object(",input_i,")")))}.
-Object names within rt_test_exercise are not available within rt_test_task.
-Use a named object for a custom object name in rt_warn messages.
+Object names within rt_test_exercise are not available within rt_test_task,
+unlisst listed in \code{export}.
 For single-argument functions, numerical input works fine, too.
 These are the only tests run AFTER ...-tests are run.
+DEFAULT: NULL}
+
+\item{export}{Character vector with object names to be assigned into evaluation environment.
 DEFAULT: NULL}
 
 \item{names}{Test whether \code{object} has the same \link{names} as \code{value}? DEFAULT: FALSE}
