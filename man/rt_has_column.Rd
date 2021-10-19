@@ -4,15 +4,17 @@
 \alias{rt_has_column}
 \title{test object column}
 \usage{
-rt_has_column(df, column)
+rt_has_column(df, column, name = deparse(substitute(df)))
 }
 \arguments{
-\item{df}{data.frame-like object to be tested. Just the name, not a character string.}
+\item{df}{data.frame-like object to be tested.}
 
-\item{column}{Charstring to which \link{colnames} is compared}
+\item{column}{Charstring (vector) to which \link{colnames} is compared}
+
+\item{name}{Object name for \link{rt_warn}. DEFAULT: object name}
 }
 \value{
-Logical: TRUE / FALSE depending on whether object has the desired column.
+Logical: TRUE / FALSE depending on whether object has the desired column(s).
 }
 \description{
 Test colnames of object, calling \code{\link[=rt_warn]{rt_warn()}} with informative and helpful message if needed.
