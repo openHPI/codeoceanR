@@ -15,7 +15,9 @@ rt_test_task(
   hasval = TRUE,
   dim = hasval,
   correct = !hasval,
+  df_test = TRUE,
   noise = FALSE,
+  stepwise = NULL,
   solved = NULL,
   inputs = NULL,
   export = NULL,
@@ -56,7 +58,13 @@ Will be FALSE if \code{value} is a function. DEFAULT: hasval}
 \item{correct}{Custom value message for multiple choice tasks?
 Will be FALSE if \code{value} is a function. DEFAULT: !hasval}
 
+\item{df_test}{Run tests on data.frames? Set to FALSE if \code{!is.data.frame(value)}.
+Checks \link{rt_has_column}, classes and then \link{rt_has_value} per column.
+DEAULT: TRUE}
+
 \item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
+
+\item{stepwise}{stepwise parameter in \link{rt_has_value}. DEFAULT: NULL}
 
 \item{solved}{Task number that must be solved before other tests are run. DEFAULT: NULL}
 

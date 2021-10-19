@@ -33,7 +33,11 @@
 #'                 Will be FALSE if `value` is a function. DEFAULT: hasval
 #' @param correct  Custom value message for multiple choice tasks?
 #'                 Will be FALSE if `value` is a function. DEFAULT: !hasval
+#' @param df_test  Run tests on data.frames? Set to FALSE if `!is.data.frame(value)`.
+#'                 Checks [rt_has_column], classes and then [rt_has_value] per column.
+#'                 DEAULT: TRUE
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
+#' @param stepwise stepwise parameter in [rt_has_value]. DEFAULT: NULL
 #' @param solved   Task number that must be solved before other tests are run. DEFAULT: NULL
 #' @param inputs   List or vector with (named) charstrings with code to be called
 #'                 if `object` and `value` are functions.
@@ -58,7 +62,9 @@ class=NULL,
 hasval=TRUE,
 dim=hasval,
 correct=!hasval,
+df_test=TRUE,
 noise=FALSE,
+stepwise=NULL,
 solved=NULL,
 inputs=NULL,
 export=NULL,
@@ -124,8 +130,23 @@ if(names)
 	return(rt_env(fail=tnumber))
   }}
 
-# value ----
-if(hasval && !rt_has_value(object, value, name=n, noise=noise))
+# df_test ----
+if(df_test && is.data.frame(value))
+  {
+  # hasval <- FALSE # if this test is passed, rt_has_value(object,value) should also work
+  # correct <- FALSE
+  if(!rt_has_column(object, colnames(value), n)) return(rt_env(fail=tnumber))
+	for(cn in colnames(value))
+	  {
+		if(!rt_has_value(class(object[,cn]), class(value[,cn]), name=paste0('class(',n,'[,"',cn,'"])'), noise=noise, stepwise=stepwise))
+			return(rt_env(fail=tnumber))
+		if(!rt_has_value(object[,cn], value[,cn], name=paste0(n,'[,"',cn,'"]'), noise=noise, stepwise=stepwise))
+			return(rt_env(fail=tnumber))
+	  }
+  }
+
+# value/correct ----
+if(hasval && !rt_has_value(object, value, name=n, noise=noise, stepwise=stepwise))
 	return(rt_env(fail=tnumber))
 if(correct && !isTRUE(all.equal(sort(object),sort(value))))
 	{
