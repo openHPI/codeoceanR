@@ -9,7 +9,7 @@
 #'
 rt_has_dim <- function(obj, value, name=deparse(substitute(obj)))
 {
-if(is.null(dim(value))) # vector, list, function
+if(length(dim(value))<2) # vector, list, function, table
 {
 if(length(obj)!=length(value))
   return(rt_warn("'",name,"' must have length ",length(value),", not ",length(obj), "."))
