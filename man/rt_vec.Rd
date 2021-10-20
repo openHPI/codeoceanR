@@ -4,10 +4,14 @@
 \alias{rt_vec}
 \title{Convert vectors to charstring code representations}
 \usage{
-rt_vec(x)
+rt_vec(x, n = NULL, l = -99, u = 999)
 }
 \arguments{
 \item{x}{input vector}
+
+\item{n}{number of integers to sample between \code{l} and \code{u}. DEFAULT: NULL}
+
+\item{l, u}{Lower and upper boundaries in sample, if n is given.}
 }
 \value{
 single charstring
@@ -21,6 +25,7 @@ rt_vec("hey")
 message(rt_vec("hey"))
 message(rt_vec(letters[1:6]))
 message(rt_vec(sample(1:90, 7)))
+message(rt_vec(n=5))
 }
 \seealso{
 \link{dput}, \link{toString}
