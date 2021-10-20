@@ -18,8 +18,8 @@ rt_test_exercise({
 script1 <- rt_run_script("examples_1.R") # script 1 ----
 
 rt_test_task(1, script1, my_first_object , 99)
-# either class is fine,  5:15  and  seq(5,15,1)  are both correct:
-rt_test_task(2, script1, my_second_object, 5:15, class=c("integer","numeric"))
+# thorugh intnum, either numeric or integer class is fine,  5:15  and  seq(5,15,1)  are both correct:
+rt_test_task(2, script1, my_second_object, 5:15)
 
 
 script2 <- rt_run_script("examples_2.R") # script 2 ----
@@ -36,7 +36,7 @@ rt_test_task(3, script=sol, object=NULL, value=NULL,
 
 # To build on previous task (don't do this too much, students find it frustrating
 # to lose 2 points if they cannot solve the first task):
-rt_test_task(4, NULL, NULL, NULL, solved=3, rt_has_argument(sol, "row.names", FALSE))
+rt_test_task(4, script2, NULL, NULL, solved=3, rt_has_argument(sol, "row.names", FALSE))
 
 
 # To require several objects for a task but give only one message in total:

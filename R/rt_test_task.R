@@ -30,6 +30,7 @@
 #' @param class    Class(es) that are acceptable. Test is passed if any of the classes matches.
 #'                 Test is skipped if `class="any"`.
 #'                 Run through [rt_has_class]. DEFAULT: NULL (class of `value`)
+#' @param intnum   Should numeric and integer be interchangable? DEFAULT: TRUE
 #' @param dim      Check dimension (length or nrow+ncol) with [rt_has_dim]?
 #'                 Will be FALSE if `value` is a function. DEFAULT: hasval
 #' @param correct  Custom value message for multiple choice tasks?
@@ -60,6 +61,7 @@ value=NULL,
 ...,
 zero=hasval,
 class=NULL,
+intnum=TRUE,
 hasval=TRUE,
 dim=hasval,
 correct=!hasval,
@@ -106,7 +108,7 @@ if(!is.null(value))
 {
 # class ----
 if(is.null(class)) class <- class(value)
-if(!rt_has_class(object, class, name=n)) return(rt_env(fail=tnumber))
+if(!rt_has_class(object, class, name=n, intnum=intnum)) return(rt_env(fail=tnumber))
 
 
 if(is.function(value))
@@ -199,7 +201,7 @@ for(i in inputs)
     rt_warn("'",pc,"' should not yield Error: ",res)
     return(rt_env(fail=tnumber))
     }
-	if(!rt_has_class(res, class(target), name=pc)) return(rt_env(fail=tnumber))
+	if(!rt_has_class(res, class(target), name=pc, intnum=intnum)) return(rt_env(fail=tnumber))
 	if(!rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))
 	if(!rt_has_value(res, target, name=pc, noise=noise, stepwise=stepwise)) return(rt_env(fail=tnumber))
 	} # end for loop

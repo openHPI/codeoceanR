@@ -4,7 +4,13 @@
 \alias{rt_has_class}
 \title{Test class of object}
 \usage{
-rt_has_class(object, class, name = deparse(substitute(object)))
+rt_has_class(
+  object,
+  class,
+  name = deparse(substitute(object)),
+  matarr = TRUE,
+  intnum = TRUE
+)
 }
 \arguments{
 \item{object}{Object. Regular object name, not quoted.}
@@ -13,6 +19,12 @@ rt_has_class(object, class, name = deparse(substitute(object)))
 Test is skipped if \code{class="any"}.}
 
 \item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(obj))}
+
+\item{matarr}{Accept (and message) only 'matrix' if \code{class} is c("matrix","array")?
+DEFAULT: TRUE}
+
+\item{intnum}{Should integer and numeric both be OK if \code{class} is one of those?
+DEFAULT: TRUE}
 }
 \value{
 TRUE / FALSE

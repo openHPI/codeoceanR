@@ -12,6 +12,7 @@ rt_test_task(
   ...,
   zero = hasval,
   class = NULL,
+  intnum = TRUE,
   hasval = TRUE,
   dim = hasval,
   correct = !hasval,
@@ -47,6 +48,8 @@ The \verb{rt_*} test functions are designed for just that :).}
 \item{class}{Class(es) that are acceptable. Test is passed if any of the classes matches.
 Test is skipped if \code{class="any"}.
 Run through \link{rt_has_class}. DEFAULT: NULL (class of \code{value})}
+
+\item{intnum}{Should numeric and integer be interchangable? DEFAULT: TRUE}
 
 \item{hasval}{After checks for existence, class and dimension, run \link{rt_has_value}?
 Can be FALSE for custom messages, e.g in multiple choice tasks.
