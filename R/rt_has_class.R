@@ -18,5 +18,5 @@ if(matarr) if(identical(class, c("matrix","array"))) class <- "matrix"
 if(intnum) if(identical(class, "integer")||identical(class, "numeric")) class <- c("integer","numeric")
 if(any(class(object) %in% class)) return(TRUE)
 
-rt_warn("'", name,"' should be ", paste(class, collapse=" or "), ", not of class '", toString(class(object)), "'.")
+rt_warn("'", name,"' should have class '", paste(class, collapse="' or '"), "', not '", toString(class(object)), "'.")
 }
