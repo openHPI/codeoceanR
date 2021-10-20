@@ -116,6 +116,11 @@ if(is.function(value))
 	dim <- FALSE
   hasval <- FALSE
   correct <- FALSE
+  if(zero && try(object(), silent=TRUE)==0)
+    {
+    rt_warn("'",n,"()' should not return 0.")
+    return(rt_env(fail=tnumber))
+    }
   }
 
 # dim ----
@@ -177,11 +182,6 @@ for(i in seq_len(...length())  )
 # function inputs ----
 if(is.function(value))
 {
-if(zero && try(object(), silent=TRUE)==0)
-  {
-  rt_warn("'",n,"()' should not return 0.")
-  return(rt_env(fail=tnumber))
-  }
 if(!is.null(inputs) && !is.null(export))
 	{
 	for(e in export) assign(e, dynGet(e)) # get from parent frame (not parent env)
