@@ -7,7 +7,6 @@
 #' @seealso [rt_score] for students. [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
 #' @importFrom berryFunctions checkFile normalizePathCP
-#' @export
 #'
 #' @param tfile Name of *tests.R file to be run.
 #'              Or name of exercise file, will be changed according to MOOC system.
