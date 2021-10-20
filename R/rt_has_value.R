@@ -51,6 +51,5 @@ rt_has_value <- function(
   if(neq) return(rt_warn("'", name, "[",i,"]' should be '",
   												toString(v),"', not '", toString(o),"'"))
   }
-  rt_warn("Note to Berry: rt_has_value found equality where all.equal dit not.") # temporary to find where this happens
 	return(TRUE) # e.g. if obj has names and value doesn't, all.equal has not caught it
 }

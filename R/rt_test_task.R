@@ -126,7 +126,8 @@ if(names)
   {
   nv <- names(value)
   if(!all(nv %in% base::names(object))){
-  rt_warn(n, " must have the name", if(length(nv)>1) "s:", " ", toString(nv), ".")
+  rt_warn("'",n, "' should have the name", if(length(nv)>1) "s:", " '",
+  				toString(nv), "', not '",toString(base::names(object)),"'.")
 	return(rt_env(fail=tnumber))
   }}
 
