@@ -110,21 +110,15 @@ if(!is.null(value))
 if(is.null(class)) class <- class(value)
 if(!rt_has_class(object, class, name=n, intnum=intnum)) return(rt_env(fail=tnumber))
 
-
-if(is.function(value))
+# zero function ----
+if(is.function(value) && zero && try(object(), silent=TRUE)==0)
   {
-	dim <- FALSE
-  hasval <- FALSE
-  correct <- FALSE
-  if(zero && try(object(), silent=TRUE)==0)
-    {
-    rt_warn("'",n,"()' should not return 0.")
-    return(rt_env(fail=tnumber))
-    }
+  rt_warn("'",n,"()' should not return 0.")
+  return(rt_env(fail=tnumber))
   }
 
 # dim ----
-if(dim && !rt_has_dim(object, value, name=n)) return(rt_env(fail=tnumber))
+if(dim && !is.function(value) && !rt_has_dim(object, value, name=n)) return(rt_env(fail=tnumber))
 
 # names ----
 if(names)
@@ -165,9 +159,9 @@ if(df_test && (is.data.frame(value)||is.matrix(value)))
   }
 
 # value/correct ----
-if(hasval && !rt_has_value(object, value, name=n, noise=noise, stepwise=stepwise))
+if(hasval && !is.function(value) && !rt_has_value(object, value, name=n, noise=noise, stepwise=stepwise))
 	return(rt_env(fail=tnumber))
-if(correct && !isTRUE(all.equal(sort(object),sort(value))))
+if(correct && !is.function(value) && !isTRUE(all.equal(sort(object),sort(value))))
 	{
 	rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
 	return(rt_env(fail=tnumber))
