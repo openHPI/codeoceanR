@@ -45,9 +45,11 @@ rt_has_value <- function(
   # stepwise check:
   for(i in seq_along(obj))
   {
-  v <- value[i]
-  o <- obj[i]
-  neq <- if(is.na(v)|is.na(o)) !isTRUE(all.equal(o,v)) else o!=v
+  v <- value[[i]] # double square brackets can handle both lists and vectors,
+  o <- obj[[i]]   # if i is a single value as returned by seq_along
+  neq <- try(o!=v, silent=TRUE)
+  if(anyNA(neq)||inherits(neq,"try-error")) # for NA, lists and other incomparables
+  	 neq <- !isTRUE(all.equal(o,v))
   if(neq) return(rt_warn("'", name, "[",i,"]' should be '",
   												toString(v),"', not '", toString(o),"'"))
   }
