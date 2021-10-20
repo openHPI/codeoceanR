@@ -58,7 +58,7 @@ Will be FALSE if \code{value} is a function. DEFAULT: hasval}
 \item{correct}{Custom value message for multiple choice tasks?
 Will be FALSE if \code{value} is a function. DEFAULT: !hasval}
 
-\item{df_test}{Run tests on data.frames? Set to FALSE if \code{!is.data.frame(value)}.
+\item{df_test}{Run tests on data.frames? Only used if \code{value} is data.frame or matrix.
 Checks \link{rt_has_column}, classes and then \link{rt_has_value} per column.
 DEAULT: TRUE}
 
