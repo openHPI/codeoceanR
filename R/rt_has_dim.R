@@ -15,6 +15,8 @@ if(length(obj)!=length(value))
   return(rt_warn("'",name,"' must have length ",length(value),", not ",length(obj), "."))
 } else # dataframe, matrix, array
 {
+if(is.null(nrow(obj))) return(rt_warn("'nrow(",name,")' should not be NULL."))
+if(is.null(ncol(obj))) return(rt_warn("'ncol(",name,")' should not be NULL."))
 if(nrow(obj)!=nrow(value))
   return(rt_warn("'",name,"' must have ",nrow(value)," rows, not ",nrow(obj), "."))
 if(ncol(obj)!=ncol(value))
