@@ -1,6 +1,6 @@
 Package: codeoceanR
 Title: Test R tasks with CodeOcean at HPI
-Version: 0.5.38
+Version: 0.5.39
 Date: 2021-10-20
 Authors@R: 
     person(given = "Berry",
@@ -11,9 +11,6 @@ Description: Test R tasks that can be graded using CodeOcean at HPI.
 Imports: berryFunctions, httr, rjson
 Suggests: 
     remotes,
-    pbapply,
-    googlesheets4,
-    openxlsx,
     rstudioapi,
     testthat
 License: MIT + file LICENSE

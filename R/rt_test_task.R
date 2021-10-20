@@ -75,50 +75,50 @@ names=FALSE
 )
 {
 n <- deparse(substitute(object))
-if(!is.numeric(tnumber)) stop("tnumber must be numeric, not ", toString(class(tnumber)), ", for tnumber: ", tnumber)
+if(!is.numeric(tnumber)) stop("tnumber must be numeric, not ", toString(class(tnumber)), ", for tnumber: ", tnumber) ##1
 rt_env(id=tnumber)
 
 # Exit this function through return() right after the first rt_warn message
 
 # script ----
-if(!is.null(script) && !rt_script_runs(script)) return(rt_env(fail=tnumber))
+if(!is.null(script) && !rt_script_runs(script)) return(rt_env(fail=tnumber))    ##2
 
 # solved ----
 if(!is.null(solved))
 	{
 	if(!rt_test(rt_env()$success[solved], "Please first solve task ",solved,"."))
-		return(rt_env(fail=tnumber))
+		return(rt_env(fail=tnumber))                                                ##3
   }
 
 # object ----
 if(n!="NULL" && !exists(n, envir=parent.frame()))
   {
   rt_warn("Create the object '",n,"'. It does not yet exist.")
-	return(rt_env(fail=tnumber))
+	return(rt_env(fail=tnumber))                                                  ##4
   }
 
 # zero ----
 if(zero && identical(object, 0))
   {
   rt_warn("Replace the 0 for '",n,"' with code with the solution.")
-	return(rt_env(fail=tnumber))
+	return(rt_env(fail=tnumber))                                                  ##5
   }
 
 if(!is.null(value))
 {
 # class ----
 if(is.null(class)) class <- class(value)
-if(!rt_has_class(object, class, name=n, intnum=intnum)) return(rt_env(fail=tnumber))
+if(!rt_has_class(object, class, name=n, intnum=intnum)) return(rt_env(fail=tnumber)) ##6
 
 # zero function ----
 if(is.function(value) && zero && try(object(), silent=TRUE)==0)
   {
   rt_warn("'",n,"()' should not return 0.")
-  return(rt_env(fail=tnumber))
+  return(rt_env(fail=tnumber))                                                  ##7
   }
 
 # dim ----
-if(dim && !is.function(value) && !rt_has_dim(object, value, name=n)) return(rt_env(fail=tnumber))
+if(dim && !is.function(value) && !rt_has_dim(object, value, name=n)) return(rt_env(fail=tnumber)) ##8
 
 # names ----
 if(names)
@@ -127,7 +127,7 @@ if(names)
   if(!all(nv %in% base::names(object))){
   rt_warn("'",n, "' should have the name", if(length(nv)>1) "s:", " '",
   				toString(nv), "', not '",toString(base::names(object)),"'.")
-	return(rt_env(fail=tnumber))
+	return(rt_env(fail=tnumber))                                                  ##9
   }}
 
 # df_test ----
@@ -135,43 +135,43 @@ if(df_test && (is.data.frame(value)||is.matrix(value)))
   {
   # hasval <- FALSE # if this test is passed, rt_has_value(object,value) should also work
   # correct <- FALSE
-  if(!rt_has_column(object, colnames(value), n)) return(rt_env(fail=tnumber))
+  if(!rt_has_column(object, colnames(value), n)) return(rt_env(fail=tnumber))   ##10
 	loopcn <- colnames(value)
 	if(is.null(loopcn)) loopcn <- 1:ncol(value)
 	for(cn in loopcn)
 	  {
 		if(!rt_has_value(class(object[,cn]), class(value[,cn]),
 										 name=paste0('class(',n,'[,"',cn,'"])'), noise=noise, stepwise=stepwise))
-			return(rt_env(fail=tnumber))
-		qm <- !is.numeric(cn)
-		if(isTRUE(stepwise)||is.null(stepwise)&&nrow(value)>1)
+			return(rt_env(fail=tnumber))                                              ##11
+		qm <- !is.numeric(cn) # qutation marks needed?
+		if((isTRUE(stepwise)||is.null(stepwise)) && nrow(value)>1)
 			{
 			for(rn in 1:nrow(value))
 		  if(!rt_has_value(object[rn,cn], value[rn,cn], name=paste0(n,'[',rn,',',if(qm)'"',cn,if(qm)'"',']'),
 		  								 noise=noise, stepwise=FALSE))
-		    return(rt_env(fail=tnumber))
+		    return(rt_env(fail=tnumber))                                            ##12a
 		  } else {
 		  if(!rt_has_value(object[,cn], value[,cn], name=paste0(n,'[,',if(qm)'"',cn,if(qm)'"',']'),
 		  								 noise=noise, stepwise=FALSE))
-		    return(rt_env(fail=tnumber))
+		    return(rt_env(fail=tnumber))                                            ##12b
 		  }
 	  }
   }
 
 # value/correct ----
 if(hasval && !is.function(value) && !rt_has_value(object, value, name=n, noise=noise, stepwise=stepwise))
-	return(rt_env(fail=tnumber))
+	return(rt_env(fail=tnumber))                                                  ##13
 if(correct && !is.function(value) && !isTRUE(all.equal(sort(object),sort(value))))
 	{
 	rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
-	return(rt_env(fail=tnumber))
+	return(rt_env(fail=tnumber))                                                  ##14
   }
 
 } # end !null(value)
 
 # further tests ----
 for(i in seq_len(...length())  )
-   if(!...elt(i)) return(rt_env(fail=tnumber))
+   if(!...elt(i)) return(rt_env(fail=tnumber))                                  ##15x
 
 # function inputs ----
 if(is.function(value))
@@ -194,11 +194,11 @@ for(i in inputs)
 		res <- sub("^Error in .*?:", "", res)
 		res <- gsub("\n", "", res)
     rt_warn("'",pc,"' should not yield Error: ",res)
-    return(rt_env(fail=tnumber))
+    return(rt_env(fail=tnumber))                                                ##16
     }
-	if(!rt_has_class(res, class(target), name=pc, intnum=intnum)) return(rt_env(fail=tnumber))
-	if(dim && !rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))
-	if(hasval && !rt_has_value(res, target, name=pc, noise=noise, stepwise=stepwise)) return(rt_env(fail=tnumber))
+	if(!rt_has_class(res, class(target), name=pc, intnum=intnum)) return(rt_env(fail=tnumber)) ##17
+	if(dim && !rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))                  ##18
+	if(hasval && !rt_has_value(res, target, name=pc, noise=noise, stepwise=stepwise)) return(rt_env(fail=tnumber)) ##19
 	} # end for loop
 }
 # pass ----
