@@ -15,8 +15,10 @@ if(length(obj)!=length(value))
   return(rt_warn("'",name,"' must have length ",length(value),", not ",length(obj), "."))
 } else # dataframe, matrix, array
 {
+# if class has been tested, the following should not be needed, but it's left here just in case.
 if(is.null(nrow(obj))) return(rt_warn("'nrow(",name,")' should not be NULL."))
 if(is.null(ncol(obj))) return(rt_warn("'ncol(",name,")' should not be NULL."))
+# check nrow / ncol
 if(nrow(obj)!=nrow(value))
   return(rt_warn("'",name,"' must have ",nrow(value)," rows, not ",nrow(obj), "."))
 if(ncol(obj)!=ncol(value))
