@@ -14,20 +14,14 @@
 #'                "\" (on Windows) must be changed to "/".
 #'                DEFAULT: NULL, meaning to use [file.choose()]
 #' @param deletezip If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE
-#' @param isunzipped,exdir Ignored arguments.
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create_task <- function(
 zipfile=NULL,
 deletezip=TRUE,
-isunzipped, exdir, # ignored arguments
 ...
 )
 {
-# old arguments:
-if(!missing(isunzipped)) warning("'isunzipped' is no longer needed :)", immediate.=TRUE, call.=FALSE)
-if(!missing(exdir)) warning("'exdir' is not used anymore.", immediate.=TRUE, call.=FALSE)
-
 # Notify about closing tab:
 message("If you haven't already, please close the browser tab with the CodeOcean task.",
 				"\nOtherwise CodeOcean will autosave the _empty_ script there.")

@@ -4,7 +4,7 @@
 \alias{rt_create_task}
 \title{Create Task folder from zip file}
 \usage{
-rt_create_task(zipfile = NULL, deletezip = TRUE, isunzipped, exdir, ...)
+rt_create_task(zipfile = NULL, deletezip = TRUE, ...)
 }
 \arguments{
 \item{zipfile}{Path to zip file (or, if unzipped, any of the files within the folder).
@@ -12,8 +12,6 @@ rt_create_task(zipfile = NULL, deletezip = TRUE, isunzipped, exdir, ...)
 DEFAULT: NULL, meaning to use \code{\link[=file.choose]{file.choose()}}}
 
 \item{deletezip}{If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE}
-
-\item{isunzipped, exdir}{Ignored arguments.}
 
 \item{\dots}{Further arguments passed to \code{\link{unzip}}}
 }
