@@ -203,8 +203,8 @@ for(i in inputs)
     return(rt_env(fail=tnumber))
     }
 	if(!rt_has_class(res, class(target), name=pc, intnum=intnum)) return(rt_env(fail=tnumber))
-	if(!rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))
-	if(!rt_has_value(res, target, name=pc, noise=noise, stepwise=stepwise)) return(rt_env(fail=tnumber))
+	if(dim && !rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))
+	if(hasval && !rt_has_value(res, target, name=pc, noise=noise, stepwise=stepwise)) return(rt_env(fail=tnumber))
 	} # end for loop
 }
 # pass ----
