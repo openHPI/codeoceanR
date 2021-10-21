@@ -2,32 +2,50 @@
 % Please edit documentation in R/rt_contains.R
 \name{rt_contains}
 \alias{rt_contains}
-\title{test object value}
+\title{Test whether object contains certain value(s)}
 \usage{
-rt_contains(obj, value, fixed = TRUE, ignore_space = TRUE, ignore_quote = TRUE)
+rt_contains(
+  object,
+  value,
+  fixed = TRUE,
+  ignore_space = TRUE,
+  ignore_quote = TRUE
+)
 }
 \arguments{
-\item{obj}{Object to be tested. Just the name, not a character string.}
+\item{object}{Object to be tested. Just the name, not a character string.}
 
-\item{value}{value \code{obj} should have, can be char / numeric / other.}
+\item{value}{value(s) that should be in \code{object}, can be char / other.}
 
-\item{fixed}{Fixed match in \code{\link[=grepl]{grepl()}}? DEFAULT: TRUE}
+\item{fixed}{Fixed match in \link{grepl}? DEFAULT: TRUE}
 
 \item{ignore_space}{Remove spaces before comparison? DEFAULT: TRUE}
 
 \item{ignore_quote}{Replace \verb{'} with \verb{"} before comparison? DEFAULT: TRUE}
 }
 \value{
-Logical: TRUE / FALSE depending on whether object contains \code{value}.
+Logical: TRUE / FALSE depending on whether \code{object} contains \code{value}.
 }
 \description{
-Test whether object contains certain value(s), calling \code{\link[=rt_warn]{rt_warn()}} with informative and helpful message if needed.
+Test whether object contains certain value(s)
+}
+\examples{
+rt_test_env <- new.env()
+rt_contains(1:7, 6)
+rt_contains(1:7, 8)
+rt_contains(1:7, 5:6)
+rt_contains(1:7, 5:9)
+stri <- "some char string"
+rt_contains(stri, "arstring")
+rt_contains(stri, "arstring", ignore_space=FALSE)
+rt_contains(stri, c("some", "char", "STRING"))
+
 }
 \seealso{
 \link{rt_has_value}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020 + 2021
 }
 \keyword{error}
 \keyword{test}

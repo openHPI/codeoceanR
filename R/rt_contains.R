@@ -1,30 +1,54 @@
-#' @title test object value
-#' @description Test whether object contains certain value(s), calling [rt_warn()] with informative and helpful message if needed.
-#' @return Logical: TRUE / FALSE depending on whether object contains `value`.
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
+#' @title Test whether object contains certain value(s)
+#' @return Logical: TRUE / FALSE depending on whether `object` contains `value`.
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020 + 2021
 #' @keywords error test
 #' @seealso [rt_has_value], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
+#' @examples
+#' rt_test_env <- new.env()
+#' rt_contains(1:7, 6)
+#' rt_contains(1:7, 8)
+#' rt_contains(1:7, 5:6)
+#' rt_contains(1:7, 5:9)
+#' stri <- "some char string"
+#' rt_contains(stri, "arstring")
+#' rt_contains(stri, "arstring", ignore_space=FALSE)
+#' rt_contains(stri, c("some", "char", "STRING"))
 #'
-#' @param obj    Object to be tested. Just the name, not a character string.
-#' @param value  value `obj` should have, can be char / numeric / other.
-#' @param fixed  Fixed match in [grepl()]? DEFAULT: TRUE
+#' @param object       Object to be tested. Just the name, not a character string.
+#' @param value        value(s) that should be in `object`, can be char / other.
+#' @param fixed        Fixed match in [grepl]? DEFAULT: TRUE
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
 #' @param ignore_quote Replace `'` with `"` before comparison? DEFAULT: TRUE
 #'
-rt_contains <- function(obj, value, fixed=TRUE, ignore_space=TRUE, ignore_quote=TRUE){
-  objname <- deparse(substitute(obj))
-  if(!is.character(obj))
-    {
-    if(value %in% obj) return(TRUE)
-    } else
-    {
-    value2 <- if(ignore_space) gsub("\\s", "", value) else value
-    obj2   <- if(ignore_space) gsub("\\s", "", obj  ) else obj
-    if(ignore_quote) value2 <- gsub("'", '"', value2)
-    if(ignore_quote) obj2   <- gsub("'", '"', obj2  )
-    if(any(grepl(pattern=value2, x=obj2, fixed=fixed))) return(TRUE)
-    }
-  rt_warn("'", objname, "' does not contain '", toString(value), "'")
-  FALSE
+rt_contains <- function(
+object,
+value,
+fixed=TRUE,
+ignore_space=TRUE,
+ignore_quote=TRUE
+){
+name <- deparse(substitute(object))
+value2 <- value # to keep 'value' as is for warning message
+if(is.character(value))
+  {
+  if(ignore_space) {
+    object <- gsub("\\s", "", object)
+  	value2 <- gsub("\\s", "", value2)
+  	}
+  if(ignore_quote) {
+    object <- gsub("'", '"', object)
+  	value2 <- gsub("'", '"', value2)
+  	}
+  }
+
+for(i in seq_along(value))
+  {
+	v <- value2[i]
+	succ <- if(is.character(v)) grepl(v, object, fixed=fixed) else v %in% object
+  if(!succ) return(rt_warn("'",name,"' should contain '",value[i],"'."))
+  }
+
+# pass:
+TRUE
 }
