@@ -16,7 +16,7 @@
 #'               Only used if `value` is numeric. DEFAULT: FALSE
 #' @param stepwise Compare `object` and `value` stepwise?
 #'               For numerical objects: only used if noise=FALSE.
-#'               DEFAULT: NULL, meaning `length(object)>1`
+#'               DEFAULT: NULL, meaning `length(value)>1`
 
 rt_has_value <- function(
 	object, value,
@@ -27,7 +27,7 @@ rt_has_value <- function(
 	){
   force(name)
   if(isTRUE(all.equal(object,value))) return(TRUE)
-	if(is.null(stepwise)) stepwise <- length(object)>1
+	if(is.null(stepwise)) stepwise <- length(value)>1
 	# Reduce message line breaks e.g. in intended try() error messages:
 	if(is.character(object) && length(object)==1)
 		{

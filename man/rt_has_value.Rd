@@ -28,7 +28,7 @@ Only used if \code{value} is numeric. DEFAULT: FALSE}
 
 \item{stepwise}{Compare \code{object} and \code{value} stepwise?
 For numerical objects: only used if noise=FALSE.
-DEFAULT: NULL, meaning \code{length(object)>1}}
+DEFAULT: NULL, meaning \code{length(value)>1}}
 }
 \value{
 Logical: TRUE / FALSE depending on whether object has the given value.
