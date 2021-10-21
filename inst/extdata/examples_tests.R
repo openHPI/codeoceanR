@@ -23,20 +23,21 @@ rt_test_task(2, script1, my_second_object, 5:15)
 
 
 script2 <- rt_run_script("examples_2.R") # script 2 ----
-sol <- rt_select_script_section(script2, 3)
+code3 <- rt_select_script_section(script2, 3)
 
-rt_test_task(3, script=sol, object=NULL, value=NULL,
-   rt_test(grepl("write.table", sol), "code does not contain the command 'write.table'."),
-   rt_has_argument(sol, "x", "iris"),
-   rt_has_argument(sol, "file")
+rt_test_task(3, script=code3, object=NULL, value=NULL,
+   rt_test(grepl("write.table", code3), "code does not contain the command 'write.table'."),
+   # rt_contains(code3, "write.table"), # is the shorter alternative to the previous test.
+   rt_has_argument(code3, "x", "iris"),
+   rt_has_argument(code3, "file")
    , # Commas on separate lines enable sending a single line during test development
-   rt_has_argument(sol, "sep", "\t")
+   rt_has_argument(code3, "sep", "\t")
    )
 
 
 # To build on previous task (don't do this too much, students find it frustrating
 # to lose 2 points if they cannot solve the first task):
-rt_test_task(4, script2, NULL, NULL, solved=3, rt_has_argument(sol, "row.names", FALSE))
+rt_test_task(4, script2, NULL, NULL, solved=3, rt_has_argument(code3, "row.names", FALSE))
 
 
 # To require several objects for a task but give only one message in total:
@@ -45,12 +46,13 @@ rt_test_task(5, script2, double_pi, pi*2)
 
 
 # For multiple choice tasks, the options can be given in any order:
-rt_test_task(6, script2, multiChoice, c(2,4), hasval=FALSE)
+rt_test_task(6, script2, multiChoice, c(2,4), correct=TRUE)
 
 
 # Functions can be checked with different inputs:
 inputVec <- round(rnorm(30),1)
 solution <- function(y) sqrt(replace(y, y<0, NaN)) # could also use suppressWarnings()
+# if 'solution' is defined before rt_run_script, students could write silentRoot <- solution
 rt_test_task(7, script2, silentRoot, solution, inputs='inputVec', export="inputVec",
              rt_gives_warning(silentRoot(-5), ""))
 # with explicitely named argument and a vector at the same time:
