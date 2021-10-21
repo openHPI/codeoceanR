@@ -11,10 +11,8 @@
 #' @param tfile Name of *tests.R file to be run.
 #'              Or name of exercise file, will be changed according to MOOC system.
 #'              DEFAULT: NULL (will be obtained from currently open File in Rstudio)
-#' @param check_unsaved Check if any files are unsaved? Requires dir to be in an .Rproj.
-#'            Runs [rt_check_for_unsaved_files()]. DEFAULT: TRUE
 #'
-rt_local_score <- function(tfile=NULL, check_unsaved=TRUE)
+rt_local_score <- function(tfile=NULL)
 {
 # Obtain test file for currently selected document:
 if(is.null(tfile)) tfile <- rstudioapi::documentPath()
@@ -37,8 +35,8 @@ message("-- running rt_local_score on ", basename(tfile),
 berryFunctions::checkFile(tfile)
 if(!grepl("tests\\.R$", tfile)) stop("tfile must end in *tests.R, but does not. ", tfile)
 
-# Stop if files are changed but not saved:
-if(check_unsaved) rt_check_for_unsaved_files(dirname(tfile), warnonly=TRUE)
+# Save all changes (rt_local_score is not for students anyways):
+rstudioapi::documentSaveAll()
 
 # Actually run tests:
 source(tfile, local=parent.frame())

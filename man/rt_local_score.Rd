@@ -4,15 +4,12 @@
 \alias{rt_local_score}
 \title{locally score complete exercise}
 \usage{
-rt_local_score(tfile = NULL, check_unsaved = TRUE)
+rt_local_score(tfile = NULL)
 }
 \arguments{
 \item{tfile}{Name of *tests.R file to be run.
 Or name of exercise file, will be changed according to MOOC system.
 DEFAULT: NULL (will be obtained from currently open File in Rstudio)}
-
-\item{check_unsaved}{Check if any files are unsaved? Requires dir to be in an .Rproj.
-Runs \code{\link[=rt_check_for_unsaved_files]{rt_check_for_unsaved_files()}}. DEFAULT: TRUE}
 }
 \value{
 Vector with number of total and passed tests, invisibly
