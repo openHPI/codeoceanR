@@ -117,7 +117,7 @@ if(correct){zero <- FALSE ; class <- "any" ; dim <- FALSE} # only run ...-tests 
 # zero ----
 if(zero && identical(object, 0))
   {
-  rt_warn("Replace the 0 for '",n,"' with code with the solution.")
+  rt_warn("Replace the 0 for '",n,"' with the solution code.")
 	return(rt_env(fail=tnumber))
   }
 if(zero && is.function(value) && try(object(), silent=TRUE)==0)
