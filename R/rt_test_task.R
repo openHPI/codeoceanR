@@ -99,12 +99,20 @@ if(n!="NULL" && !exists(n, envir=parent.frame()))
 if(!is.null(value))
 {
 # correct ----
-if(correct && !is.function(value) && !isTRUE(all.equal(sort(object),sort(value))))
+if(correct && !is.function(value))
 	{
-	rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
-	return(rt_env(fail=tnumber))
+	if(!is.atomic(object))
+		{
+	  rt_warn("'",n,"' must be atomic (a vector), not of class '", toString(class(object)), "'.")
+	  return(rt_env(fail=tnumber))
+	  }
+	if(!isTRUE(all.equal(sort(object),sort(value))))
+		{
+	  rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
+	  return(rt_env(fail=tnumber))
+	  }
   }
-if(correct){zero <- FALSE ; class <- "any" ; dim <- FALSE}
+if(correct){zero <- FALSE ; class <- "any" ; dim <- FALSE} # only run ...-tests after this
 
 # zero ----
 if(zero && identical(object, 0))
