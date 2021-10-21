@@ -6,7 +6,7 @@
 #' @return FALSE for failure, otherwise selected lines of the script,
 #'         by default NOT collapsed (linebreaks replaced with ;) through [paste]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_run_script], [rt_script_runs], [rt_has_argument],
+#' @seealso [rt_test_task], [rt_run_script], [rt_has_argument],
 #'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #' @importFrom berryFunctions removeSpace

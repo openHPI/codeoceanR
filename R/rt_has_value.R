@@ -7,51 +7,57 @@
 #' @export
 #' @importFrom stats rnorm
 #'
-#' @param obj    Object to be tested. Just the name, not a character string.
-#' @param value  value `obj` should have, can be char / numeric / other.
-#' @param digits Tolerance - both `obj` and `value` are [round]ed before comparison,
+#' @param object Object to be tested. Just the name, not a character string.
+#' @param value  value `object` should have, can be char / numeric / other.
+#' @param name   Object name for [rt_warn] messages. DEFAULT: `deparse(substitute(object))`
+#' @param digits Tolerance - both `object` and `value` are [round]ed before comparison,
 #'               if target `value` is numeric. DEFAULT: 6
-#' @param name   Object name for [rt_warn] messages. DEFAULT: `deparse(substitute(obj))`
 #' @param noise  Add noise, so not the exact difference is reported?
 #'               Only used if `value` is numeric. DEFAULT: FALSE
-#' @param stepwise Compare `obj` and `value` stepwise?
+#' @param stepwise Compare `object` and `value` stepwise?
 #'               For numerical objects: only used if noise=FALSE.
-#'               DEFAULT: NULL, meaning `length(obj)>1`
+#'               DEFAULT: NULL, meaning `length(object)>1`
 
 rt_has_value <- function(
-	obj, value, digits=6,
-	name=deparse(substitute(obj)),
+	object, value,
+	name=deparse(substitute(object)),
+	digits=6,
 	noise=FALSE,
 	stepwise=NULL
 	){
   force(name)
-  if(isTRUE(all.equal(obj,value))) return(TRUE)
-	if(is.null(stepwise)) stepwise <- length(obj)>1
+  if(isTRUE(all.equal(object,value))) return(TRUE)
+	if(is.null(stepwise)) stepwise <- length(object)>1
 	# Reduce message line breaks e.g. in intended try() error messages:
-	if(is.character(obj) && length(obj)==1)
+	if(is.character(object) && length(object)==1)
 		{
-		obj   <- sub("\n$", "", obj)
-		value <- sub("\n$", "", value)
+		object <- sub("\n$", "", object)
+		value  <- sub("\n$", "", value)
 	  }
   if(is.numeric(value))
   	{
-    obj <- round(obj, digits)
-    value <- round(value, digits)
-    if(noise) return(rt_warn("'",name,"' has the wrong value. The deviance ",
-  		"(with added noise) is: ", toString(round(obj-value+rnorm(length(obj)), digits))))
+    object <- round(object, digits)
+    value  <- round(value , digits)
+    if(noise) if(any(object!=value)) return(rt_warn("'",name,"' has the wrong value. The deviance ",
+  		"(with added noise) is: ", toString(round(object-value+rnorm(length(object)), digits)))) else return(TRUE)
     }
-  if(!stepwise) return(rt_warn("'", name, "' should be '", toString(value),
-  														 "', not '", toString(obj),"'"))
+
+	toString2 <- function(x) if(is.null(x)) "NULL" else toString(x)
+
+	if(!stepwise) return(rt_warn("'", name, "' should be '", toString2(value),
+  														 "', not '", toString2(object),"'"))
   # stepwise check:
-  for(i in seq_along(obj))
+	loop <- if(is.null(value)) 1 else seq_along(value)
+  for(i in loop)
   {
-  v <- value[[i]] # double square brackets can handle both lists and vectors,
-  o <- obj[[i]]   # if i is a single value as returned by seq_along
+  o <- object[[i]] # double square brackets can handle both lists and vectors,
+  v <-  value[[i]] # if i is a single value as returned by seq_along
   neq <- try(o!=v, silent=TRUE)
-  if(anyNA(neq)||inherits(neq,"try-error")) # for NA, lists and other incomparables
+  if(anyNA(neq) || inherits(neq,"try-error")) # for NA, lists and other incomparables
   	 neq <- !isTRUE(all.equal(o,v))
+  if(xor(is.null(o), is.null(v))) neq <- TRUE
   if(neq) return(rt_warn("'", name, "[",i,"]' should be '",
-  												toString(v),"', not '", toString(o),"'"))
+  												toString2(v),"', not '", toString2(o),"'"))
   }
-	return(TRUE) # e.g. if obj has names and value doesn't, all.equal has not caught it
+	return(TRUE) # e.g. if object has names and value doesn't, all.equal has not caught it
 }

@@ -2,7 +2,7 @@
 #' @description Run script, with informative [rt_warn] message if [source()] fails.
 #' @return FALSE for failure, otherwise contents of the script, output of [readLines()]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_script_runs], [rt_select_script_section],
+#' @seealso [rt_test_task], [rt_select_script_section],
 #'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #' @export

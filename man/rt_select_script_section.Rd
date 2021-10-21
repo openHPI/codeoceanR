@@ -27,7 +27,7 @@ Attenton: if the user script contains line breaks and is read with
 \code{collapse=TRUE}, \link{rt_has_argument} leads to a test script failure!
 }
 \seealso{
-\link{rt_run_script}, \link{rt_script_runs}, \link{rt_has_argument},
+\link{rt_test_task}, \link{rt_run_script}, \link{rt_has_argument},
 \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{

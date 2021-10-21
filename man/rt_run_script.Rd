@@ -16,7 +16,7 @@ FALSE for failure, otherwise contents of the script, output of \code{\link[=read
 Run script, with informative \link{rt_warn} message if \code{\link[=source]{source()}} fails.
 }
 \seealso{
-\link{rt_script_runs}, \link{rt_select_script_section},
+\link{rt_test_task}, \link{rt_select_script_section},
 \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{

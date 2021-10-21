@@ -10,90 +10,88 @@ rt_test_task(
   object = NULL,
   value = NULL,
   ...,
-  zero = hasval,
+  solved = NULL,
+  correct = FALSE,
+  zero = TRUE,
   class = NULL,
   intnum = TRUE,
+  dim = TRUE,
+  names = TRUE,
   hasval = TRUE,
-  dim = hasval,
-  correct = !hasval,
-  df_test = TRUE,
   noise = FALSE,
   stepwise = NULL,
-  solved = NULL,
+  stepnames = FALSE,
   inputs = NULL,
-  export = NULL,
-  names = FALSE
+  export = NULL
 )
 }
 \arguments{
 \item{tnumber}{Number of task. Must be numeric, as it will be used for pass/fail in \link{rt_env}.}
 
-\item{script}{Exercise script content that needs to be non-empty.
+\item{script}{Exercise script content from \link{rt_run_script} or \link{rt_select_script_section}.
 This is the only test that will not generate an \link{rt_warn} message,
-as \link{rt_run_script} or \link{rt_select_script_section} already do.
-DEFAULT: NULL}
+as the previous functions already do. DEFAULT: NULL}
 
 \item{object}{Object that needs to be created in student script.
-Regular object name, not quoted. DEFAULT: NULL}
+Regular object name, not quoted. First checked for existence.
+If \code{value} is given, checked with \code{correct} and \code{zero},
+then passed to \link{rt_test_object}. DEFAULT: NULL}
 
-\item{value}{Intended value. Existence, class and dimensions are checked first,
-then \link{rt_has_value} is called if hasval=TRUE. DEFAULT: NULL}
+\item{value}{Intended value. DEFAULT: NULL}
 
 \item{\dots}{Further tests, comma-separated, can be given at the end.
 Need to yield TRUE/FALSE and take care of \link{rt_warn} individually.
 The \verb{rt_*} test functions are designed for just that :).}
 
-\item{zero}{Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval}
+\item{solved}{Task number that must be solved before any other tests are run
+(except script test). DEFAULT: NULL}
+
+\item{correct}{Custom value message for multiple choice tasks?
+No further tests (except ...-tests) are run if correct=TRUE.
+Do not set to TRUE for objects that cannot be sorted. DEFAULT: FALSE}
+
+\item{zero}{Check for pre-assigned objects (to 0) with special message?
+Only needs to be FALSE if the intended value is 0. DEFAULT: TRUE}
 
 \item{class}{Class(es) that are acceptable. Test is passed if any of the classes matches.
 Test is skipped if \code{class="any"}.
 Run through \link{rt_has_class}. DEFAULT: NULL (class of \code{value})}
 
-\item{intnum}{Should numeric and integer be interchangable? DEFAULT: TRUE}
+\item{intnum}{Should numeric and integer class be interchangable? DEFAULT: TRUE}
 
-\item{hasval}{After checks for existence, class and dimension, run \link{rt_has_value}?
-Can be FALSE for custom messages, e.g in multiple choice tasks.
-Will be FALSE if \code{value} is a function.
+\item{dim}{Check dimension (length or nrow+ncol)?
+If FALSE, \code{names}, column classes and \code{hasval} are also not checked.
 DEFAULT: TRUE}
 
-\item{dim}{Check dimension (length or nrow+ncol) with \link{rt_has_dim}?
-Will be FALSE if \code{value} is a function. DEFAULT: hasval}
+\item{names}{Check names (or rownames/colnames)? DEFAULT: TRUE}
 
-\item{correct}{Custom value message for multiple choice tasks?
-Will be FALSE if \code{value} is a function. DEFAULT: !hasval}
-
-\item{df_test}{Run tests on data.frames? Only used if \code{value} is data.frame or matrix.
-Checks \link{rt_has_column}, classes and then \link{rt_has_value} per column.
-DEAULT: TRUE}
+\item{hasval}{Run \link{rt_has_value}? DEFAULT: TRUE}
 
 \item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
 
 \item{stepwise}{stepwise parameter in \link{rt_has_value}. DEFAULT: NULL}
 
-\item{solved}{Task number that must be solved before other tests are run. DEFAULT: NULL}
+\item{stepnames}{stepwise parameter for names check. DEFAULT: NULL}
 
 \item{inputs}{List or vector with (named) charstrings with code to be called
 if \code{object} and \code{value} are functions.
 Will be called with \code{eval(str2lang(paste0("object(",input_i,")")))}.
 Object names within rt_test_exercise are not available within rt_test_task,
-unlisst listed in \code{export}.
+unless listed in \code{export}.
 For single-argument functions, numerical input works fine, too.
 These are the only tests run AFTER ...-tests are run.
 DEFAULT: NULL}
 
 \item{export}{Character vector with object names to be assigned into evaluation environment.
 DEFAULT: NULL}
-
-\item{names}{Test whether \code{object} has the same \link{names} as \code{value}? DEFAULT: FALSE}
 }
 \value{
-TRUE or FALSE, indicating whether all tests passed
+TRUE or FALSE, indicating whether all tests passed. Also changes \link{rt_env} status.
 }
 \description{
 Wrapper for test script for an individual task within an exercise
 }
 \details{
-NULL arguments mean that their respective tests are not performed.\cr
 Tests are performed in an order for increasingly specific
 messages that do not give away the solution too early.\cr
 Arguments after \dots need to be specified by full name.

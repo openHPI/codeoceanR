@@ -5,30 +5,30 @@
 \title{test object value}
 \usage{
 rt_has_value(
-  obj,
+  object,
   value,
+  name = deparse(substitute(object)),
   digits = 6,
-  name = deparse(substitute(obj)),
   noise = FALSE,
   stepwise = NULL
 )
 }
 \arguments{
-\item{obj}{Object to be tested. Just the name, not a character string.}
+\item{object}{Object to be tested. Just the name, not a character string.}
 
-\item{value}{value \code{obj} should have, can be char / numeric / other.}
+\item{value}{value \code{object} should have, can be char / numeric / other.}
 
-\item{digits}{Tolerance - both \code{obj} and \code{value} are \link{round}ed before comparison,
+\item{name}{Object name for \link{rt_warn} messages. DEFAULT: \code{deparse(substitute(object))}}
+
+\item{digits}{Tolerance - both \code{object} and \code{value} are \link{round}ed before comparison,
 if target \code{value} is numeric. DEFAULT: 6}
-
-\item{name}{Object name for \link{rt_warn} messages. DEFAULT: \code{deparse(substitute(obj))}}
 
 \item{noise}{Add noise, so not the exact difference is reported?
 Only used if \code{value} is numeric. DEFAULT: FALSE}
 
-\item{stepwise}{Compare \code{obj} and \code{value} stepwise?
+\item{stepwise}{Compare \code{object} and \code{value} stepwise?
 For numerical objects: only used if noise=FALSE.
-DEFAULT: NULL, meaning \code{length(obj)>1}}
+DEFAULT: NULL, meaning \code{length(object)>1}}
 }
 \value{
 Logical: TRUE / FALSE depending on whether object has the given value.

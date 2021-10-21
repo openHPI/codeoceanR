@@ -14,7 +14,13 @@ library(testthat)
 
 rt_test_env <- new.env()
 rt_test_env$success <- vector()
-rt_env(id="na")
+rt_env(id="")
+
+# rt_test_object ----
+
+test_that("rt_test_object warns correctly", {
+source("objtests.R")
+})
 
 
 # rt_run_script ----

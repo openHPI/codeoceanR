@@ -1,57 +1,55 @@
 #' @title Wrapper for test script for an individual task within an exercise
-#' @details NULL arguments mean that their respective tests are not performed.\cr
-#'          Tests are performed in an order for increasingly specific
+#' @details Tests are performed in an order for increasingly specific
 #'          messages that do not give away the solution too early.\cr
 #'          Arguments after \dots need to be specified by full name.
 #'          `tnumber` must always be given, `script`, `object` and `value`
 #'          must be given (can be NULL) so later custom tests are not matched to them.
-#' @return TRUE or FALSE, indicating whether all tests passed
+#' @return TRUE or FALSE, indicating whether all tests passed. Also changes [rt_env] status.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2021
 #' @seealso [rt_test_exercise], tests.R in the [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
 #'
 #' @param tnumber  Number of task. Must be numeric, as it will be used for pass/fail in [rt_env].
-#' @param script   Exercise script content that needs to be non-empty.
+#' @param script   Exercise script content from [rt_run_script] or [rt_select_script_section].
 #'                 This is the only test that will not generate an [rt_warn] message,
-#'                 as [rt_run_script] or [rt_select_script_section] already do.
-#'                 DEFAULT: NULL
+#'                 as the previous functions already do. DEFAULT: NULL
 #' @param object   Object that needs to be created in student script.
-#'                 Regular object name, not quoted. DEFAULT: NULL
-#' @param value    Intended value. Existence, class and dimensions are checked first,
-#'                 then [rt_has_value] is called if hasval=TRUE. DEFAULT: NULL
+#'                 Regular object name, not quoted. First checked for existence.
+#'                 If `value` is given, checked with `correct` and `zero`,
+#'                 then passed to [rt_test_object]. DEFAULT: NULL
+#' @param value    Intended value. DEFAULT: NULL
 #' @param \dots    Further tests, comma-separated, can be given at the end.
 #'                 Need to yield TRUE/FALSE and take care of [rt_warn] individually.
 #'                 The `rt_*` test functions are designed for just that :).
-#' @param hasval   After checks for existence, class and dimension, run [rt_has_value]?
-#'                 Can be FALSE for custom messages, e.g in multiple choice tasks.
-#'                 Will be FALSE if `value` is a function.
-#'                 DEFAULT: TRUE
-#' @param zero     Check for pre-assigned objects (to 0) with special message? DEFAULT: hasval
+#' @param solved   Task number that must be solved before any other tests are run
+#'                 (except script test). DEFAULT: NULL
+#' @param correct  Custom value message for multiple choice tasks?
+#'                 No further tests (except ...-tests) are run if correct=TRUE.
+#'                 Do not set to TRUE for objects that cannot be sorted. DEFAULT: FALSE
+#' @param zero     Check for pre-assigned objects (to 0) with special message?
+#'                 Only needs to be FALSE if the intended value is 0. DEFAULT: TRUE
 #' @param class    Class(es) that are acceptable. Test is passed if any of the classes matches.
 #'                 Test is skipped if `class="any"`.
 #'                 Run through [rt_has_class]. DEFAULT: NULL (class of `value`)
-#' @param intnum   Should numeric and integer be interchangable? DEFAULT: TRUE
-#' @param dim      Check dimension (length or nrow+ncol) with [rt_has_dim]?
-#'                 Will be FALSE if `value` is a function. DEFAULT: hasval
-#' @param correct  Custom value message for multiple choice tasks?
-#'                 Will be FALSE if `value` is a function. DEFAULT: !hasval
-#' @param df_test  Run tests on data.frames? Only used if `value` is data.frame or matrix.
-#'                 Checks [rt_has_column], classes and then [rt_has_value] per column.
-#'                 DEAULT: TRUE
+#' @param intnum   Should numeric and integer class be interchangable? DEFAULT: TRUE
+#' @param dim      Check dimension (length or nrow+ncol)?
+#'                 If FALSE, `names`, column classes and `hasval` are also not checked.
+#'                 DEFAULT: TRUE
+#' @param names    Check names (or rownames/colnames)? DEFAULT: TRUE
+#' @param hasval   Run [rt_has_value]? DEFAULT: TRUE
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
 #' @param stepwise stepwise parameter in [rt_has_value]. DEFAULT: NULL
-#' @param solved   Task number that must be solved before other tests are run. DEFAULT: NULL
+#' @param stepnames stepwise parameter for names check. DEFAULT: NULL
 #' @param inputs   List or vector with (named) charstrings with code to be called
 #'                 if `object` and `value` are functions.
 #'                 Will be called with `eval(str2lang(paste0("object(",input_i,")")))`.
 #'                 Object names within rt_test_exercise are not available within rt_test_task,
-#'                 unlisst listed in `export`.
+#'                 unless listed in `export`.
 #'                 For single-argument functions, numerical input works fine, too.
 #'                 These are the only tests run AFTER ...-tests are run.
 #'                 DEFAULT: NULL
 #' @param export   Character vector with object names to be assigned into evaluation environment.
 #'                 DEFAULT: NULL
-#' @param names    Test whether `object` has the same [names] as `value`? DEFAULT: FALSE
 #'
 rt_test_task <- function(
 tnumber,
@@ -59,119 +57,76 @@ script=NULL,
 object=NULL,
 value=NULL,
 ...,
-zero=hasval,
+solved=NULL,
+correct=FALSE,
+zero=TRUE,
 class=NULL,
 intnum=TRUE,
+dim=TRUE,
+names=TRUE,
 hasval=TRUE,
-dim=hasval,
-correct=!hasval,
-df_test=TRUE,
 noise=FALSE,
 stepwise=NULL,
-solved=NULL,
+stepnames=FALSE,
 inputs=NULL,
-export=NULL,
-names=FALSE
+export=NULL
 )
 {
 n <- deparse(substitute(object))
-if(!is.numeric(tnumber)) stop("tnumber must be numeric, not ", toString(class(tnumber)), ", for tnumber: ", tnumber) ##1
+if(!is.numeric(tnumber)) stop("tnumber must be numeric, not ", toString(class(tnumber)), ", for tnumber: ", tnumber)
 rt_env(id=tnumber)
 
 # Exit this function through return() right after the first rt_warn message
 
 # script ----
-if(!is.null(script) && !rt_script_runs(script)) return(rt_env(fail=tnumber))    ##2
+if(!is.null(script) && (isFALSE(script) || identical(script,"FALSE")) )
+	return(rt_env(fail=tnumber))
+	# identical needed in case things like gsub("'", "\"", code) have been run:
 
 # solved ----
 if(!is.null(solved))
-	{
 	if(!rt_test(rt_env()$success[solved], "Please first solve task ",solved,"."))
-		return(rt_env(fail=tnumber))                                                ##3
-  }
+		return(rt_env(fail=tnumber))
 
-# object ----
+# object created ----
 if(n!="NULL" && !exists(n, envir=parent.frame()))
   {
   rt_warn("Create the object '",n,"'. It does not yet exist.")
-	return(rt_env(fail=tnumber))                                                  ##4
+	return(rt_env(fail=tnumber))
   }
+
+# the rest (up to ...-tests) only if value is given:
+if(!is.null(value))
+{
+# correct ----
+if(correct && !is.function(value) && !isTRUE(all.equal(sort(object),sort(value))))
+	{
+	rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
+	return(rt_env(fail=tnumber))
+  }
+if(correct){zero <- FALSE ; class <- "any" ; dim <- FALSE}
 
 # zero ----
 if(zero && identical(object, 0))
   {
   rt_warn("Replace the 0 for '",n,"' with code with the solution.")
-	return(rt_env(fail=tnumber))                                                  ##5
+	return(rt_env(fail=tnumber))
   }
-
-if(!is.null(value))
-{
-# class ----
-if(is.null(class)) class <- class(value)
-if(!rt_has_class(object, class, name=n, intnum=intnum)) return(rt_env(fail=tnumber)) ##6
-
-# zero function ----
-if(is.function(value) && zero && try(object(), silent=TRUE)==0)
+if(zero && is.function(value) && try(object(), silent=TRUE)==0)
   {
   rt_warn("'",n,"()' should not return 0.")
-  return(rt_env(fail=tnumber))                                                  ##7
+  return(rt_env(fail=tnumber))
   }
 
-# dim ----
-if(dim && !is.function(value) && !rt_has_dim(object, value, name=n)) return(rt_env(fail=tnumber)) ##8
-
-# names ----
-if(names)
-  {
-  nv <- names(value)
-  if(!all(nv %in% base::names(object))){
-  rt_warn("'",n, "' should have the name", if(length(nv)>1) "s:", " '",
-  				toString(nv), "', not '",toString(base::names(object)),"'.")
-	return(rt_env(fail=tnumber))                                                  ##9
-  }}
-
-# df_test ----
-if(df_test && (is.data.frame(value)||is.matrix(value)))
-  {
-  # hasval <- FALSE # if this test is passed, rt_has_value(object,value) should also work
-  # correct <- FALSE
-  if(!rt_has_column(object, colnames(value), n)) return(rt_env(fail=tnumber))   ##10
-	loopcn <- colnames(value)
-	if(is.null(loopcn)) loopcn <- 1:ncol(value)
-	for(cn in loopcn)
-	  {
-		if(!rt_has_value(class(object[,cn]), class(value[,cn]),
-										 name=paste0('class(',n,'[,"',cn,'"])'), noise=noise, stepwise=stepwise))
-			return(rt_env(fail=tnumber))                                              ##11
-		qm <- !is.numeric(cn) # qutation marks needed?
-		if((isTRUE(stepwise)||is.null(stepwise)) && nrow(value)>1)
-			{
-			for(rn in 1:nrow(value))
-		  if(!rt_has_value(object[rn,cn], value[rn,cn], name=paste0(n,'[',rn,',',if(qm)'"',cn,if(qm)'"',']'),
-		  								 noise=noise, stepwise=FALSE))
-		    return(rt_env(fail=tnumber))                                            ##12a
-		  } else {
-		  if(!rt_has_value(object[,cn], value[,cn], name=paste0(n,'[,',if(qm)'"',cn,if(qm)'"',']'),
-		  								 noise=noise, stepwise=FALSE))
-		    return(rt_env(fail=tnumber))                                            ##12b
-		  }
-	  }
-  }
-
-# value/correct ----
-if(hasval && !is.function(value) && !rt_has_value(object, value, name=n, noise=noise, stepwise=stepwise))
-	return(rt_env(fail=tnumber))                                                  ##13
-if(correct && !is.function(value) && !isTRUE(all.equal(sort(object),sort(value))))
-	{
-	rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
-	return(rt_env(fail=tnumber))                                                  ##14
-  }
+# test_object ----
+if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, names=names,
+	hasval=hasval, noise=noise, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
 
 } # end !null(value)
 
 # further tests ----
 for(i in seq_len(...length())  )
-   if(!...elt(i)) return(rt_env(fail=tnumber))                                  ##15x
+   if(!...elt(i)) return(rt_env(fail=tnumber))
 
 # function inputs ----
 if(is.function(value))
@@ -194,11 +149,10 @@ for(i in inputs)
 		res <- sub("^Error in .*?:", "", res)
 		res <- gsub("\n", "", res)
     rt_warn("'",pc,"' should not yield Error: ",res)
-    return(rt_env(fail=tnumber))                                                ##16
+    return(rt_env(fail=tnumber))
     }
-	if(!rt_has_class(res, class(target), name=pc, intnum=intnum)) return(rt_env(fail=tnumber)) ##17
-	if(dim && !rt_has_dim(res, target, name=pc)) return(rt_env(fail=tnumber))                  ##18
-	if(hasval && !rt_has_value(res, target, name=pc, noise=noise, stepwise=stepwise)) return(rt_env(fail=tnumber)) ##19
+  if(!rt_test_object(res, target, name=pc, class=class, intnum=intnum, dim=dim, names=names,
+	  hasval=hasval, noise=noise, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
 	} # end for loop
 }
 # pass ----
