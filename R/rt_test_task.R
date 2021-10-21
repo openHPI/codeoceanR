@@ -91,7 +91,7 @@ if(!is.null(solved))
 # object created ----
 if(n!="NULL" && !exists(n, envir=parent.frame()))
   {
-  rt_warn("Create the object '",n,"'. It does not yet exist.")
+  rt_warn("Create the object '",n,"'.")
 	return(rt_env(fail=tnumber))
   }
 
