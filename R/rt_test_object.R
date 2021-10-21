@@ -25,10 +25,15 @@ stepnames=FALSE
 if(is.null(class)) class <- class(value)
 if(!rt_has_class(object, class, name=name, intnum=intnum)) return(FALSE)
 
+
+if(!dim || is.function(value)) return(TRUE)
+# all other tests are too error-prone if dim is unchecked.
+# Should be TRUE to enable tests for class only by setting dim=FALSE
+
 oneD <- length(dim(value))<2
 
 # dim ----
-if(dim && !is.function(value))
+if(dim)
   if(oneD) # vector, list, function, table
   {
   if(length(object)!=length(value))
@@ -41,11 +46,8 @@ if(dim && !is.function(value))
     return(rt_warn("'",name,"' should have ",ncol(value)," columns, not ",ncol(object), "."))
   }
 
-if(!dim) return(TRUE) # all other tests are too error-prone if dim is unchecked.
-# Should be TRUE to enable tests for class only by setting dim=FALSE
-
 # names ----
-if(names && !is.function(value))
+if(names)
   if(oneD) # 1D
   {
   if(!rt_has_value(names(object),names(value), name=paste0("names(",name,")"), stepwise=stepnames))
@@ -77,7 +79,7 @@ if(!oneD)
   }
 
 # hasval ----
-if(hasval && !is.function(value))
+if(hasval)
   if(oneD) # 1D
   {
   if(!rt_has_value(object,value, name=name, stepwise=stepwise)) return(FALSE)
