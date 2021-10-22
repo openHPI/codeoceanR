@@ -3,7 +3,7 @@
 export(rt_contains)
 export(rt_create_task)
 export(rt_due_warn)
-export(rt_get_echo)
+export(rt_gives_echo)
 export(rt_gives_warning)
 export(rt_has_argument)
 export(rt_has_class)
