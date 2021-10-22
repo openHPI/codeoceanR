@@ -5,19 +5,22 @@
 #' @export
 #' @examples
 #' rt_test_env <- new.env()
-#' rt_gives_echo(cat("things\nwith linebreaks"), value=TRUE)
-#' rt_gives_echo(message("some message"), value=TRUE)
-#' rt_gives_echo({77; 88; 99}, value=TRUE) # empty
-#' rt_gives_echo({77; print(88); 99}, value=TRUE) # "[1] 88"
-#' rt_gives_echo({print(77); log(-6); print(99)}, value=TRUE) # warning not in echo
-#' rt_gives_echo({print(77); log("6"); print(99)}, value=TRUE) # error is included
+#' rt_gives_echo(cat("things\nwith linebreaks"), echo=TRUE)
+#' rt_gives_echo(message("some message"), echo=TRUE)
+#' rt_gives_echo({77; 88; 99}, echo=TRUE) # empty
+#' rt_gives_echo({77; 88; 99}, value=TRUE) # 99
+#' rt_gives_echo({77; print(88); 99}, echo=TRUE) # "[1] 88"
+#' rt_gives_echo({print(77); log(-6); print(99)}, echo=TRUE) # warning not in echo
+#' rt_gives_echo({print(77); log("6"); print(99)}, echo=TRUE) # error is included
 #'
 #' rt_gives_echo({print(77); message("some stuff")}, "e stuff") # TRUE
 #' rt_gives_echo({print(77); message("some stuff")}, "more stuff") # wrong echo
 #' rt_gives_echo(log(7), "") # TRUE (no echo)
 #' rt_gives_echo(cat(88), "") # shouldn't echo but does
 #' rt_gives_echo(cat(999), NULL) # TRUE (generates any echo)
-#' rt_gives_echo(log(7), NULL) # should echo something but doesn't
+#' rt_gives_echo(log(7), NULL) # should echo something (e.g. through ...) but doesn't
+#' rt_gives_echo(log(7), "stuff") # should echo something
+#' rt_gives_echo(cat(7), "stuff") # wrong echo
 #'
 #' @param expr  Code to be executed while output is collected.
 #'              Can be contained within \{curly brackets\}.
@@ -62,17 +65,18 @@ captured <- readLines(sinkfile, warn=FALSE)
 if(echo) return(captured)
 
 # Test for any echo:
-if(is.null(e)) if(length(captured)!=0) return(TRUE) else
-	return(rt_warn("'", msg, "' should yield an echo."))
+if(is.null(e) && length(captured)!=0) return(TRUE)
+if(!identical(e,"") && length(captured)==0)
+  return(rt_warn("'", msg, "' should echo something (e.g. through message, cat, print)."))
 
 # Test if there is no echo:
 if(e=="") if(length(captured)==0) return(TRUE) else
-	return(rt_warn("'", msg, "' should not yield any echo but gives: '", paste(captured, collapse="\\n"),"'"))
+	return(rt_warn("'", msg, "' should not echo anything but gives: '", paste(captured, collapse="\\n"),"'"))
 
 # Test for specific echo:
 iscor <- if(exact) e %in% captured else any(grepl(e, captured, fixed=fixed))
 if(iscor) return(TRUE)
-rt_warn("'", msg, "' should yield the echo '", e, "', not '", paste(captured, collapse="\\n"),"'")
+rt_warn("'", msg, "' should echo '", e, "', not '", paste(captured, collapse="\\n"),"'")
 
 }
 
