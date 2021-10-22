@@ -120,7 +120,7 @@ if(zero && identical(object, 0))
   rt_warn("Replace the 0 for '",n,"' with the solution code.")
 	return(rt_env(fail=tnumber))
   }
-if(zero && is.function(value) && try(object(), silent=TRUE)==0)
+if(zero && is.function(value) && isTRUE(rt_gives_echo(object(),value=TRUE)==0))
   {
   rt_warn("'",n,"()' should not return 0.")
   return(rt_env(fail=tnumber))
