@@ -8,6 +8,8 @@
 #'
 rt_test_exercise <- function(expr)
 {
+oop <- options(warn=1) # display warnings immediately, to aid tracking them down
+on.exit(options(oop), add=TRUE)
 rt_test_env <- new.env()
 rt_test_env$success <- vector()
 rt_env(id="na")

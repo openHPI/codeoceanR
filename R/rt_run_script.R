@@ -8,8 +8,10 @@
 #' @export
 #'
 #' @param filename Path of script to be run
+#' @param nowarn   If TRUE, suppress messages and warnings. Errors are handled separately.
+#'                 cat and print still get through. DEFAULT: TRUE
 #'
-rt_run_script <- function(filename){
+rt_run_script <- function(filename, nowarn=TRUE){
   rt_env(id=paste0(" ", filename))
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
@@ -21,7 +23,8 @@ rt_run_script <- function(filename){
   tfile <- tempfile(fileext="_coscript.R")
   writeLines(fnew, tfile)
   # actually source the (modified) file:
-  e <- try(suppressWarnings(source(tfile, local=parent.frame())), silent=TRUE)
+  e <- try(                  if(!nowarn) source(tfile, local=parent.frame()) else
+  	   suppressWarnings(suppressMessages(source(tfile, local=parent.frame()))), silent=TRUE)
   if(inherits(e, "try-error")) {
     e <- sub("^Error in source.*_coscript.R:","Error in line:column ",e)
     e <- gsub("\n"," ",e)
