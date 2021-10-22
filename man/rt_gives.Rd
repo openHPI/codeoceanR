@@ -53,6 +53,7 @@ rt_gives("echo", {77; 88; 99}, capt=TRUE)            # ""
 rt_gives("echo", {77; print(88); 99}, capt=TRUE)     # "[1] 88"
 rt_gives("echo", {log(-77); print(99)}, capt=TRUE)   # warning not in echo
 rt_gives("echo", {print(99) ; log("6")}, capt=TRUE)  # error is included
+rt_gives("warning",{log(-4);log("6");log(-3)},capt=TRUE) # error is ignored
 rt_gives("warning", log(-3), capt=TRUE)              # "log(-3): NaNs produced"
 rt_gives("error", log("3"), capt=TRUE)               # "Error in log(\"3\") : non-numeric [...]
 
