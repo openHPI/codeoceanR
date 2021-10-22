@@ -45,7 +45,7 @@ rt_has_value <- function(
 	toString2 <- function(x) if(is.null(x)) "NULL" else toString(x)
 
 	if(!stepwise) return(rt_warn("'", name, "' should be '", toString2(value),
-  														 "', not '", toString2(object),"'"))
+  														 "', not '", toString2(object),"'."))
   # stepwise check:
 	loop <- if(is.null(value)) 1 else seq_along(value)
   for(i in loop)
@@ -57,7 +57,7 @@ rt_has_value <- function(
   	 neq <- !isTRUE(all.equal(o,v))
   if(xor(is.null(o), is.null(v))) neq <- TRUE
   if(neq) return(rt_warn("'", name, "[",i,"]' should be '",
-  												toString2(v),"', not '", toString2(o),"'"))
+  												toString2(v),"', not '", toString2(o),"'."))
   }
 	return(TRUE) # e.g. if object has names and value doesn't, all.equal has not caught it
 }
