@@ -21,15 +21,27 @@
 #'
 #' @param expr  Code to be executed while output is collected.
 #'              Can be contained within \{curly brackets\}.
-#' @param e     Charstring: echo that needs to be present (matched with grepl).
+#' @param e     Charstring: echo that needs to be present (matched with [grepl]).
 #'              Use `e=""` to test if no echo is generated.
 #'              Use `e=NULL` to test if any echo is produced.
 #'              DEFAULT: NULL
-#' @param value Return the echo instead of testing it? DEFAULT: FALSE
+#' @param value Return the result of running `expr`? DEFAULT: FALSE
+#' @param echo  Return the echo of running `expr` (instead of testing it)? DEFAULT: FALSE
+#' @param fixed If tested for specific e with [grepl], treat charstring `e` as is,
+#'              rather than regex? DEFAULT: TRUE
+#' @param exact use == instead of grepl? Useful to see if message is used, not print.
+#'              DEFAULT: FALSE
 #' @param msg   Charstring to be included in testing messages. DEFAULT: input code
 #'
-rt_gives_echo <- function(expr, e=NULL, value=FALSE, msg=deparse(substitute(expr)))
-{
+rt_gives_echo <- function(
+expr,
+e=NULL,
+value=FALSE,
+echo=FALSE,
+fixed=TRUE,
+exact=FALSE,
+msg=deparse(substitute(expr))
+){
 force(msg)
 
 sinkfile <- tempfile(fileext="_co_echo.txt")
@@ -45,20 +57,22 @@ sink(type="message")
 sink()
 close(con)
 # Output:
-echo <- readLines(sinkfile, warn=FALSE)
-if(value) return(echo)
+if(value) return(val)
+captured <- readLines(sinkfile, warn=FALSE)
+if(echo) return(captured)
 
 # Test for any echo:
-if(is.null(e)) if(length(echo)!=0) return(TRUE) else
+if(is.null(e)) if(length(captured)!=0) return(TRUE) else
 	return(rt_warn("'", msg, "' should yield an echo."))
 
 # Test if there is no echo:
-if(e=="") if(length(echo)==0) return(TRUE) else
-	return(rt_warn("'", msg, "' should not yield any echo but gives: '", paste(echo, collapse="\\n"),"'"))
+if(e=="") if(length(captured)==0) return(TRUE) else
+	return(rt_warn("'", msg, "' should not yield any echo but gives: '", paste(captured, collapse="\\n"),"'"))
 
 # Test for specific echo:
-if(any(grepl(e, echo))) return(TRUE)
-rt_warn("'", msg, "' should yield the echo '", e, "', not '", paste(echo, collapse="\\n"),"'")
+iscor <- if(exact) e %in% captured else any(grepl(e, captured, fixed=fixed))
+if(iscor) return(TRUE)
+rt_warn("'", msg, "' should yield the echo '", e, "', not '", paste(captured, collapse="\\n"),"'")
 
 }
 

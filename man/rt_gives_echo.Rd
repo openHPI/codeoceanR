@@ -4,18 +4,34 @@
 \alias{rt_gives_echo}
 \title{Does running code produce a wanted echo (\link{message} + \link{cat} + \link{print} outputs)?}
 \usage{
-rt_gives_echo(expr, e = NULL, value = FALSE, msg = deparse(substitute(expr)))
+rt_gives_echo(
+  expr,
+  e = NULL,
+  value = FALSE,
+  echo = FALSE,
+  fixed = TRUE,
+  exact = FALSE,
+  msg = deparse(substitute(expr))
+)
 }
 \arguments{
 \item{expr}{Code to be executed while output is collected.
 Can be contained within \{curly brackets\}.}
 
-\item{e}{Charstring: echo that needs to be present (matched with grepl).
+\item{e}{Charstring: echo that needs to be present (matched with \link{grepl}).
 Use \code{e=""} to test if no echo is generated.
 Use \code{e=NULL} to test if any echo is produced.
 DEFAULT: NULL}
 
-\item{value}{Return the echo instead of testing it? DEFAULT: FALSE}
+\item{value}{Return the result of running \code{expr}? DEFAULT: FALSE}
+
+\item{echo}{Return the echo of running \code{expr} (instead of testing it)? DEFAULT: FALSE}
+
+\item{fixed}{If tested for specific e with \link{grepl}, treat charstring \code{e} as is,
+rather than regex? DEFAULT: TRUE}
+
+\item{exact}{use == instead of grepl? Useful to see if message is used, not print.
+DEFAULT: FALSE}
 
 \item{msg}{Charstring to be included in testing messages. DEFAULT: input code}
 }
