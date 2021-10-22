@@ -1,12 +1,13 @@
 #' @title Test whether an expression yields a specific warning
 #' @return TRUE or FALSE
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2021
-#' @seealso \url{https://stackoverflow.com/a/4947528/1587132}
+#' @seealso [rt_gives_echo] \url{https://stackoverflow.com/a/4947528/1587132}
 #' @export
 #' @examples
 #' rt_test_env <- new.env()
 #' rt_gives_warning({log(-7); as.numeric("a")}, "NaNs produced") # TRUE
 #' rt_gives_warning({log( 7); as.numeric("a")}, "NaNs produced") # wrong warning
+#' rt_gives_warning({log(-7); as.numeric("a")}, "") # if no warning was desired
 #' rt_gives_warning(log(7), "") # TRUE (no warning)
 #' rt_gives_warning(log(-7), "") # shouldn't warn but does
 #' rt_gives_warning(log(-7), NULL) # TRUE (generates any warning)
@@ -27,7 +28,7 @@ wfun <- function(e)
 	{
 	ccall <- deparse(conditionCall(e))
 	if(ccall=="withCallingHandlers(expr, warning = wfun)") ccall <- "unknown_call"
-  wlist <<- c(paste0(ccall,": ",conditionMessage(e)), wlist)
+  wlist <<- c(wlist, paste0(ccall,": ",conditionMessage(e)))
   invokeRestart("muffleWarning")
   }
 val <- withCallingHandlers(expr, warning=wfun)
@@ -36,7 +37,7 @@ val <- withCallingHandlers(expr, warning=wfun)
 if(is.null(w)) if(!is.null(wlist)) return(TRUE) else
 	return(rt_warn("'", msg, "' should yield a warning."))
 
-	# Test if there is no warning:
+# Test if there is no warning:
 if(w=="") if(is.null(wlist)) return(TRUE) else
 	return(rt_warn("'", msg, "' should not yield any warning but gives: ", toString(wlist)))
 

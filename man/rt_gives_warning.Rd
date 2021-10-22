@@ -24,13 +24,14 @@ Test whether an expression yields a specific warning
 rt_test_env <- new.env()
 rt_gives_warning({log(-7); as.numeric("a")}, "NaNs produced") # TRUE
 rt_gives_warning({log( 7); as.numeric("a")}, "NaNs produced") # wrong warning
+rt_gives_warning({log(-7); as.numeric("a")}, "") # if no warning was desired
 rt_gives_warning(log(7), "") # TRUE (no warning)
 rt_gives_warning(log(-7), "") # shouldn't warn but does
 rt_gives_warning(log(-7), NULL) # TRUE (generates any warning)
 rt_gives_warning(log(7), NULL) # should warn but doesn't
 }
 \seealso{
-\url{https://stackoverflow.com/a/4947528/1587132}
+\link{rt_gives_echo} \url{https://stackoverflow.com/a/4947528/1587132}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2021
