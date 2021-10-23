@@ -144,7 +144,7 @@ wfun <- function(e)
   invokeRestart("muffleWarning")
   }
 value <- try(withCallingHandlers(expr, warning=wfun), silent=TRUE)
-list(value=value, captured=paste(wlist, collapse="\\n"))
+list(value=value, captured=paste(wlist, collapse=if(call) "\\n" else ".*"))
 }
 
 
