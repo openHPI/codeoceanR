@@ -16,7 +16,7 @@
 #' @param deletezip If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
-rt_create_task <- function(
+rt_create <- function(
 zipfile=NULL,
 deletezip=TRUE,
 ...

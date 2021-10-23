@@ -3,7 +3,7 @@
 #' The related .Rproj Rstudio project should be closed at the time of writing.
 #' @return expanded filenames, invisibly.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_create_task()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
+#' @seealso [rt_create()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords internal
 #'
 #' @param file Filename(s) to be added, without path, must be present at `dir`.

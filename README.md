@@ -12,7 +12,7 @@ Run the following code (in R / Rstudio) to install or update the `codeoceanR` pa
 
 ```r
 install.packages("remotes")
-remotes::install_github("openHPI/codeoceanR", "main")
+remotes::install_github("openHPI/codeoceanR")
 ```
 
 
@@ -25,7 +25,7 @@ prepare exercise:
 - through OpenHPI, go to the CodeOcean exercise
 - **download** it to a good location on your PC, no need to unzip
 - **close** the CodeOcean browser **tab**
-- **run** (in R / Rstudio) `codeoceanR::rt_create_task()`
+- **run** (in R / Rstudio) `codeoceanR::rt_create()`
 - **confirm** to have closed the tab & **select** the exercise file (if unzipped, any file within the folder, see `zipfile` below)
 
 take exercise:
@@ -41,13 +41,13 @@ take exercise:
 
 #### design
 
-`rt_create_task()` can be run as-is or with the arguments:
+`rt_create()` can be run as-is or with the arguments:
 
 - `zipfile`: defaults to interactive file choice, could also be given as "C:/Dropbox/R/exercise_1.zip"  
   _If the exercise is unzipped (the default on Mac OS Safari), any file within the folder_
 - `deletezip`: defaults to delete the zip file if task creation was successful, could also be FALSE
 
-`rt_create_task()` should
+`rt_create()` should
 
 - create a new folder with a `.Rproj` file
 - open the Project in Rstudio
