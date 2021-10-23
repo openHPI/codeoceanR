@@ -57,7 +57,7 @@ rt_gives("echo", {77; print(88); 99}, capt=TRUE)     # "[1] 88"
 rt_gives("echo", {log(-77); print(99)}, capt=TRUE)   # warning not in echo
 rt_gives("echo", {print(99) ; log("6")}, capt=TRUE)  # error is included
 rt_gives("warning",{log(-4);log("6");log(-3)},capt=TRUE) # error is ignored
-rt_gives("warning", log(-3), capt=TRUE)              # "log(-3): NaNs produced"
+rt_gives("warning",{log(-4);log(678);log(-3)},capt=TRUE) # both warnings
 rt_gives("error", log("3"), capt=TRUE)               # "Error in log(\"3\") : non-numeric [...]
 
 # Testing messages:
@@ -81,6 +81,8 @@ try(rt_gives("dummy", log("7"), "") ) # error: method 'dummy' is not implemented
 
 # convenience testing:
 rt_gives("error", log(7),   expr2=log("7"))         # should raise error
+rt_gives("error", log("7"), expr2=log("8"))         # TRUE (call is excluded from msg)
+rt_gives("error", log("7"), expr2=notexist)         # should yield ..., not ...
 rt_gives("echo",  cat(7),   expr2=cat(8))           # should echo '8', not '7'
 rt_gives("error", log("7"), expr2=log(7))           # should not fail, but raises ...
 rt_gives("error", log(7),   expr2=log(7))           # TRUE

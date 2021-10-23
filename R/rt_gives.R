@@ -15,7 +15,7 @@
 #' rt_gives("echo", {log(-77); print(99)}, capt=TRUE)   # warning not in echo
 #' rt_gives("echo", {print(99) ; log("6")}, capt=TRUE)  # error is included
 #' rt_gives("warning",{log(-4);log("6");log(-3)},capt=TRUE) # error is ignored
-#' rt_gives("warning", log(-3), capt=TRUE)              # "log(-3): NaNs produced"
+#' rt_gives("warning",{log(-4);log(678);log(-3)},capt=TRUE) # both warnings
 #' rt_gives("error", log("3"), capt=TRUE)               # "Error in log(\"3\") : non-numeric [...]
 #'
 #' # Testing messages:
@@ -40,6 +40,8 @@
 #'
 #' # convenience testing:
 #' rt_gives("error", log(7),   expr2=log("7"))         # should raise error
+#' rt_gives("error", log("7"), expr2=log("8"))         # TRUE (call is excluded from msg)
+#' rt_gives("error", log("7"), expr2=notexist)         # should yield ..., not ...
 #' rt_gives("echo",  cat(7),   expr2=cat(8))           # should echo '8', not '7'
 #' rt_gives("error", log("7"), expr2=log(7))           # should not fail, but raises ...
 #' rt_gives("error", log(7),   expr2=log(7))           # TRUE
@@ -81,8 +83,8 @@ if(value) return(out$value)
 if(capt)  return(out$captured)
 if(deparse(substitute(expr2))!="NULL") msg <- switch(type,
                            echo   =rt_gives_echo   (expr2)$captured,
-                           warning=rt_gives_warning(expr2)$captured,
-                           error  =rt_gives_error  (expr2)$captured)
+                           warning=rt_gives_warning(expr2, call=FALSE)$captured,
+                           error  =rt_gives_error  (expr2, call=FALSE)$captured)
 captu <- out$captured
 
 # no message when needed:
@@ -130,14 +132,15 @@ list(value=value, captured=paste(captured, collapse="\\n"))
 }
 
 
-rt_gives_warning <- function(expr)
+rt_gives_warning <- function(expr, call=TRUE)
 {
 wlist <- NULL
 wfun <- function(e)
 	{
 	ccall <- deparse(conditionCall(e))
 	if(ccall=="withCallingHandlers(expr, warning = wfun)") ccall <- "unknown_call"
-  wlist <<- c(wlist, paste0(ccall,": ",conditionMessage(e)))
+	ccall <- paste0(ccall,": ")
+  wlist <<- c(wlist, paste0(if(call) ccall, conditionMessage(e)))
   invokeRestart("muffleWarning")
   }
 value <- try(withCallingHandlers(expr, warning=wfun), silent=TRUE)
@@ -145,11 +148,12 @@ list(value=value, captured=paste(wlist, collapse="\\n"))
 }
 
 
-rt_gives_error <- function(expr)
+rt_gives_error <- function(expr, call=TRUE)
 {
 err <- try(expr, silent=TRUE)
 iserror <- inherits(err, "try-error")
 value <- if(!iserror) err else NULL
+if(!call) err <- attr(err,"condition")$message
 err   <- if(!iserror) "" else gsub("\n", "\\n", sub("\n$","",err[1]))
 list(value=value, captured=err)
 }
