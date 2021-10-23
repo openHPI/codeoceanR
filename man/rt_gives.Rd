@@ -8,6 +8,7 @@ rt_gives(
   type,
   expr,
   msg = "",
+  expr2 = NULL,
   value = FALSE,
   capt = FALSE,
   exact = FALSE,
@@ -23,6 +24,8 @@ Can be contained within \{curly brackets\}.}
 
 \item{msg}{Desired echo/warning/error message.
 DEFAULT: \code{""} (test if no message is generated).}
+
+\item{expr2}{If given, msg will be determined from running this code. DEFAULT: NULL}
 
 \item{value}{Return the result of running \code{expr}? DEFAULT: FALSE}
 
@@ -75,6 +78,13 @@ rt_gives("error", log("7"), "non-numeric argument") # TRUE
 rt_gives("error", log(777), "non-numeric argument") # should raise error
 
 try(rt_gives("dummy", log("7"), "") ) # error: method 'dummy' is not implemented.
+
+# convenience testing:
+rt_gives("error", log(7),   expr2=log("7"))         # should raise error
+rt_gives("echo",  cat(7),   expr2=cat(8))           # should echo '8', not '7'
+rt_gives("error", log("7"), expr2=log(7))           # should not fail, but raises ...
+rt_gives("error", log(7),   expr2=log(7))           # TRUE
+rt_gives("error", log("7"), expr2=log("7"))         # TRUE
 
 }
 \seealso{

@@ -38,11 +38,19 @@
 #'
 #' try(rt_gives("dummy", log("7"), "") ) # error: method 'dummy' is not implemented.
 #'
+#' # convenience testing:
+#' rt_gives("error", log(7),   expr2=log("7"))         # should raise error
+#' rt_gives("echo",  cat(7),   expr2=cat(8))           # should echo '8', not '7'
+#' rt_gives("error", log("7"), expr2=log(7))           # should not fail, but raises ...
+#' rt_gives("error", log(7),   expr2=log(7))           # TRUE
+#' rt_gives("error", log("7"), expr2=log("7"))         # TRUE
+#'
 #' @param type  Charstring, one of "echo", "warning", "error".
 #' @param expr  Code to be executed while side-output is collected.
 #'              Can be contained within \{curly brackets\}.
 #' @param msg   Desired echo/warning/error message.
 #'              DEFAULT: `""` (test if no message is generated).
+#' @param expr2 If given, msg will be determined from running this code. DEFAULT: NULL
 #' @param value Return the result of running `expr`? DEFAULT: FALSE
 #' @param capt  Return the captured echo/warnings/error of running `expr`
 #'              (instead of testing them)? DEFAULT: FALSE
@@ -55,6 +63,7 @@ rt_gives <- function(
 type,
 expr,
 msg="",
+expr2=NULL,
 value=FALSE,
 capt=FALSE,
 exact=FALSE,
@@ -70,6 +79,10 @@ out <- switch(type,
        )
 if(value) return(out$value)
 if(capt)  return(out$captured)
+if(deparse(substitute(expr2))!="NULL") msg <- switch(type,
+                           echo   =rt_gives_echo   (expr2)$captured,
+                           warning=rt_gives_warning(expr2)$captured,
+                           error  =rt_gives_error  (expr2)$captured)
 captu <- out$captured
 
 # no message when needed:
