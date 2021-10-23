@@ -71,7 +71,8 @@ httr::stop_for_status(r) # if any, pass http errors to R
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
-mout <- gsub("Rscript .*tests.R\n", "", out$stdout, fixed=TRUE)
+mout <- out$stdout # message output
+mout <- sub("Rscript.*tests.R\n", "", mout)
 mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
 mout <- gsub("\n$", "", mout)
 mout <- paste0(mout, ", score: ", round(out$score*100), "%")
