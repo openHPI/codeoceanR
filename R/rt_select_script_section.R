@@ -9,7 +9,6 @@
 #' @seealso [rt_test_task], [rt_run_script], [rt_has_argument],
 #'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
-#' @importFrom berryFunctions removeSpace
 #' @export
 #'
 #' @param scriptlines Charstring with several elements, normally output from [rt_run_script]
@@ -34,7 +33,7 @@ rt_select_script_section <- function(scriptlines, task_nr, collapse=FALSE){
   if(l2 < l1){rt_warn("'# ",m2,"' must come after '# ",m1,"' in your script."); return(FALSE)}
   #
   # Process script between markers:
-  sl <- berryFunctions::removeSpace(scriptlines[(l1+1):(l2-1)])
+  sl <- trimws(scriptlines[(l1+1):(l2-1)])
   sl <- sl[sl!=""]
   sl <- sl[!grepl("^#", sl)]
   if(length(sl)<1) {rt_warn("The code section t",task_nr," is empty."); return(FALSE)}

@@ -43,7 +43,7 @@ rs <- readLines(rsfile, warn=FALSE) # rs: Rstudio Settings
                   id <- grep("contextIdentifier", rs, value=TRUE)
 if(length(id)==0) id <- grep("context_id",        rs, value=TRUE) # Rstudio 1.4
 if(length(id)==0) return(failout("processed for ID string: ",rsfile))
-id <- berryFunctions::removeSpace(id)
+id <- trimws(id)
 id <- sub("contextIdentifier=\"", "", id)
 id <- sub("\"context_id\": \"", "", id)
 id <- gsub("\"", "", id)
