@@ -16,8 +16,7 @@ pass=NULL,
 fail=NULL
 )
 {
-env <- dynGet("rt_test_env", ifnotfound={warning("rt_test_env not found.", call.=FALSE)
-	                                       list(id="_no_id", success=vector())}, minframe=0)
+env <- dynGet("rt_test_env", ifnotfound=list(id="nid", success=vector()), minframe=0)
 
 if(!is.null(id))   {env$id <- id; return(as.list(env))}
 if(!is.null(pass)) {stopifnot(is.numeric(pass)); return(env$success[pass] <- TRUE)}
