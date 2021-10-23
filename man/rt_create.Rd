@@ -2,7 +2,7 @@
 % Please edit documentation in R/rt_create.R
 \name{rt_create}
 \alias{rt_create}
-\title{Create Task folder from zip file}
+\title{Create exercise folder from zip file}
 \usage{
 rt_create(zipfile = NULL, deletezip = TRUE, ...)
 }
@@ -11,7 +11,7 @@ rt_create(zipfile = NULL, deletezip = TRUE, ...)
 "\" (on Windows) must be changed to "/".
 DEFAULT: NULL, meaning to use \code{\link[=file.choose]{file.choose()}}}
 
-\item{deletezip}{If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE}
+\item{deletezip}{If the exercise folder was created sucessfully, delete the original zip file? DEFAULT: TRUE}
 
 \item{\dots}{Further arguments passed to \code{\link{unzip}}}
 }
@@ -19,7 +19,7 @@ DEFAULT: NULL, meaning to use \code{\link[=file.choose]{file.choose()}}}
 exdir, invisibly
 }
 \description{
-Create task folder from zip file, with a \code{.Rproj} file and try to open that in Rstudio.
+Create exercise folder from zip file, with a \code{.Rproj} file and try to open that in Rstudio.
 On Mac OS, the exercise file gets unzipped upon downloading, hence any file within the folder can be used.
 }
 \seealso{

@@ -1,5 +1,5 @@
-#' @title Create Task folder from zip file
-#' @description Create task folder from zip file, with a `.Rproj` file and try to open that in Rstudio.
+#' @title Create exercise folder from zip file
+#' @description Create exercise folder from zip file, with a `.Rproj` file and try to open that in Rstudio.
 #'              On Mac OS, the exercise file gets unzipped upon downloading, hence any file within the folder can be used.
 #' @return exdir, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Dec 2020
@@ -13,7 +13,7 @@
 #' @param zipfile Path to zip file (or, if unzipped, any of the files within the folder).
 #'                "\" (on Windows) must be changed to "/".
 #'                DEFAULT: NULL, meaning to use [file.choose()]
-#' @param deletezip If the task was created sucessfully, delete the original zip file? DEFAULT: TRUE
+#' @param deletezip If the exercise folder was created sucessfully, delete the original zip file? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create <- function(
@@ -23,7 +23,7 @@ deletezip=TRUE,
 )
 {
 # Notify about closing tab:
-message("If you haven't already, please close the browser tab with the CodeOcean task.",
+message("If you haven't already, please close the browser tab with the CodeOcean exercise.",
 				"\nOtherwise CodeOcean will autosave the _empty_ script there.")
 rl <- readline("I have closed the browser tab (y/n, then Enter): ")
 if(tolower(substr(rl,1,1)) != "y") stop("First close the browser tab.")
@@ -55,7 +55,7 @@ rprojfile <- paste0(exdir, "/zz_",rprojfile,".Rproj")
 rprojfile <- berryFunctions::normalizePathCP(rprojfile)
 cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
 
-# put tasks to Rstudio opened files list:
+# put exercise scripts to Rstudio opened files list:
 rt_add_opened_files(rt_read_cofile(paste0(exdir,"/.co"))$files$name, dir=exdir)
 
 # try to open Rproject:
