@@ -7,6 +7,7 @@
 rt_contains(
   object,
   value,
+  msgval = value,
   fixed = TRUE,
   ignore_space = TRUE,
   ignore_quote = TRUE
@@ -16,6 +17,10 @@ rt_contains(
 \item{object}{Object to be tested. Just the name, not a character string.}
 
 \item{value}{value(s) that should be in \code{object}, can be char / other.}
+
+\item{msgval}{Value(s) to be messaged in the warning. Must be same length as value!
+Enables testing with regex but displaying a wanted solution.
+DEFAULT: \code{value}}
 
 \item{fixed}{Fixed match in \link{grepl}? DEFAULT: TRUE}
 

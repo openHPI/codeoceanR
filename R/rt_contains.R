@@ -17,6 +17,9 @@
 #'
 #' @param object       Object to be tested. Just the name, not a character string.
 #' @param value        value(s) that should be in `object`, can be char / other.
+#' @param msgval       Value(s) to be messaged in the warning. Must be same length as value!
+#'                     Enables testing with regex but displaying a wanted solution.
+#'                     DEFAULT: `value`
 #' @param fixed        Fixed match in [grepl]? DEFAULT: TRUE
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
 #' @param ignore_quote Replace `'` with `"` before comparison? DEFAULT: TRUE
@@ -24,6 +27,7 @@
 rt_contains <- function(
 object,
 value,
+msgval=value,
 fixed=TRUE,
 ignore_space=TRUE,
 ignore_quote=TRUE
@@ -46,7 +50,7 @@ for(i in seq_along(value))
   {
 	v <- value2[i]
 	succ <- if(is.character(v)) any(grepl(v, object, fixed=fixed)) else v %in% object
-  if(!succ) return(rt_warn("'",name,"' should contain '",value[i],"'."))
+  if(!succ) return(rt_warn("'",name,"' should contain '",msgval[i],"'."))
   }
 
 # pass:
