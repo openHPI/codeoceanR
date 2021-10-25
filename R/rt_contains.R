@@ -45,7 +45,7 @@ if(is.character(value))
 for(i in seq_along(value))
   {
 	v <- value2[i]
-	succ <- if(is.character(v)) grepl(v, object, fixed=fixed) else v %in% object
+	succ <- if(is.character(v)) any(grepl(v, object, fixed=fixed)) else v %in% object
   if(!succ) return(rt_warn("'",name,"' should contain '",value[i],"'."))
   }
 
