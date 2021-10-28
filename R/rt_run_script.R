@@ -30,7 +30,6 @@ rt_run_script <- function(filename, nowarn=TRUE){
     e <- gsub("\n"," ",e)
     e <- gsub("\\s+", " ", e)
     rt_warn("can not be executed. Make sure each line can be run.",
-            if(!interactive()) "\nFor CO in browser: Click 'RUN' to view the error and then fix it.",
             "\n--- source() message: ", e)
     return(FALSE)}
   readLines(filename, warn=FALSE)

@@ -41,7 +41,7 @@ take exercise:
 
 #### design
 
-`rt_create()` can be run as-is or with the arguments:
+`rt_create()` has two optinal arguments:
 
 - `zipfile`: defaults to interactive file choice, could also be given as "C:/Dropbox/R/exercise_1.zip"  
   _If the exercise is unzipped (the default on Mac OS Safari), any file within the folder_
@@ -64,7 +64,7 @@ It takes a bit of effort to initialize interactive R coding exercises in openHPI
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
 
 Exercises are accessed through openHPI but run and tested at CodeOcean, from which grades are passed back.
-The tasks can also be solved in Rstudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, debugging (!), keyboard shortcuts and graphics.
+The tasks can also be solved in Rstudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, debugging, keyboard shortcuts and integrated graphics, help, package manager, ...
 
 Some participants had a hard time getting started in a time-pressed graded exercise setting.  
 I suggest to first use the system at least twice(!) non-graded or non-time-pressured!  
@@ -73,9 +73,9 @@ You can't stress enough that participants need to run "Score" / `rt_score()` ver
 ## initial setup
 
 The openHPI admins will have to create a dummy CodeOcean exercise in OpenHPI for you the first time.  
-To be logged in, open CodeOcean through "Launch exercise tool".  
+To be logged in, open CodeOcean from openHPI through "Launch exercise tool".  
 Then you can either go to <https://codeocean.openhpi.de/exercises/new>
-or copy my [basic exercise](https://codeocean.openhpi.de/exercises/721). 
+or copy my [master template exercise](https://codeocean.openhpi.de/exercises/721). 
 Potentially, admins must first duplicate it for you and set you as the author.
 
 ## exercise acces point on openHPI
@@ -86,9 +86,9 @@ In the desired section, click "Add item"
 
 - **Title**: e.g. exercise 3
 - **Type**: External exercise tool
-- **Exercise type**: Main
+- **Exercise type**: Self Test (ungraded) or Main (graded)
 - **Maximal points**: e.g. 10
-- **Submission deadline**: time before which the CodeOcean task must be **started**.  
+- **Submission deadline**: optional: time before which the CodeOcean task must be **started**.  
 The actual deadline and grace period (20% score reduction) must be set in the CO task itself (if wanted).
 - **Submission publishing date**: not relevant, can be left empty
 - **Instructions**: e.g. Click the button below to launch the exercise.
@@ -96,25 +96,25 @@ The actual deadline and grace period (20% score reduction) must be set in the CO
 - **Additional parameters**: locale=en&token=`xxxxxxxx`&embed_options_disable_redirect_to_rfcs=true&embed_options_disable_redirect_to_feedback=true&embed_options_disable_interventions=true  
 **replace `xxxxxxxx` with the token from your CodeOcean exercise!**  
 embedding options:  
-  -  `redirect_to_rfcs`: disable finished users to be lead to open Request for Comments (RfCs).
+  -  `redirect_to_rfcs`: finished users can be lead to open Request for Comments (RfCs).
   -  `redirect_to_feedback`: after "Submit", if there are no open RfCs, a feedback form is presented to 10% of users (min 20) without full score. 
-  -  `interventions`: disable popups like "You seem to have trouble. Request comments here" while users are working.
+  -  `interventions`: popups like "You seem to have trouble. Request comments here" while users are working.
   -  [all options](https://github.com/openHPI/codeocean/blob/master/app/controllers/concerns/lti.rb#L212-L225)
 
 
 ## CodeOcean exercises
 
-All file types & roles etc can be seen in my basic exercise at <https://codeocean.openhpi.de/exercises/721>  
+All file types & roles etc can be seen in my master template exercise at <https://codeocean.openhpi.de/exercises/721>  
 You can only have one 'main' file, the rest must be 'executable file (similar to main file)'.  
 The structure of task and test scripts can also be seen at <https://github.com/openHPI/codeoceanR/tree/main/inst/extdata>  
-A collection of exercises can be requested through [Berry](mailto:berry-b@gmx.de) or [Sebastian](mailto:sebastian.serth@hpi.de).  
+A collection of tasks can be requested through [Berry](mailto:berry-b@gmx.de) or [Sebastian](mailto:sebastian.serth@hpi.de).  
 There's an overview of all R exercises at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
 
 The Makefile run: could have `Rscript ${FILENAME}` as well, 
 but then the run output does not contain the calls, making error sources harder to find.  
 
 Hide your exercices if wanted (e.g. during development) by unchecking the 'Public' box.  
-The admins would like you to use a prefix in the exercise name, e.g. Fprog20 for my course.
+The admins would like you to use a prefix in the exercise name, e.g. Fprog21 for my course.
 
 If you have data files to be read, make sure to check the box for Read-only.  
 Otherwise users might change the file and your test script might fail,
@@ -129,23 +129,16 @@ In the test script, have `rt_run_script()` right before the actual tests.
 That way, you can check for the value of `n` even if students create `n` 
 for other purposes in a later script, e.g. in a student-defined loop.
 
-Always test the entire exercise on CodeOcean as well, especially after expanding tests.  
-Example: `rt_has_argument` didn't run online in the first version, 
-since `parse(code)` needs to have `keep.source=TRUE`. 
-The default option is TRUE only in an interactive R session!
-
+Always test the entire exercise on CodeOcean as well.  
 If possible, recruit two student assistants just to test-run the exercise. They might find errors you overlooked.  
 Example: in a statement combination task, the solution was meant to be `c(A=4, C=1, D=3)`,
 and I had not thought of students using a different order (which is OK). The solution for the test script:  
 `if(exists("obj")) obj <- obj[order(names(obj))]`  
-Another example: I once had a task where I tested `rt_has_nrows(df_object, 6)` 
-accidentally without first testing `rt_has_class(df_object, "data.frame")`. 
-Someone used `readLines` instead of `read.table` and the test script failed.
 
 
 
 
-Instead of checking code like in the [write.table task](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/script_2.R#L9-L13) and [test](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/tests.R#L61-L73), 
+Instead of checking code like in the [write.table task](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/examples_2.R#L8-L11) and [test](https://github.com/openHPI/codeoceanR/blob/main/inst/extdata/examples_tests.R#L28-L40), 
 your tests can also execute the code and you test the resulting file.
 This gives participants more freedom in how they structure the task.  
 
@@ -191,3 +184,4 @@ All functions in the package are prefixed with `rt_` (R test) for nice autocompl
 This entire project profited from great info from Sebastian Serth, <sebastian.serth@hpi.de>.  
 Experiences are based on the 2019 class "fundamentals of programming in digital health" with 31 participants.  
 For the 2020 class, code was bundeled into an R package. Exercises can now be run locally in Rstudio. 
+For the 2021 class and the 2022 MOOC (in prep), the test suite was completely rewritten and test script length reduced greatly.
