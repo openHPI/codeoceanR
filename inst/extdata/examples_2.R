@@ -5,10 +5,10 @@ codeoceanR::rt_score() # Instructions in the course video / PDF section 1.4 Exer
 # Write the iris data as txt file with tabstop as column separator.
 # Please name all arguments explicitely, even the first ones.
 # Write your code between the two markers.
-# t3_start # do not change this line
+# t3_start # write solution below this line
 
 
-# t3_end # do not change this line
+# t3_end # write solution above this line
 # Again, run codeoceanR::rt_score()
 
 
