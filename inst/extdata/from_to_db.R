@@ -1,3 +1,35 @@
+# Create files with template for new exercise
+
+dir <- "C:/Dropbox/R/FREELANCING/HPI_2021_R_MOOC/kurs/en_exercises/"
+name <- "grex2_Basics"
+nfiles <- 3
+overwrite <- FALSE
+
+# scripts:
+fn_s <- paste0(name,"_",1:6,".R")
+fc_s <- paste0("codeoceanR::rt_score()\n\n",
+					paste0("# A",1:10," ----", collapse="\n\n"),
+					'\n\n\n\n# Now continue in "',fn_s[2:6],'"\n\n',
+					"# When you are done, submit your score to openHPI with:\n",
+					"# codeoceanR::rt_submit()\n\n")
+for(i in 1:nfiles) cat(fc_s[i], file=newFilename(paste0(dir, fn_s[i]), overwrite=overwrite, quiet=TRUE)) ; rm(i)
+
+# tests:
+fn_t <- paste0(name,"_tests.R")
+fn_t2 <- newFilename(paste0(dir, fn_t), overwrite=overwrite, quiet=TRUE)
+cat("# ",fn_t,
+		"\nlibrary(codeoceanR) # tests.R at https://github.com/openHPI/codeoceanR/tree/main/inst/extdata",
+		"\nrt_test_exercise({\n\n", sep="", file=fn_t2)
+for(i in 1:nfiles) cat("script",i," <- rt_run_script(\"",fn_s[i],"\") # script ",i," ----\n\n",
+								 paste0("rt_test_task(",1:10,", script",i,", xx, xx)", collapse="\n"),
+								 "\n\n", sep="", file=fn_t2, append=TRUE)
+cat("})\n", file=fn_t2, append=TRUE)
+
+
+
+# OLD FUNCTIONS ----------------
+
+
 #' @title Add task from database to script
 #' @description Add a task from the database to `script_x.R`
 #'              and the corresponding tests to `tests.R`.
