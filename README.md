@@ -41,7 +41,7 @@ take exercise:
 
 #### design
 
-`rt_create()` has two optinal arguments:
+`rt_create()` has two optional arguments:
 
 - `zipfile`: defaults to interactive file choice, could also be given as "C:/Dropbox/R/exercise_1.zip"  
   _If the exercise is unzipped (the default on Mac OS Safari), any file within the folder_
@@ -56,6 +56,34 @@ take exercise:
 
 Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
 `codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.
+
+
+
+##### codeOcean in browser
+
+**Don't open several tabs** of an exercise. The autosave could overwrite all you've done from a second (unused=empty) tab.  
+For the same reason, **don't use the back button** of your browser.  
+Thanks to autosave, **you can refresh** the tab or reopen it later to continue working on the tasks.  
+Remember to always access this from the openHPI platform.
+
+- Click `RUN` to source the script. Read the output, fix your code if it throws an error. `RUN` again.
+- Click `SCORE` to see how many of the tests you pass. Change your solutions if needed. `SCORE` again.  
+Ignore messages for tasks you haven't worked on yet (they show how much work is left).
+- `RUN` and `SCORE` often to easily find the location of mistakes.
+- Finally, when time is up or you’re content, click `SUBMIT`.
+
+The tasks are split in separate files. Each can be run independently. Scoring happens for all files at once.  
+I suggest to always read the entire task before starting to work on it ;-)
+
+Remember to explicitely call an object to see its value in the `RUN` output.  
+`head(x)` / `str(x)` / `summary(x)` work fine, `plot(x)` outputs can not be shown.
+
+If `SCORE` tells you *'script_x.R' can not be executed*, you cannot get points for tasks (in that script) after the error.
+
+If the top line shows `RENDER` instead of `RUN`, you're probably in a data text file. Just click on the desired script.R again.
+
+Click the arrow on the top left (or *hide* at the bottom right) to hide the instructions for more screen-space for the code.
+
 
 
 # teachers
