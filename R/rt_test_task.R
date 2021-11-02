@@ -81,7 +81,7 @@ rt_env(id=tnumber)
 # script ----
 if(!is.null(script) && (isFALSE(script) || identical(script,"FALSE")) )
 	return(rt_env(fail=tnumber))
-	# identical needed in case things like gsub("'", "\"", code) have been run:
+	# identical needed in case things like gsub("'", "\"", code) have been run
 
 # solved ----
 if(!is.null(solved))
@@ -140,9 +140,7 @@ for(i in seq_len(...length())  )
 if(is.function(value))
 {
 if(!is.null(inputs) && !is.null(export))
-	{
 	for(e in export) assign(e, dynGet(e)) # get from parent frame (not parent env)
-  }
 if(!is.null(inputs))
 for(i in inputs)
   {
