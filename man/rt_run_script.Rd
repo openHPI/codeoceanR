@@ -4,13 +4,13 @@
 \alias{rt_run_script}
 \title{run student-submitted scripts}
 \usage{
-rt_run_script(filename, nowarn = TRUE)
+rt_run_script(filename, quiet = TRUE)
 }
 \arguments{
 \item{filename}{Path of script to be run}
 
-\item{nowarn}{If TRUE, suppress messages and warnings. Errors are handled separately.
-cat and print still get through. DEFAULT: TRUE}
+\item{quiet}{If TRUE, suppress printed output, messages and warnings.
+Errors are handled separately. DEFAULT: TRUE}
 }
 \value{
 FALSE for failure, otherwise contents of the script, output of \code{\link[=readLines]{readLines()}}
