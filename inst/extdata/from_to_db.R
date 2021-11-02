@@ -1,7 +1,7 @@
 # Create files with template for new exercise
 
-dir <- "C:/Dropbox/R/FREELANCING/HPI_2021_R_MOOC/kurs/en_exercises/"
-name <- "grex2_Basics"
+dir <- "C:/Dropbox/R/kurs/en_exercises/"
+name <- "grex4_Data"
 nfiles <- 3
 overwrite <- FALSE
 
@@ -28,7 +28,7 @@ cat("})\n", file=fn_t2, append=TRUE)
 
 
 # OLD FUNCTIONS ----------------
-
+if(FALSE){
 
 #' @title Add task from database to script
 #' @description Add a task from the database to `script_x.R`
@@ -273,3 +273,7 @@ berryFunctions::openFile(rprojfile)
 #
 return(out)
 }
+
+
+
+} # End old functions
