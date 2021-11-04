@@ -20,7 +20,7 @@ rt_contains(
 
 \item{msgval}{Value(s) to be messaged in the warning. Must be same length as value!
 Enables testing with regex but displaying a wanted solution.
-DEFAULT: \code{value}}
+Remember to set fixed=TRUE as well. DEFAULT: \code{value}}
 
 \item{fixed}{Fixed match in \link{grepl}? DEFAULT: TRUE}
 

@@ -19,7 +19,7 @@
 #' @param value        value(s) that should be in `object`, can be char / other.
 #' @param msgval       Value(s) to be messaged in the warning. Must be same length as value!
 #'                     Enables testing with regex but displaying a wanted solution.
-#'                     DEFAULT: `value`
+#'                     Remember to set fixed=TRUE as well. DEFAULT: `value`
 #' @param fixed        Fixed match in [grepl]? DEFAULT: TRUE
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
 #' @param ignore_quote Replace `'` with `"` before comparison? DEFAULT: TRUE

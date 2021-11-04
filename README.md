@@ -213,3 +213,5 @@ This entire project profited from great info from Sebastian Serth, <sebastian.se
 Experiences are based on the 2019 class "fundamentals of programming in digital health" with 31 participants.  
 For the 2020 class, code was bundeled into an R package. Exercises can now be run locally in Rstudio. 
 For the 2021 class and the 2022 MOOC (in prep), the test suite was completely rewritten and test script length reduced greatly.
+
+The source code for codeOcean itself is online at <https://github.com/openHPI/codeocean/>
