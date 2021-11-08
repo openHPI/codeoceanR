@@ -38,7 +38,7 @@
 #' @param names    Check names (or rownames/colnames)? DEFAULT: TRUE
 #' @param hasval   Run [rt_has_value]? DEFAULT: TRUE
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
-#' @param stepwise stepwise parameter in [rt_has_value]. DEFAULT: NULL
+#' @param stepwise stepwise parameter in [rt_has_value]. TRUE for arrays. DEFAULT: NULL
 #' @param stepnames stepwise parameter for names check. DEFAULT: NULL
 #' @param inputs   List or vector with (named) charstrings with code to be called
 #'                 if `object` and `value` are functions.

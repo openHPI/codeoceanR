@@ -53,10 +53,10 @@ rt_has_value <- function(
   o <- object[[i]] # double square brackets can handle both lists and vectors,
   v <-  value[[i]] # if i is a single value as returned by seq_along
   neq <- try(o!=v, silent=TRUE)
+  if(is.null(v)) neq <- !is.null(o)
   if(anyNA(neq) || inherits(neq,"try-error")) # for NA, lists and other incomparables
   	 neq <- !isTRUE(all.equal(o,v))
-  if(xor(is.null(o), is.null(v))) neq <- TRUE
-  if(neq) return(rt_warn("'", name, "[",i,"]' should be '",
+  if(any(neq)) return(rt_warn("'", name, "[",i,"]' should be '",
   												toString2(v),"', not '", toString2(o),"'."))
   }
 	return(TRUE) # e.g. if object has names and value doesn't, all.equal has not caught it

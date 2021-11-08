@@ -69,7 +69,7 @@ DEFAULT: TRUE}
 
 \item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
 
-\item{stepwise}{stepwise parameter in \link{rt_has_value}. DEFAULT: NULL}
+\item{stepwise}{stepwise parameter in \link{rt_has_value}. TRUE for arrays. DEFAULT: NULL}
 
 \item{stepnames}{stepwise parameter for names check. DEFAULT: NULL}
 

@@ -31,6 +31,7 @@ if(!dim || is.function(value)) return(TRUE)
 # Should be TRUE to enable tests for class only by setting dim=FALSE
 
 oneD <- length(dim(value))<2
+isarr <- length(dim(value))>2 # assuming this will only happen for arrays...
 
 # dim ----
 if(dim)
@@ -45,6 +46,13 @@ if(dim)
   if(ncol(object)!=ncol(value))
     return(rt_warn("'",name,"' should have ",ncol(value)," columns, not ",ncol(object), "."))
   }
+if(dim && isarr)
+  {
+	do <- dim(object)
+	dv <- dim(value)
+	if(length(do)!=length(dv)) return(rt_warn("'",name,"' should have ",length(dv)," dimensions, not ",length(do),"."))
+	if(!rt_has_value(do, dv, paste0("dim(",name,")")) ) return(FALSE)
+  }
 
 # names ----
 if(names)
@@ -58,21 +66,25 @@ if(names)
   	return(FALSE)
   if(!rt_has_value(rownames(object),rownames(value), name=paste0("rownames(",name,")"), stepwise=stepnames))
   	return(FALSE)
+  if(isarr)
+  if(!rt_has_value(dimnames(object),dimnames(value), name=paste0("dimnames(",name,")"), stepwise=stepwise))
+  	return(FALSE)
   }
 
-rcname <- function(r=NULL,c=NULL, fun=NULL)
+rcname <- function(r=NULL,c=NULL,l=NULL, fun=NULL)
   {
-	qm <- !is.numeric(c) # quotation marks needed?
-	out <- paste0(name,'[',r,',',if(qm)'"',c,if(qm)'"',']')
+	# quotation marks if needed:
+	qm <- function(i) if(is.numeric(i)) i else paste0('"',i,'"')
+	out <- paste0(name,'[',qm(r),',',qm(c), if(!is.null(l))paste0(",",qm(l)),']')
 	if(!is.null(fun)) out <- paste0(fun,"(",out,")")
 	out
 	}
 
+
+if(!oneD) {loopcn <- colnames(value) ; if(is.null(loopcn)) loopcn <- 1:ncol(value)}
 # class per column ----
-if(!oneD)
+if(!oneD && !is.array(value)) # not for matrix/array
   {
-	loopcn <- colnames(value)
-	if(is.null(loopcn)) loopcn <- 1:ncol(value)
 	for(cn in loopcn)
 		if(!rt_has_class(object[,cn], class(value[,cn]),name=rcname(c=cn,fun="class"), intnum=intnum))
 			return(FALSE)
@@ -83,7 +95,15 @@ if(hasval)
   if(oneD) # 1D
   {
   if(!rt_has_value(object,value, name=name, stepwise=stepwise)) return(FALSE)
-  } else # nD
+  } else
+  if(isarr) # 3D
+  {
+  looprn <- rownames(value) ; if(is.null(looprn)) looprn <- 1:nrow(value)
+  loopln <- dimnames(value)[[3]] ; if(is.null(loopln)) loopln <- 1:dim(value)[3]
+  # 4D arrays not checked - do so manually with rt_test_task(5,s,arr[,,,1],sol[,,,1]) && rt_test_task(5,s,arr[,,,2],sol[,,,2])
+  for(rn in looprn) for(cn in loopcn) for(ln in loopln)
+  if(!rt_has_value(object[rn,cn,ln], value[rn,cn,ln], name=rcname(rn,cn,ln), noise=noise, stepwise=FALSE)) return(FALSE)
+  } else # 2D
   {
   for(cn in loopcn)
   	if(isTRUE(stepwise) || is.null(stepwise))
