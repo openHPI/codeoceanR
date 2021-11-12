@@ -52,6 +52,8 @@ rt_has_value <- function(
   {
   o <- object[[i]] # double square brackets can handle both lists and vectors,
   v <-  value[[i]] # if i is a single value as returned by seq_along
+  # list vs vector difference should not be missed (e.g. lapply/sapply output):
+  if(!rt_has_class(o,class(v), paste0(name, "[",i,"]"))) return(FALSE)
   neq <- try(o!=v, silent=TRUE)
   if(is.null(v)) neq <- !is.null(o)
   if(anyNA(neq) || inherits(neq,"try-error")) # for NA, lists and other incomparables
