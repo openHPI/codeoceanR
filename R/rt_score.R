@@ -4,7 +4,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_local_score] for teachers, [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
-#' @importFrom httr POST content_type stop_for_status content
+#' @importFrom httr POST content_type warn_for_status content
 #' @importFrom rjson toJSON
 #' @importFrom utils browseURL
 #' @export
@@ -60,14 +60,18 @@ body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
 							 '","files_attributes": {',fileattr,'}}}')
 
 # Post to CodeOcean:
-r <- httr::POST(url=co_url, body=body, httr::content_type("application/json"))
+r <- httr::POST(url=co_url, body=body, config=httr::content_type("application/json"))
 erm <- httr::http_condition(r, "error")$message
 if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
 	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))',
 	call.=FALSE)
 if(submit) return(r)
-httr::stop_for_status(r) # if any, pass http errors to R
+if(httr::status_code(r) >= 300)
+  {
+	httr::warn_for_status(r)
+  return(r)
+  }
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
