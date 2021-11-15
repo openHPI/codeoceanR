@@ -74,7 +74,7 @@ if(names)
 rcname <- function(r=NULL,c=NULL,l=NULL, fun=NULL)
   {
 	# quotation marks if needed:
-	qm <- function(i) if(is.numeric(i)) i else paste0('"',i,'"')
+	qm <- function(i) if(is.null(i)) " " else if(is.numeric(i)) i else paste0('"',i,'"')
 	out <- paste0(name,'[',qm(r),',',qm(c), if(!is.null(l))paste0(",",qm(l)),']')
 	if(!is.null(fun)) out <- paste0(fun,"(",out,")")
 	out
