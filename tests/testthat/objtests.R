@@ -74,28 +74,28 @@ ck(F,"'colnames(stack.x)[1]' should be 'A', not 'Air.Flow'",              rt_tes
 
 # column classes ----
 aa <- iris ; aa$Species <- as.numeric(aa$Species)
-ck(F,"'class(aa[,\"Species\"])' should .* class 'factor', not 'numeric'.",rt_test_object(aa, iris))
-ck(F,"'class(iris[,\"Species\"])' sh.*teger' or 'numeric', not 'factor'.",rt_test_object(iris, aa))
-ck(F,"'class(iris[,\"Species\"])' should .*lass 'numeric', not 'factor'.",rt_test_object(iris, aa, intnum=FALSE))
+ck(F,"'class(aa[ ,\"Species\"])' should .*class 'factor', not 'numeric'.",rt_test_object(aa, iris))
+ck(F,"'class(iris[ ,\"Species\"])' sh.*eger' or 'numeric', not 'factor'.",rt_test_object(iris, aa))
+ck(F,"'class(iris[ ,\"Species\"])' should.*lass 'numeric', not 'factor'.",rt_test_object(iris, aa, intnum=FALSE))
 
 aa <- iris ; aa$Species <- as.integer(aa$Species)
-ck(F,"'class(aa[,\"Species\"])' should have .*s 'factor', not 'integer'.",rt_test_object(aa, iris))
-ck(F,"'class(iris[,\"Species\"])' sh.*ger' or 'numeric', not 'factor'.",  rt_test_object(iris, aa))
-ck(F,"'class(iris[,\"Species\"])' should have .*'integer', not 'factor'.",rt_test_object(iris, aa, intnum=FALSE))
+ck(F,"'class(aa[ ,\"Species\"])' should have.*s 'factor', not 'integer'.",rt_test_object(aa, iris))
+ck(F,"'class(iris[ ,\"Species\"])' sh.*er' or 'numeric', not 'factor'.",  rt_test_object(iris, aa))
+ck(F,"'class(iris[ ,\"Species\"])' should have .*integer', not 'factor'.",rt_test_object(iris, aa, intnum=FALSE))
 
 aa <- BOD ; aa$Time <- as.integer(aa$Time)
 ck(T,"",                                                                  rt_test_object(aa, BOD))
-ck(F,"'class(aa[,\"Time\"])' should have class 'numeric', not 'integer'.",rt_test_object(aa, BOD, intnum=FALSE))
+ck(F,"'class(aa[ ,\"Time\"])' should have c.*s 'numeric', not 'integer'.",rt_test_object(aa, BOD, intnum=FALSE))
 ck(T,"",                                                                  rt_test_object(BOD, aa))
-ck(F,"'class(BOD[,\"Time\"])' should hav.*lass 'integer', not 'numeric'.",rt_test_object(BOD, aa, intnum=FALSE))
+ck(F,"'class(BOD[ ,\"Time\"])' should hav.*ass 'integer', not 'numeric'.",rt_test_object(BOD, aa, intnum=FALSE))
 
 
 # hasval ----
 aa <- BOD; aa[2,1] <- 99 ; aa$Time <- as.integer(aa$Time)
 ck(F,"'aa[2,\"Time\"]' should be '2', not '99'",                          rt_test_object(aa, BOD))
-ck(F,"'aa[,\"Time\"]' should be '1, 2, 3, .*7', not '1, 99, 3, 4, 5, 7'", rt_test_object(aa, BOD, stepwise=FALSE))
+ck(F,"'aa[ ,\"Time\"]' should be '1, 2, 3,.*7', not '1, 99, 3, 4, 5, 7'", rt_test_object(aa, BOD, stepwise=FALSE))
 ck(F,"'BOD[2,\"Time\"]' should be '99', not '2'",                         rt_test_object(BOD, aa))
-ck(F,"'BOD[,\"Time\"]' should be '1, 99, 3, 4, 5, 7', not '1.*, 4, 5, 7'",rt_test_object(BOD, aa, stepwise=FALSE))
+ck(F,"'BOD[ ,\"Time\"]' should be '1, 99, 3, 4, 5, 7', not '1.* 4, 5, 7'",rt_test_object(BOD, aa, stepwise=FALSE))
 ck(T,"",                                                                  rt_test_object(BOD, aa, hasval=FALSE))
 ck(T,"",                                                                  rt_test_object(BOD, aa, hasval=FALSE, stepwise=FALSE))
 
