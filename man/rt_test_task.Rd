@@ -63,7 +63,9 @@ Run through \link{rt_has_class}. DEFAULT: NULL (class of \code{value})}
 If FALSE, \code{names}, column classes and \code{hasval} are also not checked.
 DEFAULT: TRUE}
 
-\item{names}{Check names (or rownames/colnames)? DEFAULT: TRUE}
+\item{names}{Check names (or rownames/colnames)?
+If FALSE, column classes in data.frames are not checked!
+DEFAULT: TRUE}
 
 \item{hasval}{Run \link{rt_has_value}? DEFAULT: TRUE}
 

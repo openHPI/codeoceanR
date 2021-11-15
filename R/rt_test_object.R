@@ -83,7 +83,7 @@ rcname <- function(r=NULL,c=NULL,l=NULL, fun=NULL)
 
 if(!oneD) {loopcn <- colnames(value) ; if(is.null(loopcn)) loopcn <- 1:ncol(value)}
 # class per column ----
-if(!oneD && !is.array(value)) # not for matrix/array
+if(names && !oneD && !is.array(value)) # not for matrix/array, not if names were unchecked
   {
 	for(cn in loopcn)
 		if(!rt_has_class(object[,cn], class(value[,cn]),name=rcname(c=cn,fun="class"), intnum=intnum))

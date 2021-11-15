@@ -35,7 +35,9 @@
 #' @param dim      Check dimension (length or nrow+ncol)?
 #'                 If FALSE, `names`, column classes and `hasval` are also not checked.
 #'                 DEFAULT: TRUE
-#' @param names    Check names (or rownames/colnames)? DEFAULT: TRUE
+#' @param names    Check names (or rownames/colnames)?
+#'                 If FALSE, column classes in data.frames are not checked!
+#'                 DEFAULT: TRUE
 #' @param hasval   Run [rt_has_value]? DEFAULT: TRUE
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
 #' @param stepwise stepwise parameter in [rt_has_value]. TRUE for arrays. DEFAULT: NULL
