@@ -4,17 +4,27 @@
 \alias{rt_select_script_section}
 \title{Select section of a script}
 \usage{
-rt_select_script_section(scriptlines, task_nr, collapse = FALSE)
+rt_select_script_section(
+  scriptlines,
+  task_nr,
+  name = deparse(substitute(scriptlines)),
+  collapse = FALSE,
+  maxlen = 95
+)
 }
 \arguments{
 \item{scriptlines}{Charstring with several elements, normally output from \link{rt_run_script}}
 
 \item{task_nr}{Task number to be found, eg for task_nr=3, the lines between \code{t3_start} and \code{t3_end}.}
 
+\item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(scriptlines))}
+
 \item{collapse}{Replace linebreaks with \verb{;} (e.g. for nice inclusion in messages)?
 Also helpful if you want do run your own grepl tests on it
 to not have a vector and if(grepl(...)) error the condition has length > 1.
 DEFAULT: FALSE}
+
+\item{maxlen}{Maximum length of lines of code. DEFAULT: 95}
 }
 \value{
 FALSE for failure, otherwise selected lines of the script,
