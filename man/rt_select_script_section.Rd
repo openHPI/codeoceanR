@@ -7,6 +7,7 @@
 rt_select_script_section(
   scriptlines,
   task_nr,
+  msg_nr = task_nr,
   name = deparse(substitute(scriptlines)),
   collapse = FALSE,
   maxlen = 95
@@ -16,6 +17,8 @@ rt_select_script_section(
 \item{scriptlines}{Charstring with several elements, normally output from \link{rt_run_script}}
 
 \item{task_nr}{Task number to be found, eg for task_nr=3, the lines between \code{t3_start} and \code{t3_end}.}
+
+\item{msg_nr}{Task number for \link{rt_warn}. DEFAULT: task_nr}
 
 \item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(scriptlines))}
 

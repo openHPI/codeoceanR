@@ -13,6 +13,7 @@
 #'
 #' @param scriptlines Charstring with several elements, normally output from [rt_run_script]
 #' @param task_nr     Task number to be found, eg for task_nr=3, the lines between `t3_start` and `t3_end`.
+#' @param msg_nr      Task number for [rt_warn]. DEFAULT: task_nr
 #' @param name        [rt_warn] name. DEFAULT: deparse(substitute(scriptlines))
 #' @param collapse    Replace linebreaks with `;` (e.g. for nice inclusion in messages)?
 #'                    Also helpful if you want do run your own grepl tests on it
@@ -23,12 +24,13 @@
 rt_select_script_section <- function(
 scriptlines,
 task_nr,
+msg_nr=task_nr,
 name=deparse(substitute(scriptlines)),
 collapse=FALSE,
 maxlen=95
 ){
   force(name)
-  rt_env(id=task_nr)
+  rt_env(id=msg_nr)
   if(isFALSE(scriptlines)) return(FALSE)
   # Find task markers, warn if this fails:
   m1 <- paste0("t",task_nr,"_start") # marker
