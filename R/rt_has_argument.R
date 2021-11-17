@@ -20,7 +20,7 @@
 #'
 rt_has_argument <- function(code, arg, value=NULL){
   if(!any(grepl(paste0("\\<",arg,"\\>"), code))) # \<arg\> as standalone word
-    {rt_warn("Code does not contain argument '",arg,"'."); return(FALSE)}
+    {rt_warn("The code does not contain the argument '",arg,"'."); return(FALSE)}
   if(is.null(value)) return(TRUE)
 
   cd <- getParseData(parse(text=code, keep.source=TRUE))
@@ -46,5 +46,5 @@ rt_has_argument <- function(code, arg, value=NULL){
   if(value=="\n") value <- '"\\n"'
   if(value=="\\") value <- '"\\\\"'
   cd <- gsub("'", "\"", cd)
-  if(value==cd) TRUE else {rt_warn(arg, " argument should be '",value,"', but is '",cd,"'."); FALSE}
+  if(value==cd) TRUE else {rt_warn("The ", arg, " argument should be '",value,"', not '",cd,"'."); FALSE}
 }
