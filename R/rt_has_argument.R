@@ -17,8 +17,9 @@
 #' @param arg   Charstring with a single argument name to be tested
 #' @param value Value the argument should have. Use `'escaped "quotation" marks'`.
 #'              Can be left NULL if only the presence of the argument is tested, not its value.
+#' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
 #'
-rt_has_argument <- function(code, arg, value=NULL){
+rt_has_argument <- function(code, arg, value=NULL, ignore_space=TRUE){
   if(!any(grepl(paste0("\\<",arg,"\\>"), code))) # \<arg\> as standalone word
     {rt_warn("The code does not contain the argument '",arg,"'."); return(FALSE)}
   if(is.null(value)) return(TRUE)
@@ -45,6 +46,12 @@ rt_has_argument <- function(code, arg, value=NULL){
   if(value=="\t") value <- '"\\t"' # hard-coded for read/write.table tasks
   if(value=="\n") value <- '"\\n"'
   if(value=="\\") value <- '"\\\\"'
-  cd <- gsub("'", "\"", cd)
-  if(value==cd) TRUE else {rt_warn("The ", arg, " argument should be '",value,"', not '",cd,"'."); FALSE}
+  cd2 <- gsub("'", "\"", cd)
+  value2 <- value # to keep 'value' as is for warning message
+  if(ignore_space)
+    {
+    cd2 <- gsub("\\s", "", cd2)
+    value2 <- gsub("\\s", "", value2)
+    }
+  if(value2==cd2) TRUE else {rt_warn("The ", arg, " argument should be '",value,"', not '",cd,"'."); FALSE}
 }

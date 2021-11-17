@@ -4,7 +4,7 @@
 \alias{rt_has_argument}
 \title{Test function call for certain arguments}
 \usage{
-rt_has_argument(code, arg, value = NULL)
+rt_has_argument(code, arg, value = NULL, ignore_space = TRUE)
 }
 \arguments{
 \item{code}{Charstring with code, normally from \link{rt_select_script_section}}
@@ -13,6 +13,8 @@ rt_has_argument(code, arg, value = NULL)
 
 \item{value}{Value the argument should have. Use \code{'escaped "quotation" marks'}.
 Can be left NULL if only the presence of the argument is tested, not its value.}
+
+\item{ignore_space}{Remove spaces before comparison? DEFAULT: TRUE}
 }
 \value{
 Logical: TRUE / FALSE depending on whether condition is met
