@@ -8,6 +8,7 @@ rt_contains(
   object,
   value,
   msgval = value,
+  name = deparse(substitute(object)),
   fixed = TRUE,
   ignore_space = TRUE,
   ignore_quote = TRUE
@@ -21,6 +22,8 @@ rt_contains(
 \item{msgval}{Value(s) to be messaged in the warning. Must be same length as value!
 Enables testing with regex but displaying a wanted solution.
 Remember to set fixed=TRUE as well. DEFAULT: \code{value}}
+
+\item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(obj))}
 
 \item{fixed}{Fixed match in \link{grepl}? DEFAULT: TRUE}
 

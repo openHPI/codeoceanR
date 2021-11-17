@@ -20,6 +20,7 @@
 #' @param msgval       Value(s) to be messaged in the warning. Must be same length as value!
 #'                     Enables testing with regex but displaying a wanted solution.
 #'                     Remember to set fixed=TRUE as well. DEFAULT: `value`
+#' @param name         [rt_warn] name. DEFAULT: deparse(substitute(obj))
 #' @param fixed        Fixed match in [grepl]? DEFAULT: TRUE
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
 #' @param ignore_quote Replace `'` with `"` before comparison? DEFAULT: TRUE
@@ -28,11 +29,12 @@ rt_contains <- function(
 object,
 value,
 msgval=value,
+name=deparse(substitute(object)),
 fixed=TRUE,
 ignore_space=TRUE,
 ignore_quote=TRUE
 ){
-name <- deparse(substitute(object))
+force(name)
 value2 <- value # to keep 'value' as is for warning message
 if(is.character(value))
   {
