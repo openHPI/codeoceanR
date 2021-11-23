@@ -26,8 +26,7 @@ script2 <- rt_run_script("examples_2.R") # script 2 ----
 code3 <- rt_select_script_section(script2, 3)
 
 rt_test_task(3, script=code3, object=NULL, value=NULL,
-   rt_test(grepl("write.table", code3), "code does not contain the command 'write.table'."),
-   # rt_contains(code3, "write.table"), # is the shorter alternative to the previous test.
+   rt_contains(code3, "write.table(", name="code section t3"),
    rt_has_argument(code3, "x", "iris"),
    rt_has_argument(code3, "file")
    , # Commas on separate lines enable sending a single line during test development

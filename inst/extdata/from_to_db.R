@@ -1,8 +1,8 @@
 # Create files with template for new exercise
 
 dir <- "C:/Dropbox/R/kurs/en_exercises/"
-name <- "grex4_Data"
-nfiles <- 3
+name <- "grex5_Graphics1"
+nfiles <- 1
 overwrite <- FALSE
 
 # scripts:
@@ -10,8 +10,21 @@ fn_s <- paste0(name,"_",1:6,".R")
 fc_s <- paste0("codeoceanR::rt_score()\n\n",
 					paste0("# A",1:10," ----", collapse="\n\n"),
 					'\n\n\n\n# Now continue in "',fn_s[2:6],'"\n\n',
-					"# When you are done, submit your score to openHPI with:\n",
-					"# codeoceanR::rt_submit()\n\n")
+"# When you are done, submit your score to openHPI with:
+# codeoceanR::rt_submit()
+
+# If you want to see your score on openHPI, submit it with:
+# codeoceanR::rt_submit()
+# This is optional: for the grade, the maximum score within 20 minutes is used,
+# even if later scores were lower.
+# If within 10 min extra time, 80% of your total score is better than the previous,
+# it will be used instead.
+
+# Feel free to continue working on the grex afterwards to learn from it.
+
+# If you have no further questions, feel free to leave now.
+# Please do so quietly, to not disturb your fellow classmates. Thanks :)
+")
 for(i in 1:nfiles) cat(fc_s[i], file=newFilename(paste0(dir, fn_s[i]), overwrite=overwrite, quiet=TRUE)) ; rm(i)
 
 # tests:
