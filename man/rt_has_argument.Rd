@@ -4,7 +4,7 @@
 \alias{rt_has_argument}
 \title{Test function call for certain arguments}
 \usage{
-rt_has_argument(code, arg, value = NULL, ignore_space = TRUE)
+rt_has_argument(code, arg, value = NULL, ignore_space = TRUE, notsub = NULL)
 }
 \arguments{
 \item{code}{Charstring with code, normally from \link{rt_select_script_section}}
@@ -15,6 +15,13 @@ rt_has_argument(code, arg, value = NULL, ignore_space = TRUE)
 Can be left NULL if only the presence of the argument is tested, not its value.}
 
 \item{ignore_space}{Remove spaces before comparison? DEFAULT: TRUE}
+
+\item{notsub}{Arguments that should not be treated as a sub-symbol.
+E.g. for \code{value="mean(x,na.rm=TRUE)"}, \code{na.rm} in \code{code}
+is parsed as a new sub-level and test would fail.
+Avoid this manually with \code{notsub="na.rm"}.
+Do not set ignore_space to FALSE when using this.
+DEFAULT: NULL (ignored)}
 }
 \value{
 Logical: TRUE / FALSE depending on whether condition is met

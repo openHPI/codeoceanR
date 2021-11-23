@@ -18,28 +18,33 @@
 #' @param value Value the argument should have. Use `'escaped "quotation" marks'`.
 #'              Can be left NULL if only the presence of the argument is tested, not its value.
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
+#' @param notsub Arguments that should not be treated as a sub-symbol.
+#'               E.g. for `value="mean(x,na.rm=TRUE)"`, `na.rm` in `code`
+#'               is parsed as a new sub-level and test would fail.
+#'               Avoid this manually with `notsub="na.rm"`.
+#'               Do not set ignore_space to FALSE when using this.
+#'               DEFAULT: NULL (ignored)
 #'
-rt_has_argument <- function(code, arg, value=NULL, ignore_space=TRUE){
+rt_has_argument <- function(code, arg, value=NULL, ignore_space=TRUE, notsub=NULL){
   if(!any(grepl(paste0("\\<",arg,"\\>"), code))) # \<arg\> as standalone word
-    {rt_warn("The code does not contain the argument '",arg,"'."); return(FALSE)}
+    return(rt_warn("The code does not contain the argument '",arg,"'."))
   if(is.null(value)) return(TRUE)
 
   cd <- getParseData(parse(text=code, keep.source=TRUE))
   cd <- cd[cd$terminal,c("parent", "token","text")]
+  if(!is.null(notsub)) cd[cd$text %in% notsub,"token"] <- "originally_SYMBOL_SUB"
 
   # start:
   l1 <- which(cd$token=="SYMBOL_SUB" & cd$text==arg)
   # This should always be one value. Messaging just in case...
-  if(length(l1)!=1) {rt_warn("Could not extract start of argument '",arg,"' from code tree (found ",length(l1)," instances)."); return(FALSE)}
-
+  if(length(l1)!=1) return(rt_warn("Could not extract start of argument '",arg,
+  																 "' from code tree (found ",length(l1)," instances)."))
   # end:
   to_add <- data.frame(parent=0, token="SYMBOL_SUB", text="dummy")
   where <- max(which(cd$parent==cd$parent[l1]))
   cd <- berryFunctions::insertRows(cd, where+1, to_add) # for last argument
   l2 <- which(cd$token=="SYMBOL_SUB")
   l2 <- l2[l2>l1][1]
-  # This should always be one value. Messaging just in case...
-  if(length(l2)!=1) {rt_warn("Could not extract end of argument '",arg,  "' from code tree (found ",length(l2)," instances)."); return(FALSE)}
 
   # selection:
   cd <- paste0(cd$text[(l1+2):(l2-2)],collapse="")
