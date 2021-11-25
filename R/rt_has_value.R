@@ -10,6 +10,7 @@
 #' @param object Object to be tested. Just the name, not a character string.
 #' @param value  value `object` should have, can be char / numeric / other.
 #' @param name   Object name for [rt_warn] messages. DEFAULT: `deparse(substitute(object))`
+#' @param qmark  Include ' marks around `name`? DEFAULT: TRUE
 #' @param digits Tolerance - both `object` and `value` are [round]ed before comparison,
 #'               if target `value` is numeric. DEFAULT: 6
 #' @param noise  Add noise, so not the exact difference is reported?
@@ -21,6 +22,7 @@
 rt_has_value <- function(
 	object, value,
 	name=deparse(substitute(object)),
+	qmark=TRUE,
 	digits=6,
 	noise=FALSE,
 	stepwise=NULL
@@ -28,6 +30,9 @@ rt_has_value <- function(
   force(name)
   if(isTRUE(all.equal(object,value))) return(TRUE)
 	if(is.null(stepwise)) stepwise <- length(value)>1
+	# printing name:
+	pn <- if(qmark) paste0("'", name, "'") else name
+	pn <- paste0(pn, " ")
 	# Reduce message line breaks e.g. in intended try() error messages:
 	if(is.character(object) && length(object)==1)
 		{
@@ -38,13 +43,13 @@ rt_has_value <- function(
   	{
     object <- round(object, digits)
     value  <- round(value , digits)
-    if(noise) if(any(object!=value)) return(rt_warn("'",name,"' has the wrong value. The deviance ",
+    if(noise) if(any(object!=value)) return(rt_warn(pn,"has the wrong value. The deviance ",
   		"(with added noise) is: ", toString(round(object-value+rnorm(length(object)), digits)))) else return(TRUE)
     }
 
 	toString2 <- function(x) if(is.null(x)) "NULL" else toString(x)
 
-	if(!stepwise) return(rt_warn("'", name, "' should be '", toString2(value),
+	if(!stepwise) return(rt_warn(pn,"should be '", toString2(value),
   														 "', not '", toString2(object),"'."))
   # stepwise check:
 	loop <- if(is.null(value)) 1 else seq_along(value)
@@ -58,7 +63,7 @@ rt_has_value <- function(
   if(is.null(v)) neq <- !is.null(o)
   if(anyNA(neq) || inherits(neq,"try-error") || length(neq)==0) # for NA, lists and other incomparables
   	 neq <- !isTRUE(all.equal(o,v))
-  if(any(neq)) return(rt_warn("'", name, "[",i,"]' should be '",
+  if(any(neq)) return(rt_warn(if(qmark)"'", name, "[",i,"]",if(qmark)"'"," should be '",
   												toString2(v),"', not '", toString2(o),"'."))
   }
 	return(TRUE) # e.g. if object has names and value doesn't, all.equal has not caught it

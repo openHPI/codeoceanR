@@ -8,6 +8,7 @@ rt_has_value(
   object,
   value,
   name = deparse(substitute(object)),
+  qmark = TRUE,
   digits = 6,
   noise = FALSE,
   stepwise = NULL
@@ -19,6 +20,8 @@ rt_has_value(
 \item{value}{value \code{object} should have, can be char / numeric / other.}
 
 \item{name}{Object name for \link{rt_warn} messages. DEFAULT: \code{deparse(substitute(object))}}
+
+\item{qmark}{Include ' marks around \code{name}? DEFAULT: TRUE}
 
 \item{digits}{Tolerance - both \code{object} and \code{value} are \link{round}ed before comparison,
 if target \code{value} is numeric. DEFAULT: 6}

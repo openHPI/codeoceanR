@@ -8,6 +8,7 @@ rt_has_class(
   object,
   class,
   name = deparse(substitute(object)),
+  qmark = TRUE,
   matarr = TRUE,
   intnum = TRUE
 )
@@ -19,6 +20,8 @@ rt_has_class(
 Test is skipped if \code{class="any"}.}
 
 \item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(obj))}
+
+\item{qmark}{Include ' marks around \code{name}? DEFAULT: TRUE}
 
 \item{matarr}{Accept (and message) only 'matrix' if \code{class} is c("matrix","array")?
 DEFAULT: TRUE}

@@ -1,5 +1,6 @@
-rt_test_env <- new.env()
-
+rt_test_env <- new.env() # to replace "Tnid: message" with "T: message")
+# rt_test_objects  unit tests
+# This file is sourced in test_package.R
 
 ck <- function(v,m, expr)
 {

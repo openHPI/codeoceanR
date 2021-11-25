@@ -5,11 +5,13 @@
 #' @export
 #' @param object,value object to be checked against value
 #' @param name         Object name used in messages
+#' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
 #' @param class,intnum,dim,names,hasval,noise,stepwise,stepnames See [rt_test_task]
 rt_test_object <- function(
 object,
 value,
 name=deparse(substitute(object)),
+qmark=TRUE,
 class=NULL,
 intnum=TRUE,
 dim=TRUE,
@@ -20,10 +22,11 @@ stepwise=NULL,
 stepnames=FALSE
 )
 {
+force(name)
 
 # class ----
 if(is.null(class)) class <- class(value)
-if(!rt_has_class(object, class, name=name, intnum=intnum)) return(FALSE)
+if(!rt_has_class(object, class, name=name, intnum=intnum, qmark=qmark)) return(FALSE)
 
 
 if(!dim || is.function(value)) return(TRUE)
@@ -33,41 +36,45 @@ if(!dim || is.function(value)) return(TRUE)
 oneD <- length(dim(value))<2
 isarr <- length(dim(value))>2 # assuming this will only happen for arrays...
 
+# printing name:
+pn <- if(qmark) paste0("'", name, "'") else name
+pn <- paste0(pn, " ")
+
 # dim ----
 if(dim)
   if(oneD) # vector, list, function, table
   {
   if(length(object)!=length(value))
-    return(rt_warn("'",name,"' should have length ",length(value),", not ",length(object), "."))
+    return(rt_warn(pn,"should have length ",length(value),", not ",length(object), "."))
   } else # dataframe, matrix, array
   {
   if(nrow(object)!=nrow(value))
-    return(rt_warn("'",name,"' should have ",nrow(value)," rows, not ",nrow(object), "."))
+    return(rt_warn(pn,"should have ",nrow(value)," rows, not ",nrow(object), "."))
   if(ncol(object)!=ncol(value))
-    return(rt_warn("'",name,"' should have ",ncol(value)," columns, not ",ncol(object), "."))
+    return(rt_warn(pn,"should have ",ncol(value)," columns, not ",ncol(object), "."))
   }
 if(dim && isarr)
   {
 	do <- dim(object)
 	dv <- dim(value)
-	if(length(do)!=length(dv)) return(rt_warn("'",name,"' should have ",length(dv)," dimensions, not ",length(do),"."))
-	if(!rt_has_value(do, dv, paste0("dim(",name,")")) ) return(FALSE)
+	if(length(do)!=length(dv)) return(rt_warn(pn,"should have ",length(dv)," dimensions, not ",length(do),"."))
+	if(!rt_has_value(do, dv, paste0("dim(",name,")"), stepwise=FALSE, qmark=qmark) ) return(FALSE)
   }
 
 # names ----
 if(names)
   if(oneD) # 1D
   {
-  if(!rt_has_value(names(object),names(value), name=paste0("names(",name,")"), stepwise=stepnames))
+  if(!rt_has_value(names(object),names(value), name=paste0("names(",name,")"), stepwise=stepnames, qmark=qmark))
   	return(FALSE)
   } else # nD
   {
-  if(!rt_has_value(colnames(object),colnames(value), name=paste0("colnames(",name,")"), stepwise=stepnames))
+  if(!rt_has_value(colnames(object),colnames(value), name=paste0("colnames(",name,")"), stepwise=stepnames, qmark=qmark))
   	return(FALSE)
-  if(!rt_has_value(rownames(object),rownames(value), name=paste0("rownames(",name,")"), stepwise=stepnames))
+  if(!rt_has_value(rownames(object),rownames(value), name=paste0("rownames(",name,")"), stepwise=stepnames, qmark=qmark))
   	return(FALSE)
   if(isarr)
-  if(!rt_has_value(dimnames(object),dimnames(value), name=paste0("dimnames(",name,")"), stepwise=stepwise))
+  if(!rt_has_value(dimnames(object),dimnames(value), name=paste0("dimnames(",name,")"), stepwise=stepwise, qmark=qmark))
   	return(FALSE)
   }
 
@@ -86,7 +93,7 @@ if(!oneD) {loopcn <- colnames(value) ; if(is.null(loopcn)) loopcn <- 1:ncol(valu
 if(names && !oneD && !is.array(value)) # not for matrix/array, not if names were unchecked
   {
 	for(cn in loopcn)
-		if(!rt_has_class(object[,cn], class(value[,cn]),name=rcname(c=cn,fun="class"), intnum=intnum))
+		if(!rt_has_class(object[,cn], class(value[,cn]),name=rcname(c=cn,fun="class"), intnum=intnum, qmark=qmark))
 			return(FALSE)
   }
 
@@ -94,7 +101,7 @@ if(names && !oneD && !is.array(value)) # not for matrix/array, not if names were
 if(hasval)
   if(oneD) # 1D
   {
-  if(!rt_has_value(object,value, name=name, stepwise=stepwise)) return(FALSE)
+  if(!rt_has_value(object,value, name=name, stepwise=stepwise, qmark=qmark)) return(FALSE)
   } else
   if(isarr) # 3D
   {
@@ -102,17 +109,17 @@ if(hasval)
   loopln <- dimnames(value)[[3]] ; if(is.null(loopln)) loopln <- 1:dim(value)[3]
   # 4D arrays not checked - do so manually with rt_test_task(5,s,arr[,,,1],sol[,,,1]) && rt_test_task(5,s,arr[,,,2],sol[,,,2])
   for(rn in looprn) for(cn in loopcn) for(ln in loopln)
-  if(!rt_has_value(object[rn,cn,ln], value[rn,cn,ln], name=rcname(rn,cn,ln), noise=noise, stepwise=FALSE)) return(FALSE)
+  if(!rt_has_value(object[rn,cn,ln], value[rn,cn,ln], name=rcname(rn,cn,ln), noise=noise, stepwise=FALSE, qmark=qmark)) return(FALSE)
   } else # 2D
   {
   for(cn in loopcn)
   	if(isTRUE(stepwise) || is.null(stepwise))
     {
   	for(rn in 1:nrow(value))
-		  if(!rt_has_value(object[rn,cn], value[rn,cn], name=rcname(rn,cn), noise=noise)) return(FALSE)
+		  if(!rt_has_value(object[rn,cn], value[rn,cn], name=rcname(rn,cn), noise=noise, qmark=qmark)) return(FALSE)
     } else
     {
-		if(!rt_has_value(object[,cn], value[,cn], name=rcname(c=cn), noise=noise, stepwise=FALSE)) return(FALSE)
+		if(!rt_has_value(object[,cn], value[,cn], name=rcname(c=cn), noise=noise, stepwise=FALSE, qmark=qmark)) return(FALSE)
     }
   }
 

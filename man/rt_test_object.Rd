@@ -8,6 +8,7 @@ rt_test_object(
   object,
   value,
   name = deparse(substitute(object)),
+  qmark = TRUE,
   class = NULL,
   intnum = TRUE,
   dim = TRUE,
@@ -22,6 +23,8 @@ rt_test_object(
 \item{object, value}{object to be checked against value}
 
 \item{name}{Object name used in messages}
+
+\item{qmark}{Include ' marks around \code{name}? DEFAULT: TRUE}
 
 \item{class, intnum, dim, names, hasval, noise, stepwise, stepnames}{See \link{rt_test_task}}
 }
