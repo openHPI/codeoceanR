@@ -2,7 +2,7 @@
 #' @details Tests are performed in an order for increasingly specific
 #'          messages that do not give away the solution too early.\cr
 #'          Arguments after \dots need to be specified by full name.
-#'          `tnumber` must always be given, `script`, `object` and `value`
+#'          `tnumber` must always be given, `object` and `value`
 #'          must be given (can be NULL) so later custom tests are not matched to them.
 #' @return TRUE or FALSE, indicating whether all tests passed. Also changes [rt_env] status.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2021
@@ -10,19 +10,17 @@
 #' @export
 #'
 #' @param tnumber  Number of task. Must be numeric, as it will be used for pass/fail in [rt_env].
-#' @param script   Exercise script content from [rt_run_script] or [rt_script_section].
-#'                 This is the only test that will not generate an [rt_warn] message,
-#'                 as the previous functions already do. DEFAULT: NULL
 #' @param object   Object that needs to be created in student script.
 #'                 Regular object name, not quoted. First checked for existence.
 #'                 If `value` is given, checked with `correct` and `zero`,
-#'                 then passed to [rt_test_object]. DEFAULT: NULL
+#'                 then passed to [rt_test_object].
+#'                 If a function, it can be tested with `inputs`. DEFAULT: NULL
 #' @param value    Intended value. DEFAULT: NULL
 #' @param \dots    Further tests, comma-separated, can be given at the end.
 #'                 Need to yield TRUE/FALSE and take care of [rt_warn] individually.
 #'                 The `rt_*` test functions are designed for just that :).
-#' @param solved   Task number that must be solved before any other tests are run
-#'                 (except script test). DEFAULT: NULL
+#' @param solved   Task number that must be solved before any other tests are run.
+#'                 DEFAULT: NULL
 #' @param correct  Custom value message for multiple choice tasks?
 #'                 No further tests (except ...-tests) are run if correct=TRUE.
 #'                 Do not set to TRUE for objects that cannot be sorted. DEFAULT: FALSE
@@ -44,6 +42,8 @@
 #' @param stepnames stepwise parameter for names check. DEFAULT: NULL
 #' @param section  Section number to be read with [rt_script_section] into `code`
 #'                 which is then available in ... tests. DEFAULT: NULL
+#' @param script   Exercise script content from [rt_run_script].
+#'                 Passed to [rt_script_section]. DEFAULT: NULL
 #' @param solargs  Solution code in section to be checked with [rt_has_args]. DEFAULT: NULL
 #' @param nameonly Literal checks? passed to [rt_has_args]. DEFAULT: FALSE
 #' @param inputs   List or vector with (named) charstrings with code to be called
@@ -59,7 +59,6 @@
 #'
 rt_test_task <- function(
 tnumber,
-script=NULL,
 object=NULL,
 value=NULL,
 ...,
@@ -75,6 +74,7 @@ noise=FALSE,
 stepwise=NULL,
 stepnames=FALSE,
 section=NULL,
+script=NULL,
 solargs=NULL,
 nameonly=FALSE,
 inputs=NULL,
@@ -86,11 +86,6 @@ if(!is.numeric(tnumber)) stop("tnumber must be numeric, not ", toString(class(tn
 rt_env(id=tnumber)
 
 # Exit this function through return() right after the first rt_warn message
-
-# script ----
-if(!is.null(script) && (isFALSE(script) || identical(script,"FALSE")) )
-	return(rt_env(fail=tnumber))
-	# identical needed in case things like gsub("'", "\"", code) have been run
 
 # solved ----
 if(!is.null(solved))

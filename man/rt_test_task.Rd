@@ -6,7 +6,6 @@
 \usage{
 rt_test_task(
   tnumber,
-  script = NULL,
   object = NULL,
   value = NULL,
   ...,
@@ -22,6 +21,7 @@ rt_test_task(
   stepwise = NULL,
   stepnames = FALSE,
   section = NULL,
+  script = NULL,
   solargs = NULL,
   nameonly = FALSE,
   inputs = NULL,
@@ -31,14 +31,11 @@ rt_test_task(
 \arguments{
 \item{tnumber}{Number of task. Must be numeric, as it will be used for pass/fail in \link{rt_env}.}
 
-\item{script}{Exercise script content from \link{rt_run_script} or \link{rt_script_section}.
-This is the only test that will not generate an \link{rt_warn} message,
-as the previous functions already do. DEFAULT: NULL}
-
 \item{object}{Object that needs to be created in student script.
 Regular object name, not quoted. First checked for existence.
 If \code{value} is given, checked with \code{correct} and \code{zero},
-then passed to \link{rt_test_object}. DEFAULT: NULL}
+then passed to \link{rt_test_object}.
+If a function, it can be tested with \code{inputs}. DEFAULT: NULL}
 
 \item{value}{Intended value. DEFAULT: NULL}
 
@@ -46,8 +43,8 @@ then passed to \link{rt_test_object}. DEFAULT: NULL}
 Need to yield TRUE/FALSE and take care of \link{rt_warn} individually.
 The \verb{rt_*} test functions are designed for just that :).}
 
-\item{solved}{Task number that must be solved before any other tests are run
-(except script test). DEFAULT: NULL}
+\item{solved}{Task number that must be solved before any other tests are run.
+DEFAULT: NULL}
 
 \item{correct}{Custom value message for multiple choice tasks?
 No further tests (except ...-tests) are run if correct=TRUE.
@@ -81,6 +78,9 @@ DEFAULT: TRUE}
 \item{section}{Section number to be read with \link{rt_script_section} into \code{code}
 which is then available in ... tests. DEFAULT: NULL}
 
+\item{script}{Exercise script content from \link{rt_run_script}.
+Passed to \link{rt_script_section}. DEFAULT: NULL}
+
 \item{solargs}{Solution code in section to be checked with \link{rt_has_args}. DEFAULT: NULL}
 
 \item{nameonly}{Literal checks? passed to \link{rt_has_args}. DEFAULT: FALSE}
@@ -107,7 +107,7 @@ Wrapper for test script for an individual task within an exercise
 Tests are performed in an order for increasingly specific
 messages that do not give away the solution too early.\cr
 Arguments after \dots need to be specified by full name.
-\code{tnumber} must always be given, \code{script}, \code{object} and \code{value}
+\code{tnumber} must always be given, \code{object} and \code{value}
 must be given (can be NULL) so later custom tests are not matched to them.
 }
 \seealso{
