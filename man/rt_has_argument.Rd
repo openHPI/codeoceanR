@@ -27,12 +27,14 @@ DEFAULT: NULL (ignored)}
 Logical: TRUE / FALSE depending on whether condition is met
 }
 \description{
+Superseded by \code{rt_has_args} called directly within \code{rt_test_task}.
+Kept for backwards compatibility for a while.
+No longer exported, call with \code{codeoceanR:::rt_has_argument()}.\cr\cr
+
 Test if a function call in stundent's code has certain arguments.
 If argument value is a charstring, test with \code{rt_has_argument(code, "arg", '"value"')}.\cr
 Use double backslashes as in \code{rt_has_argument(code, "arg", '"value\\\\U{00B0}"')}
 for Unicode etc. \cr
-Attenton: if the user script contains line breaks and is read with
-\code{rt_script_section(collapse=";")}, \code{rt_has_argument} signals a failure.
 }
 \seealso{
 \link{rt_script_section}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
