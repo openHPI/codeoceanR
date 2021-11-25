@@ -5,19 +5,19 @@
 \title{Select section of a script}
 \usage{
 rt_script_section(
-  scriptlines,
+  script,
   snumber,
-  name = deparse(substitute(scriptlines)),
+  name = deparse(substitute(script)),
   collapse = NULL,
   maxlen = 95
 )
 }
 \arguments{
-\item{scriptlines}{Charstring with several elements, normally output from \link{rt_run_script}}
+\item{script}{Charstring with several elements, normally output from \link{rt_run_script}.}
 
 \item{snumber}{Section to be found, eg for snumber=3, the lines between \code{t3_start} and \code{t3_end}.}
 
-\item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(scriptlines))}
+\item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(script))}
 
 \item{collapse}{Replacement for linebreaks. For nice inclusion in messages or
 custom grepl tests without if(grepl(...)) error the condition has length > 1.

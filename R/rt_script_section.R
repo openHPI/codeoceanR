@@ -7,28 +7,28 @@
 #'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #'
-#' @param scriptlines Charstring with several elements, normally output from [rt_run_script]
+#' @param script      Charstring with several elements, normally output from [rt_run_script].
 #' @param snumber     Section to be found, eg for snumber=3, the lines between `t3_start` and `t3_end`.
-#' @param name        [rt_warn] name. DEFAULT: deparse(substitute(scriptlines))
+#' @param name        [rt_warn] name. DEFAULT: deparse(substitute(script))
 #' @param collapse    Replacement for linebreaks. For nice inclusion in messages or
 #'                    custom grepl tests without if(grepl(...)) error the condition has length > 1.
 #'                    DEFAULT: NULL (not collapsed)
 #' @param maxlen      Maximum allowed length of lines of code. DEFAULT: 95
 #'
 rt_script_section <- function(
-scriptlines,
+script,
 snumber,
-name=deparse(substitute(scriptlines)),
+name=deparse(substitute(script)),
 collapse=NULL,
 maxlen=95
 ){
   force(name)
-  if(isFALSE(scriptlines)) return(FALSE)
+  if(isFALSE(script)) return(FALSE) # non-existent files
   # Find task markers, warn if this fails:
   m1 <- paste0("t",snumber,"_start") # marker
   m2 <- paste0("t",snumber,"_end")
-  l1 <- grep(m1, scriptlines)        # line number
-  l2 <- grep(m2, scriptlines)
+  l1 <- grep(m1, script)        # line number
+  l2 <- grep(m2, script)
   ll1 <- length(l1)
   ll2 <- length(l2)
   if(ll1!=1) return(rt_warn("Found ",ll1," instances of '# ",m1,"' in ",name,"."))
@@ -36,7 +36,7 @@ maxlen=95
   if(l2 < l1)return(rt_warn("'# ",m2,"' must come after '# ",m1,"' in ",name,"."))
   #
   # Process script between markers:
-  sl <- trimws(scriptlines[(l1+1):(l2-1)])
+  sl <- trimws(script[(l1+1):(l2-1)])
   sl <- sl[sl!=""]
   sl <- sl[!grepl("^#", sl)]
   if(length(sl)<1) return(rt_warn("The code section t",snumber," is empty."))
