@@ -65,6 +65,13 @@ rt_test_task(8, script2, silentRoot, solution, inputs=list("y=6", rt_vec(inputVe
 # 	message(aa) # # error: 'aa' not found         -      dynGet("aa") would work
 # 	}
 # a(7)
+# a <- function(x) {aa <- "stuff"; b(x)}
+# b <- function(y) {env <- parent.frame(); eval(substitute(aa), env)}
+# a(7)
+# b <- function(y) {eval.parent(substitute(aa))}
+# a(7)
+# b <- function(y) {eval.parent(aa)}
+# a(7) # aa not found: when passed to eval.parent, it is evaluated first (unless substituted)
 
 
 })
