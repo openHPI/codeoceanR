@@ -15,10 +15,10 @@
 #' @param task_nr     Task number to be found, eg for task_nr=3, the lines between `t3_start` and `t3_end`.
 #' @param msg_nr      Task number for [rt_warn]. DEFAULT: task_nr
 #' @param name        [rt_warn] name. DEFAULT: deparse(substitute(scriptlines))
-#' @param collapse    Replace linebreaks with `;` (e.g. for nice inclusion in messages)?
-#'                    Also helpful if you want do run your own grepl tests on it
-#'                    to not have a vector and if(grepl(...)) error the condition has length > 1.
-#'                    DEFAULT: FALSE
+#' @param collapse    Replacement for linebreaks. For nice inclusion in messages or
+#'                    custom grepl tests without if(grepl(...)) error the condition has length > 1.
+#'                    If collapse=TRUE, `;` is used.
+#'                    DEFAULT: FALSE (not collapsed)
 #' @param maxlen      Maximum length of lines of code. DEFAULT: 95
 #'
 rt_select_script_section <- function(
@@ -39,23 +39,20 @@ maxlen=95
   l2 <- grep(m2, scriptlines)
   ll1 <- length(l1)
   ll2 <- length(l2)
-  if(ll1!=1) {rt_warn("Found ",ll1," instances of '# ",m1,"' in ",name,"."); return(FALSE)}
-  if(ll2!=1) {rt_warn("Found ",ll2," instances of '# ",m2,"' in ",name,"."); return(FALSE)}
-  if(l2 < l1){rt_warn("'# ",m2,"' must come after '# ",m1,"' in ",name,"."); return(FALSE)}
+  if(ll1!=1) return(rt_warn("Found ",ll1," instances of '# ",m1,"' in ",name,"."))
+  if(ll2!=1) return(rt_warn("Found ",ll2," instances of '# ",m2,"' in ",name,"."))
+  if(l2 < l1)return(rt_warn("'# ",m2,"' must come after '# ",m1,"' in ",name,"."))
   #
   # Process script between markers:
   sl <- trimws(scriptlines[(l1+1):(l2-1)])
   sl <- sl[sl!=""]
   sl <- sl[!grepl("^#", sl)]
-  if(length(sl)<1) {rt_warn("The code section t",task_nr," is empty."); return(FALSE)}
+  if(length(sl)<1) return(rt_warn("The code section t",task_nr," is empty."))
   long <- nchar(sl)>maxlen
-  if(any(long))
-  	{
-  	rt_warn("Use line breaks in code section t",task_nr, ": max ",maxlen,
-  					" symbols per line, not ", paste0(nchar(sl)[long],collapse=","),".")
-  	return(FALSE)
-  	}
-  if(collapse) sl <- paste(sl, collapse=";")
+  if(any(long))	return(rt_warn("Use line breaks in code section t",task_nr,
+  	": max ",maxlen," symbols per line, not ", paste0(nchar(sl)[long],collapse=","),"."))
+  if(isTRUE(collapse)) collapse <- ";"
+  if(!isFALSE(collapse)) sl <- paste(sl, collapse=collapse)
   # remove duplicate ";" if someone has ; at the end of a line in their script already
   sl <- gsub(";;", ";", sl, fixed=TRUE)
   sl

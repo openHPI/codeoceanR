@@ -22,10 +22,10 @@ rt_select_script_section(
 
 \item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(scriptlines))}
 
-\item{collapse}{Replace linebreaks with \verb{;} (e.g. for nice inclusion in messages)?
-Also helpful if you want do run your own grepl tests on it
-to not have a vector and if(grepl(...)) error the condition has length > 1.
-DEFAULT: FALSE}
+\item{collapse}{Replacement for linebreaks. For nice inclusion in messages or
+custom grepl tests without if(grepl(...)) error the condition has length > 1.
+If collapse=TRUE, \verb{;} is used.
+DEFAULT: FALSE (not collapsed)}
 
 \item{maxlen}{Maximum length of lines of code. DEFAULT: 95}
 }
