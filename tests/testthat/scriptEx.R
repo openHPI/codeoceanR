@@ -45,7 +45,7 @@ simple_df <- data.frame(AAA=1:4, BBB=8:1);
 readLines(con="test_package.R", warn=FALSE)[1:3]
 # t9_end
 
-# t10_start # must be parsed with rt_select_script_section(collapse=FALSE)
+# t10_start
 readLines(con="test_package.R",
 					warn=FALSE)[1:3]
 # t10_end

@@ -21,6 +21,9 @@ rt_test_task(
   noise = FALSE,
   stepwise = NULL,
   stepnames = FALSE,
+  section = NULL,
+  solargs = NULL,
+  nameonly = FALSE,
   inputs = NULL,
   export = NULL
 )
@@ -28,7 +31,7 @@ rt_test_task(
 \arguments{
 \item{tnumber}{Number of task. Must be numeric, as it will be used for pass/fail in \link{rt_env}.}
 
-\item{script}{Exercise script content from \link{rt_run_script} or \link{rt_select_script_section}.
+\item{script}{Exercise script content from \link{rt_run_script} or \link{rt_script_section}.
 This is the only test that will not generate an \link{rt_warn} message,
 as the previous functions already do. DEFAULT: NULL}
 
@@ -74,6 +77,13 @@ DEFAULT: TRUE}
 \item{stepwise}{stepwise parameter in \link{rt_has_value}. TRUE for arrays. DEFAULT: NULL}
 
 \item{stepnames}{stepwise parameter for names check. DEFAULT: NULL}
+
+\item{section}{Section number to be read with \link{rt_script_section} into \code{code}
+which is then available in ... tests. DEFAULT: NULL}
+
+\item{solargs}{Solution code in section to be checked with \link{rt_has_args}. DEFAULT: NULL}
+
+\item{nameonly}{Literal checks? passed to \link{rt_has_args}. DEFAULT: FALSE}
 
 \item{inputs}{List or vector with (named) charstrings with code to be called
 if \code{object} and \code{value} are functions.

@@ -7,7 +7,7 @@
 rt_has_argument(code, arg, value = NULL, ignore_space = TRUE, notsub = NULL)
 }
 \arguments{
-\item{code}{Charstring with code, normally from \link{rt_select_script_section}}
+\item{code}{Charstring with code, normally from \link{rt_script_section}}
 
 \item{arg}{Charstring with a single argument name to be tested}
 
@@ -32,10 +32,10 @@ If argument value is a charstring, test with \code{rt_has_argument(code, "arg", 
 Use double backslashes as in \code{rt_has_argument(code, "arg", '"value\\\\U{00B0}"')}
 for Unicode etc. \cr
 Attenton: if the user script contains line breaks and is read with
-\code{rt_select_script_section(collapse=TRUE)}, \code{rt_has_argument} signals a failure.
+\code{rt_script_section(collapse=";")}, \code{rt_has_argument} signals a failure.
 }
 \seealso{
-\link{rt_select_script_section}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
+\link{rt_script_section}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020

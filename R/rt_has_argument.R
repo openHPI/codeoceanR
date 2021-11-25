@@ -4,16 +4,16 @@
 #' Use double backslashes as in `rt_has_argument(code, "arg", '"value\\U{00B0}"')`
 #' for Unicode etc. \cr
 #' Attenton: if the user script contains line breaks and is read with
-#' `rt_select_script_section(collapse=TRUE)`, `rt_has_argument` signals a failure.
+#' `rt_script_section(collapse=";")`, `rt_has_argument` signals a failure.
 # ToDo: handle escaping slashes etc better, see rt_score
 #' @return Logical: TRUE / FALSE depending on whether condition is met
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
-#' @seealso [rt_select_script_section], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
+#' @seealso [rt_script_section], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #' @importFrom utils getParseData
 #' @export
 #'
-#' @param code  Charstring with code, normally from [rt_select_script_section]
+#' @param code  Charstring with code, normally from [rt_script_section]
 #' @param arg   Charstring with a single argument name to be tested
 #' @param value Value the argument should have. Use `'escaped "quotation" marks'`.
 #'              Can be left NULL if only the presence of the argument is tested, not its value.

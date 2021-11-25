@@ -38,18 +38,18 @@ script <- rt_run_script("scriptEx.R")
 # rt_has_argument ----
 
 results1 <- NA
-rt_env(id=1); results1[1] <- rt_has_argument(rt_select_script_section(script, 1), "sep", "\t") # backslashes
-rt_env(id=2); results1[2] <- rt_has_argument(rt_select_script_section(script, 2), "sep", "\n")
-rt_env(id=3); results1[3] <- rt_has_argument(rt_select_script_section(script, 3), "sep", "\\")
+rt_env(id=1); results1[1] <- rt_has_argument(rt_script_section(script, 1), "sep", "\t") # backslashes
+rt_env(id=2); results1[2] <- rt_has_argument(rt_script_section(script, 2), "sep", "\n")
+rt_env(id=3); results1[3] <- rt_has_argument(rt_script_section(script, 3), "sep", "\\")
 
 
 results2 <- sapply(4:8, function(n){
 rt_env(id=paste0(n,"T"))
-code <- rt_select_script_section(script, n, collapse=TRUE) # trailing semicolons
+code <- rt_script_section(script, n, collapse=";") # trailing semicolons
 r1 <- rt_has_argument(code, "AAA", "1:4")
 r2 <- rt_has_argument(code, "BBB", "8:1")
 rt_env(id=paste0(n,"F"))
-code <- rt_select_script_section(script, n, collapse=FALSE)
+code <- rt_script_section(script, n, collapse=NULL)
 r3 <- rt_has_argument(code, "AAA", "1:4")
 r4 <- rt_has_argument(code, "BBB", "8:1")
 out <- c(r1, r2, r3, r4)
@@ -58,7 +58,7 @@ out
 })
 
 rt_env(id=9)
-code <- rt_select_script_section(script, 9)  # quotation marks + logicals
+code <- rt_script_section(script, 9)  # quotation marks + logicals
 results3 <- c(
   rt_has_argument(code, "con"),
   rt_has_argument(code, "warn"),
@@ -66,7 +66,7 @@ results3 <- c(
   rt_has_argument(code, "warn", FALSE)
 )
 rt_env(id=10)
-code <- rt_select_script_section(script, 10)   # line breaks
+code <- rt_script_section(script, 10)   # line breaks
 results4 <- c(
   rt_has_argument(code, "con"),
   rt_has_argument(code, "warn"),

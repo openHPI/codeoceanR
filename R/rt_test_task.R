@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @param tnumber  Number of task. Must be numeric, as it will be used for pass/fail in [rt_env].
-#' @param script   Exercise script content from [rt_run_script] or [rt_select_script_section].
+#' @param script   Exercise script content from [rt_run_script] or [rt_script_section].
 #'                 This is the only test that will not generate an [rt_warn] message,
 #'                 as the previous functions already do. DEFAULT: NULL
 #' @param object   Object that needs to be created in student script.
@@ -42,6 +42,10 @@
 #' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
 #' @param stepwise stepwise parameter in [rt_has_value]. TRUE for arrays. DEFAULT: NULL
 #' @param stepnames stepwise parameter for names check. DEFAULT: NULL
+#' @param section  Section number to be read with [rt_script_section] into `code`
+#'                 which is then available in ... tests. DEFAULT: NULL
+#' @param solargs  Solution code in section to be checked with [rt_has_args]. DEFAULT: NULL
+#' @param nameonly Literal checks? passed to [rt_has_args]. DEFAULT: FALSE
 #' @param inputs   List or vector with (named) charstrings with code to be called
 #'                 if `object` and `value` are functions.
 #'                 Will be called with `eval(str2lang(paste0("object(",input_i,")")))`.
@@ -70,6 +74,9 @@ hasval=TRUE,
 noise=FALSE,
 stepwise=NULL,
 stepnames=FALSE,
+section=NULL,
+solargs=NULL,
+nameonly=FALSE,
 inputs=NULL,
 export=NULL
 )
@@ -134,9 +141,21 @@ if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, n
 
 } # end !null(value)
 
+
+# section ----
+if(!is.null(section))
+  {
+	code <- rt_script_section(script, section, name=deparse(substitute(script)))
+	if(isFALSE(code)) return(rt_env(fail=tnumber))
+	if(!is.null(solargs) && !rt_has_args(code=code, expr=solargs, snumber=tnumber,
+						               nameonly=nameonly, stepwise=stepwise)) return(rt_env(fail=tnumber))
+  }
+
 # further tests ----
 for(i in seq_len(...length())  )
-   if(!...elt(i)) return(rt_env(fail=tnumber))
+   # if(!...elt(i)) return(rt_env(fail=tnumber))
+   # evaluate here, where `code` exists
+   if(!eval(substitute(switch(i, ...)))) return(rt_env(fail=tnumber))
 
 # function inputs ----
 if(is.function(value))
