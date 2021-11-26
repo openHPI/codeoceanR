@@ -71,18 +71,10 @@ if(any(dup)) return(rt_warn(cs," should not contain the argument '",
 											 toString(unique(names(u_arg)[dup])),"' more than once."))
 
 # copy objects from student-script here so eval(x) will find them:
-
-# obs <- ls(1) # remove this in coR version going to CO, uncommment lines below
-# if(snumber==6) browser()
-# obs <- obs[!obs %in% c("rt_env", "rt_has_args", "rt_script_section", "rt_test_task")]
-# for(n in obs) assign(n, get(n,1))
+# obs <- ls(1)
 obs <- ls(parent.frame(2))
-obs <- obs[!obs %in% c("rt_env", "rt_has_args", "rt_script_section", "rt_test_task")]
+obs <- obs[!obs %in% c("expr","rt_env", "rt_has_args", "rt_script_section", "rt_test_task")] # remove rt_* in coR version going to CO
 for(n in obs) assign(n, get(n,parent.frame(2)))
-
-
-# for(n in ls(1)) assign(n, get(n,1))
-# for(n in ls(parent.frame(2))) assign(n, get(n,parent.frame(2)))
 attach(eval(u_arg$data), warn.conflicts=FALSE)
 
 # Evaluate/deparse arguments:
