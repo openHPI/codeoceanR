@@ -7,22 +7,23 @@
 #' @importFrom grDevices xy.coords
 #' @export
 #' @examples
-#' rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7)
+#' rt_has_args("plot(1:5, lwd=2)", "plot(1:5, lwd=3)", 7)
 #' # Tx: code section t7: argument 'lwd' should be '3', not '2'.
 #'
 #' # 'data' arguments are attached internally, hence this works:
 #' rt_has_args("plot(rate~conc,data=Puromycin,col=state)",
-#'              plot(formula=rate~conc,data=Puromycin,col=state), 7)
+#'             "plot(rate~conc,data=Puromycin,col=state)", 7)
 #'
-#' rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd=2:4)) # TRUE
+#' rt_has_args("plot(1:5, lwd=2)", "plot(1:5, lwd=3)", 7, alt=list(lwd=2:4)) # TRUE
 #'
-#' rt_has_args("plot(c(1,2,3,4,5))", plot(1:5), 7               ) # TRUE
-#' rt_has_args("plot(c(1,2,3,4,5))", plot(1:5), 7, nameonly=TRUE) # FALSE:
+#' rt_has_args("plot(c(1,2,3,4,5))", "plot(1:5)", 7               ) # TRUE
+#' rt_has_args("plot(c(1,2,3,4,5))", "plot(1:5)", 7, nameonly=TRUE) # FALSE:
 #' # Tx: code section t7: argument 'x' should be '1:5', not 'c(1, 2, 3, 4, 5)'.
 #'
 #' # See more in unit tests at "codeoceanR/tests/testthat/argtests.R"
-#' @param code     Charstring with user (student) code
-#' @param expr     Expression with desired outcome. Use formula=a~b explicitely.
+#'
+#' @param code     Charstring with user (student) code.
+#' @param target   Charstring with desired code.
 #' @param snumber  Section number for messaging.
 #' @param nameonly Check for e.g. 1:5 exactly, disallowing c(1,2,3,4,5).
 #'                 DEFAULT: FALSE
@@ -33,7 +34,7 @@
 #'                 Mostly for the formula interface, I guess. DEFAULT: NULL
 rt_has_args <- function(
 code,
-expr,
+target,
 snumber,
 nameonly=FALSE,
 stepwise=NULL,
@@ -49,18 +50,17 @@ code2 <- try(str2lang(code), silent=TRUE)
 if(inherits(code2,"try-error"))
 	return(rt_warn("str2lang for ",cs," produced error: ",
 								 attr(code2,"condition")$message))
+target <- str2lang(target)
 
 # User function
 u_fun <- code2[[1]]
 # Intended solution:
-# if not coming from rt_test_task (where substitute has already been called):
-if(!any(grepl("rt_test_task", sys.calls()))) expr <- substitute(expr)
-i_fun <- expr[[1]]
+i_fun <- target[[1]]
 if(i_fun != u_fun) return(rt_warn(cs," should contain the function '",i_fun,"', not '",u_fun,"'."))
 
 # user and intended arguments
 u_arg <- as.list(match.call(eval(u_fun), code2))[-1] # all args, except function name
-i_arg <- as.list(match.call(eval(i_fun), expr))[-1]
+i_arg <- as.list(match.call(eval(i_fun), target))[-1]
 
 if(is.null(names(i_arg))) return(rt_warn(cs, ": argument names cannot be matched in trainer code. Please report this."))
 if(is.null(names(u_arg))) return(rt_warn("Arguments in '",u_fun,"' must be named explicitely in ", cs,"."))
@@ -71,7 +71,18 @@ if(any(dup)) return(rt_warn(cs," should not contain the argument '",
 											 toString(unique(names(u_arg)[dup])),"' more than once."))
 
 # copy objects from student-script here so eval(x) will find them:
-for(n in ls(1)) assign(n, get(n,1))
+
+# obs <- ls(1) # remove this in coR version going to CO, uncommment lines below
+# if(snumber==6) browser()
+# obs <- obs[!obs %in% c("rt_env", "rt_has_args", "rt_script_section", "rt_test_task")]
+# for(n in obs) assign(n, get(n,1))
+obs <- ls(parent.frame(2))
+obs <- obs[!obs %in% c("rt_env", "rt_has_args", "rt_script_section", "rt_test_task")]
+for(n in obs) assign(n, get(n,parent.frame(2)))
+
+
+# for(n in ls(1)) assign(n, get(n,1))
+# for(n in ls(parent.frame(2))) assign(n, get(n,parent.frame(2)))
 attach(eval(u_arg$data), warn.conflicts=FALSE)
 
 # Evaluate/deparse arguments:
@@ -89,7 +100,6 @@ formula2xy <- function(xx)
   if(inherits(xx[["height"]], "formula")) names(xx)[names(xx)=="height"] <- "formula"
   if("formula" %in% names(xx) && ! "x" %in% names(xx) && ! "y" %in% names(xx))
     {
-# browser()
     coord <- try(xy.coords(xx$formula), silent=TRUE)
     if(inherits(coord, "try-error"))
     {
@@ -113,6 +123,7 @@ for(n in names(i_arg))
 	inalt <- try(u_arg[[n]] %in% alt[[n]], silent=TRUE)
 	if(length(inalt)<1) inalt <- FALSE # catch NULL arguments
 	inalt <- suppressWarnings(all(inalt))
+	if(n %in% opt && !n %in% names(u_arg)) inalt <- TRUE
 	if(isTRUE(alt[[n]]=="anyval") || isTRUE(inalt)) next
 	if(!rt_test_object(u_arg[[n]], i_arg[[n]], name=paste0(cs,": argument '",n,"'"),
 										 qmark=FALSE, stepwise=stepwise)) return(FALSE)

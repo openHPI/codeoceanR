@@ -6,7 +6,7 @@
 \usage{
 rt_has_args(
   code,
-  expr,
+  target,
   snumber,
   nameonly = FALSE,
   stepwise = NULL,
@@ -15,9 +15,9 @@ rt_has_args(
 )
 }
 \arguments{
-\item{code}{Charstring with user (student) code}
+\item{code}{Charstring with user (student) code.}
 
-\item{expr}{Expression with desired outcome. Use formula=a~b explicitely.}
+\item{target}{Charstring with desired code.}
 
 \item{snumber}{Section number for messaging.}
 
@@ -42,20 +42,21 @@ Check student code for certain argument values. Matching is done internally.
 Used to be covered by \link{rt_has_argument}, which might be deprecated.
 }
 \examples{
-rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7)
+rt_has_args("plot(1:5, lwd=2)", "plot(1:5, lwd=3)", 7)
 # Tx: code section t7: argument 'lwd' should be '3', not '2'.
 
 # 'data' arguments are attached internally, hence this works:
 rt_has_args("plot(rate~conc,data=Puromycin,col=state)",
-             plot(formula=rate~conc,data=Puromycin,col=state), 7)
+            "plot(rate~conc,data=Puromycin,col=state)", 7)
 
-rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd=2:4)) # TRUE
+rt_has_args("plot(1:5, lwd=2)", "plot(1:5, lwd=3)", 7, alt=list(lwd=2:4)) # TRUE
 
-rt_has_args("plot(c(1,2,3,4,5))", plot(1:5), 7               ) # TRUE
-rt_has_args("plot(c(1,2,3,4,5))", plot(1:5), 7, nameonly=TRUE) # FALSE:
+rt_has_args("plot(c(1,2,3,4,5))", "plot(1:5)", 7               ) # TRUE
+rt_has_args("plot(c(1,2,3,4,5))", "plot(1:5)", 7, nameonly=TRUE) # FALSE:
 # Tx: code section t7: argument 'x' should be '1:5', not 'c(1, 2, 3, 4, 5)'.
 
 # See more in unit tests at "codeoceanR/tests/testthat/argtests.R"
+
 }
 \seealso{
 \link{str2lang}, \link{match.call}

@@ -21,7 +21,7 @@ rt_test_task(
   stepnames = FALSE,
   section = NULL,
   script = NULL,
-  solargs = NULL,
+  solcode = NULL,
   nameonly = FALSE,
   alt = NULL,
   opt = NULL,
@@ -80,7 +80,7 @@ which is then available in ... tests. DEFAULT: NULL}
 \item{script}{Exercise script content from \link{rt_run_script}.
 Passed to \link{rt_script_section}. DEFAULT: NULL}
 
-\item{solargs}{Solution code in section to be checked with \link{rt_has_args}. DEFAULT: NULL}
+\item{solcode}{Solution code (charstring) to be checked with \link{rt_has_args}. DEFAULT: NULL}
 
 \item{nameonly}{Literal checks? Passed to \link{rt_has_args}. DEFAULT: FALSE}
 

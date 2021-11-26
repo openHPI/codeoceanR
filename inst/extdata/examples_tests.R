@@ -25,12 +25,12 @@ rt_test_task(2, my_second_object, 5:15)
 script2 <- rt_run_script("examples_2.R") # script 2 ----
 
 rt_test_task(3, object=NULL, value=NULL, section=3, script=script2,
-             solargs=write.table(iris, file=tempfile(), sep="\t"), alt=list(file="anyval"))
+             solcode='write.table(iris, file=tempfile(), sep="\t")', alt=list(file="anyval"))
 
 # To build on previous task (don't do this too much, students find it frustrating
 # to lose 2 points if they cannot solve the first task):
 rt_test_task(4, NULL, NULL, solved=3, section=3, script=script2,
-             solargs=write.table(iris, row.names=FALSE))
+             solcode="write.table(iris, row.names=FALSE)")
 
 
 # To require several objects for a task but give only one message in total:

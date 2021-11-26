@@ -1,168 +1,112 @@
-rt_test_env <- new.env() # to replace "Tnid: message" with "T: message")
+rt_test_env <- new.env() # to replace "Tnid: message" with "message")
 # rt_has_args  unit tests
 # This file is sourced in test_package.R
 
-ck <- function(v,m, expr)
+ck <- function(v,m, code, target, ...)
 {
 m <- sub("(","\\(",sub(")","\\)",m, fixed=TRUE), fixed=TRUE)
 m <- sub("[","\\[",sub("]","\\]",m, fixed=TRUE), fixed=TRUE)
 testm <- if(interactive()) testthat::expect_message else testthat::expect_output
-if(!v) testm(expr, m)
-x <- expr
+testm(x <- rt_has_args(code, target, 7, ...), if(v) NA else m)
 stopifnot(v==x)
 }
 
-
-ck(F,"code section t7: argument 'lwd' should be '3', not '2'.",                    rt_has_args("plot(1:5, lwd=2)",         plot(1:5, lwd=3), 7))
-ck(F,"T: code section t7 should contain the argument 'lwd'.",                      rt_has_args("plot(1:5)",                plot(1:5, lwd=3), 7))
-ck(F,"T: code section t7 should contain the function 'plot', not '99'.",           rt_has_args("99",                       plot(1:5, lwd=3), 7))
-ck(F,"T: code section t7 should contain the function 'plot', not 'plot.default'.", rt_has_args("plot.default(1:5, lwd=2)", plot(1:5, lwd=3), 7))
-
-ck(T,"",rt_has_args(  "plot(1:5,    lwd=3)" , plot(1:5, lwd=3), 7))
-ck(T,"",rt_has_args(  "plot(1:5,\n  lwd=3)" , plot(1:5, lwd=3), 7))
-ck(T,"",rt_has_args(c("plot(1:5,"," lwd=3)"), plot(1:5, lwd=3), 7))
-
-ck(F,"T: code section t7: argument 'lwd' should be '3', not '2'.", rt_has_args(  "plot(1:5,\n  lwd=2)" , plot(1:5, lwd=3), 7))
-ck(F,"T: code section t7: argument 'lwd' should be '3', not '2'.", rt_has_args(c("plot(1:5,"," lwd=2)"), plot(1:5, lwd=3), 7))
-
-ck(F,"T: str2lang for code section t7 produced error: <text>:1:11: unexpected symbol"        , rt_has_args("plot(1:5) points(2,3)",   plot(1:5), 7))
-ck(F,"T: str2lang for code section t7 produced error: parsing result not of length one, but 2",rt_has_args("plot(1:5)\n points(2,3)", plot(1:5), 7))
-ck(F,"T: str2lang for code section t7 produced error: parsing result not of length one, but 2",rt_has_args("plot(1:5); points(2,3)",  plot(1:5), 7))
-
-ck(F,"T: code section t7 should not contain the argument 'a' more than once.",   rt_has_args("plot(1, a=2,a=3)",              plot(1:5), 7))
-ck(F,"T: code section t7 should not contain the argument 'a, b' more than once.",rt_has_args("plot(1, a=2,a=3, b=4,b=5,b=6)", plot(1:5), 7))
-
-# Checks first argument only:
-ck(T,"",rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=2,lwd=3), 7))
-ck(F,"T: code section t7: argument 'lwd' should be '3', not '2'.",rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3,lwd=4), 7))
-
-# both qmarks fine:
-ck(T,"",rt_has_args("plot(1:5, col='red')",  plot(1:5, col="red"), 7))
-ck(T,"",rt_has_args('plot(1:5, col="red")',  plot(1:5, col="red"), 7))
-
-ck(F,"T: code section t7: argument 'x' should have class 'inte.*eric', not 'character'.",rt_has_args("plot('1:5', lwd=2)", plot(1:5, lwd=2), 7))
-ck(F,"T: code section t7: argument 'x' should be '1:5', not '\"1:5\"'."                 ,rt_has_args("plot('1:5', lwd=2)", plot(1:5, lwd=2), 7, nameonly=TRUE))
-ck(F,"T:.*ent 'lwd' should have class 'integer' or 'numeric', not 'character'.",         rt_has_args("plot(1:5, lwd='2')", plot(1:5, lwd=2), 7))
-
-ck(F,"T: code section t7: argument 'x' should have length 6, not 5."                  , rt_has_args("plot(1:5, lwd='2')", plot(1:6, lwd=2), 7))
-ck(F,"T: code section t7: argument 'x' should have class 'data.frame', not 'integer'.", rt_has_args("plot(1:5, lwd='2')", plot(iris,lwd=2), 7))
-
-ck(T,"",rt_has_args("plot(c(1,2,3,4,5))", plot(1:5), 7               ))
-ck(F,"T: code section t7: argument 'x' should be '1:5', not 'c(1, 2, 3, 4, 5)'.", rt_has_args("plot(c(1,2,3,4,5))", plot(1:5), 7, nameonly=TRUE))
-ck(F,"T: code section t7: argument 'x'[4] should be '4', not '9'."              , rt_has_args("plot(c(1,2,3,9,5))", plot(1:5), 7               ))
-
-# Checked in order of appearance in desired expr:
-ck(F,"T: code section t7: argument 'col' should be '\"red\"', not '\"blue\"'.",   rt_has_args("plot(1:5, lwd=2, col='blue')",  plot(1:5, col="red", lwd=3), 7))
-
-ck(F,"T: code section t7: argument 'y'[1] should be '235.6', not '234.289'.",
-	 rt_has_args("barplot(GNP~Year, data=longley)",  barplot(formula=Unemployed~Year, data=longley), 7))
-
-
-
-ck(T,"",                                      rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd=2:4     )))
-ck(T,"",                                      rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd="anyval")))
-ck(F,"argument 'lwd' should be '3', not '2'.",rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7))
-
-
-
-
-
-# choose x,y or y~x ----
-puroCol <- c("orange", "mediumpurple2")
-ck(F,"should contain the argument 'col'", rt_has_args("plot(rate~conc, data=Puromycin)",
-						plot(formula=rate~conc, data=Puromycin, col=puroCol[state]), 7,
-            alt=list(x=Puromycin$conc)))
-ck(F," 'col' should have length 23, not 2", rt_has_args("plot(rate~conc, data=Puromycin, col=puroCol)",
-						plot(formula=rate~conc, data=Puromycin, col=puroCol[state]), 7,
-            alt=list(x=Puromycin$conc)))
-ck(T,"", rt_has_args("plot(rate~conc, data=Puromycin, col=puroCol[Puromycin$state])",
-						plot(formula=rate~conc, data=Puromycin, col=puroCol[state]), 7,
-            alt=list(x=Puromycin$conc)))
-
-ck(T,"", rt_has_args("plot(formula=rate~conc, data=Puromycin)",
-						plot(formula=rate~conc, data=Puromycin), 7,
-            alt=list(x=Puromycin$conc), opt="x"))
-
-ck(T,"", rt_has_args("plot(formula=rate~conc, data=Puromycin)",
-						plot(formula=rate~conc, data=Puromycin), 7, opt="x"))
-ck(T,"", rt_has_args("plot(rate~conc, data=Puromycin)",
-						plot(formula=rate~conc, data=Puromycin), 7, opt="x"))
-
-ck(T,"", rt_has_args("plot(formula=rate~conc, data=Puromycin)",
-						plot(formula=rate~conc, data=Puromycin), 7, opt="formula"))
-ck(T,"", rt_has_args("plot(rate~conc, data=Puromycin)",
-						plot(formula=rate~conc, data=Puromycin), 7, opt="formula"))
-ck(F,"argument 'x'[1] should be '0.02', not '1'",
-	 rt_has_args("plot(rate~state, data=Puromycin)",
-	 						plot(formula=rate~conc, data=Puromycin), 7))
-
-ck(F,"argument 'x'[1] should be '0.02', not '1'.",
-	 rt_has_args("plot(formula=rate~state, data=Puromycin)",
-	 						plot(formula=rate~conc, data=Puromycin), 7, alt=list(x=rate~conc), opt="x"))
-
-ck(F,"argument 'x'[1] should be '0.02', not '1'.",
-	 rt_has_args("plot(rate~state, data=Puromycin)",
-	 						plot(formula=rate~conc, data=Puromycin), 7, alt=list(x=rate~conc),
-	 						opt="formula"))
-
-
-
-inf <- "'x' should have class 'integer' or 'numeric', not 'formula'."
-ck(T,"", rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7))
-ck(T,"", rt_has_args("plot(longley$Year, longley$Unemployed)", plot(formula=longley$Unemployed~longley$Year), 7))
-ck(T,"", rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7, alt=list(x=longley$Unemployed~longley$Year)))
-# But this works:
-ck(T,"", rt_has_args("plot(longley$Year, longley$Unemployed)", plot(formula=longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year)))
-# While this correctly fails:
-ck(F,"'x'[1] should be '1947', not '234.289'",
-	 rt_has_args("plot(longley$GNP, longley$Unemployed)", plot(formula=longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year)))
-# and this still is TRUE:
-ck(T,"", rt_has_args("plot(longley$Unemployed~longley$Year,col=2)", plot(formula=longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year)))
-
+cv <- c("orange", "mediumpurple2")           # color vector
+ed <- data.frame(a=1:4, b=5:8, c=6:7, e=2:5) # example data.frame
 
 args("plot.default")
-args("seq") # is empty
-ck(F,"T: code section t7: argument names cannot be matched in trainer code. Please report this.", rt_has_args("seq(0,5,2)",  seq(0,6,2), 7))
-ck(F,"T: Arguments in 'seq' must be named explicitely in code section t7.", rt_has_args("seq(0,5,2)",  seq(from=0,to=6,by=2), 7))
+args("seq") # is empty   -> hence test with seq
 
+# c.*7 = code section t7
 
-
-
-
-ed <- data.frame(a=1:4, b=5:8, c=6:7, e=6:9)
-# CORRECT ----
-ck(T,"", rt_has_args("plot(a~b,data=ed)",         plot(formula=a~b, data=ed), 7)) # T
-ck(T,"", rt_has_args("plot(formula=a~b,data=ed)", plot(formula=a~b, data=ed), 7)) # T
-ck(T,"", rt_has_args("plot(ed$b, ed$a )",         plot(ed$b, ed$a          ), 7)) # T
-ck(T,"", rt_has_args("plot(a~b,data=ed)",         plot(ed$b, ed$a          ), 7)) # T
-ck(T,"", rt_has_args("plot(ed$a~ed$b  )",         plot(ed$b, ed$a          ), 7)) # T
-ck(T,"", rt_has_args("plot(ed$a~ed$b  )",         plot(formula=ed$a~ed$b   ), 7)) # T
-ck(T,"", rt_has_args("plot(a~b,data=ed)",         plot(formula=a~b, data=ed), 7)) # T
-ck(T,"", rt_has_args("plot(ed$b, ed$a )",         plot(formula=a~b, data=ed), 7)) # T
-ck(T,"", rt_has_args("plot(ed$a~ed$b  )",         plot(formula=a~b, data=ed), 7)) # T
-ck(T,"", rt_has_args("plot(a~b,data=ed)",         plot(formula=ed$a~ed$b   ), 7)) # T
-
-ck(F,"", rt_has_args("plot(ed$c, ed$a)",          plot(ed$b, ed$a          ), 7)) # FALSE
-ck(F,"", rt_has_args("plot(ed$c, ed$a)",    plot(ed$b, ed$a), 7, stepwise=FALSE)) # FALSE
-ck(F,"", rt_has_args("plot(ed$c, ed$a)",          plot(ed$a~ed$b           ), 7)) # FALSE
-ck(F,"", rt_has_args("plot(ed$d, ed$a)",          plot(ed$b,ed$a           ), 7)) # FALSE
-ck(F,"", rt_has_args("plot(a~e,data=ed)",         plot(ed$b, ed$a          ), 7)) # FALSE
-ck(F,"", rt_has_args("plot(a~e,data=ed)",         plot(formula=a~b, data=ed), 7)) # FALSE
-
+ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,  "plot(1:5, lwd=2)"            ,'plot(1:5, lwd=3)'             )
+ck(F,"c.*7 should contain the argument 'lwd'."               ,  "plot(1:5)"                   ,'plot(1:5, lwd=3)'             )
+ck(T,""                                                      ,  "plot(1:5)"                   ,'plot(1:5, lwd=3)', opt="lwd"  )
+ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,  "plot(1:5, lwd=2)"            ,'plot(1:5, lwd=3)', opt="lwd"  )
+ck(F,"c.*7 should contain the function 'plot', not '99'."    ,  "99"                          ,'plot(1:5, lwd=3)'             )
+ck(F,"c.*7 should cont.* 'plot', not 'plot.default'."        ,  "plot.default(1:5, lwd=2)"    ,'plot(1:5, lwd=3)'             )
+                                                                                                                              #
+ck(T,""                                                      ,  "plot(1:5,    lwd=3)"         ,'plot(1:5, lwd=3)'             )
+ck(T,""                                                      ,  "plot(1:5,\n  lwd=3)"         ,'plot(1:5, lwd=3)'             )# line breaks OK
+ck(T,""                                                      ,c("plot(1:5,"," lwd=3)")        ,'plot(1:5, lwd=3)'             )# vectors OK
+                                                                                                                              #
+ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,  "plot(1:5,\n  lwd=2)"         ,'plot(1:5, lwd=3)'             )
+ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,c("plot(1:5,"," lwd=2)")        ,'plot(1:5, lwd=3)'             )
+                                                                                                                              #
+ck(F,"str2lang for c.*7 produced error:.*unexpected symbol"  ,"plot(1:5) points(2,3)"         ,'plot(1:5)'                    )
+ck(F,"str2lang for c.*7 produced error: parsing result not.*","plot(1:5)\n points(2,3)"       ,'plot(1:5)'                    )
+ck(F,"str2lang for c.*ing result not of length one, but 2"   ,"plot(1:5); points(2,3)"        ,'plot(1:5)'                    )
+                                                                                                                              #
+ck(F,"c.*7 should not contain the argument 'a' more than onc","plot(1, a=2,a=3)"              ,'plot(1:5)'                    )
+ck(F,"c.*7 should not contain.*gument 'a, b' more than once.","plot(1, a=2,a=3, b=4,b=5,b=6)" ,'plot(1:5)'                    )
+                                                                                                                              #
+ck(T,""                                                      ,"plot(1:5, lwd=2)"              ,'plot(1:5, lwd=2,lwd=3)'       )# Checks first argument only
+ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,"plot(1:5, lwd=2)"              ,'plot(1:5, lwd=3,lwd=4)'       )
+                                                                                                                              #
+ck(T,""                                                      ,"plot(1:5, col='red')"          ,'plot(1:5, col="red")'         )# both qmarks fine
+ck(T,""                                                      ,'plot(1:5, col="red")'          ,'plot(1:5, col="red")'         )
+                                                                                                                              #
+ck(F,"c.*7: argument 'x' should have.*eric', not 'character'","plot('1:5', lwd=2)"            ,'plot(1:5, lwd=2)'             )
+ck(F,"c.*7: argument 'x' should be '1:5', not '\"1:5\"'."    ,"plot('1:5', lwd=2)"            ,'plot(1:5, lwd=2)', nameonly=TRUE)
+ck(F,"c.*7: argument 'x' should be '1:5', not 'c(1, 2,.*5)'.","plot(c(1,2,3,4,5))"            ,'plot(1:5)', nameonly=TRUE     )
+ck(F,".*ent 'lwd'.*lass 'integer' or 'numeric', not 'charact","plot(1:5, lwd='2')"            ,'plot(1:5, lwd=2)'             )
+                                                                                                                              #
+ck(F,"c.*7: argument 'x' should have length 6, not 5."       ,"plot(1:5, lwd='2')"            ,'plot(1:6, lwd=2)'             )
+ck(F,"c.*7: argument 'x'.*class 'data.frame', not 'integer'.","plot(1:5, lwd='2')"            ,'plot(iris,lwd=2)'             )
+                                                                                                                              #
+ck(T,""                                                      ,"plot(c(1,2,3,4,5))"            ,'plot(1:5)'                    )
+ck(F,"c.*7: argument 'x'[4] should be '4', not '9'."         ,"plot(c(1,2,3,9,5))"            ,'plot(1:5)'                    )
+                                                                                                                              #
+ck(F,"c.*7: argument 'col'.*ld be '\"red\"', not '\"blue\"'.","plot(1:5, lwd=2, col='blue')"  ,'plot(1:5, col="red", lwd=3)'  )# Checked in order of appearance in target:
+                                                                                                                              #
+ck(T,""                                                      ,"plot(1:5, lwd=2)"              ,'plot(1:5, lwd=3)', alt=list(lwd=2:4     ))
+ck(T,""                                                      ,"plot(1:5, lwd=2)"              ,'plot(1:5, lwd=3)', alt=list(lwd="anyval"))
+ck(F,"argument 'lwd' should be '3', not '2'."                ,"plot(1:5, lwd=2)"              ,'plot(1:5, lwd=3)'             )
+                                                                                                                              #
+ck(F,"c.*7: argument names cannot be matched in trainer code","seq(0,5,2)"                    ,'seq(0,6,2)'                   )
+ck(F,"Arguments in 'seq' must be named explicitely in c.*7." ,"seq(0,5,2)"                    ,'seq(from=0,to=6,by=2)'        )
+                                                                                                                              #
+ck(F,"c.*7: argument 'y'[1] should be '1', not '2'."         ,"barplot(e~b, data=ed)"         ,'barplot(a~b, data=ed)'        )
+ck(F,"should contain the argument 'col'"                     ,"plot(a~b, data=ed)"            ,'plot(a~b, data=ed, col=cv[e])')
+ck(F," 'col' should have length 4, not 2."                   ,"plot(a~b, data=ed, col=cv)"    ,'plot(a~b, data=ed, col=cv[e])')
+ck(T,""                                                      ,"plot(a~b,data=ed,col=cv[ed$e])",'plot(a~b, data=ed, col=cv[e])')
+ck(T,""                                                      ,"plot(a~b, data=ed)"            ,'plot(a~b, data=ed)'           )
+ck(F,"argument 'x'[1] should be '5', not '2'."               ,"plot(a~e, data=ed)"            ,'plot(a~b, data=ed)'           )
+ck(T,""                                                      ,"plot(ed$a~ed$b)"               ,'plot(ed$b, ed$a)'             )
+ck(T,""                                                      ,"plot(ed$b, ed$a)"              ,'plot(ed$a~ed$b)'              )
+ck(T,""                                                      ,"plot(ed$b, ed$a)"              ,'plot(ed$a~ed$b)'              )
+ck(F,"'x'[1] should be '5', not '1'"                         ,"plot(ed$a, ed$a)"              ,'plot(ed$a~ed$b)'              )
+ck(T,""                                                      ,"plot(ed$a~ed$b,col=2)"         ,'plot(ed$a~ed$b)'              )
+ck(T,""                                                      ,"plot(a~b,data=ed)"             ,'plot(formula=a~b, data=ed)'   )
+ck(T,""                                                      ,"plot(formula=a~b,data=ed)"     ,'plot(formula=a~b, data=ed)'   )
+ck(T,""                                                      ,"plot(ed$b, ed$a )"             ,'plot(ed$b, ed$a          )'   )
+ck(T,""                                                      ,"plot(a~b,data=ed)"             ,'plot(ed$b, ed$a          )'   )
+ck(T,""                                                      ,"plot(ed$a~ed$b  )"             ,'plot(ed$b, ed$a          )'   )
+ck(T,""                                                      ,"plot(ed$a~ed$b  )"             ,'plot(formula=ed$a~ed$b   )'   )
+ck(T,""                                                      ,"plot(a~b,data=ed)"             ,'plot(formula=a~b, data=ed)'   )
+ck(T,""                                                      ,"plot(ed$b, ed$a )"             ,'plot(formula=a~b, data=ed)'   )
+ck(T,""                                                      ,"plot(ed$a~ed$b  )"             ,'plot(formula=a~b, data=ed)'   )
+ck(T,""                                                      ,"plot(a~b,data=ed)"             ,'plot(formula=ed$a~ed$b   )'   )
+                                                                                                                              #
+ck(F,"c.*7: argument 'x'[1] should be '5', not '6'."         ,"plot(ed$c, ed$a)"              ,'plot(ed$b, ed$a          )'   )
+ck(F,"argument 'x' should be '5, 6, 7, 8', not '6, 7, 6, 7'.","plot(ed$c, ed$a)"              ,'plot(ed$b, ed$a)', stepwise=FALSE)
+ck(F,"c.*7: argument 'x'[1] should be '5', not '6'."         ,"plot(ed$c, ed$a)"              ,'plot(ed$a~ed$b           )'   )
+ck(F,"x' should have class 'integer' or 'numeric', not 'NULL","plot(ed$d, ed$a)"              ,'plot(ed$b,ed$a           )'   )
+ck(F,"c.*7: argument 'x'[1] should be '5', not '2'."         ,"plot(a~e,data=ed)"             ,'plot(ed$b, ed$a          )'   )
+ck(F,"c.*7: argument 'x'[1] should be '5', not '2'."         ,"plot(a~e,data=ed)"             ,'plot(a~b, data=ed)'           )
+ck(T,""                                                      ,"plot(ed$b,ed$a,col=cv[ed$e])"  ,'plot(a~b, data=ed, col=cv[e])')
 
 
 
 if(FALSE){
 # Formulas are all around hard to handle: message differs depending on stepwise:
-rt_has_args("barplot(longley$Unemployed~longley$Year)", barplot(formula=Unemployed~Year, data=longley), 7)
-rt_has_args("barplot(longley$Unemployed~longley$Year)", barplot(formula=Unemployed~Year, data=longley), 7, stepwise=FALSE)
+rt_has_args("barplot(ed$a~ed$b)", barplot(formula=a~b, data=ed), 7)
+rt_has_args("barplot(ed$a~ed$b)", barplot(formula=a~b, data=ed), 7, stepwise=FALSE)
 # ERROR ----
 ed <- data.frame(a=1:4, b=5:8, c=6:7, e=6:9) # correctly F with e
 rt_has_args("plot(a~c,data=ed)", plot(formula=a~b, data=ed), 7)
 rt_has_args("plot(a~c,data=ed)", plot(ed$b, ed$a), 7)
 # possibly has to do with attach. R CHECK frowns upon that anyways
 
-ck(T,"", rt_has_args("plot(x=Puromycin$conc, col=puroCol[Puromycin$state])",
-						plot(formula=rate~conc, data=Puromycin, col=puroCol[state]), 7,
-            alt=list(x=Puromycin$conc), opt="data"))
+
 }
