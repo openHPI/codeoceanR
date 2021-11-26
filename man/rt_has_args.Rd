@@ -4,12 +4,20 @@
 \alias{rt_has_args}
 \title{Check code chunk with function call for correct arguments, e.g. in plotting tasks.}
 \usage{
-rt_has_args(code, expr, snumber, nameonly = FALSE, stepwise = NULL, alt = NULL)
+rt_has_args(
+  code,
+  expr,
+  snumber,
+  nameonly = FALSE,
+  stepwise = NULL,
+  alt = NULL,
+  opt = NULL
+)
 }
 \arguments{
 \item{code}{Charstring with user (student) code}
 
-\item{expr}{Expression with desired outcome.}
+\item{expr}{Expression with desired outcome. Use formula=a~b explicitely.}
 
 \item{snumber}{Section number for messaging.}
 
@@ -19,8 +27,10 @@ DEFAULT: FALSE}
 \item{stepwise}{Passed to \link{rt_test_object}. DEFAULT: NULL}
 
 \item{alt}{list of alternately accepted inputs.
-Use list(argname="anyval", argname="optional")
-to skip value / presence test, respectively. DEFAULT: NULL}
+Use list(argname="anyval") to skip value test. DEFAULT: NULL}
+
+\item{opt}{Charstring vector of arguments that are optional.
+Mostly for the formula interface, I guess. DEFAULT: NULL}
 }
 \value{
 TRUE / FALSE
@@ -37,7 +47,7 @@ rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7)
 
 # 'data' arguments are attached internally, hence this works:
 rt_has_args("plot(rate~conc,data=Puromycin,col=state)",
-             plot(rate~conc,data=Puromycin,col=state), 7)
+             plot(formula=rate~conc,data=Puromycin,col=state), 7)
 
 rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd=2:4)) # TRUE
 
