@@ -19,7 +19,8 @@ DEFAULT: FALSE}
 \item{stepwise}{Passed to \link{rt_test_object}. DEFAULT: NULL}
 
 \item{alt}{list of alternately accepted inputs.
-Use list(argname="anyval") to skip test. DEFAULT: NULL}
+Use list(argname="anyval", argname="optional")
+to skip value / presence test, respectively. DEFAULT: NULL}
 }
 \value{
 TRUE / FALSE
@@ -33,6 +34,10 @@ Used to be covered by \link{rt_has_argument}, which might be deprecated.
 \examples{
 rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7)
 # Tx: code section t7: argument 'lwd' should be '3', not '2'.
+
+# 'data' arguments are attached internally, hence this works:
+rt_has_args("plot(rate~conc,data=Puromycin,col=state)",
+             plot(rate~conc,data=Puromycin,col=state), 7)
 
 rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd=2:4)) # TRUE
 

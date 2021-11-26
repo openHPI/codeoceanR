@@ -63,28 +63,47 @@ ck(T,"",                                      rt_has_args("plot(1:5, lwd=2)", pl
 ck(F,"argument 'lwd' should be '3', not '2'.",rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7))
 
 
-# Trouble:
-if(FALSE){ # not for automated testing:
-rt_has_args("seq(0,5,2)",  seq(0,6,2), 7)
-# Should fail, but doesn't because
-args("seq") # is empty
-args("plot.default")
 
-# Not very good with different messages depending on stepwise:
+
+
+# choose x,y or y~x ----
+puroCol <- c("orange", "mediumpurple2")
+ck(F,"should contain the argument 'col'", rt_has_args("plot(rate~conc, data=Puromycin)",
+						plot(rate~conc, data=Puromycin, col=puroCol[state]), 7,
+            alt=list(formula=rate~conc, x=Puromycin$conc)))
+ck(F," 'col' should have length 23, not 2", rt_has_args("plot(rate~conc, data=Puromycin, col=puroCol)",
+						plot(rate~conc, data=Puromycin, col=puroCol[state]), 7,
+            alt=list(formula=rate~conc, x=Puromycin$conc)))
+ck(T,"", rt_has_args("plot(rate~conc, data=Puromycin, col=puroCol[Puromycin$state])",
+						plot(rate~conc, data=Puromycin, col=puroCol[state]), 7,
+            alt=list(formula=rate~conc, x=Puromycin$conc)))
+ck(T,"", rt_has_args("plot(x=Puromycin$conc, col=puroCol[Puromycin$state])",
+						plot(rate~conc, data=Puromycin, col=puroCol[state]), 7,
+            alt=list(formula=rate~conc, x=Puromycin$conc, data="optional")))
+
+inf <- "'x' should have class 'integer' or 'numeric', not 'formula'."
+ck(F,inf, rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7))
+ck(F,"'x' should have class 'formula', not 'integer'.",
+	 rt_has_args("plot(longley$Year, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7))
+# not possible, as formula %in% x is impossible:
+ck(F,inf, rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7, alt=list(x=longley$Unemployed~longley$Year)))
+# But this works:
+ck(T,"", rt_has_args("plot(longley$Year, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year)))
+# While this correctly fails:
+ck(F,"'x' should have class 'formula', not 'numeric'.",
+	 rt_has_args("plot(longley$GNP, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year)))
+# and this still is TRUE:
+ck(T,"", rt_has_args("plot(longley$Unemployed~longley$Year,col=2)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year)))
+
+
+args("plot.default")
+args("seq") # is empty
+ck(F,"T: code section t7: argument names cannot be matched in trainer code. Please report this.", rt_has_args("seq(0,5,2)",  seq(0,6,2), 7))
+ck(F,"T: Arguments in 'seq' must be named explicitely in code section t7.", rt_has_args("seq(0,5,2)",  seq(from=0,to=6,by=2), 7))
+
+
+if(FALSE){
+# Formulas are all around hard to handle: message differs depending on stepwise:
 rt_has_args("barplot(longley$Unemployed~longley$Year)", barplot(Unemployed~Year, data=longley), 7)
 rt_has_args("barplot(longley$Unemployed~longley$Year)", barplot(Unemployed~Year, data=longley), 7, stepwise=FALSE)
-
-# Does not really give freedom to choose x,y or y~x:
-rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7)
-rt_has_args("plot(longley$Year, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7)
-# not possible, as formula %in% x is impossible:
-rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7, alt=list(x=longley$Unemployed~longley$Year))
-# But this works:
-rt_has_args("plot(longley$Year, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year))
-# While this correctly fails:
-rt_has_args("plot(longley$GNP, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year))
-# and this still is TRUE:
-rt_has_args("plot(longley$Unemployed~longley$Year,col=2)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year))
-
-
 }

@@ -9,6 +9,10 @@
 #' rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7)
 #' # Tx: code section t7: argument 'lwd' should be '3', not '2'.
 #'
+#' # 'data' arguments are attached internally, hence this works:
+#' rt_has_args("plot(rate~conc,data=Puromycin,col=state)",
+#'              plot(rate~conc,data=Puromycin,col=state), 7)
+#'
 #' rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd=2:4)) # TRUE
 #'
 #' rt_has_args("plot(c(1,2,3,4,5))", plot(1:5), 7               ) # TRUE
@@ -23,7 +27,8 @@
 #'                 DEFAULT: FALSE
 #' @param stepwise Passed to [rt_test_object]. DEFAULT: NULL
 #' @param alt      list of alternately accepted inputs.
-#'                 Use list(argname="anyval") to skip test. DEFAULT: NULL
+#'                 Use list(argname="anyval", argname="optional")
+#'                 to skip value / presence test, respectively. DEFAULT: NULL
 #'
 rt_has_args <- function(
 code,
@@ -56,12 +61,16 @@ u_arg <- as.list(match.call(eval(u_fun), code2))[-1] # all args, except function
 i_arg <- as.list(match.call(eval(i_fun), expr))[-1]
 
 if(is.null(names(i_arg))) return(rt_warn(cs, ": argument names cannot be matched in trainer code. Please report this."))
-if(is.null(names(u_arg))) return(rt_warn(cs, ": argument names cannot be matched in user code: ", code))
+if(is.null(names(u_arg))) return(rt_warn("Arguments in '",u_fun,"' must be named explicitely in ", cs,"."))
 
 # Duplicated arguments:
 dup <- duplicated(names(u_arg))
 if(any(dup)) return(rt_warn(cs," should not contain the argument '",
 											 toString(unique(names(u_arg)[dup])),"' more than once."))
+
+# copy objects from student-script here so eval(x) will find them:
+for(n in ls(1)) assign(n, get(n,1))
+attach(eval(u_arg$data), warn.conflicts=FALSE)
 
 # Evaluate/deparse arguments:
 # eval environment in formula call?
@@ -74,6 +83,7 @@ i_arg <- lapply(i_arg, argfun)
 # Presence and value of arguments:
 for(n in names(i_arg))
   {
+  if(!isTRUE(alt[[n]]=="optional"))
   if(!n %in% names(u_arg)) return(rt_warn(cs," should contain the argument '",n,"'."))
 	inalt <- try(u_arg[[n]] %in% alt[[n]], silent=TRUE)
 	if(isTRUE(inalt) || isTRUE(alt[[n]]=="anyval") || suppressWarnings(isTRUE(all(inalt)))) next
