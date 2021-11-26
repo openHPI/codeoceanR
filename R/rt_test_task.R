@@ -149,6 +149,7 @@ if(!is.null(section))
   }
 
 # further tests ----
+for(e in export) assign(e, dynGet(e)) # for custom test functions etc
 for(i in seq_len(...length())  )
    # if(!...elt(i)) return(rt_env(fail=tnumber))
    # evaluate here, where `code` exists
