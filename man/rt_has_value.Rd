@@ -10,7 +10,6 @@ rt_has_value(
   name = deparse(substitute(object)),
   qmark = TRUE,
   digits = 6,
-  noise = FALSE,
   stepwise = NULL
 )
 }
@@ -26,11 +25,7 @@ rt_has_value(
 \item{digits}{Tolerance - both \code{object} and \code{value} are \link{round}ed before comparison,
 if target \code{value} is numeric. DEFAULT: 6}
 
-\item{noise}{Add noise, so not the exact difference is reported?
-Only used if \code{value} is numeric. DEFAULT: FALSE}
-
 \item{stepwise}{Compare \code{object} and \code{value} stepwise?
-For numerical objects: only used if noise=FALSE.
 DEFAULT: NULL, meaning \code{length(value)>1}}
 }
 \value{

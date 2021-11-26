@@ -37,7 +37,6 @@
 #'                 If FALSE, column classes in data.frames are not checked!
 #'                 DEFAULT: TRUE
 #' @param hasval   Run [rt_has_value]? DEFAULT: TRUE
-#' @param noise    noise parameter in [rt_has_value]. DEFAULT: FALSE
 #' @param stepwise stepwise parameter in [rt_has_value]. TRUE for arrays. DEFAULT: NULL
 #' @param stepnames stepwise parameter for names check. DEFAULT: NULL
 #' @param section  Section number to be read with [rt_script_section] into `code`
@@ -71,7 +70,6 @@ intnum=TRUE,
 dim=TRUE,
 names=TRUE,
 hasval=TRUE,
-noise=FALSE,
 stepwise=NULL,
 stepnames=FALSE,
 section=NULL,
@@ -134,7 +132,7 @@ if(zero && is.function(value) && isTRUE(rt_gives("echo",object(),value=TRUE)==0)
 
 # test_object ----
 if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, names=names,
-	hasval=hasval, noise=noise, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
+	hasval=hasval, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
 
 } # end !null(value)
 
@@ -176,7 +174,7 @@ for(i in inputs)
     return(rt_env(fail=tnumber))
     }
   if(!rt_test_object(res, target, name=pc, class=class, intnum=intnum, dim=dim, names=names,
-	  hasval=hasval, noise=noise, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
+	  hasval=hasval, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
 	} # end for loop
 }
 # pass ----

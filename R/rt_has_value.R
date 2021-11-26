@@ -13,10 +13,7 @@
 #' @param qmark  Include ' marks around `name`? DEFAULT: TRUE
 #' @param digits Tolerance - both `object` and `value` are [round]ed before comparison,
 #'               if target `value` is numeric. DEFAULT: 6
-#' @param noise  Add noise, so not the exact difference is reported?
-#'               Only used if `value` is numeric. DEFAULT: FALSE
 #' @param stepwise Compare `object` and `value` stepwise?
-#'               For numerical objects: only used if noise=FALSE.
 #'               DEFAULT: NULL, meaning `length(value)>1`
 
 rt_has_value <- function(
@@ -24,7 +21,6 @@ rt_has_value <- function(
 	name=deparse(substitute(object)),
 	qmark=TRUE,
 	digits=6,
-	noise=FALSE,
 	stepwise=NULL
 	){
   force(name)
@@ -43,8 +39,6 @@ rt_has_value <- function(
   	{
     object <- round(object, digits)
     value  <- round(value , digits)
-    if(noise) if(any(object!=value)) return(rt_warn(pn,"has the wrong value. The deviance ",
-  		"(with added noise) is: ", toString(round(object-value+rnorm(length(object)), digits)))) else return(TRUE)
     }
 
 	toString2 <- function(x) if(is.null(x)) "NULL" else toString(x)

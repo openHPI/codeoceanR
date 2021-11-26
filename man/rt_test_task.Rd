@@ -17,7 +17,6 @@ rt_test_task(
   dim = TRUE,
   names = TRUE,
   hasval = TRUE,
-  noise = FALSE,
   stepwise = NULL,
   stepnames = FALSE,
   section = NULL,
@@ -69,8 +68,6 @@ If FALSE, column classes in data.frames are not checked!
 DEFAULT: TRUE}
 
 \item{hasval}{Run \link{rt_has_value}? DEFAULT: TRUE}
-
-\item{noise}{noise parameter in \link{rt_has_value}. DEFAULT: FALSE}
 
 \item{stepwise}{stepwise parameter in \link{rt_has_value}. TRUE for arrays. DEFAULT: NULL}
 

@@ -6,7 +6,7 @@
 #' @param object,value object to be checked against value
 #' @param name         Object name used in messages
 #' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
-#' @param class,intnum,dim,names,hasval,noise,stepwise,stepnames See [rt_test_task]
+#' @param class,intnum,dim,names,hasval,stepwise,stepnames See [rt_test_task]
 rt_test_object <- function(
 object,
 value,
@@ -17,7 +17,6 @@ intnum=TRUE,
 dim=TRUE,
 names=TRUE,
 hasval=TRUE,
-noise=FALSE,
 stepwise=NULL,
 stepnames=FALSE
 )
@@ -109,17 +108,17 @@ if(hasval)
   loopln <- dimnames(value)[[3]] ; if(is.null(loopln)) loopln <- 1:dim(value)[3]
   # 4D arrays not checked - do so manually with rt_test_task(5,s,arr[,,,1],sol[,,,1]) && rt_test_task(5,s,arr[,,,2],sol[,,,2])
   for(rn in looprn) for(cn in loopcn) for(ln in loopln)
-  if(!rt_has_value(object[rn,cn,ln], value[rn,cn,ln], name=rcname(rn,cn,ln), noise=noise, stepwise=FALSE, qmark=qmark)) return(FALSE)
+  if(!rt_has_value(object[rn,cn,ln], value[rn,cn,ln], name=rcname(rn,cn,ln), stepwise=FALSE, qmark=qmark)) return(FALSE)
   } else # 2D
   {
   for(cn in loopcn)
   	if(isTRUE(stepwise) || is.null(stepwise))
     {
   	for(rn in 1:nrow(value))
-		  if(!rt_has_value(object[rn,cn], value[rn,cn], name=rcname(rn,cn), noise=noise, qmark=qmark)) return(FALSE)
+		  if(!rt_has_value(object[rn,cn], value[rn,cn], name=rcname(rn,cn), qmark=qmark)) return(FALSE)
     } else
     {
-		if(!rt_has_value(object[,cn], value[,cn], name=rcname(c=cn), noise=noise, stepwise=FALSE, qmark=qmark)) return(FALSE)
+		if(!rt_has_value(object[,cn], value[,cn], name=rcname(c=cn), stepwise=FALSE, qmark=qmark)) return(FALSE)
     }
   }
 
