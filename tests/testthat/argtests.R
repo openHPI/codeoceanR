@@ -58,6 +58,11 @@ ck(F,"T: code section t7: argument 'height'[2] should be 'Unemployed', not 'GNP'
 
 
 
+ck(T,"",                                      rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd=2:4     )))
+ck(T,"",                                      rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7, alt=list(lwd="anyval")))
+ck(F,"argument 'lwd' should be '3', not '2'.",rt_has_args("plot(1:5, lwd=2)", plot(1:5, lwd=3), 7))
+
+
 # Trouble:
 if(FALSE){ # not for automated testing:
 rt_has_args("seq(0,5,2)",  seq(0,6,2), 7)
@@ -69,8 +74,17 @@ args("plot.default")
 rt_has_args("barplot(longley$Unemployed~longley$Year)", barplot(Unemployed~Year, data=longley), 7)
 rt_has_args("barplot(longley$Unemployed~longley$Year)", barplot(Unemployed~Year, data=longley), 7, stepwise=FALSE)
 
-# Does not give freedom to choose x,y or y~x:
+# Does not really give freedom to choose x,y or y~x:
 rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7)
 rt_has_args("plot(longley$Year, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7)
+# not possible, as formula %in% x is impossible:
+rt_has_args("plot(longley$Unemployed~longley$Year)", plot(longley$Year, longley$Unemployed), 7, alt=list(x=longley$Unemployed~longley$Year))
+# But this works:
+rt_has_args("plot(longley$Year, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year))
+# While this correctly fails:
+rt_has_args("plot(longley$GNP, longley$Unemployed)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year))
+# and this still is TRUE:
+rt_has_args("plot(longley$Unemployed~longley$Year,col=2)", plot(longley$Unemployed~longley$Year), 7, alt=list(x=longley$Year))
+
 
 }

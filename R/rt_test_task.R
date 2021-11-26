@@ -45,7 +45,8 @@
 #' @param script   Exercise script content from [rt_run_script].
 #'                 Passed to [rt_script_section]. DEFAULT: NULL
 #' @param solargs  Solution code in section to be checked with [rt_has_args]. DEFAULT: NULL
-#' @param nameonly Literal checks? passed to [rt_has_args]. DEFAULT: FALSE
+#' @param nameonly Literal checks? Passed to [rt_has_args]. DEFAULT: FALSE
+#' @param alt      List of alternative arguments. Passed to [rt_has_args]. DEFAULT: NULL
 #' @param inputs   List or vector with (named) charstrings with code to be called
 #'                 if `object` and `value` are functions.
 #'                 Will be called with `eval(str2lang(paste0("object(",input_i,")")))`.
@@ -77,6 +78,7 @@ section=NULL,
 script=NULL,
 solargs=NULL,
 nameonly=FALSE,
+alt=NULL,
 inputs=NULL,
 export=NULL
 )
@@ -142,8 +144,8 @@ if(!is.null(section))
   {
 	code <- rt_script_section(script, section, name=deparse(substitute(script)))
 	if(isFALSE(code)) return(rt_env(fail=tnumber))
-	if(!is.null(solargs) && !rt_has_args(code=code, expr=solargs, snumber=tnumber,
-						               nameonly=nameonly, stepwise=stepwise)) return(rt_env(fail=tnumber))
+	if(!is.null(substitute(solargs)) && !rt_has_args(code=code, expr=substitute(solargs), snumber=section,
+						               nameonly=nameonly, stepwise=stepwise, alt=alt)) return(rt_env(fail=tnumber))
   }
 
 # further tests ----

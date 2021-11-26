@@ -24,6 +24,7 @@ rt_test_task(
   script = NULL,
   solargs = NULL,
   nameonly = FALSE,
+  alt = NULL,
   inputs = NULL,
   export = NULL
 )
@@ -83,7 +84,9 @@ Passed to \link{rt_script_section}. DEFAULT: NULL}
 
 \item{solargs}{Solution code in section to be checked with \link{rt_has_args}. DEFAULT: NULL}
 
-\item{nameonly}{Literal checks? passed to \link{rt_has_args}. DEFAULT: FALSE}
+\item{nameonly}{Literal checks? Passed to \link{rt_has_args}. DEFAULT: FALSE}
+
+\item{alt}{List of alternative arguments. Passed to \link{rt_has_args}. DEFAULT: NULL}
 
 \item{inputs}{List or vector with (named) charstrings with code to be called
 if \code{object} and \code{value} are functions.

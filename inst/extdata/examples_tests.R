@@ -25,8 +25,7 @@ rt_test_task(2, my_second_object, 5:15)
 script2 <- rt_run_script("examples_2.R") # script 2 ----
 
 rt_test_task(3, object=NULL, value=NULL, section=3, script=script2,
-             solargs=write.table(iris, sep="\t"))
-
+             solargs=write.table(iris, file=tempfile(), sep="\t"), alt=list(file="anyval"))
 
 # To build on previous task (don't do this too much, students find it frustrating
 # to lose 2 points if they cannot solve the first task):
