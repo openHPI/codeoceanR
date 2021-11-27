@@ -51,10 +51,10 @@ ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,"plot(1:5, lwd=2)"
 ck(T,""                                                      ,"plot(1:5, col='red')"          ,'plot(1:5, col="red")'         )# both qmarks fine
 ck(T,""                                                      ,'plot(1:5, col="red")'          ,'plot(1:5, col="red")'         )
                                                                                                                               #
-ck(F,"c.*7: argument 'x' should have.*eric', not 'character'","plot('1:5', lwd=2)"            ,'plot(1:5, lwd=2)'             )
+ck(F,"c.*7: argument 'x' should have.*eger', not 'character'","plot('1:5', lwd=2)"            ,'plot(1:5, lwd=2)'             )
 ck(F,"c.*7: argument 'x' should be '1:5', not '\"1:5\"'."    ,"plot('1:5', lwd=2)"            ,'plot(1:5, lwd=2)', nameonly=TRUE)
 ck(F,"c.*7: argument 'x' should be '1:5', not 'c(1, 2,.*5)'.","plot(c(1,2,3,4,5))"            ,'plot(1:5)', nameonly=TRUE     )
-ck(F,".*ent 'lwd'.*lass 'integer' or 'numeric', not 'charact","plot(1:5, lwd='2')"            ,'plot(1:5, lwd=2)'             )
+ck(F,"ent 'lwd' should have class 'numeric', not 'character'","plot(1:5, lwd='2')"            ,'plot(1:5, lwd=2)'             )
                                                                                                                               #
 ck(F,"c.*7: argument 'x' should have length 6, not 5."       ,"plot(1:5, lwd='2')"            ,'plot(1:6, lwd=2)'             )
 ck(F,"c.*7: argument 'x'.*class 'data.frame', not 'integer'.","plot(1:5, lwd='2')"            ,'plot(iris,lwd=2)'             )
@@ -98,7 +98,7 @@ ck(T,""                                                      ,"plot(a~b,data=ed)
 ck(F,"c.*7: argument 'x'[1] should be '5', not '6'."         ,"plot(ed$c, ed$a)"              ,'plot(ed$b, ed$a          )'   )
 ck(F,"argument 'x' should be '5, 6, 7, 8', not '6, 7, 6, 7'.","plot(ed$c, ed$a)"              ,'plot(ed$b, ed$a)', stepwise=FALSE)
 ck(F,"c.*7: argument 'x'[1] should be '5', not '6'."         ,"plot(ed$c, ed$a)"              ,'plot(ed$a~ed$b           )'   )
-ck(F,"x' should have class 'integer' or 'numeric', not 'NULL","plot(ed$d, ed$a)"              ,'plot(ed$b,ed$a           )'   )
+ck(F,"argument 'x' should have class 'integer', not 'NULL'." ,"plot(ed$d, ed$a)"              ,'plot(ed$b,ed$a           )'   )
 ck(F,"c.*7: argument 'x'[1] should be '5', not '2'."         ,"plot(a~e,data=ed)"             ,'plot(ed$b, ed$a          )'   )
 ck(F,"c.*7: argument 'x'[1] should be '5', not '2'."         ,"plot(a~e,data=ed)"             ,'plot(a~b, data=ed)'           )
 ck(T,""                                                      ,"plot(ed$b,ed$a,col=cv[ed$e])"  ,'plot(a~b, data=ed, col=cv[e])')
