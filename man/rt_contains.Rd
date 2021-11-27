@@ -9,6 +9,7 @@ rt_contains(
   value,
   msgval = value,
   name = deparse(substitute(object)),
+  qmark = TRUE,
   fixed = TRUE,
   ignore_space = TRUE,
   ignore_quote = TRUE
@@ -24,6 +25,8 @@ Enables testing with regex but displaying a wanted solution.
 Remember to set fixed=FALSE as well. DEFAULT: \code{value}}
 
 \item{name}{\link{rt_warn} name. DEFAULT: deparse(substitute(obj))}
+
+\item{qmark}{Include ' marks around \code{name}? DEFAULT: TRUE}
 
 \item{fixed}{Fixed match in \link{grepl}? DEFAULT: TRUE}
 

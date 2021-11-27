@@ -21,6 +21,7 @@
 #'                     Enables testing with regex but displaying a wanted solution.
 #'                     Remember to set fixed=FALSE as well. DEFAULT: `value`
 #' @param name         [rt_warn] name. DEFAULT: deparse(substitute(obj))
+#' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
 #' @param fixed        Fixed match in [grepl]? DEFAULT: TRUE
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
 #' @param ignore_quote Replace `'` with `"` before comparison? DEFAULT: TRUE
@@ -30,11 +31,14 @@ object,
 value,
 msgval=value,
 name=deparse(substitute(object)),
+qmark=TRUE,
 fixed=TRUE,
 ignore_space=TRUE,
 ignore_quote=TRUE
 ){
 force(name)
+if(name=="code") qmark <- FALSE
+pn <- if(qmark) paste0("'", name, "'") else name
 value2 <- value # to keep 'value' as is for warning message
 if(is.character(value))
   {
@@ -52,7 +56,7 @@ for(i in seq_along(value))
   {
 	v <- value2[i]
 	succ <- if(is.character(v)) any(grepl(v, object, fixed=fixed)) else v %in% object
-  if(!succ) return(rt_warn("'",name,"' should contain '",msgval[i],"'."))
+  if(!succ) return(rt_warn(pn," should contain '",msgval[i],"'."))
   }
 
 # pass:
