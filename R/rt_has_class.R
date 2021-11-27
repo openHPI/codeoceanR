@@ -24,8 +24,10 @@ intnum=TRUE
 if(identical(class, "any")) return(TRUE)
 force(name)
 if(matarr) if(identical(class, c("matrix","array"))) class <- "matrix"
-if(intnum) if(identical(class, "integer")||identical(class, "numeric")) class <- c("integer","numeric")
-if(any(class(object) %in% class)) return(TRUE)
+class2 <- class
+if(intnum) if(identical(class, "integer")||identical(class, "numeric"))
+	class2 <- c("integer","numeric")
+if(any(class(object) %in% class2)) return(TRUE)
 
 rt_warn(if(qmark)"'",name,if(qmark)"'"," should have class '",
 				paste(class, collapse="' or '"), "', not '", toString(class(object)), "'.")
