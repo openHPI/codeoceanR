@@ -16,6 +16,7 @@ ed <- data.frame(a=1:4, b=5:8, c=6:7, e=2:5) # example data.frame
 
 args("plot.default")
 args("seq") # is empty   -> hence test with seq
+length # is a primitive funtion, hence args(eval(u_fun)) and length tests
 
 # c.*7 = code section t7
 
@@ -25,6 +26,10 @@ ck(T,""                                                      ,  "plot(1:5)"     
 ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,  "plot(1:5, lwd=2)"            ,'plot(1:5, lwd=3)', opt="lwd"  )
 ck(F,"c.*7 should contain the function 'plot', not '99'."    ,  "99"                          ,'plot(1:5, lwd=3)'             )
 ck(F,"c.*7 should cont.* 'plot', not 'plot.default'."        ,  "plot.default(1:5, lwd=2)"    ,'plot(1:5, lwd=3)'             )
+                                                                                                                              #
+ck(T,""                                                      ,  "length(cv)"                  ,'length(cv)'                   )
+ck(F,"ument 'x' should have class 'character', not 'integer'",  "length(1:5)"                 ,'length(cv)'                   )
+ck(F,"c.*7: argument 'x' should be 'cv', not '1:5'."         ,  "length(1:5)"                 ,'length(cv)', nameonly=TRUE    )
                                                                                                                               #
 ck(T,""                                                      ,  "plot(1:5,    lwd=3)"         ,'plot(1:5, lwd=3)'             )
 ck(T,""                                                      ,  "plot(1:5,\n  lwd=3)"         ,'plot(1:5, lwd=3)'             )# line breaks OK

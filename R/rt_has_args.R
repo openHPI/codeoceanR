@@ -62,8 +62,9 @@ i_fun <- target[[1]]
 if(i_fun != u_fun) return(rt_warn(cs," should contain the function '",i_fun,"', not '",u_fun,"'."))
 
 # user and intended arguments
-u_arg <- as.list(match.call(eval(u_fun), code2))[-1] # all args, except function name
-i_arg <- as.list(match.call(eval(i_fun), target))[-1]
+# args to avoid invalid 'definition' argument error: https://stackoverflow.com/a/63124703
+u_arg <- as.list(match.call(args(eval(u_fun)), code2))[-1] # all args, except function name
+i_arg <- as.list(match.call(args(eval(i_fun)), target))[-1]
 
 if(is.null(names(i_arg))&&length(i_arg)>0) return(rt_warn(cs, ": argument names cannot be matched in trainer code. Please report this."))
 if(is.null(names(u_arg))&&length(u_arg)>0) return(rt_warn("Arguments in '",u_fun,"' must be named explicitely in ", cs,"."))
