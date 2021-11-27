@@ -65,7 +65,9 @@ ck(F,"argument 'lwd' should be '3', not '2'."                ,"plot(1:5, lwd=2)"
                                                                                                                               #
 ck(F,"c.*7: argument names cannot be matched in trainer code","seq(0,5,2)"                    ,'seq(0,6,2)'                   )
 ck(F,"Arguments in 'seq' must be named explicitely in c.*7." ,"seq(0,5,2)"                    ,'seq(from=0,to=6,by=2)'        )
-                                                                                                                              #
+ck(T,""                                                      ,"box()"                         ,'box("plot")', opt="which"     )
+ck(F,"gument 'which' should be '\"plot\"', not '\"outer\"'." ,"box('outer')"                  ,'box("plot")', opt="which"     )
+#
 ck(F,"c.*7: argument 'y'[1] should be '1', not '2'."         ,"barplot(e~b, data=ed)"         ,'barplot(a~b, data=ed)'        )
 ck(F,"should contain the argument 'col'"                     ,"plot(a~b, data=ed)"            ,'plot(a~b, data=ed, col=cv[e])')
 ck(F," 'col' should have length 4, not 2."                   ,"plot(a~b, data=ed, col=cv)"    ,'plot(a~b, data=ed, col=cv[e])')
