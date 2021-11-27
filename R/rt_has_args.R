@@ -32,6 +32,7 @@
 #'                 Use list(argname="anyval") to skip value test. DEFAULT: NULL
 #' @param opt      Charstring vector of arguments that are optional.
 #'                 Mostly for the formula interface, I guess. DEFAULT: NULL
+#' @param ignAssign Remove assignment part from code? DEFAULT: FALSE
 rt_has_args <- function(
 code,
 target,
@@ -39,13 +40,15 @@ snumber,
 nameonly=FALSE,
 stepwise=NULL,
 alt=NULL,
-opt=NULL
+opt=NULL,
+ignAssign=FALSE
 )
 {
 cs <- paste0("code section t",snumber)
 
 # Language object from character string:
 if(length(code)>1) code <- paste(code, collapse="\n")
+if(ignAssign) code <- sub("^.*?<-","", code) # https://stackoverflow.com/a/9704260
 code2 <- try(str2lang(code), silent=TRUE)
 if(inherits(code2,"try-error"))
 	return(rt_warn("str2lang for ",cs," produced error: ",

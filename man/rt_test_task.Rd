@@ -25,6 +25,7 @@ rt_test_task(
   nameonly = FALSE,
   alt = NULL,
   opt = NULL,
+  ignAssign = FALSE,
   inputs = NULL,
   export = NULL
 )
@@ -87,6 +88,8 @@ Passed to \link{rt_script_section}. DEFAULT: NULL}
 \item{alt}{List of alternative arguments. Passed to \link{rt_has_args}. DEFAULT: NULL}
 
 \item{opt}{Vector of optional arguments. Passed to \link{rt_has_args}. DEFAULT: NULL}
+
+\item{ignAssign}{Remove assignment part from code? Passed to \link{rt_has_args}. DEFAULT: FALSE}
 
 \item{inputs}{List or vector with (named) charstrings with code to be called
 if \code{object} and \code{value} are functions.

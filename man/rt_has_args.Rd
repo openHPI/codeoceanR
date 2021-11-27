@@ -11,7 +11,8 @@ rt_has_args(
   nameonly = FALSE,
   stepwise = NULL,
   alt = NULL,
-  opt = NULL
+  opt = NULL,
+  ignAssign = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ Use list(argname="anyval") to skip value test. DEFAULT: NULL}
 
 \item{opt}{Charstring vector of arguments that are optional.
 Mostly for the formula interface, I guess. DEFAULT: NULL}
+
+\item{ignAssign}{Remove assignment part from code? DEFAULT: FALSE}
 }
 \value{
 TRUE / FALSE
