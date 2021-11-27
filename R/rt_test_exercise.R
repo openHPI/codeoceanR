@@ -21,7 +21,7 @@ if(inherits(trytests, "try-error"))
   rt_warn(" ----- Test failed. Please report, see below. -----\n",
   				"The internal test script failed. This should never happen. Sorry!!\n",
           "To get scores again, please revert the last thing(s) you did.\n",
-          "Please send Berry the logfile below through email (with your last code)",
+          "Please send Berry the logfile below through email (with your last code) ",
   				"or 'Request comments':\n----------\n", trytests, "\n----------")
 	rt_env(fail=1:99) # reset to zero to avoid 100% score up to failed rt_test_task
   }
