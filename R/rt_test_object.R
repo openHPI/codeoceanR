@@ -92,7 +92,7 @@ if(!oneD) {loopcn <- colnames(value) ; if(is.null(loopcn)) loopcn <- 1:ncol(valu
 if(names && !oneD && !is.array(value)) # not for matrix/array, not if names were unchecked
   {
 	for(cn in loopcn)
-		if(!rt_has_class(object[,cn], class(value[,cn]),name=rcname(c=cn,fun="class"), intnum=intnum, qmark=qmark))
+		if(!rt_has_class(object[,cn], class(value[,cn]),name=rcname(c=cn), intnum=intnum, qmark=qmark))
 			return(FALSE)
   }
 
