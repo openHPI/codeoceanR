@@ -152,10 +152,13 @@ if(!is.null(section))
   }
 
 # further tests ----
+obs <- ls(parent.frame(1))
+obs <- obs[!obs %in% c("expr")]
+for(n in obs) assign(n, get(n,parent.frame(1)))
 for(e in export) assign(e, dynGet(e)) # for custom test functions etc
 for(i in seq_len(...length())  )
    # if(!...elt(i)) return(rt_env(fail=tnumber))
-   # evaluate here, where `code` exists
+   # evaluate here, where `code` exists (if section is given)
    if(!eval(substitute(switch(i, ...)))) return(rt_env(fail=tnumber))
 
 # function inputs ----
