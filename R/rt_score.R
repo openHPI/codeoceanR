@@ -1,6 +1,7 @@
 #' @title upload exercise to codeOcean
 #' @description upload complete exercise, message CO Score results
-#' @return [httr::content()] output of response to http request, invisibly
+#' @return [httr::content()] output of response to http request, invisibly.
+#'         Or [httr::POST()] response, if `fullout=TRUE`.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_local_score] for teachers, [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
@@ -14,8 +15,11 @@
 #'            referenced there, with the changes by the student, saved.
 #'            DEFAULT: "."
 #' @param submit Submit grade to openHPI? Only to be set when called from [rt_submit()]!.
+#' @param fullout Return full [httr::POST()] output, instead of
+#'            [httr::content]`("parsed", "application/json")[[1]]`?
+#'            Mainly for development debugging. DEFAULT: FALSE
 #'
-rt_score <- function(dir=".", submit=FALSE)
+rt_score <- function(dir=".", submit=FALSE, fullout=FALSE)
 {
 # Avoid recursive posting, so we can have rt_score() in the exercise script:
 if(!interactive()) return(NULL)
@@ -83,5 +87,5 @@ mout <- paste0(mout, ", score: ", round(out$score*100), "%")
 if(out$status=="timeout") mout <- paste0("Testing your code took too long (",
 													round(out$container_execution_time,1), " secs)", mout)
 message(mout) # print messages + score from codeOcean
-return(invisible(out))
+return(invisible(if(fullout) r else out))
 }

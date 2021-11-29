@@ -4,7 +4,7 @@
 \alias{rt_score}
 \title{upload exercise to codeOcean}
 \usage{
-rt_score(dir = ".", submit = FALSE)
+rt_score(dir = ".", submit = FALSE, fullout = FALSE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
@@ -13,9 +13,14 @@ referenced there, with the changes by the student, saved.
 DEFAULT: "."}
 
 \item{submit}{Submit grade to openHPI? Only to be set when called from \code{\link[=rt_submit]{rt_submit()}}!.}
+
+\item{fullout}{Return full \code{\link[httr:POST]{httr::POST()}} output, instead of
+\link[httr:content]{httr::content}\verb{("parsed", "application/json")[[1]]}?
+Mainly for development debugging. DEFAULT: FALSE}
 }
 \value{
-\code{\link[httr:content]{httr::content()}} output of response to http request, invisibly
+\code{\link[httr:content]{httr::content()}} output of response to http request, invisibly.
+Or \code{\link[httr:POST]{httr::POST()}} response, if \code{fullout=TRUE}.
 }
 \description{
 upload complete exercise, message CO Score results
