@@ -80,6 +80,8 @@ mout <- sub("Rscript.*tests.R\n", "", mout)
 mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
 mout <- gsub("\n$", "", mout)
 mout <- paste0(mout, ", score: ", round(out$score*100), "%")
+if(out$status=="timeout") mout <- paste0("Testing your code took too long (",
+													round(out$container_execution_time,1), " secs)", mout)
 message(mout) # print messages + score from codeOcean
 return(invisible(out))
 }
