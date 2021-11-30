@@ -1,8 +1,8 @@
 # Create files with template for new exercise
 
 dir <- "C:/Dropbox/R/kurs/en_exercises/"
-name <- "grex5_Graphics1"
-nfiles <- 1
+name <- "grex6_Graphics2"
+nfiles <- 3
 overwrite <- FALSE
 
 # scripts:
@@ -34,7 +34,7 @@ cat("# ",fn_t,
 		"\nlibrary(codeoceanR) # tests.R at https://github.com/openHPI/codeoceanR/tree/main/inst/extdata",
 		"\nrt_test_exercise({\n\n", sep="", file=fn_t2)
 for(i in 1:nfiles) cat("script",i," <- rt_run_script(\"",fn_s[i],"\") # script ",i," ----\n\n",
-								 paste0("rt_test_task(",1:10,", script",i,", xx, xx)", collapse="\n"),
+								 paste0("rt_test_task(",1:10,", xx, xx)", collapse="\n"),
 								 "\n\n", sep="", file=fn_t2, append=TRUE)
 cat("})\n", file=fn_t2, append=TRUE)
 
