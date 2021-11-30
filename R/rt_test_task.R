@@ -141,14 +141,15 @@ if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, n
 } # end !null(value)
 
 
-# section ----
+# code section ----
 if(!is.null(section))
   {
 	code <- rt_script_section(script, section, name=deparse(substitute(script)))
 	if(isFALSE(code)) return(rt_env(fail=tnumber))
 	if(!is.null(solcode) && !rt_has_args(code=code, target=solcode, snumber=section,
-																			 nameonly=nameonly, stepwise=stepwise, alt=alt, opt=opt,
-																			 ignAssign=ignAssign)) return(rt_env(fail=tnumber))
+							nameonly=nameonly, class=class, intnum=intnum, dim=dim, names=names,
+							hasval=hasval, stepwise=stepwise, stepnames=stepnames,
+							alt=alt, opt=opt, ignAssign=ignAssign)) return(rt_env(fail=tnumber))
   }
 
 # further tests ----

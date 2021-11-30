@@ -27,7 +27,7 @@
 #' @param snumber  Section number for messaging.
 #' @param nameonly Check for e.g. 1:5 exactly, disallowing c(1,2,3,4,5).
 #'                 DEFAULT: FALSE
-#' @param stepwise Passed to [rt_test_object]. DEFAULT: NULL
+#' @param class,intnum,dim,names,hasval,stepwise,stepnames Passed to [rt_test_object], see [rt_test_task]
 #' @param alt      list of alternately accepted inputs.
 #'                 Use list(argname="anyval") to skip value test. DEFAULT: NULL
 #' @param opt      Charstring vector of arguments that are optional.
@@ -38,7 +38,13 @@ code,
 target,
 snumber,
 nameonly=FALSE,
+class=NULL,
+intnum=TRUE,
+dim=TRUE,
+names=TRUE,
+hasval=TRUE,
 stepwise=NULL,
+stepnames=FALSE,
 alt=NULL,
 opt=NULL,
 ignAssign=FALSE
@@ -122,7 +128,8 @@ for(n in names(i_arg))
 	if(n %in% opt && !n %in% names(u_arg)) inalt <- TRUE
 	if(isTRUE(alt[[n]]=="anyval") || isTRUE(inalt)) next
 	if(!rt_test_object(u_arg[[n]], i_arg[[n]], name=paste0(cs,": argument '",n,"'"),
-										 qmark=FALSE, stepwise=stepwise)) return(FALSE)
+										 qmark=FALSE, class=class, intnum=intnum, dim=dim, names=names,
+										 hasval=hasval, stepwise=stepwise, stepnames=stepnames)) return(FALSE)
   }
 
 # If all arguments are correct:

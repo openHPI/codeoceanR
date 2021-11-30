@@ -9,7 +9,13 @@ rt_has_args(
   target,
   snumber,
   nameonly = FALSE,
+  class = NULL,
+  intnum = TRUE,
+  dim = TRUE,
+  names = TRUE,
+  hasval = TRUE,
   stepwise = NULL,
+  stepnames = FALSE,
   alt = NULL,
   opt = NULL,
   ignAssign = FALSE
@@ -25,7 +31,7 @@ rt_has_args(
 \item{nameonly}{Check for e.g. 1:5 exactly, disallowing c(1,2,3,4,5).
 DEFAULT: FALSE}
 
-\item{stepwise}{Passed to \link{rt_test_object}. DEFAULT: NULL}
+\item{class, intnum, dim, names, hasval, stepwise, stepnames}{Passed to \link{rt_test_object}, see \link{rt_test_task}}
 
 \item{alt}{list of alternately accepted inputs.
 Use list(argname="anyval") to skip value test. DEFAULT: NULL}
