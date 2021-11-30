@@ -116,7 +116,13 @@ if(correct && !is.function(value))
 	  }
 	if(!isTRUE(all.equal(sort(object),sort(value))))
 		{
-	  rt_warn("The correct answer for '",n,"' is not ", toString(object), ".")
+		toString2 <- function(x)
+      {
+      if(is.null(names(value))) return(toString(x))
+      if(is.null(names(x))) return("given: it should have names")
+      paste0(names(x),"=",x, collapse=", ")
+      }
+	  rt_warn("The correct answer for '",n,"' is not ", toString2(object), ".")
 	  return(rt_env(fail=tnumber))
 	  }
   }
