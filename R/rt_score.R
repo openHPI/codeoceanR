@@ -70,12 +70,16 @@ if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
 	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))',
 	call.=FALSE)
-if(submit) return(r)
 if(httr::status_code(r) >= 300)
   {
-	httr::warn_for_status(r)
-  return(r)
+	w <- httr::http_condition(r, "warning")$message
+	w <- paste0(w, "\ncontent message: ", httr::content(r)$message)
+	if(httr::status_code(r) == 503)
+	w <- paste0(w, "\nTry scoring a different exercise, then score this one again.")
+	warning(w, call.=FALSE)
+  return(invisible(r))
   }
+if(submit) return(r)
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
