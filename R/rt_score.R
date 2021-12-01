@@ -91,8 +91,15 @@ mout <- gsub("\n$", "", mout)
 mout <- paste0(mout, ", score: ", round(out$score*100), "%")
 if(out$status=="timeout") mout <- paste0("Testing your code took too long (",
 													round(out$container_execution_time,1), " secs)", mout)
-if(out$status=="failed") mout <- paste0("A problem occured while testing:\n",
+if(out$status=="failed")
+	{
+	out2 <- out
+	out2$stdout <- NULL
+	out2$error_messages <- NULL
+	print(str(out2))
+	mout <- paste0("A problem occured while testing:\n", #  && trimws(out$stderr)!=""
 													out$stderr, "Please report this to Berry\nERROR", mout)
+  }
 message(mout) # print messages + score from codeOcean
 return(invisible(if(fullout) r else out))
 }
