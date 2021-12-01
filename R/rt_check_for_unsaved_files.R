@@ -3,6 +3,7 @@
 #'              Rstudio R project file tabs contain unsaved changes.
 #' @return NULL if all files are saved. Otherwise, if `warnonly=TRUE`, the names of changed but unsaved files.
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
+#' @importFrom berryFunctions checkFile normalizePathCP
 #' @seealso [rt_score]
 #'
 #' @param dir      Path to (processed) exercise folder.

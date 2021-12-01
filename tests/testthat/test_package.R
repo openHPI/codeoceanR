@@ -40,8 +40,12 @@ fun <- function(x) x
 x <- 555
 testm(rt_test_task(7, fun, sol, inputs=c("1:5", "c(2,3,4)")),
       "T7: 'fun(1:5)[1]' should be '2', not '1'.", fixed=TRUE)
-# ToDo: expand this a lot!
 
+fun <- function(x) data.frame(x)
+testm(rt_test_task(7, fun, sol, inputs=c("1:5", "4:2)")),
+			"T7: 'fun(1:5)' should have class 'numeric', not 'data.frame'.", fixed=TRUE)
+
+# ToDo: expand this a lot!
 })
 
 

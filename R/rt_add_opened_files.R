@@ -5,6 +5,8 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_create()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords internal
+#' @importFrom berryFunctions checkFile normalizePathCP
+#' @importFrom tools file_ext
 #'
 #' @param file Filename(s) to be added, without path, must be present at `dir`.
 #' @param dir  Target directory with a .Rproj file. DEFAULT: "." [getwd()]

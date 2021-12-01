@@ -61,6 +61,7 @@ return(id)
 #' @return Hexadecimal ID charstring
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2020
 #' @seealso [rt_get_context_id()]
+#' @importFrom berryFunctions checkFile normalizePathCP
 #' @export
 #' @param dir Path to some folder containing a .Rproj file
 #'            and hence a (hidden) ".Rproj.user" folder. DEFAULT: "."

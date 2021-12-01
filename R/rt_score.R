@@ -5,9 +5,10 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_local_score] for teachers, [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
-#' @importFrom httr POST content_type warn_for_status content
+#' @importFrom httr POST content_type content status_code http_condition
 #' @importFrom rjson toJSON
 #' @importFrom utils browseURL
+#' @importFrom berryFunctions checkFile normalizePathCP
 #' @export
 #'
 #' @param dir Path to (processed) exercise folder.

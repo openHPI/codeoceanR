@@ -13,7 +13,7 @@ rt_read_cofile <- function(cofile)
 dir <- berryFunctions::normalizePathCP(dirname(cofile))
 if(!file.exists(cofile)) stop("You're not in a CodeOcean exercise directory. ",
 					"The file '.co' does not exist. \nYou're at '", dir, "'\n",
-					"Make sure you have run rt_create_task() and the 'zz_exercise*.Rproj' file has been opened.\n",
+					"Make sure you have run rt_create_task() and the 'zz_*.Rproj' file has been opened.\n",
 					"In Rstudio on the top right, the R Project symbol should show the exercise name.", call.=FALSE)
 
 co <- readLines(cofile, warn=FALSE)
