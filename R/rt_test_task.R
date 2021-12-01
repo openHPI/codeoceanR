@@ -161,8 +161,8 @@ if(!is.null(section))
 # further tests ----
 obs <- ls(parent.frame(1))
 obs <- obs[!obs %in% c("expr")]
-for(n in obs) assign(n, get(n,parent.frame(1)))
-for(e in export) assign(e, dynGet(e)) # for custom test functions etc
+for(nn in obs)    assign(nn, get(nn,parent.frame(1)))
+for(ee in export) assign(ee, dynGet(ee)             ) # for custom test functions etc
 for(i in seq_len(...length())  )
    # if(!...elt(i)) return(rt_env(fail=tnumber))
    # evaluate here, where `code` exists (if section is given)

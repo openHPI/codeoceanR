@@ -30,6 +30,22 @@ source("argtests.R")
 })
 
 
+# rt_test_object ----
+
+test_that("rt_test_object warns correctly", {
+
+testm <- if(interactive()) testthat::expect_message else testthat::expect_output
+sol <- function(x) x+1
+fun <- function(x) x
+x <- 555
+testm(rt_test_task(7, fun, sol, inputs=c("1:5", "c(2,3,4)")),
+      "T7: 'fun(1:5)[1]' should be '2', not '1'.", fixed=TRUE)
+# ToDo: expand this a lot!
+
+})
+
+
+
 # rt_run_script ----
 
 script <- rt_run_script("scriptEx.R")
