@@ -92,8 +92,10 @@ attach(eval(u_arg$data), warn.conflicts=FALSE)
 argfun <- function(x) if(is.character(x)) dQuote(x, '"') else
 	                    if(nameonly       ) deparse(x) else
 	                    	                  eval(x)
-u_arg <- lapply(u_arg, argfun)
+u_arg <- try(lapply(u_arg, argfun), silent=TRUE)
 i_arg <- lapply(i_arg, argfun)
+if(inherits(u_arg,"try-error")) return(rt_warn(cs," could not be evaluated: ",
+																							 sub("\n$","",u_arg)))
 
 # if not named, formula is matched to 'x' in plot & boxplot, to 'height' in barplot
 formula2xy <- function(xx)
