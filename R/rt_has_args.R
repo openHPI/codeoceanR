@@ -65,7 +65,8 @@ target <- str2lang(target)
 u_fun <- code2[[1]]
 # Intended solution:
 i_fun <- target[[1]]
-if(i_fun != u_fun) return(rt_warn(cs," should contain the function '",i_fun,"', not '",u_fun,"'."))
+if(i_fun != u_fun) return(rt_warn(cs," should contain the function '",
+																	deparse(i_fun),"', not '",deparse(u_fun),"'."))
 
 # user and intended arguments
 # args to avoid invalid 'definition' argument error: https://stackoverflow.com/a/63124703
