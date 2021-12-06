@@ -1,7 +1,7 @@
 # Create files with template for new exercise
 
 dir <- "C:/Dropbox/R/kurs/en_exercises/"
-name <- "grex6_Graphics2"
+name <- "grex7_FlowControl"
 nfiles <- 3
 overwrite <- FALSE
 
@@ -40,8 +40,18 @@ cat("})\n", file=fn_t2, append=TRUE)
 
 
 
-# OLD FUNCTIONS ----------------
 if(FALSE){
+googlesheets4::gs4_auth("berryboessenkool@hotmail.com")
+# task database (tdb):
+tdb <- googlesheets4::read_sheet("1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ")
+clipr::write_clip(tdb[51:59,4]) # column 3 for tasks, 4 for tests
+
+
+
+
+# OLD FUNCTIONS ----------------
+
+
 
 #' @title Add task from database to script
 #' @description Add a task from the database to `script_x.R`
