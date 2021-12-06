@@ -7,7 +7,7 @@
 #' @keywords test
 #' @importFrom httr POST content_type content status_code http_condition
 #' @importFrom rjson toJSON
-#' @importFrom utils browseURL
+#' @importFrom utils browseURL str
 #' @importFrom berryFunctions checkFile normalizePathCP
 #' @export
 #'
