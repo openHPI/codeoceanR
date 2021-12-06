@@ -97,7 +97,6 @@ Will be called with \code{eval(str2lang(paste0("object(",input_i,")")))}.
 Object names within rt_test_exercise are not available within rt_test_task,
 unless listed in \code{export}.
 For single-argument functions, numerical input works fine, too.
-These are the only tests run AFTER ...-tests are run.
 DEFAULT: NULL}
 
 \item{export}{Character vector with object names to be assigned into evaluation environment.

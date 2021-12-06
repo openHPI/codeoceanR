@@ -54,7 +54,6 @@
 #'                 Object names within rt_test_exercise are not available within rt_test_task,
 #'                 unless listed in `export`.
 #'                 For single-argument functions, numerical input works fine, too.
-#'                 These are the only tests run AFTER ...-tests are run.
 #'                 DEFAULT: NULL
 #' @param export   Character vector with object names to be assigned into evaluation environment.
 #'                 DEFAULT: NULL
@@ -156,24 +155,13 @@ if(!is.null(section))
 							nameonly=nameonly, class=class, intnum=intnum, dim=dim, names=names,
 							hasval=hasval, stepwise=stepwise, stepnames=stepnames,
 							alt=alt, opt=opt, ignAssign=ignAssign)) return(rt_env(fail=tnumber))
+	assign("code", code, parent.frame()) # for further tests
   }
 
-# further tests ----
-obs <- ls(parent.frame(1))
-obs <- obs[!obs %in% c("expr")]
-for(nn in obs)    assign(nn, get(nn,parent.frame(1)))
-for(ee in export) assign(ee, dynGet(ee)             ) # for custom test functions etc
-for(i in seq_len(...length())  )
-   # if(!...elt(i)) return(rt_env(fail=tnumber))
-   # evaluate here, where `code` exists (if section is given)
-   if(!eval(substitute(switch(i, ...)))) return(rt_env(fail=tnumber))
-
 # function inputs ----
-if(is.function(value))
+if(is.function(value) && !is.null(inputs))
 {
-if(!is.null(inputs) && !is.null(export))
-	for(e in export) assign(e, dynGet(e)) # get from parent frame (not parent env)
-if(!is.null(inputs))
+for(e in export) assign(e, dynGet(e)) # get from parent frame (not parent env)
 for(i in inputs)
   {
 	vec <- function(x) if(length(x)==1) x else rt_vec(x)
@@ -193,7 +181,14 @@ for(i in inputs)
 	  hasval=hasval, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
 	} # end for loop
 }
+
+# further tests ----
+for(i in seq_len(...length())  )
+   if(!...elt(i)) return(rt_env(fail=tnumber))
+
+
 # pass ----
 # set rt_test_env$success[tnumber] to TRUE if all tests passed:
 rt_env(pass=tnumber)
 }
+
