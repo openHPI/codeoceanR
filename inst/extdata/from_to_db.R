@@ -1,8 +1,8 @@
 # Create files with template for new exercise
 
 dir <- "C:/Dropbox/R/kurs/en_exercises/"
-name <- "grex7_FlowControl"
-nfiles <- 3
+name <- "midterm"
+nfiles <- 6
 overwrite <- FALSE
 
 # scripts:
@@ -15,7 +15,7 @@ fc_s <- paste0("codeoceanR::rt_score()\n\n",
 
 # If you want to see your score on openHPI, submit it with:
 # codeoceanR::rt_submit()
-# This is optional: for the grade, the maximum score within 20 minutes is used,
+# This is optional: for the grade, the maximum score within 90 minutes is used,
 # even if later scores were lower.
 # If within 10 min extra time, 80% of your total score is better than the previous,
 # it will be used instead.
@@ -44,10 +44,11 @@ if(FALSE){
 googlesheets4::gs4_auth("berryboessenkool@hotmail.com")
 # task database (tdb):
 tdb <- googlesheets4::read_sheet("1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ")
-clipr::write_clip(tdb[51:59,4]) # column 3 for tasks, 4 for tests
+clipr::write_clip(tdb[,4]) # column 3 for tasks, 4 for tests
 
-
-
+tdb <- googlesheets4::read_sheet("1ggSOYQ_veXgPmvA8cHCLnASkLUvc6-3t6UhJWPRPVoQ",
+																 sheet="midterm",col_names=FALSE)[,4]
+clipr::write_clip(paste0(unlist(tdb),"\n"))
 
 # OLD FUNCTIONS ----------------
 
