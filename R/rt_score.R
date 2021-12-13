@@ -100,6 +100,11 @@ if(out$status=="failed")
 	mout <- paste0("A problem occured while testing:\n", #  && trimws(out$stderr)!=""
 													out$stderr, "Please report this to Berry\nERROR", mout)
   }
+if(trimws(out$stderr)!="")
+	{
+	mout <- paste0("A warning occured while testing:\n",
+													out$stderr, "Please report this to Berry\n", mout)
+  }
 message(mout) # print messages + score from codeOcean
 return(invisible(if(fullout) r else out))
 }
