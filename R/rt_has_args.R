@@ -107,7 +107,7 @@ formula2xy <- function(xx)
   if(inherits(xx[["height"]], "formula")) names(xx)[names(xx)=="height"] <- "formula"
   if("formula" %in% names(xx) && ! "x" %in% names(xx) && ! "y" %in% names(xx))
     {
-    coord <- try(xy.coords(xx$formula), silent=TRUE)
+    coord <- suppressWarnings(try(xy.coords(xx$formula), silent=TRUE))
     if(inherits(coord, "try-error"))
     {
     rt_warn("Evaluation of formula '", deparse(xx$formula), "': ", coord)
