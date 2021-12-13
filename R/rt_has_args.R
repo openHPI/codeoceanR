@@ -1,5 +1,7 @@
 #' @title Check code chunk with function call for correct arguments, e.g. in plotting tasks.
-#' @description Check student code for certain argument values. Matching is done internally.
+#' @description Check student code for certain argument values. Matching is done internally.\cr\cr
+#' **Note**: in custom tests, use [str2expression] instead of [str2lang] to handle code with line breaks.\cr
+#' Here, they are collapsed with `\n` as code sections are expected to have one single command only.
 #' @details Used to be covered by [rt_has_argument], which might be deprecated.
 #' @return TRUE / FALSE
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2021

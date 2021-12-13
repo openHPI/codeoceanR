@@ -45,7 +45,9 @@ Mostly for the formula interface, I guess. DEFAULT: NULL}
 TRUE / FALSE
 }
 \description{
-Check student code for certain argument values. Matching is done internally.
+Check student code for certain argument values. Matching is done internally.\cr\cr
+\strong{Note}: in custom tests, use \link{str2expression} instead of \link{str2lang} to handle code with line breaks.\cr
+Here, they are collapsed with \verb{\\n} as code sections are expected to have one single command only.
 }
 \details{
 Used to be covered by \link{rt_has_argument}, which might be deprecated.
