@@ -31,6 +31,8 @@ by default NOT collapsed (linebreaks replaced with ;) through \link{paste}
 }
 \description{
 Select the section of the script code between \verb{t*_start} and \verb{t*_end} for further analysis in tests.
+For manual evaluation, use \code{\link{eval}}\code{(}\code{\link{str2expression}}\verb{(code))},
+not \code{\link{str2lang}}, in case students use line breaks.
 }
 \seealso{
 \link{rt_test_task}, \link{rt_run_script}, \link{rt_has_args},

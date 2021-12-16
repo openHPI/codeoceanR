@@ -1,5 +1,7 @@
 #' @title Select section of a script
 #' @description Select the section of the script code between `t*_start` and `t*_end` for further analysis in tests.
+#' For manual evaluation, use [`eval`]`(`[`str2expression`]`(code))`,
+#' not [`str2lang`], in case students use line breaks.
 #' @return FALSE for failure, otherwise selected lines of the script,
 #'         by default NOT collapsed (linebreaks replaced with ;) through [paste]
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020 + Nov 2021

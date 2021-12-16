@@ -40,7 +40,10 @@
 #' @param stepwise stepwise parameter in [rt_has_value]. TRUE for arrays. DEFAULT: NULL
 #' @param stepnames stepwise parameter for names check. DEFAULT: NULL
 #' @param section  Section number to be read with [rt_script_section] into `code`
-#'                 which is then available in ... tests. DEFAULT: NULL
+#'                 which is then available in ... tests.
+#'                 For manual evaluation, use [`eval`]`(`[`str2expression`]`(code))`,
+#'                 not [`str2lang`], in case students use line breaks.
+#'                 `section` DEFAULT: NULL
 #' @param script   Exercise script content from [rt_run_script].
 #'                 Passed to [rt_script_section]. DEFAULT: NULL
 #' @param solcode  Solution code (charstring) to be checked with [rt_has_args]. DEFAULT: NULL

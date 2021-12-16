@@ -76,7 +76,10 @@ DEFAULT: TRUE}
 \item{stepnames}{stepwise parameter for names check. DEFAULT: NULL}
 
 \item{section}{Section number to be read with \link{rt_script_section} into \code{code}
-which is then available in ... tests. DEFAULT: NULL}
+which is then available in ... tests.
+For manual evaluation, use \code{\link{eval}}\code{(}\code{\link{str2expression}}\verb{(code))},
+not \code{\link{str2lang}}, in case students use line breaks.
+\code{section} DEFAULT: NULL}
 
 \item{script}{Exercise script content from \link{rt_run_script}.
 Passed to \link{rt_script_section}. DEFAULT: NULL}
