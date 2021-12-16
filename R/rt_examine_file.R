@@ -70,7 +70,7 @@ if(!is.null(rnames))
  if(hasrn!=rnames) return(rt_warn("The file '",fn,"' should ",if(!rnames)"not ","contain rownames."))
  }
 # colnames:
-if(header && !is.null(value) && nrow(val)!=nrow(value)) rt_warn("The file '",fn,"' should have column names.")
+if(header && !is.null(value) && nrow(val)==nrow(value)-1) rt_warn("The file '",fn,"' should have column names.")
 # correct values?
 if(!is.null(value) && !rt_test_object(val, value, name=cmd, stepnames=stepnames, ...)) return(FALSE)
 # pass:
