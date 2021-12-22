@@ -15,8 +15,6 @@
 rt_add_opened_files <- function(files, dir=".", contextid=rt_get_context_id())
 {
 # check files and dir ----
-if(rt_is_OS("Linux")) files <- rev(files) # Not sure if this is needed on all Linux versions...
-#
 fullfiles <- paste0(dir,"/",files)
 names(fullfiles) <- files
 berryFunctions::checkFile(fullfiles, pwd=FALSE)

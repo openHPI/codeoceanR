@@ -15,6 +15,11 @@ install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR")
 ```
 
+On Linux, first run both commands below (and follow the instructions e.g. `sudo apt install libcurl4-openssl-dev`):
+```r
+install.packages("curl")
+install.packages("openssl")
+```
 
 #### procedure
 
