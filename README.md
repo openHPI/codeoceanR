@@ -223,6 +223,6 @@ The source code for codeOcean itself is online at <https://github.com/openHPI/co
 
  Updating codeoceanR on the CO-server is a two-step process:  
 - In [GH docker actions](https://github.com/openHPI/dockerfiles/actions/workflows/r-4.yml), click 'Run workflow' then again 'Run workflow'. Wait 5 minutes.  
-- In [CO execution environment](https://codeocean.openhpi.de/execution_environments/28), from the dropdown next to 'Edit', click 'Synchronize'. Should be done in a few seconds.  
+- In [CO execution environment](https://codeocean.openhpi.de/execution_environments/28), from the dropdown next to 'Edit', click 'Synchronize'. Should be done in a few seconds. Try to do this when no one is scoring exercises, as all running containers are interrupted.  
 - Wait 3 minutes without score/run (generates new runner container in next run), then copy `packageVersion("codeoceanR")` to any script and run it to check whether the update was successfull.
 
