@@ -10,25 +10,27 @@
 #' @param filename Path of script to be run
 #' @param quiet    If TRUE, suppress printed output, messages and warnings.
 #'                 Errors are handled separately. DEFAULT: TRUE
+#' @param echo     If TRUE, return the [sink()] log of [source()] with `echo=TRUE`
+#'                 instead of the raw script lines.
 #'
-rt_run_script <- function(filename, quiet=TRUE){
+rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
   rt_env(id=paste0(" ", filename))
   if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
                                       "'. current getwd: ", getwd()); return(FALSE)}
   # exclude recursive score calls:
-  fcontent <- readLines(filename, warn=FALSE)
+  fcontent <- readLines(filename, warn=FALSE, encoding="UTF-8")
   excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
           grepl("rt_score("      , fcontent, fixed=TRUE)
   fnew <- fcontent[!excl]
   tfile <- tempfile(fileext="_coscript.R")
+  lfile <- tempfile(fileext="_colog.txt")
   writeLines(fnew, tfile)
   # actually source the (modified) file:
-  if(!quiet) e <- try(source(tfile, local=parent.frame()), silent=TRUE) else
-  {
-  sink(tempfile())
-  e <- try(suppressWarnings(suppressMessages(source(tfile, local=parent.frame()))), silent=TRUE)
+  sink(lfile)
+  if(!quiet)
+  	e <- try(source(tfile, local=parent.frame(), echo=echo), silent=TRUE) else
+    e <- try(suppressWarnings(suppressMessages(source(tfile, local=parent.frame(), echo=echo))), silent=TRUE)
   sink()
-  }
   if(inherits(e, "try-error")) {
     e <- sub("^Error in source.*_coscript.R:","Error in line:column ",e)
     e <- gsub("\n"," ",e)
@@ -36,5 +38,5 @@ rt_run_script <- function(filename, quiet=TRUE){
     rt_warn("can not be executed. Make sure each line can be run.",
             "\n--- source() message: ", e)
     }
-  readLines(filename, warn=FALSE)
+  if(echo) return(readLines(lfile)) else return(fcontent)
 }

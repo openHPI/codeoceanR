@@ -4,13 +4,16 @@
 \alias{rt_run_script}
 \title{run student-submitted scripts}
 \usage{
-rt_run_script(filename, quiet = TRUE)
+rt_run_script(filename, quiet = TRUE, echo = FALSE)
 }
 \arguments{
 \item{filename}{Path of script to be run}
 
 \item{quiet}{If TRUE, suppress printed output, messages and warnings.
 Errors are handled separately. DEFAULT: TRUE}
+
+\item{echo}{If TRUE, return the \code{\link[=sink]{sink()}} log of \code{\link[=source]{source()}} with \code{echo=TRUE}
+instead of the raw script lines.}
 }
 \value{
 FALSE for failure, otherwise contents of the script, output of \code{\link[=readLines]{readLines()}}
