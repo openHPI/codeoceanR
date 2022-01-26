@@ -10,11 +10,11 @@ rt_test_exercise <- function(expr)
 {
 oop <- options(warn=1) # display warnings immediately, to aid tracking them down
 on.exit(options(oop), add=TRUE)
-rt_test_env <- new.env()
-rt_test_env$success <- vector()
-rt_env(id="na")
+rt_test_env <- list2env(rt_env(id="na")) # initialize environment
+
 # eval + substitute: https://stackoverflow.com/q/69570220/1587132
 trytests <- rt_try(eval(substitute(expr))) # rt_test_task calls
+
 #rt_env(id="t")
 if(inherits(trytests, "try-error"))
   {

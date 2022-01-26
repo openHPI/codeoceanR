@@ -7,7 +7,9 @@
 rt_warn(...)
 }
 \arguments{
-\item{\dots}{Message components passed to \code{\link[=warning]{warning()}} or \code{\link[=cat]{cat()}}.}
+\item{\dots}{Message components passed to \code{\link[=warning]{warning()}} or \code{\link[=cat]{cat()}}.
+Can be named de or en to only be shown for a specific language,
+see the examples}
 }
 \value{
 FALSE and console printout of \code{\link[=message]{message()}} in interactive mode (RStudio) or
@@ -18,6 +20,13 @@ pass test messages to Rstudio / CodeOcean.
 }
 \examples{
 rt_warn("This is a CodeOcean message!")
+rt_warn("This is message Nr ", 2+6, ".")
+rt_test_env <- list2env(rt_env(id=42))
+rt_warn(de="de1 ", en="en1 ", 77, de=" de2", en=" en2", "'", min(longley))
+invisible(rt_env(lang="de"))
+rt_warn(de="de1 ", en="en1 ", 77, de=" de2", en=" en2", "'", min(longley))
+# rt_env(lang="DE") # error message
+rm(rt_test_env)
 
 }
 \seealso{

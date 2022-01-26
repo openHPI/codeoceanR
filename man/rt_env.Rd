@@ -4,26 +4,31 @@
 \alias{rt_env}
 \title{interact with rt_test_env}
 \usage{
-rt_env(id = NULL, pass = NULL, fail = NULL)
+rt_env(id = NULL, lang = NULL, pass = NULL, fail = NULL)
 }
 \arguments{
-\item{id}{Number or charstring to be set as task ID for \link{rt_warn} messages. DEFAULT: NULL}
+\item{id}{Number or charstring to be set as task ID for \link{rt_warn} messages.
+DEFAULT: NULL}
+
+\item{lang}{Charstring with language for \link{rt_warn} messages.
+Currently, "en" and "de" are implemented. DEFAULT: NULL}
 
 \item{pass}{Number of task(s) to set as successfull. DEFAULT: NULL}
 
 \item{fail}{Number of task(s) to set as failed. DEFAULT: NULL}
 }
 \value{
-If \code{id} or no arguments are given, list with the env content.\cr
+If \code{id}, \code{lang} or no arguments are given, list with the env content.\cr
 If \code{pass} or \code{fail} are given, TRUE or FALSE respectively.\cr
 Later arguments are ignored if a prior argument is given.
 }
 \description{
-interact with rt_test_env, see \link{rt_test_exercise}
+interact with \code{rt_test_env}, see \link{rt_test_exercise}
 }
 \seealso{
 \link{rt_test_exercise}, which defines the env at the start
+and \link{rt_warn} with some examples
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2021
+Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2021, Jan 2022
 }

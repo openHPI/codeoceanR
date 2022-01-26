@@ -1,5 +1,7 @@
 # Structure of task files
 
+# codeoceanR:::rt_env(lang="de") # you as student can choose German messages if you like
+
 # Task 1 -----
 # Create an object named 'my_first_object' with the number 99.
 

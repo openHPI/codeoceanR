@@ -15,6 +15,8 @@ library(codeoceanR) # for all functions prefixed with rt_
 
 rt_test_exercise({
 
+# rt_env(lang="de") # to have German messages
+
 script1 <- rt_run_script("examples_1.R") # script 1 ----
 
 rt_test_task(1, my_first_object , 99)
