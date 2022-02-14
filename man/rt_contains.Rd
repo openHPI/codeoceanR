@@ -41,7 +41,6 @@ Logical: TRUE / FALSE depending on whether \code{object} contains \code{value}.
 Test whether object contains certain value(s)
 }
 \examples{
-rt_test_env <- new.env()
 rt_contains(1:7, 6)
 rt_contains(1:7, 8)
 rt_contains(1:7, 5:6)

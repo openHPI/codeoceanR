@@ -9,7 +9,8 @@
 #' @examples
 #' rt_warn("This is a CodeOcean message!")
 #' rt_warn("This is message Nr ", 2+6, ".")
-#' rt_test_env <- list2env(rt_env(id=42))
+#' rt_env <- codeoceanR:::rt_env # not exported to keep UI clean.
+#' rt_test_env <- list2env(rt_env(lang="en"))
 #' rt_warn(de="de1 ", en="en1 ", 77, de=" de2", en=" en2", "'", min(longley))
 #' invisible(rt_env(lang="de"))
 #' rt_warn(de="de1 ", en="en1 ", 77, de=" de2", en=" en2", "'", min(longley))

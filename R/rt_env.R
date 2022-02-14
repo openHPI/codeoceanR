@@ -1,5 +1,6 @@
 #' @title interact with rt_test_env
-#' @description interact with `rt_test_env`, see [rt_test_exercise]
+#' @description interact with `rt_test_env`, see [rt_test_exercise].\cr
+#' Remember to use [list2env()] on the first call, see [rt_warn] examples.
 #' @return If `id`, `lang` or no arguments are given, list with the env content.\cr
 #'         If `pass` or `fail` are given, TRUE or FALSE respectively.\cr
 #'         Later arguments are ignored if a prior argument is given.

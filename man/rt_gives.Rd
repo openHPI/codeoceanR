@@ -47,7 +47,6 @@ the captured messages themselves if \code{msg=TRUE}.
 Does code produce a wanted echo (\link{message} + \link{cat} + \link{print}), warning or error?
 }
 \examples{
-rt_test_env <- new.env()
 # captured messages:
 rt_gives("echo", {77; 88; 99}, value=TRUE)           # 99
 rt_gives("echo", cat("line\nwith break"), capt=TRUE) # "line\\nwith break"

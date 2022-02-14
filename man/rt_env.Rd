@@ -23,7 +23,8 @@ If \code{pass} or \code{fail} are given, TRUE or FALSE respectively.\cr
 Later arguments are ignored if a prior argument is given.
 }
 \description{
-interact with \code{rt_test_env}, see \link{rt_test_exercise}
+interact with \code{rt_test_env}, see \link{rt_test_exercise}.\cr
+Remember to use \code{\link[=list2env]{list2env()}} on the first call, see \link{rt_warn} examples.
 }
 \seealso{
 \link{rt_test_exercise}, which defines the env at the start

@@ -5,7 +5,6 @@
 #' @seealso [capture.output], [try], \url{https://stackoverflow.com/a/4947528/1587132}
 #' @export
 #' @examples
-#' rt_test_env <- new.env()
 #' # captured messages:
 #' rt_gives("echo", {77; 88; 99}, value=TRUE)           # 99
 #' rt_gives("echo", cat("line\nwith break"), capt=TRUE) # "line\\nwith break"

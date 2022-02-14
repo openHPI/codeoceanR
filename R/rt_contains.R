@@ -5,7 +5,6 @@
 #' @seealso [rt_has_value], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
 #' @examples
-#' rt_test_env <- new.env()
 #' rt_contains(1:7, 6)
 #' rt_contains(1:7, 8)
 #' rt_contains(1:7, 5:6)
