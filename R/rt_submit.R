@@ -18,8 +18,16 @@ rt_submit <- function(dir=".")
 # on the CO server (non-interactive mode), readline returns ""
 if(!interactive()) return(NULL)
 
-rl <- readline("This is my final grade submission (y/n): ")
-if(tolower(substr(rl,1,1)) != "y") stop("Submission has been canceled.")
+de <- rt_default_language=="de"
+if(de)
+{
+rl <- readline("Dies ist meine endgültige Übertragung des Punktestandes an openHPI (j/n): ")
+if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Die Einreichung wurde abgebrochen.")
+} else
+{
+rl <- readline("This is my final grade submission to openHPI (y/n): ")
+if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Submission has been canceled.")
+}
 
 r <- rt_score(dir, submit=TRUE)
 if(is.null(r)) stop("rt_score result is NULL, probably rt_local_score has been invoked.")
@@ -34,7 +42,12 @@ if(is.null(r)) stop("rt_score result is NULL, probably rt_local_score has been i
 
 erm <- httr::http_condition(r, "error")$message
 if(!httr::status_code(r) %in% c(202, 207))
-	warning("Looks like something went wrong in the submission process. Sorry! ",
+	if(de)
+	warning("Scheinbar gab es einen Fehler bei der Punkteübertragung, Pardon!",
+					"\nSende folgende Nachricht bitte an Berry, damit das zukünftig vermieden werden kann.",
+					toString(erm), call.=FALSE)
+  else
+  warning("Looks like something went wrong in the submission process. Sorry! ",
 					"\nPlease send to following message to Berry, so it can be avoided next time.",
 					"\n(Your grade will be added manually, so you really need to let him know.)\n",
 					toString(erm), call.=FALSE)
@@ -42,9 +55,14 @@ httr::stop_for_status(r) # if any, pass http errors to R
 
 # Message + score from codeOcean
 out <- httr::content(r, "parsed", "application/json")
+if(de)
+message(out$message, "\nDie übertragene Bewertung ist ", round(out$score,2), "%.",
+				"\nArbeite gerne weiter an der Aufgabe, auch mit rt_score(), ",
+				"aber submitte bitte nicht nochmal. Danke :)")
+else
 message(out$message, "\nThe submitted score is ", round(out$score,2), "%.",
 				"\nFeel free to continue the exercise, including running rt_score(), ",
-				"but don't submit again.")
+				"but don't submit again. Thanks :)")
 
 # Output
 return(invisible(r))

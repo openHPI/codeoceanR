@@ -24,6 +24,7 @@ rt_score <- function(dir=".", submit=FALSE, fullout=FALSE)
 {
 # Avoid recursive posting, so we can have rt_score() in the exercise script:
 if(!interactive()) return(NULL)
+de <- rt_default_language=="de"
 
 # Check directory and file
 dir <- berryFunctions::normalizePathCP(dir)
@@ -68,15 +69,21 @@ body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
 r <- httr::POST(url=co_url, body=body, config=httr::content_type("application/json"))
 erm <- httr::http_condition(r, "error")$message
 if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
+	if(de)
+	warning("Bist du über ein VPN online? Versuche es nochmal ohne Proxy. Alternativ hilft vielleicht Folgendes:\n",
+	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))', call.=FALSE)
+  else
 	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
-	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))',
-	call.=FALSE)
+	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))', call.=FALSE)
 if(httr::status_code(r) >= 300)
   {
 	w <- httr::http_condition(r, "warning")$message
 	w <- paste0(w, "\ncontent message: ", httr::content(r)$message)
 	if(httr::status_code(r) == 503)
-	w <- paste0(w, "\nTry scoring a different exercise, then score this one again.")
+    if(de)
+      w <- paste0(w, "\nVersuche, eine andere Aufgabe zu scoren, dann diese nochmal.")
+    else
+      w <- paste0(w, "\nTry scoring a different exercise, then score this one again.")
 	warning(w, call.=FALSE)
   return(invisible(r))
   }
@@ -89,21 +96,22 @@ mout <- sub("Rscript.*tests.R\n", "", mout)
 mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
 mout <- gsub("\n$", "", mout)
 mout <- paste0(mout, ", score: ", round(out$score*100), "%")
-if(out$status=="timeout") mout <- paste0("Testing your code took too long (",
-													round(out$container_execution_time,1), " secs)", mout)
+if(out$status=="timeout")
+  mout <- paste0(if(de) "Das Testen deines Codes hat zulange gedauert (" else
+  "Testing your code took too long (", round(out$container_execution_time,1), " sec)", mout)
 if(out$status=="failed")
 	{
 	out2 <- out
 	out2$stdout <- NULL
 	out2$error_messages <- NULL
 	print(str(out2))
-	mout <- paste0("A problem occured while testing:\n", #  && trimws(out$stderr)!=""
-													out$stderr, "Please report this to Berry\nERROR", mout)
+	mout <- paste0(if(de) "Beim Testen deines Codes trat ein Problem auf:\n" else "A problem occured while testing:\n",
+	  out$stderr, if(de) "Bitte informiere Berry.\nFEHLER" else "Please report this to Berry.\nERROR", mout)
   }
 if(trimws(out$stderr)!="")
 	{
-	mout <- paste0("A warning occured while testing:\n",
-													out$stderr, "Please report this to Berry\n", mout)
+	mout <- paste0(if(de)"Beim Testen deines Codes trat eine Warnung auf:\n" else "A warning occured while testing:\n",
+		out$stderr, if(de)"Bitte informiere Berry.\n" else "Please report this to Berry.\n", mout)
   }
 message(mout) # print messages + score from codeOcean
 return(invisible(if(fullout) r else out))

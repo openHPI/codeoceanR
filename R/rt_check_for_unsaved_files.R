@@ -41,6 +41,10 @@ fn <- unlist(fn)
 # Prepare message:
 if(  length(fn)<1  ) return(NULL)
 p <- length(fn)>1 # plural?
+if(rt_default_language=="de")
+msg <- paste0("Die folgende Datei", if(p)"en haben" else " hat", " ungespeicherte Änderungen:\n- ",
+		paste(fn, collapse="\n- "), "\nSpeichere diese (CTRL+S) und führe rt_score() erneut aus.")
+else
 msg <- paste0("The following file", if(p)"s", " contain", if(!p)"s", " unsaved changes:\n- ",
 		 paste(fn, collapse="\n- "), "\nSave (CTRL+S) and run rt_score() again.")
 if(warnonly) warning(msg, call.=FALSE) else stop(msg, call.=FALSE)

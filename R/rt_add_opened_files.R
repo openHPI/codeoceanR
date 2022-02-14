@@ -21,7 +21,10 @@ berryFunctions::checkFile(fullfiles, pwd=FALSE)
 berryFunctions::checkFile(dir)
 dir <- berryFunctions::normalizePathCP(dir)
 # check whether .Rproj file is present:
-if(!any(grepl(".Rproj$", dir(dir)))) stop("No .Rproj file found at dir ", dir)
+if(!any(grepl(".Rproj$", dir(dir))))
+	if(rt_default_language=="de")
+		stop("Es gibt keine .Rproj Datei im Verzeichnis ", dir) else
+	  stop("There is no .Rproj file at dir ", dir)
 # create hidden directory for list of Rstudio opened source documents:
 sfdir <- paste0(dir, "/.Rproj.user/",contextid,"/sources/per/t/")
 if(!dir.exists(sfdir)) dir.create(sfdir, recursive=TRUE)

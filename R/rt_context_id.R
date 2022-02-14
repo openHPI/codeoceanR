@@ -10,8 +10,18 @@ rt_get_context_id <- function()
 # https://stackoverflow.com/a/55940249 , https://github.com/rstudio/rstudio/pull/5069
 failout <- function(txt="found", fn="")
   {
+	if(rt_default_language=="de")
+	   {
+	   txt = switch(txt, "found"="gefunden", txt)
+	   warning("Die Rstudio User Settings Datei wurde nicht ",txt, if(fn!="") paste0(fn, ".\n") else ". ",
+	   				"Skriptdateien in einem Rprojekt müssen manuell geöffnet werden.",
+	   				"\nDies sollte eigentlich nicht passieren. Bitte informiere Berry mit Angaben zum Betriebssystem um das für alle zu lösen.",
+	   				"\nFür dich selbst: starte irgendein .Rproj in Rstudio und führe dann aus:",
+	   				"  codeoceanR::rt_set_context_id()  \nNächstes mal sollte es dann klappen :).", call.=FALSE)
+     } else
 	warning("Rstudio User Settings file cannot be ",txt, if(fn!="") paste0(fn, ".\n") else ". ",
 					"Files will not already be opened in .Rproj.",
+					"\nPlease report this to Berry (with OS info) so it can be fixed in the future.",
 					"\nOpen any .Rproj in Rstudio, then run:  codeoceanR::rt_set_context_id()  ",
 					"to solve this for next time.", call.=FALSE)
 	return("5A57A303")
@@ -72,8 +82,13 @@ dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
 ids <- dir(paste0(dir,"/.Rproj.user"), pattern="^[a-zA-Z0-9]{8}$")
 ids <- ids[ids!="5A57A303"] # exclude failure output from rt_get_context_id
-if(length(ids)==0) stop("Could not find any context ID in dir ", dir)
-if(length(ids)!=1) warning("Found ", length(ids), " IDs in dir ", dir, "\nProceeding with ", ids[1])
+de <- rt_default_language=="de"
+if(length(ids)==0)
+	if(de) stop("Finde keine context ID im Ordner ", dir) else
+		     stop("Could not find any context ID in dir ", dir)
+if(length(ids)!=1)
+	if(de) warning("Finde ", length(ids), " context IDs im Ordner ", dir, "\nFahre fort mit ", ids[1]) else
+	       warning("Found ", length(ids), " context IDs in dir ", dir, "\nProceeding with ", ids[1])
 ids <- ids[1]
 cat(paste0('contextIdentifier="',ids,'"'), file="~/.rstudio_context_id_by_codeoceanR.txt")
 return(ids)
