@@ -76,7 +76,7 @@ u_arg <- as.list(match.call(args(eval(u_fun)), code2))[-1] # all args, except fu
 i_arg <- as.list(match.call(args(eval(i_fun)), target))[-1]
 
 if(is.null(names(i_arg))&&length(i_arg)>0) return(rt_warn(cs, ": argument names cannot be matched in trainer code. Please report this."))
-if(is.null(names(u_arg))&&length(u_arg)>0) return(rt_warn("Arguments in '",u_fun,"' must be named explicitely in ", cs,"."))
+if(is.null(names(u_arg))&&length(u_arg)>0) return(rt_warn("Arguments in '",deparse(u_fun),"' must be named explicitely in ", cs,"."))
 
 # Duplicated arguments:
 dup <- duplicated(names(u_arg))

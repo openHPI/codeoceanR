@@ -15,8 +15,11 @@ cv <- c("orange", "mediumpurple2")           # color vector
 ed <- data.frame(a=1:4, b=5:8, c=6:7, e=2:5) # example data.frame
 
 args("plot.default")
-args("seq") # is empty   -> hence test with seq
+args("seq") # is empty   -> hence test with seq (arguments must be named explicitely)
 length # is a primitive funtion, hence args(eval(u_fun)) and length tests
+
+rt_has_args(code="length(1:5)", target='length(cv)', snumber=7) # expected message:
+# T: code section t7: argument 'x' should have class 'character', not 'integer'.
 
 # c.*7 = code section t7
 
