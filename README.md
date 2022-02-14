@@ -1,6 +1,6 @@
 # CodeOcean graded exercises for R
 
-By Berry Boessenkool, 2020-2021, [berry-b@gmx.de](mailto:berry-b@gmx.de)
+By Berry Boessenkool, 2020-2022, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 
 # students
 
