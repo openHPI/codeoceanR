@@ -18,8 +18,7 @@ myfun(66, 77, sep="\\")
 # t4_start
 # comments + empty lines
 
-simple_df <- data.frame(AAA=1:4, BBB=8:1)
-simple_df
+data.frame(AAA=1:4, BBB=8:1)
 
 # t4_end
 
@@ -38,16 +37,16 @@ simple_df
 # t7_end
 
 # t8_start
-simple_df <- data.frame(AAA=1:4, BBB=8:1);
+readLines(con="test_package.R", warn=FALSE)[1:3]
 # t8_end
 
 # t9_start
-readLines(con="test_package.R", warn=FALSE)[1:3]
+readLines(con="test_package.R", warn=FALSE)
 # t9_end
 
 # t10_start
 readLines(con="test_package.R",
-					warn=FALSE)[1:3]
+					warn=FALSE)
 # t10_end
 
 # for(i in 11:14) cat(paste0("# t",i,"_start\n# t",i,"_end\n\n"))

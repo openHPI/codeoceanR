@@ -28,6 +28,15 @@ test_that("rt_has_args warns correctly", {
 source("argtests.R")
 })
 
+if(FALSE) test_that("rt_has_args escaping works correctly", { # myfun not found in non-interactive testing
+script <- rt_run_script("scriptEx.R")
+expect_true(is.character(script))
+expect_true(rt_test_task(1,NULL,NULL,section=1,script=script,solcode='myfun(sep="\t")'))
+expect_true(rt_test_task(1,NULL,NULL,section=2,script=script,solcode='myfun(sep="\n")'))
+expect_true(rt_test_task(1,NULL,NULL,section=3,script=script,solcode='myfun(sep="\\")'))
+})
+
+
 
 # rt_test_object ----
 
@@ -45,60 +54,6 @@ testm(rt_test_task(7, fun, sol, inputs=c("1:5", "4:2)")),
 			"T7: 'fun(1:5)' should have class 'numeric', not 'data.frame'.", fixed=TRUE)
 
 # ToDo: expand this a lot!
-})
-
-
-
-# rt_run_script ----
-
-script <- rt_run_script("scriptEx.R")
-
-
-# rt_has_argument ----
-
-results1 <- NA
-rt_env(id=1); results1[1] <- rt_has_argument(rt_script_section(script, 1), "sep", "\t") # backslashes
-rt_env(id=2); results1[2] <- rt_has_argument(rt_script_section(script, 2), "sep", "\n")
-rt_env(id=3); results1[3] <- rt_has_argument(rt_script_section(script, 3), "sep", "\\")
-
-
-results2 <- sapply(4:8, function(n){
-rt_env(id=paste0(n,"T"))
-code <- rt_script_section(script, n, collapse=";") # trailing semicolons
-r1 <- rt_has_argument(code, "AAA", "1:4")
-r2 <- rt_has_argument(code, "BBB", "8:1")
-rt_env(id=paste0(n,"F"))
-code <- rt_script_section(script, n, collapse=NULL)
-r3 <- rt_has_argument(code, "AAA", "1:4")
-r4 <- rt_has_argument(code, "BBB", "8:1")
-out <- c(r1, r2, r3, r4)
-names(out) <- c("AA_T","BB_T","AA_F","BB_F")
-out
-})
-
-rt_env(id=9)
-code <- rt_script_section(script, 9)  # quotation marks + logicals
-results3 <- c(
-  rt_has_argument(code, "con"),
-  rt_has_argument(code, "warn"),
-  rt_has_argument(code, "con", '"test_package.R"'),
-  rt_has_argument(code, "warn", FALSE)
-)
-rt_env(id=10)
-code <- rt_script_section(script, 10)   # line breaks
-results4 <- c(
-  rt_has_argument(code, "con"),
-  rt_has_argument(code, "warn"),
-  rt_has_argument(code, "con", '"test_package.R"'),
-  rt_has_argument(code, "warn", FALSE)
-)
-
-
-test_that("rt_has_argument works correctly for data.frame task", {
-  expect_true(all(results1))
-  expect_true(all(results2))
-  expect_true(all(results3))
-  expect_true(all(results4))
 })
 
 

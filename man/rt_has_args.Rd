@@ -49,9 +49,6 @@ Check student code for certain argument values. Matching is done internally.\cr\
 \strong{Note}: in custom tests, use \link{str2expression} instead of \link{str2lang} to handle code with line breaks.\cr
 Here, they are collapsed with \verb{\\n} as code sections are expected to have one single command only.
 }
-\details{
-Used to be covered by \link{rt_has_argument}, which might be deprecated.
-}
 \examples{
 rt_has_args("plot(1:5, lwd=2)", "plot(1:5, lwd=3)", 7)
 # Tx: code section t7: argument 'lwd' should be '3', not '2'.
