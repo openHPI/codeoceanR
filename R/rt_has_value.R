@@ -43,8 +43,8 @@ rt_has_value <- function(
 
 	toString2 <- function(x) if(is.null(x)) "NULL" else toString(x)
 
-	if(!stepwise) return(rt_warn(pn,"should be '", toString2(value),
-  														 "', not '", toString2(object),"'."))
+	if(!stepwise) return(rt_warn(pn,en="should be '",de="sollte '",
+			toString2(value), en="', not '",de="' sein, nicht '", toString2(object),"'."))
   # stepwise check:
 	loop <- if(is.null(value)) 1 else seq_along(value)
   for(i in loop)

@@ -177,7 +177,7 @@ for(i in inputs)
 	  {
 		res <- sub("^Error in .*?:", "", res)
 		res <- gsub("\n", "", res)
-    rt_warn("'",pc,"' should not yield Error: ",res)
+    rt_warn("'",pc, en="' should not yield Error: ", de="' sollte nicht folgenden Fehler erzeugen: ", res)
     return(rt_env(fail=tnumber))
     }
   if(!rt_test_object(res, target, name=pc, class=class, intnum=intnum, dim=dim, names=names,

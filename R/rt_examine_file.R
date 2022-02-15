@@ -41,17 +41,22 @@ stepnames=TRUE,
 )
 {
 # existing?
-if(!file.exists(fn)) return(rt_warn("The file '",fn,"' does not exist."))
+if(!file.exists(fn)) return(rt_warn(en="The file '",de="Die Datei '",fn,
+																		en="' does not exist.",de="' exisitiert nicht."))
 # not empty?
 l1 <- readLines(fn, n=1)
-if(length(l1)<1)     return(rt_warn("The file '",fn,"' should not be empty."))
+if(length(l1)<1)     return(rt_warn(en="The file '",de="Die Datei '",fn,
+																		en="' should not be empty.",de="' sollte nicht leer sein."))
 # sep:
 if(!is.null(sep) && sep=="\t") sep <- "\\t" # escape backslash for charstrings
-if(!is.null(sep) && !grepl(sep,l1)) return(rt_warn("The column separator in '",
-																									 fn,"' should be '",sep,"'."))
+if(!is.null(sep) && !grepl(sep,l1)) return(rt_warn(
+	            en="The column separator in '", de="Der Spaltentrenner in '", fn,
+	            en="' should be '",de="' sollte '",sep,en="'.",de="' sein."))
 # quote:
-if(!is.null(quote) && grepl('"',l1)!=quote) return(rt_warn("There should be ",
-																if(!quote)"no ","quotation marks in '",fn,"'."))
+if(!is.null(quote) && grepl('"',l1)!=quote) return(rt_warn(
+	            en="There should be ",de="Es sollten ",
+							en=if(!quote)"no ",de=if(!quote)"keine ",
+							en="quotation marks in '",de="Anf\u00FChrungsstriche enthalten sein in '", fn,"'."))
 # can be read without errors?
 cmd <- paste0('read.table("',fn, '"',
 							if(header       )        ', header=TRUE',
@@ -59,7 +64,7 @@ cmd <- paste0('read.table("',fn, '"',
 							if(dec!="."     ) paste0(', dec="',dec,'"'),
 							if(saf)                  ', stringsAsFactors=TRUE', ')')
 val <- rt_gives_echo(eval(str2lang(cmd))) # internal function, not exported!
-if(val$captured!="") return(rt_warn(cmd, " raises the error ", val$captured))
+if(val$captured!="") return(rt_warn(cmd, en=" raises the error ",de=" erzeugt den Fehler ", val$captured))
 val <- val$value
 # rownames:
 if(!is.null(rnames))
@@ -67,10 +72,15 @@ if(!is.null(rnames))
  cmd2 <- sub("\\)$", ", row.names=NULL)", cmd)
  val2 <- eval(str2lang(cmd2))
  hasrn <- !is.null(val2$row.names)
- if(hasrn!=rnames) return(rt_warn("The file '",fn,"' should ",if(!rnames)"not ","contain rownames."))
+ if(hasrn!=rnames) return(rt_warn(
+ 	            en="The file '",de="Die Datei '",fn, en="' should ", de="' sollte ",
+ 	            en=if(!rnames)"not ",de=if(!rnames)"keine ",
+ 	            en="contain rownames.", de="Zeilennamen enthalten."))
  }
 # colnames:
-if(header && !is.null(value) && nrow(val)==nrow(value)-1) rt_warn("The file '",fn,"' should have column names.")
+if(header && !is.null(value) && nrow(val)==nrow(value)-1) rt_warn(
+	             en="The file '",de="Die Datei '",fn,
+	             en="' should have column names.", de="' sollte Spaltennamen enthalten.")
 # correct values?
 if(!is.null(value) && !rt_test_object(val, value, name=cmd, stepnames=stepnames, ...)) return(FALSE)
 # pass:

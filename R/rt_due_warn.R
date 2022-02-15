@@ -32,7 +32,9 @@ due <- strptime(due, format=format, tz=tz)
 remaining <- difftime(due, Sys.time(), units="mins")
 remaining <- as.numeric(round(remaining,1))
 rt_env(id="")
+now <- remaining<1 && remaining>0
 if(remaining<begin && remaining>end)
-rt_warn("Submission is due in ", remaining, " mins.",
-				if(remaining<1 && remaining>0) " --> Please submit now!", ...)
+rt_warn(en="Submission is due in ",de="Die Abgabe ist f\u00E4llig in ", remaining,
+				en=" mins.",de=" Minuten.",
+				en=if(now) " --> Please submit now!", de=if(now) " --> Bitte jetzt einreichen!", ...)
 }

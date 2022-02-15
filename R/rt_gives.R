@@ -86,6 +86,31 @@ if(deparse(substitute(expr2))!="NULL") msg <- switch(type,
                            error  =rt_gives_error  (expr2, call=FALSE)$captured)
 captu <- out$captured
 
+if(rt_env()$lang=="de")
+{
+# no message when needed:
+wpart <- switch(type,
+         echo   = " etwas ausgeben (z.B. durch message, cat, print).",
+         warning= " eine Warnung erzeugen.",
+         error  = " einen Fehler erzeugen.")
+if(captu=="" && msg!="") return(rt_warn("'",name,"' sollte",wpart))
+# message when should be silent:
+wpart <- switch(type,
+         echo   = " nichts ausgeben, aber gibt '",
+         warning= " nicht warnen, aber erzeugt die Warnung '",
+         error  = " nicht versagen, aber erzeugt den Fehler '")
+if(captu!="" && msg=="") return(rt_warn("'",name,"' sollte",wpart,captu,"'."))
+# message different than needed:
+iscor <- if(exact) msg==captu else grepl(msg, captu, fixed=fixed)
+if(!iscor){
+wpart <- switch(type,
+         echo   = paste0("'", msg, "' ausgeben, nicht '"),
+         warning= paste0("die Warnung '", msg, "' erzeugen, nicht '"),
+         error  = paste0("den Fehler '", msg, "' erzeugen, nicht '"))
+return(rt_warn("'",name,"' sollte ",wpart, captu,"'."))}
+}
+else
+{
 # no message when needed:
 wpart <- switch(type,
          echo   = " echo something (e.g. through message, cat, print).",
@@ -105,6 +130,7 @@ wpart <- switch(type,
          error  = " yield the error '")
 iscor <- if(exact) msg==captu else grepl(msg, captu, fixed=fixed)
 if(!iscor) return(rt_warn("'",name,"' should",wpart,msg,"', not '",captu,"'"))
+}
 # pass:
 TRUE
 }

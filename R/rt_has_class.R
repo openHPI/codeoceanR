@@ -29,6 +29,6 @@ if(intnum) if(identical(class, "integer")||identical(class, "numeric"))
 	class2 <- c("integer","numeric")
 if(any(class(object) %in% class2)) return(TRUE)
 
-rt_warn(if(qmark)"'",name,if(qmark)"'"," should have class '",
-				paste(class, collapse="' or '"), "', not '", toString(class(object)), "'.")
+rt_warn(if(qmark)"'",name,if(qmark)"'",en=" should have class '", de=" sollte class '",
+				paste(class, collapse="' or '"), en="', not '", de="' haben, nicht '", toString(class(object)), "'.")
 }

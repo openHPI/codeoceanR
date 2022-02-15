@@ -72,7 +72,7 @@ ck(T,""                                                      ,"plot(1:5, lwd=2)"
 ck(F,"argument 'lwd' should be '3', not '2'."                ,"plot(1:5, lwd=2)"              ,'plot(1:5, lwd=3)'             )
                                                                                                                               #
 ck(F,"c.*7: argument names cannot be matched in trainer code","seq(0,5,2)"                    ,'seq(0,6,2)'                   )
-ck(F,"Arguments in 'seq' must be named explicitely in c.*7." ,"seq(0,5,2)"                    ,'seq(from=0,to=6,by=2)'        )
+ck(F,"Arguments for 'seq' must be named explicitely in c.*7.","seq(0,5,2)"                    ,'seq(from=0,to=6,by=2)'        )
 ck(T,""                                                      ,"box()"                         ,'box("plot")', opt="which"     )
 ck(F,"gument 'which' should be '\"plot\"', not '\"outer\"'." ,"box('outer')"                  ,'box("plot")', opt="which"     )
 #
