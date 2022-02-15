@@ -15,7 +15,7 @@ if(!file.exists(cofile))
   if(rt_default_language=="de")
   stop("Dies ist kein Verzeichnis mit einer CodeOcean Aufgabe: ", dir,
     "\nDie '.co' Datei existiert nicht. ",
-    "Hast du rt_create_task() ausgeführt? Wurde die 'zz_*.Rproj' Datei geöffnet?\n",
+    "Hast du rt_create_task() ausgef\u00fchrt? Wurde die 'zz_*.Rproj' Datei ge\u00f6ffnet?\n",
     "Rechtsoben in Rstudio sollte das R-Projekt-Symbol den Namen der Aufgabe zeigen.", call.=FALSE) else
   stop("You're not in a CodeOcean exercise directory. ",
     "The file '.co' does not exist. \nYou're at '", dir, "'\n",

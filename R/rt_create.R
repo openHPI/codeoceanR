@@ -26,7 +26,7 @@ deletezip=TRUE,
 de <- rt_default_language=="de"
 if(de)
 {
-message("Falls noch nicht geschehen, schließe bitte den Browser Tab mit der CodeOcean Aufgabe.",
+message("Falls noch nicht geschehen, schlie\u00dfe bitte den Browser Tab mit der CodeOcean Aufgabe.",
 				"\nSonst speichert CodeOcean periodisch das dortige leere Skript.")
 rl <- readline("Ich habe den Browser Tab geschlossen (j/n, dann Enter): ")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("First close the browser tab.")
@@ -41,7 +41,7 @@ if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("First close the browser tab."
 if(is.null(zipfile))
 	{
 	if(de)
-	message("Wähle die Zip-datei mit der Aufgabe. Falls schon entpackt, irgendeine Datei im Ordner.",
+	message("W\u00e4hle die Zip-datei mit der Aufgabe. Falls schon entpackt, irgendeine Datei im Ordner.",
 					"\nDas interaktive Datei-Auswahlfenster kann im Hintergrund sein...")
 	else
 	message("Choose the exercise zip file. If it is unzipped, any file within the folder.",
@@ -60,7 +60,7 @@ if(zipped)
 	exdir <- sub("\\.zip$", "", zipfile)  # remove   .zip   from   path/to/exercise.zip
   if(dir.exists(exdir))
   	if(de)
-  	stop("exdir besteht bereits. Wähle einen neuen Ordner. exdir='", exdir, "'") else
+  	stop("exdir besteht bereits. W\u00e4hle einen neuen Ordner. exdir='", exdir, "'") else
   	stop("exdir already exists. Please choose a new location. exdir='", exdir, "'")
   unzip(zipfile=zipfile, exdir=exdir, ...)
   }
@@ -76,7 +76,7 @@ rt_add_opened_files(rt_read_cofile(paste0(exdir,"/.co"))$files$name, dir=exdir)
 
 # try to open Rproject:
 if(de)
-message("rt_create öffnet jetzt ", rprojfile, "\nÖffne diese Datei manuell, wenn nötig.") else
+message("rt_create \u00f6ffnet jetzt ", rprojfile, "\n\u00d6ffne diese Datei manuell, wenn n\u00f6tig.") else
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
 

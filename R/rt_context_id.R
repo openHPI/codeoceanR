@@ -14,10 +14,10 @@ failout <- function(txt="found", fn="")
 	   {
 	   txt = switch(txt, "found"="gefunden", txt)
 	   warning("Die Rstudio User Settings Datei wurde nicht ",txt, if(fn!="") paste0(fn, ".\n") else ". ",
-	   				"Skriptdateien in einem Rprojekt müssen manuell geöffnet werden.",
-	   				"\nDies sollte eigentlich nicht passieren. Bitte informiere Berry mit Angaben zum Betriebssystem um das für alle zu lösen.",
-	   				"\nFür dich selbst: starte irgendein .Rproj in Rstudio und führe dann aus:",
-	   				"  codeoceanR::rt_set_context_id()  \nNächstes mal sollte es dann klappen :).", call.=FALSE)
+	   				"Skriptdateien in einem Rprojekt m\u00fcssen manuell ge\u00f6ffnet werden.",
+	   				"\nDies sollte eigentlich nicht passieren. Bitte informiere Berry mit Angaben zum Betriebssystem um das f\u00fcr alle zu l\u00f6sen.",
+	   				"\nF\u00fcr dich selbst: starte irgendein .Rproj in Rstudio und f\u00fchre dann aus:",
+	   				"  codeoceanR::rt_set_context_id()  \nN\u00e4chstes mal sollte es dann klappen :).", call.=FALSE)
      } else
 	warning("Rstudio User Settings file cannot be ",txt, if(fn!="") paste0(fn, ".\n") else ". ",
 					"Files will not already be opened in .Rproj.",

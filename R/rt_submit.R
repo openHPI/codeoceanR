@@ -21,7 +21,7 @@ if(!interactive()) return(NULL)
 de <- rt_default_language=="de"
 if(de)
 {
-rl <- readline("Dies ist meine endgültige Übertragung des Punktestandes an openHPI (j/n): ")
+rl <- readline("Dies ist meine endg\u00fcltige \u00dcbertragung des Punktestandes an openHPI (j/n): ")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Die Einreichung wurde abgebrochen.")
 } else
 {
@@ -43,8 +43,8 @@ if(is.null(r)) stop("rt_score result is NULL, probably rt_local_score has been i
 erm <- httr::http_condition(r, "error")$message
 if(!httr::status_code(r) %in% c(202, 207))
 	if(de)
-	warning("Scheinbar gab es einen Fehler bei der Punkteübertragung, Pardon!",
-					"\nSende folgende Nachricht bitte an Berry, damit das zukünftig vermieden werden kann.",
+	warning("Scheinbar gab es einen Fehler bei der Punkte\u00fcbertragung, Pardon!",
+					"\nSende folgende Nachricht bitte an Berry, damit das zuk\u00fcnftig vermieden werden kann.",
 					toString(erm), call.=FALSE)
   else
   warning("Looks like something went wrong in the submission process. Sorry! ",
@@ -56,7 +56,7 @@ httr::stop_for_status(r) # if any, pass http errors to R
 # Message + score from codeOcean
 out <- httr::content(r, "parsed", "application/json")
 if(de)
-message(out$message, "\nDie übertragene Bewertung ist ", round(out$score,2), "%.",
+message(out$message, "\nDie \u00fcbertragene Bewertung ist ", round(out$score,2), "%.",
 				"\nArbeite gerne weiter an der Aufgabe, auch mit rt_score(), ",
 				"aber submitte bitte nicht nochmal. Danke :)")
 else

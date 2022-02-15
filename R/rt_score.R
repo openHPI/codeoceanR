@@ -70,7 +70,7 @@ r <- httr::POST(url=co_url, body=body, config=httr::content_type("application/js
 erm <- httr::http_condition(r, "error")$message
 if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
 	if(de)
-	warning("Bist du über ein VPN online? Versuche es nochmal ohne Proxy. Alternativ hilft vielleicht Folgendes:\n",
+	warning("Bist du \u00fcber ein VPN online? Versuche es nochmal ohne Proxy. Alternativ hilft vielleicht Folgendes:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))', call.=FALSE)
   else
 	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
