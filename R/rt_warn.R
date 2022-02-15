@@ -15,7 +15,12 @@
 #' invisible(rt_env(lang="de"))
 #' rt_warn(de="de1 ", en="en1 ", 77, de=" de2", en=" en2", "'", min(longley))
 #' # rt_env(lang="DE") # error message
-#' rm(rt_test_env)
+#' rt_warn("Part1 ", if(TRUE) c(de="de3", en="en3"), " closing.") # both included.
+#' cond <- TRUE
+#' rt_warn("P1 ", de=if(cond)"de3 ", en=if(cond)"en3 ", "end.")
+#' cond <- FALSE
+#' rt_warn("P1 ", de=if(cond)"de3 ", en=if(cond)"en3 ", "end.")
+#' rm(rt_test_env, rt_env)
 #'
 #' @param \dots Message components passed to [warning()] or [cat()].
 #'              Can be named de or en to only be shown for a specific language,

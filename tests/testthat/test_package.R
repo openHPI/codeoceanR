@@ -12,7 +12,7 @@ library(testthat)
 }
 
 
-rt_test_env <- list2env(rt_env(id="")) # to replace "Tnid: message" with "T: message")
+rt_test_env <- list2env(rt_env(lang="en"))
 
 
 # rt_test_object ----

@@ -1,4 +1,4 @@
-rt_test_env <- list2env(codeoceanR:::rt_env(id="")) # to replace "Tnid: message" with "T: message")
+rt_test_env <- list2env(codeoceanR:::rt_env(lang="en"))
 # rt_has_args  unit tests
 # This file is sourced in test_package.R
 
