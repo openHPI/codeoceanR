@@ -18,6 +18,13 @@ trytests <- rt_try(eval(substitute(expr))) # rt_test_task calls
 #rt_env(id="t")
 if(inherits(trytests, "try-error"))
   {
+	if(rt_env()$lang=="de")
+  rt_warn(" ----- Test fehlgeschlagen. Bitte melden, siehe unten. -----\n",
+  				"Das interne Testskript hat versagt. Dies sollte nie passieren. Sorry!!!\n",
+          "Um wieder Punkte zu erhalten, mache bitte die letzten \u00C4nderungen r\u00FCckg\u00E4ngig.\n",
+          "Bitte sende Berry das untenstehende Logfile per E-Mail (mit deinem letzten Code) ",
+  				"oder 'Request comments':\n----------\n", trytests, "\n----------")
+	else
   rt_warn(" ----- Test failed. Please report, see below. -----\n",
   				"The internal test script failed. This should never happen. Sorry!!\n",
           "To get scores again, please revert the last thing(s) you did.\n",

@@ -44,19 +44,23 @@ if(dim)
   if(oneD) # vector, list, function, table
   {
   if(length(object)!=length(value))
-    return(rt_warn(pn,"should have length ",length(value),", not ",length(object), "."))
+    return(rt_warn(pn,en="should have length ",de="sollte ",length(value),en=", not ",
+    							 de=" Elemente haben (length), nicht ",length(object), "."))
   } else # dataframe, matrix, array
   {
   if(nrow(object)!=nrow(value))
-    return(rt_warn(pn,"should have ",nrow(value)," rows, not ",nrow(object), "."))
+    return(rt_warn(pn,en="should have ",de="sollte ",nrow(value),en=" rows, not ",
+    							 de=" Zeilen haben, nicht ",nrow(object), "."))
   if(ncol(object)!=ncol(value))
-    return(rt_warn(pn,"should have ",ncol(value)," columns, not ",ncol(object), "."))
+    return(rt_warn(pn,en="should have ",de="sollte ",ncol(value),en=" columns, not ",
+    							 de=" Spalten haben, nicht ",ncol(object), "."))
   }
 if(dim && isarr)
   {
 	do <- dim(object)
 	dv <- dim(value)
-	if(length(do)!=length(dv)) return(rt_warn(pn,"should have ",length(dv)," dimensions, not ",length(do),"."))
+	if(length(do)!=length(dv)) return(rt_warn(pn,en="should have ",de="sollte ",
+			  length(dv),en=" dimensions, not ",de=" Dimensionen haben, nicht ",length(do),"."))
 	if(!rt_has_value(do, dv, paste0("dim(",name,")"), stepwise=FALSE, qmark=qmark) ) return(FALSE)
   }
 

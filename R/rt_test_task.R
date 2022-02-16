@@ -95,13 +95,13 @@ rt_env(id=tnumber)
 
 # solved ----
 if(!is.null(solved))
-	if(!rt_test(rt_env()$success[solved], "Please first solve task ",solved,"."))
+	if(!rt_test(rt_env()$success[solved], en="Please first solve task ", de="Bitte l\u00F6se zuerst Aufgabe ",solved,"."))
 		return(rt_env(fail=tnumber))
 
 # object created ----
 if(n!="NULL" && !exists(n, envir=parent.frame()))
   {
-  rt_warn("Create the object '",n,"'.")
+  rt_warn(en="Create the object '", de="Erstelle das Objekt '",n,"'.")
 	return(rt_env(fail=tnumber))
   }
 
@@ -113,7 +113,9 @@ if(correct && !is.function(value))
 	{
 	if(!is.atomic(object))
 		{
-	  rt_warn("'",n,"' must be atomic (a vector), not of class '", toString(class(object)), "'.")
+	  rt_warn("'",n,en="' must be atomic (a vector), not of class '",
+	  				de="' muss ein atomic vector sein, nicht class '",
+	  				toString(class(object)), "'", de="haben", ".")
 	  return(rt_env(fail=tnumber))
 	  }
 	if(!isTRUE(all.equal(sort(object),sort(value))))
@@ -121,10 +123,12 @@ if(correct && !is.function(value))
 		toString2 <- function(x)
       {
       if(is.null(names(value))) return(toString(x))
-      if(is.null(names(x))) return("given: it should have names")
+      if(is.null(names(x))) if(rt_env()$lang=="de")
+      	return("angegeben: der Vektor muss Namen haben") else return("given: it should have names")
       paste0(names(x),"=",x, collapse=", ")
       }
-	  rt_warn("The correct answer for '",n,"' is not ", toString2(object), ".")
+	  rt_warn(en="The correct answer for '", de="Die richtige Antwort f\u00FCr '",n,
+	  				en="' is not ",de="' ist nicht ", toString2(object), ".")
 	  return(rt_env(fail=tnumber))
 	  }
   }
@@ -133,12 +137,13 @@ if(correct){zero <- FALSE ; class <- "any" ; dim <- FALSE} # only run ...-tests 
 # zero ----
 if(zero && identical(object, 0))
   {
-  rt_warn("Replace the 0 for '",n,"' with the solution code.")
+  rt_warn(en="Replace the 0 for '",de="Ersetze die 0 f\u00FCr '",n,
+  				en="' with the solution code.",de="' mit dem L\u00F6sungscode.")
 	return(rt_env(fail=tnumber))
   }
 if(zero && is.function(value) && identical(rt_gives("echo",object(),value=TRUE),0))
   {
-  rt_warn("'",n,"()' should not return 0.")
+  rt_warn("'",n,"()' ",en="should not return 0.",de="sollte nicht 0 zur\u00FCckgeben.")
   return(rt_env(fail=tnumber))
   }
 
@@ -194,4 +199,3 @@ for(i in seq_len(...length())  )
 # set rt_test_env$success[tnumber] to TRUE if all tests passed:
 rt_env(pass=tnumber)
 }
-

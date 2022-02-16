@@ -57,8 +57,9 @@ rt_has_value <- function(
   if(is.null(v)) neq <- !is.null(o)
   if(anyNA(neq) || inherits(neq,"try-error") || length(neq)==0) # for NA, lists and other incomparables
   	 neq <- !isTRUE(all.equal(o,v))
-  if(any(neq)) return(rt_warn(if(qmark)"'", name, "[",i,"]",if(qmark)"'"," should be '",
-  												toString2(v),"', not '", toString2(o),"'."))
+  if(any(neq)) return(rt_warn(if(qmark)"'", name, "[",i,"]",if(qmark)"'",
+  				en=" should be '",de=" sollte '", toString2(v),
+  				en="', not '",de="' sein, nicht '", toString2(o),"'."))
   }
 	return(TRUE) # e.g. if object has names and value doesn't, all.equal has not caught it
 }

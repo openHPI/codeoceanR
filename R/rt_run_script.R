@@ -15,8 +15,9 @@
 #'
 rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
   rt_env(id=paste0(" ", filename))
-  if(!file.exists(filename)) {rt_warn("This file does not exist: '", filename,
-                                      "'. current getwd: ", getwd()); return(FALSE)}
+  if(!file.exists(filename)) {rt_warn(
+  	en="This file does not exist: '",de="Diese Datei existiert nicht: ", filename,
+    en="'. current getwd: ", de="'. Aktuelles getwd Verzeichnis: ", getwd()); return(FALSE)}
   # exclude recursive score calls:
   fcontent <- readLines(filename, warn=FALSE, encoding="UTF-8")
   excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
@@ -32,11 +33,13 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
     e <- try(suppressWarnings(suppressMessages(source(tfile, local=parent.frame(), echo=echo))), silent=TRUE)
   sink()
   if(inherits(e, "try-error")) {
-    e <- sub("^Error in source.*_coscript.R:","Error in line:column ",e)
+  	msg <- if(rt_env()$lang=="de") "Fehler in Zeile:Spalte " else "Error in line:column "
+    e <- sub("^Error in source.*_coscript.R:",msg,e)
     e <- gsub("\n"," ",e)
     e <- gsub("\\s+", " ", e)
-    rt_warn("can not be executed. Make sure each line can be run.",
-            "\n--- source() message: ", e)
+    rt_warn(en="can not be executed. Make sure each line can be run.",
+    				de="kann nicht ausgef\u00FChrt werden. Sorge, dass jede Zeile fehlerfrei l\u00E4uft.",
+            "\n--- source() ", en="message: ", de="Meldung: ", e)
     }
   if(echo) return(readLines(lfile)) else return(fcontent)
 }
