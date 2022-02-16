@@ -1,7 +1,6 @@
 #' @title Find next largest relative order
 #' @description Internal function to find the next largest relative order of scripts.
 #'         Only necessary on Mac OS, not Windows.
-#ToDo: test if if(rt_is_OS("Linux")) files <- rev(files) in rt_add_opened_files can now be removed
 #' @return Hexadecimal ID charstring
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2020
 #' @seealso [rt_add_opened_files()]
