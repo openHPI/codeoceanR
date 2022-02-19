@@ -11,6 +11,7 @@ rt_contains(
   name = deparse(substitute(object)),
   qmark = TRUE,
   fixed = TRUE,
+  remcom = NA,
   ignore_space = TRUE,
   ignore_quote = TRUE
 )
@@ -29,6 +30,11 @@ Remember to set fixed=FALSE as well. DEFAULT: \code{value}}
 \item{qmark}{Include ' marks around \code{name}? DEFAULT: TRUE}
 
 \item{fixed}{Fixed match in \link{grepl}? DEFAULT: TRUE}
+
+\item{remcom}{Remove comments from script before checking presence?
+Experimental feature, uses \code{\link[=parse]{parse()}}.
+DEFAULT: NA (yes, if object has length >1  and \code{value}
+is a character string)}
 
 \item{ignore_space}{Remove spaces before comparison? DEFAULT: TRUE}
 

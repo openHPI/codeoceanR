@@ -22,6 +22,10 @@
 #' @param name         [rt_warn] name. DEFAULT: deparse(substitute(obj))
 #' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
 #' @param fixed        Fixed match in [grepl]? DEFAULT: TRUE
+#' @param remcom       Remove comments from script before checking presence?
+#'                     Experimental feature, uses [parse()].
+#'                     DEFAULT: NA (yes, if object has length >1  and `value`
+#'                     is a character string)
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
 #' @param ignore_quote Replace `'` with `"` before comparison? DEFAULT: TRUE
 #'
@@ -32,6 +36,7 @@ msgval=value,
 name=deparse(substitute(object)),
 qmark=TRUE,
 fixed=TRUE,
+remcom=NA,
 ignore_space=TRUE,
 ignore_quote=TRUE
 ){
@@ -41,6 +46,10 @@ pn <- if(qmark) paste0("'", name, "'") else name
 value2 <- value # to keep 'value' as is for warning message
 if(is.character(value))
   {
+	if(is.na(remcom)) remcom <- length(object) > 1
+	if(remcom){
+		object <- as.character(parse(text=object))
+	  }
   if(ignore_space) {
     object <- gsub("\\s", "", object)
   	value2 <- gsub("\\s", "", value2)
