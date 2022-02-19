@@ -55,7 +55,7 @@ for(i in seq_along(value))
   {
 	v <- value2[i]
 	succ <- if(is.character(v)) any(grepl(v, object, fixed=fixed)) else v %in% object
-  if(!succ) return(rt_warn(pn, en=" should contain '",de=" solle '",msgval[i], en="'.",de="' enthalten."))
+  if(!succ) return(rt_warn(pn, en=" should contain '",de=" sollte '",msgval[i], en="'.",de="' enthalten."))
   }
 
 # pass:
