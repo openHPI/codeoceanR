@@ -4,7 +4,7 @@
 \alias{rt_env}
 \title{interact with rt_test_env}
 \usage{
-rt_env(id = NULL, lang = NULL, pass = NULL, fail = NULL)
+rt_env(id = NULL, lang = NULL, pass = NULL, fail = NULL, info = NULL)
 }
 \arguments{
 \item{id}{Number or charstring to be set as task ID for \link{rt_warn} messages.
@@ -16,6 +16,8 @@ Currently, "en" and "de" are implemented. DEFAULT: NULL}
 \item{pass}{Number of task(s) to set as successfull. DEFAULT: NULL}
 
 \item{fail}{Number of task(s) to set as failed. DEFAULT: NULL}
+
+\item{info}{Free-form information to be added. Used in rt_run_script. DEFAULT: NULL}
 }
 \value{
 If \code{id}, \code{lang} or no arguments are given, list with the env content.\cr

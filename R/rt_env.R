@@ -14,15 +14,17 @@
 #'             Currently, "en" and "de" are implemented. DEFAULT: NULL
 #' @param pass Number of task(s) to set as successfull. DEFAULT: NULL
 #' @param fail Number of task(s) to set as failed. DEFAULT: NULL
+#' @param info Free-form information to be added. Used in rt_run_script. DEFAULT: NULL
 #'
 rt_env <- function(
 id=NULL,
 lang=NULL,
 pass=NULL,
-fail=NULL
+fail=NULL,
+info=NULL
 )
 {
-empty <- list(id="nid", success=vector(), lang=rt_default_language)
+empty <- list(id="nid", success=vector(), lang=rt_default_language, info="")
 env <- dynGet("rt_test_env", ifnotfound=empty, minframe=0)
 
 if(!is.null(id))   {env$id <- id; return(as.list(env))}
@@ -30,6 +32,7 @@ if(!is.null(lang)) {if(!lang %in% c("en","de")) stop("lang must be 'en' or 'de',
 	                  env$lang <- lang; return(as.list(env))}
 if(!is.null(pass)) {stopifnot(is.numeric(pass)); return(env$success[pass] <- TRUE)}
 if(!is.null(fail)) {stopifnot(is.numeric(fail)); return(env$success[fail] <- FALSE)}
+if(!is.null(info)) {env$info <- c(env$info,info); return(as.list(env))}
 
 # return for empty rt_env() call:
 as.list(env)

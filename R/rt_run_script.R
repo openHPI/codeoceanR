@@ -15,9 +15,12 @@
 #'
 rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
   rt_env(id=paste0(" ", filename))
-  if(!file.exists(filename)) {rt_warn(
-  	en="This file does not exist: '",de="Diese Datei existiert nicht: ", filename,
-    en="'. current getwd: ", de="'. Aktuelles getwd Verzeichnis: ", getwd()); return(FALSE)}
+  if(!file.exists(filename)) {
+  	rt_env(info=paste0("script failed: ",filename))
+  	rt_warn(en="This file does not exist: '",de="Diese Datei existiert nicht: ", filename,
+  					en="'. current getwd: ", de="'. Aktuelles getwd Verzeichnis: ", getwd())
+  	return(FALSE)
+  	}
   # exclude recursive score calls:
   fcontent <- readLines(filename, warn=FALSE, encoding="UTF-8")
   excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
@@ -33,6 +36,7 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
     e <- try(suppressWarnings(suppressMessages(source(tfile, local=parent.frame(), echo=echo))), silent=TRUE)
   sink()
   if(inherits(e, "try-error")) {
+  	rt_env(info=paste0("script failed: ",filename))
   	msg <- if(rt_env()$lang=="de") "Fehler in Zeile:Spalte " else "Error in line:column "
     e <- sub("^Error in source.*_coscript.R:",msg,e)
     e <- gsub("\n"," ",e)
