@@ -95,7 +95,8 @@ mout <- out$stdout # message output
 mout <- sub("Rscript.*tests.R\n", "", mout)
 mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
 mout <- gsub("\n$", "", mout)
-mout <- paste0(mout, ", score: ", round(out$score*100), "%")
+if(de) mout <- sub("(\\d{1,}) examples, (\\d{1,}) passed","\\1 Aufgaben, \\2 gelöst", mout)
+mout <- paste0(mout, ", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")
   mout <- paste0(if(de) "Das Testen deines Codes hat zulange gedauert (" else
   "Testing your code took too long (", round(out$container_execution_time,1), " sec)", mout)
