@@ -122,6 +122,7 @@ if(correct && !is.function(value))
 		{
 		toString2 <- function(x)
       {
+      if(is.character(x) && length(x)==1) x <- paste0('"',x,'"')
       if(is.null(names(value))) return(toString(x))
       if(is.null(names(x))) if(rt_env()$lang=="de")
       	return("angegeben: der Vektor muss Namen haben") else return("given: it should have names")
