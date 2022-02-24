@@ -4,26 +4,23 @@ By Berry Boessenkool, 2020-2022, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 
 # students
 
-#### install R package
+**setup** _(once only)_
 
-*(once only)*
-
-Run the following code (in R / Rstudio) to install or update the `codeoceanR` package:
+- Create a folder for all the exercises
+- Run the following code (in R / Rstudio) to install the `codeoceanR` package:
 
 ```r
 install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR")
 ```
 
-On Linux, first run both commands below (and follow the instructions e.g. `sudo apt install libcurl4-openssl-dev`):
+- On Linux, first run the commands below (and follow the instructions e.g. `sudo apt install libcurl4-openssl-dev`):
 ```r
 install.packages("curl")
 install.packages("openssl")
 ```
 
-#### procedure
-
-*(for each exercise)*
+**procedure** _(for each exercise)_
 
 prepare exercise:
 
@@ -31,7 +28,8 @@ prepare exercise:
 - **download** it to a good location on your PC, no need to unzip
 - **close** the CodeOcean browser **tab**
 - **run** (in R / Rstudio) `codeoceanR::rt_create()`
-- **confirm** to have closed the tab & **select** the exercise file (if unzipped, any file within the folder, see `zipfile` below)
+- **confirm** to have closed the tab
+- **select** the exercise file. _If unzipped (the default on Mac OS Safari), any file within the folder._
 
 take exercise:
 
@@ -40,17 +38,11 @@ take exercise:
 - work on task 2
 - `CTRL + SHIFT + S`
 - ...
-- when done / time is up: run `codeoceanR::rt_submit()`
+- when finished: run `codeoceanR::rt_submit()`
 
 
 
 #### design
-
-`rt_create()` has two optional arguments:
-
-- `zipfile`: defaults to interactive file choice, could also be given as "C:/Dropbox/R/exercise_1.zip"  
-  _If the exercise is unzipped (the default on Mac OS Safari), any file within the folder_
-- `deletezip`: defaults to delete the zip file if task creation was successful, could also be FALSE
 
 `rt_create()` should
 
@@ -60,7 +52,8 @@ take exercise:
 - have everything prepared so `rt_score()` works out of the box.
 
 Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
-`codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.
+`codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.  
+use `rt_create(deletezip=FALSE)` to not delete the zip file if task creation was successful
 
 
 
@@ -75,7 +68,7 @@ Remember to always access this from the openHPI platform.
 - Click `SCORE` to see how many of the tests you pass. Change your solutions if needed. `SCORE` again.  
 Ignore messages for tasks you haven't worked on yet (they show how much work is left).
 - `RUN` and `SCORE` often to easily find the location of mistakes.
-- Finally, when time is up or you’re content, click `SUBMIT`.
+- Finally, when you’re content, click `SUBMIT`.
 
 The tasks are split in separate files. Each can be run independently. Scoring happens for all files at once.  
 I suggest to always read the entire task before starting to work on it ;-)
