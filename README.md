@@ -4,7 +4,7 @@ By Berry Boessenkool, 2020-2022, [berry-b@gmx.de](mailto:berry-b@gmx.de)
 
 # students
 
-**setup** _(once only)_
+### **setup** _(once only)_
 
 - Create a folder for all the exercises
 - Run the following code (in R / Rstudio) to install the `codeoceanR` package:
@@ -14,13 +14,10 @@ install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR")
 ```
 
-- On Linux, first run the commands below (and follow the instructions e.g. `sudo apt install libcurl4-openssl-dev`):
-```r
-install.packages("curl")
-install.packages("openssl")
-```
+- On Linux, first run `install.packages("curl")` and `install.packages("openssl")`.  
+Follow the instructions e.g. `sudo apt install libcurl4-openssl-dev`
 
-**procedure** _(for each exercise)_
+### **procedure** _(for each exercise)_
 
 prepare exercise:
 
@@ -40,9 +37,11 @@ take exercise:
 - ...
 - when finished: run `codeoceanR::rt_submit()`
 
+`codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
+`codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.  
 
 
-#### design
+### design
 
 `rt_create()` should
 
@@ -51,13 +50,10 @@ take exercise:
 - with the `script_n.R` files already opened
 - have everything prepared so `rt_score()` works out of the box.
 
-Note: `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
-`codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.  
-use `rt_create(deletezip=FALSE)` to not delete the zip file if task creation was successful
+use `rt_create(deletezip=FALSE)` to not delete the zip file if task creation was successful.  
 
 
-
-##### codeOcean in browser
+### codeOcean in browser
 
 **Don't open several tabs** of an exercise. The autosave could overwrite all you've done from a second (unused=empty) tab.  
 For the same reason, **don't use the back button** of your browser.  
@@ -214,8 +210,11 @@ For the 2021 class and the 2022 MOOC (in prep), the test suite was completely re
 
 The source code for codeOcean itself is online at <https://github.com/openHPI/codeocean/>
 
+
+
  Updating codeoceanR on the CO-server is a two-step process:  
-- In [GH docker actions](https://github.com/openHPI/dockerfiles/actions/workflows/r-4.yml), click 'Run workflow' then again 'Run workflow'. Wait 5 minutes.  
-- In [CO execution environment](https://codeocean.openhpi.de/execution_environments/28), from the dropdown next to 'Edit', click 'Synchronize'. Should be done in a few seconds. Try to do this when no one is scoring exercises, as all running containers are interrupted.  
-- Wait 3 minutes without score/run (generates new runner container in next run), then copy `packageVersion("codeoceanR")` to any script and run it to check whether the update was successfull.
+- In [GH docker actions](https://github.com/openHPI/dockerfiles/actions/workflows/r-4.yml) (be logged in), click 'Run workflow' then again 'Run workflow'. Wait 5 minutes.  
+- In [CO execution environment](https://codeocean.openhpi.de/execution_environments/28), from the dropdown next to 'Edit', click 'Synchronize'. Should be done in a few seconds. Try to do this when no one is scoring exercises, as all running containers are interrupted.
+Note that changes to the run/test commands in the [Dockerfile](https://github.com/openHPI/dockerfiles/blob/master/co_execenv_r/4/Dockerfile) are not synchronized.  
+- Copy `packageVersion("codeoceanR")` to any script and run it to check whether the update was successfull.
 
