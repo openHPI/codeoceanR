@@ -36,7 +36,7 @@ if(length(plotfiles)<1) return(invisible())
 for(pf in plotfiles)
   {
   if(file.size(pf) < 1) next
-  cat(paste0('<img src="data:image/png;base64,',base64enc::base64encode(pf),'">'))
+  cat(paste0('<img src="data:image/png;base64,',base64enc::base64encode(pf),'">\n\n'))
   }
 unlink(plotfiles)
 }
