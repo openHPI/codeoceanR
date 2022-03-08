@@ -22,7 +22,7 @@ Follow the instructions e.g. `sudo apt install libcurl4-openssl-dev`
 prepare exercise:
 
 - through OpenHPI, go to the CodeOcean exercise
-- **download** it to a good location on your PC, no need to unzip
+- **download** it to the folder mentioned above, no need to unzip
 - **close** the CodeOcean browser **tab**
 - **run** (in R / Rstudio) `codeoceanR::rt_create()`
 - **confirm** to have closed the tab
@@ -70,7 +70,7 @@ The tasks are split in separate files. Each can be run independently. Scoring ha
 I suggest to always read the entire task before starting to work on it ;-)
 
 Remember to explicitely call an object to see its value in the `RUN` output.  
-`head(x)` / `str(x)` / `summary(x)` work fine, `plot(x)` outputs can not be shown.
+`head(x)` / `str(x)` / `summary(x)` work fine, `plot(x)` outputs are only shown if the call is between `rt_plot1()`/`rt_plot2()`.
 
 If `SCORE` tells you *'script_x.R' can not be executed*, you cannot get points for tasks (in that script) after the error.
 
