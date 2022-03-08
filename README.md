@@ -78,6 +78,8 @@ If the top line shows `RENDER` instead of `RUN`, you're probably in a data text 
 
 Click the arrow on the top left (or *hide* at the bottom right) to hide the instructions for more screen-space for the code.
 
+To reset a complete exercise, click the backwards clock button in the file panel on the left.  
+To reset only a single file, click the button on the bottom right of the screen.  
 
 
 # teachers
