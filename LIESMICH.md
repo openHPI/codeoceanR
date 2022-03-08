@@ -21,7 +21,7 @@ Folge den Anweisungen, z.B. `sudo apt install libcurl4-openssl-dev`.
 Übung vorbereiten:
 
 - Gehe über OpenHPI zur CodeOcean-Übung
-- **Herunterladen** in den o.g Ordner auf dem PC, kein Entpacken erforderlich
+- **Herunterladen** (Abwärtspfeil links im Dateifenster) der gesamten Aufgabe in den o.g Ordner auf dem PC, kein Entpacken erforderlich
 - **Schließe** den CodeOcean-Browser **Tab**
 - **Führe aus** (in R / Rstudio) `codeoceanR::rt_create()`
 - **Bestätige**, die Registerkarte geschlossen zu haben
@@ -31,6 +31,7 @@ Folge den Anweisungen, z.B. `sudo apt install libcurl4-openssl-dev`.
 
 - Löse Aufgabe 1
 - Speichere und führe das Skript mit `CTRL + SHIFT + S` aus, dadurch wird `codeoceanR::rt_score()` ausgeführt
+- Die _T1: Meldung_ (für Test 1) entspricht immer der Aufgabennummer.
 - Löse Aufgabe 2
 - STRG + SHIFT + S
 - ...
@@ -61,7 +62,7 @@ Denke daran, immer von der openHPI-Plattform aus auf die Aufgaben zuzugreifen.
 
 - Klicke auf `AUSFÜHREN`, um das Skript zu starten. Lese die Ausgabe, korrigiere deinen Code, wenn er einen Fehler auslöst. Erneut `AUSFÜHREN`.
 - Klicke auf `BEWERTEN`, um zu sehen, wie viele der Tests du bestanden hast. Ändere deine Lösungen, falls nötig. Wiederhole `BEWERTEN`.  
-Ignoriere Meldungen für Aufgaben, an denen du noch nicht gearbeitet hast (sie zeigen an, wie viel Arbeit noch übrig ist).
+Ignoriere Meldungen für Aufgaben, an denen du noch nicht gearbeitet hast (sie zeigen an, wie viel Arbeit noch übrig ist). Die _T1: Meldung_ (für Test 1) entspricht immer der Aufgabennummer.
 - Führe `AUSFÜHREN` und `BEWERTEN` häufig aus, um Fehler leicht zu finden.
 - Wenn du zufrieden bist, klicke nach einem Bewerten auf `EINREICHEN` (rechts unten).
 
