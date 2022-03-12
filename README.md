@@ -14,8 +14,9 @@ install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR")
 ```
 
-- On Linux, first run `install.packages("curl")` and `install.packages("openssl")`.  
+- On **Linux**: first run `install.packages("curl")` and `install.packages("openssl")`  
 Follow the instructions e.g. `sudo apt install libcurl4-openssl-dev`
+- On **Windows**: ignore the Rtools warning. If you like, [install](https://cran.r-project.org/bin/windows/Rtools) it at `C:/Rtools` (compiler paths may not have spaces) and run in R: `writeLines('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', con = "~/.Renviron")`
 
 ### **procedure** _(for each exercise)_
 
