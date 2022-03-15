@@ -66,8 +66,11 @@ body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
 							 '","files_attributes": {',fileattr,'}}}')
 
 # Post to CodeOcean:
-r <- httr::POST(url=co_url, body=body, config=httr::content_type("application/json"))
+r <- try(httr::POST(url=co_url, body=body, config=httr::content_type("application/json")), silent=TRUE)
+if(inherits(r, "try-error"))
+erm <- r else
 erm <- httr::http_condition(r, "error")$message
+
 if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
 	if(de)
 	warning("Bist du \u00fcber ein VPN online? Versuche es nochmal ohne Proxy. Alternativ hilft vielleicht Folgendes:\n",
@@ -75,6 +78,8 @@ if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
   else
 	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))', call.=FALSE)
+if(inherits(r, "try-error")) return(warning("httr::POST failed with: ", r))
+
 if(httr::status_code(r) >= 300)
   {
 	w <- httr::http_condition(r, "warning")$message
