@@ -86,10 +86,10 @@ i_arg <- as.list(match.call(args(eval(i_fun)), target))[-1]
 
 if(is.null(names(i_arg))&&length(i_arg)>0) return(rt_warn(
 	cs, en=": argument names cannot be matched in trainer code. Please report this to Berry.",
-	de="Die Argumentnamen im Trainer-Code k\u00F6nnen nicht zugeordnet werden. Bitte melde dies Berry."))
+	de=": Die Argumentnamen im Trainer-Code k\u00F6nnen nicht zugeordnet werden. Bitte melde dies Berry."))
 if(is.null(names(u_arg))&&length(u_arg)>0) return(rt_warn(
-	en="Arguments for '",de="Argumente f\u00FCr",deparse(u_fun),
-	en="' must be named explicitely in ", de="m\u00FCssen namentlich angegeben werden in", cs,"."))
+	en="Arguments for '",de="Argumente f\u00FCr ",deparse(u_fun),
+	en="' must be named explicitely in ", de="' m\u00FCssen namentlich angegeben werden in ", cs,"."))
 
 # Duplicated arguments:
 dup <- duplicated(names(u_arg)[names(u_arg)!=""])
