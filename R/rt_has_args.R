@@ -77,7 +77,11 @@ if(i_fun != u_fun) return(rt_warn(
 
 # user and intended arguments
 # args to avoid invalid 'definition' argument error: https://stackoverflow.com/a/63124703
-u_arg <- as.list(match.call(args(eval(u_fun)), code2))[-1] # all args, except function name
+# all args, except function name:
+u_arg <- try(as.list(match.call(args(eval(u_fun)), code2))[-1], silent=TRUE)
+if(inherits(u_arg,"try-error"))
+	return(rt_warn(cs,en=" could not be executed. ",de=" kann nicht ausgef\u00FChrt werden. ",
+  "match.call(args(eval(u_fun)),code) ",en="produced: ",de="erzeugt: ", attr(u_arg,"condition")$message))
 i_arg <- as.list(match.call(args(eval(i_fun)), target))[-1]
 
 if(is.null(names(i_arg))&&length(i_arg)>0) return(rt_warn(
