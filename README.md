@@ -17,6 +17,8 @@ remotes::install_github("openHPI/codeoceanR")
 - On **Linux**: first run `install.packages("curl")` and `install.packages("openssl")` (maybe also with `"httr"` and `"rjson"`).  
 Follow the instructions e.g. `sudo apt install libcurl4-openssl-dev` or `sudo apt install r-cran-rjson`
 - On **Windows**: ignore the Rtools warning. If you like, [install](https://cran.r-project.org/bin/windows/Rtools) it at `C:/Rtools` (compiler paths may not have spaces) and run in R: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
+- If only an **old version of R** is possible, for `rjson` try *(not yet verified)* `install.packages("devtools")` and `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
+
 
 ### **procedure** _(for each exercise)_
 
