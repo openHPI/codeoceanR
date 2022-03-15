@@ -64,7 +64,11 @@ target <- gsub("\\\\", "\\\\\\\\", target)
 target <- str2lang(target)
 
 # User function
-u_fun <- code2[[1]]
+u_fun <- try(code2[[1]], silent=TRUE)
+if(inherits(u_fun,"try-error"))
+	return(rt_warn(cs,en=" could not be executed. ",de=" kann nicht ausgef\u00FChrt werden. ",
+  "str2lang(code)[[1]] ",en="produced: ",de="erzeugt: ", attr(u_fun,"condition")$message))
+
 # Intended solution:
 i_fun <- target[[1]]
 if(i_fun != u_fun) return(rt_warn(
