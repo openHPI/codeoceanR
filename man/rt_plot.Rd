@@ -7,15 +7,18 @@
 \usage{
 rt_plot1(...)
 
-rt_plot2()
+rt_plot2(maxn = 10)
 }
 \arguments{
 \item{\dots}{Arguments passed to \code{\link[=png]{png()}}}
+
+\item{maxn}{Maximum number of figures to plot. Note: rendering time increases drastically!}
 }
 \description{
 Display graphics in the CodeOcean Browser instance through base64 encoding.
 }
 \examples{
+# Sys.setenv(CODEOCEAN="true")
 rt_plot1() # for graphics in CodeOcean Browser instance
 plot(1:10)
 77 + 88

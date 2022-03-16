@@ -9,6 +9,7 @@
 #' @rdname rt_plot
 #' @aliases rt_plot1 rt_plot2
 #' @examples
+#' # Sys.setenv(CODEOCEAN="true")
 #' rt_plot1() # for graphics in CodeOcean Browser instance
 #' plot(1:10)
 #' 77 + 88
@@ -26,14 +27,23 @@ png("Rplot%03d.png", ...)
 
 
 #' @rdname rt_plot
+#' @param maxn Maximum number of figures to plot. Note: rendering time increases drastically!
 #' @export
-rt_plot2 <- function()
+rt_plot2 <- function(maxn=10)
 {
 if(Sys.getenv("CODEOCEAN")!="true") return(invisible())
 graphics.off()
 plotfiles <- dir(pattern="Rplot.*\\.png")
 if(length(plotfiles)<1) return(invisible())
-for(pf in plotfiles)
+plotfiles2 <- plotfiles
+if(length(plotfiles)>maxn)
+  {
+	if(rt_default_language=="de")
+  warning(length(plotfiles), " Grafiken erstellt. Nur ", maxn," werden dargestellt. \u00C4ndere maxn f\u00FCr mehr.") else
+  warning(length(plotfiles), " plots were created. Only plotting ", maxn,". Change maxn for more.")
+  plotfiles2 <- plotfiles2[seq_len(maxn)]
+  }
+for(pf in plotfiles2)
   {
   if(file.size(pf) < 1) next
   cat(paste0('<img src="data:image/png;base64,',base64enc::base64encode(pf),'">\n\n'))
