@@ -13,10 +13,15 @@ install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR")
 ```
 
-- Auf **Linux**: führe zuerst `install.packages("curl")` und `install.packages("openssl")` aus (ggf auch mit `"httr"` und `"rjson"`).  
-Folge den Anweisungen, z.B. `sudo apt install libcurl4-openssl-dev` oder `sudo apt install r-cran-rjson`
-- Auf **Windows**: ignoriere die Rtools Warnung. Wenn gewünscht,  [installiere](https://cran.r-project.org/bin/windows/Rtools) es in `C:/Rtools` (Compiler Pfade dürfen keine Leerzeichen haben) und führe in R aus: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
-- Falls nur eine **alte Version von R** möglich ist, probiere für `rjson` *(Wirksamkeit noch nicht verifiziert)* `install.packages("devtools")` und `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
+- Auf **Linux**: führe zuerst im Terminal (STRG+ALT+T) aus: `sudo apt install libcurl4-openssl-dev libssl-dev r-cran-rjson`. Dann in R den Code oben. Wenn das nicht klappt, folge den Anweisungen beim Installieren der einzelnen Abhängigkeiten in R: `install.packages("curl")` und dann mit `"openssl"`, `"httr"` und `"rjson"`.
+- Auf **Windows**: ignoriere die **Rtools Warnung**. Wenn gewünscht,  [installiere](https://cran.r-project.org/bin/windows/Rtools) es zB in `C:/Rtools` (Compiler Pfade dürfen keine Leerzeichen haben) und führe in R aus: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
+
+Mögliche Probleme (und Lösungen):
+
+- Bei "Failed to install ... **Permission denied**": Schreibrechte setzen (rechtsklick auf Ordner - Eigenschaften - Sicherheit - Bearbeiten - Benutzer auswählen - Vollzugriff setzen - OK). Dazu Virenscanner ausschalten oder Rechner neustarten.
+- Dauerhaft **benutzerdefinierten Ordner für Pakete** verwenden: in R `cat('R_LIBS_USER="C:/Pfad/zum/library"', file= "~/.Renviron", append=TRUE)`. Sollte nach R Neustart erste Ausgabe von `.libPaths()` sein.
+- Bei "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
+- Falls nur eine **alte Version von R** möglich ist: für rjson `install.packages("devtools")` und `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
 
 
 ### **Vorgehensweise** _(für jede Übung)_

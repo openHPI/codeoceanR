@@ -14,10 +14,15 @@ install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR")
 ```
 
-- On **Linux**: first run `install.packages("curl")` and `install.packages("openssl")` (maybe also with `"httr"` and `"rjson"`).  
-Follow the instructions e.g. `sudo apt install libcurl4-openssl-dev` or `sudo apt install r-cran-rjson`
-- On **Windows**: ignore the Rtools warning. If you like, [install](https://cran.r-project.org/bin/windows/Rtools) it at `C:/Rtools` (compiler paths may not have spaces) and run in R: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
-- If only an **old version of R** is possible, for `rjson` try *(not yet verified)* `install.packages("devtools")` and `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
+- On **Linux**: first run in terminal (STRG+ALT+T): `sudo apt install libcurl4-openssl-dev libssl-dev r-cran-rjson`. Then in R the code above. If it fails, follow the instructions from installing the dependencies in R: `install.packages("curl")` and then with `"openssl"`, `"httr"` and `"rjson"`.
+- On **Windows**: ignore the **Rtools warning**. If you like, [install](https://cran.r-project.org/bin/windows/Rtools) it at e.g. `C:/Rtools` (compiler paths may not have spaces) and run in R: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
+
+Potential problems (and solutions):
+
+- For "Failed to install ... **Permission denied**": set write permissions (rightklick on folder - properties - security - edit - select user - full control - OK). Turn off virus scanner or reboot computer.
+- Permanently use **custom folder for packages**: in R `cat('R_LIBS_USER="C:/path/to/library"', file= "~/.Renviron", append=TRUE)`. After R restart, should be the first result from `.libPaths()`.
+- For "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
+- If only an **old version of R** is possible: for rjson `install.packages("devtools")` and `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
 
 
 ### **procedure** _(for each exercise)_
