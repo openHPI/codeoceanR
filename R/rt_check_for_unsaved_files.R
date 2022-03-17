@@ -13,8 +13,12 @@
 #'
 rt_check_for_unsaved_files <- function(dir=".", warnonly=FALSE)
 {
+de <- rt_default_language=="de"
 # check dir:
 dir <- berryFunctions::normalizePathCP(paste0(dir, "/.Rproj.user"))
+if(warnonly && !dir.exists(dir)) return(if(de)
+	message("Pr\u00FCfe nicht auf ungespeicherte Datei\u00E4nderungen (da der Ordner .Rproj.user/ nicht existiert).") else
+	message("Not checking for unsaved file changes (since there is no .Rproj.user/ dir)."))
 berryFunctions::checkFile(dir, warnonly=warnonly)
 # find folder:
 dir <- dir(dir, pattern="^[a-zA-Z0-9]{6,8}$", full.names=TRUE)
@@ -41,7 +45,7 @@ fn <- unlist(fn)
 # Prepare message:
 if(  length(fn)<1  ) return(NULL)
 p <- length(fn)>1 # plural?
-if(rt_default_language=="de")
+if(de)
 msg <- paste0("Die folgende Datei", if(p)"en haben" else " hat", " ungespeicherte \u00c4nderungen:\n- ",
 		paste(fn, collapse="\n- "), "\nSpeichere diese (CTRL+S) und f\u00fchre rt_score() erneut aus.")
 else
