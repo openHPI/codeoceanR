@@ -22,6 +22,7 @@ Mögliche Probleme (und Lösungen):
 - Dauerhaft **benutzerdefinierten Ordner für Pakete** verwenden: in R `cat('R_LIBS_USER="C:/Pfad/zum/library"', file= "~/.Renviron", append=TRUE)`. Sollte nach R Neustart erste Ausgabe von `.libPaths()` sein.
 - Bei "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
 - Falls nur eine **alte Version von R** möglich ist: für rjson `install.packages("devtools")` und `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
+- Wenn du einen **anderen Editor** als Rstudio nutzen willst: verwende unten NICHT `rt_create()`, sondern entpacke den ZIP Ordner manuell.
 
 
 ### **Vorgehensweise** _(für jede Übung)_

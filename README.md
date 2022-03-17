@@ -23,6 +23,7 @@ Potential problems (and solutions):
 - Permanently use **custom folder for packages**: in R `cat('R_LIBS_USER="C:/path/to/library"', file= "~/.Renviron", append=TRUE)`. After R restart, should be the first result from `.libPaths()`.
 - For "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
 - If only an **old version of R** is possible: for rjson `install.packages("devtools")` and `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
+- If you use **another editor** than Rstudio: don't run `rt_create()` below, instead unzip the file manually.
 
 
 ### **procedure** _(for each exercise)_
