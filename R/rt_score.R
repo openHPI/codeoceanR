@@ -23,7 +23,7 @@
 rt_score <- function(dir=".", submit=FALSE, fullout=FALSE)
 {
 # Avoid recursive posting, so we can have rt_score() in the exercise script:
-if(!interactive()) return(NULL)
+if(Sys.getenv("CODEOCEAN")=="true") return("rt_score on CodeOcean.")
 de <- rt_default_language=="de"
 
 # Check directory and file
