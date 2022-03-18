@@ -16,7 +16,8 @@ rt_submit <- function(dir=".")
 {
 # Avoid error in case students leave rt_submit() in the exercise script
 # on the CO server (non-interactive mode), readline returns ""
-if(!interactive()) return(NULL)
+if(Sys.getenv("CODEOCEAN")=="true")
+	return("Not running 'rt_submit' in browser-CodeOcean.")
 
 de <- rt_default_language=="de"
 if(de)

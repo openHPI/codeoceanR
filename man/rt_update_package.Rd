@@ -11,7 +11,6 @@ rt_update_package(
   quiet = FALSE,
   quietremotes = TRUE,
   force = FALSE,
-  ignoreInScripted = TRUE,
   ...
 )
 }
@@ -20,19 +19,14 @@ rt_update_package(
 
 \item{user}{Github username. repo will then be user/pack. DEFAULT: "openHPI"}
 
-\item{branchdesc}{Github branch with description file. For many packages, "master" is needed. DEFAULT: "main"}
+\item{branchdesc}{Github branch with description file.
+For many older packages, "master" is needed. DEFAULT: "main"}
 
 \item{quiet}{Suppress version messages output?  DEFAULT: FALSE}
 
 \item{quietremotes}{Suppress \code{remotes::install} output? DEFAULT: TRUE}
 
 \item{force}{Force installation, even if not outdated? DEFAULT: FALSE}
-
-\item{ignoreInScripted}{Ignore this function in a scripted instance,
-e.g. when R is called through  \code{Rscript} as it is on CodeOcean.
-Determined with \code{\link[=interactive]{interactive()}}.
-DEFAULT: TRUE (so \code{rt_update_package} calls can safely be
-in scripts submitted to CO through \code{\link[=rt_score]{rt_score()}}.)}
 
 \item{\dots}{Further arguments passed to \code{\link[remotes:install_github]{remotes::install_github()}}}
 }

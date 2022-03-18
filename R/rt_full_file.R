@@ -26,7 +26,7 @@ ff <- function(..., not=TRUE)
   m <- m[names(m) %in% c(rt_env()$lang, "")]
   paste(unlist(m),collapse="")
   }
-if(!interactive()) return(ff(en="on",de="auf"," CodeOcean"))
+if(Sys.getenv("CODEOCEAN")=="true") return(ff(en="on",de="auf"," browser-CodeOcean"))
 wd <- paste0(getwd(),"/")
 if(grepl("kurs/de_aufgaben/", wd)) return(ff("in German task development folder"))
 if(grepl("kurs/en_exercises", wd)) return(ff("in English task development folder"))
