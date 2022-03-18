@@ -4,13 +4,15 @@
 \alias{rt_submit}
 \title{Submit score to CodeOcean and from there to openHPI}
 \usage{
-rt_submit(dir = ".")
+rt_submit(dir = ".", confirm = TRUE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
 Must contain ".co" and all the "script_n.R" files
 referenced there, with the changes by the student, saved.
 DEFAULT: "."}
+
+\item{confirm}{Logical: ask for confirmation before submission? DEFAULT: TRUE}
 }
 \value{
 JSON array or hash. It can be analyzed e.g. with

@@ -11,8 +11,9 @@
 #'            Must contain ".co" and all the "script_n.R" files
 #'            referenced there, with the changes by the student, saved.
 #'            DEFAULT: "."
+#' @param confirm Logical: ask for confirmation before submission? DEFAULT: TRUE
 #'
-rt_submit <- function(dir=".")
+rt_submit <- function(dir=".", confirm=TRUE)
 {
 # Avoid error in case students leave rt_submit() in the exercise script
 # on the CO server (non-interactive mode), readline returns ""
@@ -20,7 +21,7 @@ if(Sys.getenv("CODEOCEAN")=="true")
 	return("Not running 'rt_submit' in browser-CodeOcean.")
 
 de <- rt_default_language=="de"
-if(de)
+if(confirm) if(de)
 {
 rl <- readline("Dies ist meine endg\u00fcltige \u00dcbertragung des Punktestandes an openHPI (j/n): ")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Die Einreichung wurde abgebrochen.")
