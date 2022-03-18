@@ -23,6 +23,7 @@ Mögliche Probleme (und Lösungen):
 - Bei "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
 - Falls nur eine **alte Version von R** möglich ist: für rjson `install.packages("devtools")` und `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
 - Wenn du einen **anderen Editor** als Rstudio nutzen willst: verwende unten NICHT `rt_create()`, sondern entpacke den ZIP Ordner manuell.
+- Bei `rt_create()` Fehlermeldung "Could not load the **Qt platform plugin xcb**": bis Lösung bekannt: Rproj Datei manuell öffnen. Falls du das lösen konntest, bitte [hier](https://open.hpi.de/courses/programmieren-r2022/question/5a424cfa-3a86-4215-9337-9337e52c8277) posten!
 
 
 ### **Vorgehensweise** _(für jede Übung)_
