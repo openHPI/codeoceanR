@@ -105,7 +105,7 @@ if(n!="NULL" && !exists(n, envir=parent.frame()))
 	return(rt_env(fail=tnumber))
   }
 
-# the rest (up to ...-tests) only if value is given:
+# correct + zero + rt_test_object only if value is given:
 if(!is.null(value))
 {
 # correct ----

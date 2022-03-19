@@ -17,7 +17,7 @@ de <- rt_default_language=="de"
 # check dir:
 dir <- berryFunctions::normalizePathCP(paste0(dir, "/.Rproj.user"))
 if(warnonly && !dir.exists(dir)) return(if(de)
-	message("Pr\u00FCfe nicht auf ungespeicherte Datei\u00E4nderungen (dies ist kein Rstudio Rprojekt).") else
+	message("rt_score pr\u00Fft nicht auf ungespeicherte Datei\u00E4nderungen (dies ist kein Rstudio Rprojekt).") else
 	message("Not checking for unsaved file changes (this is not an Rstudio Rproject)."))
 berryFunctions::checkFile(dir, warnonly=warnonly)
 # find folder:
