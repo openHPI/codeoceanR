@@ -2,13 +2,6 @@
 
 [Berry Boessenkool](mailto:berry.boessenkool@hpi.de), 2020-2022
 
-:warning:
-
-```diff
-- OpenHPI ist heute (Samstag 19.3.) komplett down.
-- Es wird an Lösungen gearbeitet.
-- wir bitten um Geduld und Entschuldigung.
-```
 
 ### **Setup** _(nur einmal)_
 
