@@ -36,7 +36,10 @@ prepare exercise:
 - **close** the CodeOcean browser **tab**
 - **run** (in R / Rstudio) `codeoceanR::rt_create()`
 - **confirm** to have closed the tab
-- **select** the exercise file. _If unzipped (the default on Mac OS Safari), any file within the folder._
+- **select** the exercise file. _If unzipped (the default on Mac OS Safari), any file within the task folder._
+
+use `rt_create` only once per excercise. Start the project later by opening the `zz_*.Rproj` file in your file browser.
+
 
 take exercise:
 

@@ -35,7 +35,10 @@ Mögliche Probleme (und Lösungen):
 - **Schließe** den CodeOcean-Browser **Tab**
 - **Führe aus** (in R / Rstudio) `codeoceanR::rt_create()`
 - **Bestätige**, die Registerkarte geschlossen zu haben
-- **Wähle** die Übungsdatei aus. _Wenn entpackt (Standard unter Mac OS Safari), irgendeine Datei innerhalb des Ordners._
+- **Wähle** die Übungsdatei aus. _Wenn entpackt (Standard unter Mac OS Safari), irgendeine Datei innerhalb des Aufgabenordners._
+
+Verwende `rt_create` nur einmal pro Aufgabe. Starte das Aufgabenprojekt später durch öffnen der `zz_*.Rproj` Datei im Dateibrowser.
+
 
 Übung bearbeiten:
 
