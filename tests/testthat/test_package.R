@@ -38,26 +38,6 @@ expect_true(rt_test_task(1,NULL,NULL,section=3,script=script,solcode='myfun(sep=
 
 
 
-# rt_test_object ----
-
-test_that("rt_test_object warns correctly", {
-
-testm <- if(interactive()) testthat::expect_message else testthat::expect_output
-sol <- function(x) x+1
-fun <- function(x) x
-x <- 555
-testm(rt_test_task(7, fun, sol, inputs=c("1:5", "c(2,3,4)")),
-      "T7: 'fun(1:5)[1]' should be '2', not '1'.", fixed=TRUE)
-
-fun <- function(x) data.frame(x)
-testm(rt_test_task(7, fun, sol, inputs=c("1:5", "4:2)")),
-			"T7: 'fun(1:5)' should have class 'numeric', not 'data.frame'.", fixed=TRUE)
-
-# ToDo: expand this a lot!
-})
-
-
-
 # rt_due_warn ----
 
 due_test <- if(interactive()) testthat::expect_message else testthat::expect_output

@@ -32,8 +32,8 @@ rt_has_value <- function(
 	# Reduce message line breaks e.g. in intended try() error messages:
 	if(is.character(object) && length(object)==1)
 		{
-		object <- sub("\n$", "", object)
-		value  <- sub("\n$", "", value)
+		if(!is.null(object)) object <- sub("\n$", "", object)
+		if(!is.null(value )) value  <- sub("\n$", "", value)
 	  }
   if(is.numeric(value))
   	{

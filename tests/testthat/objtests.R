@@ -12,6 +12,17 @@ x <- expr
 stopifnot(v==x)
 }
 
+
+# Functions ----
+sol <- function(x) x+1
+fun <- function(x) x
+x <- 555
+ck(F,"'fun(1:5)[1]' should be '2', not '1'.", rt_test_task(7, fun, sol, inputs=c("1:5", "c(2,3,4)")))
+fun <- function(x) data.frame(x)
+ck(F, "'fun(1:5)' should have class 'numeric', not 'data.frame'.", rt_test_task(7, fun, sol, inputs=c("1:5", "4:2)")))
+
+
+
 # class ----
 ck(T,"",                                                                  rt_test_object(1:5, seq(1,5,1)))
 ck(F,"'1:5' should have class 'numeric', not 'integer'.",                 rt_test_object(1:5, seq(1,5,1), intnum=FALSE))
@@ -41,8 +52,7 @@ ck(F,"'iris' should have 3 columns, not 5.",                              rt_tes
 
 # names ----
 aa <- rivers; names(aa) <- paste0(LETTERS, 1:141)
-ck(F,"'names(aa)' should be 'NULL', not 'A1, B2, C3, D4, .* J140, K141'", rt_test_object(aa, rivers))
-ck(F,"'names(aa)[1]' should be 'NULL', not 'A1'",                         rt_test_object(aa, rivers, stepnames=TRUE))
+ck(F,"'aa' should not have names, but has: A1, B2, C3, [...]",            rt_test_object(aa, rivers))
 ck(F,"'names(rivers)' should be 'A1, B2, .* J140, K141', not 'NULL'",     rt_test_object(rivers, aa))
 ck(F,"'names(rivers)[1]' should be 'A1', not 'NULL'",                     rt_test_object(rivers, aa, stepnames=TRUE))
 ck(T,"",                                                                  rt_test_object(aa, rivers, names=FALSE))

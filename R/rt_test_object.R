@@ -68,6 +68,15 @@ if(dim && isarr)
 if(names)
   if(oneD) # 1D
   {
+  truncM <- function(xx)
+  	{
+  	if(length(xx)==1) return(paste0("'",xx,"'"))
+  	if(length(xx)>3) return(paste0(toString(xx[1:3]), ", [...]"))
+  	return(toString(xx))
+    }
+  if(is.null(names(value)) && !is.null(names(object)) )
+  	return(rt_warn(pn, en="should not have names, but has: ", de="sollte keine Namen haben, hat aber: ",
+  								 truncM(names(object)), "."))
   if(!rt_has_value(names(object),names(value), name=paste0("names(",name,")"), stepwise=stepnames, qmark=qmark))
   	return(FALSE)
   } else # nD

@@ -1,7 +1,7 @@
 Package: codeoceanR
 Title: Test R tasks with CodeOcean at HPI
-Version: 0.8.18
-Date: 2022-03-18
+Version: 0.8.19
+Date: 2022-03-22
 Authors@R: 
     person(given = "Berry",
            family = "Boessenkool",
