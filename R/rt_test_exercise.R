@@ -22,12 +22,13 @@ if(inherits(trytests, "try-error"))
   rt_warn(" ----- Test fehlgeschlagen. Bitte melden, siehe unten. -----\n",
   				"Das interne Testskript hat versagt. Dies sollte nie passieren. Sorry!!!\n",
           "Um wieder Punkte zu erhalten, mache bitte die letzten \u00C4nderungen r\u00FCckg\u00E4ngig.\n",
-          "Bitte poste diese Fehlermeldung im Forum':\n----------\n", trytests, "\n----------")
+          "Bitte poste diese Fehlermeldung im Forum (wenn schon gemeldet, bitte upvoten).'\n----------\n",
+  				trytests, "\n----------")
 	else
   rt_warn(" ----- Test failed. Please report, see below. -----\n",
   				"The internal test script failed. This should never happen. Sorry!!\n",
           "To get scores again, please revert the last thing(s) you did.\n",
-          "Please post this message in the forum:\n----------\n", trytests, "\n----------")
+          "Please post this message in the forum (if already reported, please upvote).\n----------\n", trytests, "\n----------")
 	rt_env(fail=1:99) # reset to zero to avoid 100% score up to failed rt_test_task
   }
 # For succesfull testing, write results in CodeOcean format:
