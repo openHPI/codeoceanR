@@ -71,7 +71,8 @@ if(inherits(r, "try-error"))
 erm <- r else
 erm <- httr::http_condition(r, "error")$message
 
-if(grepl("Timeout was reached", erm)) # default timeout after 10 secs
+if(grepl("Timeout was reached", erm) || # default timeout after 10 secs
+   grepl("Forbidden", erm)) # reported in the forum
 	if(de)
 	warning("Bist du \u00fcber ein VPN online? Versuche es nochmal ohne Proxy. Alternativ hilft vielleicht Folgendes:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))', call.=FALSE)
