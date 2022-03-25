@@ -48,7 +48,9 @@ if(is.character(value))
   {
 	if(is.na(remcom)) remcom <- length(object) > 1
 	if(remcom){
-		object <- as.character(parse(text=object))
+		object <- try(as.character(parse(text=object)), silent=TRUE)
+		if(inherits(object, "try-error")) return(rt_warn(
+			pn, en=" raises error: ", de=" erzeugt Fehler: ", attr(object,"condition")$message))
 	  }
   if(ignore_space) {
     object <- gsub("\\s", "", object)
