@@ -71,7 +71,7 @@ if(inherits(u_fun,"try-error"))
 
 # Intended solution:
 i_fun <- target[[1]]
-if(i_fun != u_fun) return(rt_warn(
+if(!identical(i_fun, u_fun)) return(rt_warn(
 	cs,en=" should contain the function '", de=" sollte die Funktion '",
 	deparse(i_fun),en="', not '", de="' enthalten, nicht '",deparse(u_fun),"'."))
 
