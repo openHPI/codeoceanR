@@ -33,7 +33,7 @@ Mögliche Probleme (und Lösungen):
 - Gehe über OpenHPI zur CodeOcean-Übung
 - **Herunterladen** (Abwärtspfeil links im Dateifenster) der gesamten Aufgabe in den o.g Ordner auf dem PC, kein Entpacken erforderlich
 - **Schließe** den CodeOcean-Browser **Tab**
-- **Führe aus** (in R / Rstudio) `codeoceanR::rt_create()`
+- **Führe aus** (in R / Rstudio Konsole) `codeoceanR::rt_create()`
 - **Bestätige**, die Registerkarte geschlossen zu haben
 - **Wähle** die Übungsdatei aus. _Wenn entpackt (Standard unter Mac OS Safari), irgendeine Datei innerhalb des Aufgabenordners._
 

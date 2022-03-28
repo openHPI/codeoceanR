@@ -34,7 +34,7 @@ prepare exercise:
 - through OpenHPI, go to the CodeOcean exercise
 - **download** it to the folder mentioned above, no need to unzip
 - **close** the CodeOcean browser **tab**
-- **run** (in R / Rstudio) `codeoceanR::rt_create()`
+- **run** (in R / Rstudio Console) `codeoceanR::rt_create()`
 - **confirm** to have closed the tab
 - **select** the exercise file. _If unzipped (the default on Mac OS Safari), any file within the task folder._
 
