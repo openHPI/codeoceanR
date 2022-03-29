@@ -9,7 +9,7 @@
 #' @seealso [rt_test_exercise], tests.R in the [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @export
 #'
-#' @param tnumber  Number of task. Must be numeric, as it will be used for pass/fail in [rt_env].
+#' @param tnumber  Number of task. If numeric, used for pass/fail in [rt_env].
 #' @param object   Object that needs to be created in student script.
 #'                 Regular object name, not quoted. First checked for existence.
 #'                 If `value` is given, checked with `correct` and `zero`,
@@ -88,7 +88,6 @@ export=NULL
 )
 {
 n <- deparse(substitute(object))
-if(!is.numeric(tnumber)) stop("tnumber must be numeric, not ", toString(class(tnumber)), ", for tnumber: ", tnumber)
 rt_env(id=tnumber)
 
 # Exit this function through return() right after the first rt_warn message

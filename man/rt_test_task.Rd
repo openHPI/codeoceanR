@@ -31,7 +31,7 @@ rt_test_task(
 )
 }
 \arguments{
-\item{tnumber}{Number of task. Must be numeric, as it will be used for pass/fail in \link{rt_env}.}
+\item{tnumber}{Number of task. If numeric, used for pass/fail in \link{rt_env}.}
 
 \item{object}{Object that needs to be created in student script.
 Regular object name, not quoted. First checked for existence.

@@ -30,8 +30,8 @@ env <- dynGet("rt_test_env", ifnotfound=empty, minframe=0)
 if(!is.null(id))   {env$id <- id; return(as.list(env))}
 if(!is.null(lang)) {if(!lang %in% c("en","de")) stop("lang must be 'en' or 'de', not '",lang,"'.")
 	                  env$lang <- lang; return(as.list(env))}
-if(!is.null(pass)) {stopifnot(is.numeric(pass)); return(env$success[pass] <- TRUE)}
-if(!is.null(fail)) {stopifnot(is.numeric(fail)); return(env$success[fail] <- FALSE)}
+if(!is.null(pass)) {if(is.numeric(pass)) env$success[pass] <- TRUE  ; return(TRUE )}
+if(!is.null(fail)) {if(is.numeric(fail)) env$success[fail] <- FALSE ; return(FALSE)}
 if(!is.null(info)) {env$info <- c(env$info,info); return(as.list(env))}
 
 # return for empty rt_env() call:
