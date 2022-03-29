@@ -117,8 +117,8 @@ if(out$status=="failed")
   }
 if(trimws(out$stderr)!="")
 	{
-	mout <- paste0(if(de)"Beim Testen deines Codes trat eine Warnung auf:\n" else "A warning occured while testing:\n",
-		out$stderr, if(de)"Bitte informiere Berry.\n" else "Please report this to Berry.\n", mout)
+	mout <- paste0(if(de)"Beim Testen deines Codes trat eine Warnung / Ausgabe auf:\n" else "A warning / output occured while testing:\n",
+		out$stderr, mout)
   }
 message(mout) # print messages + score from codeOcean
 return(invisible(if(fullout) r else out))

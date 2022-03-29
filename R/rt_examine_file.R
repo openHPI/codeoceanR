@@ -42,7 +42,7 @@ stepnames=TRUE,
 {
 # existing?
 if(!file.exists(fn)) return(rt_warn(en="The file '",de="Die Datei '",fn,
-																		en="' does not exist.",de="' exisitiert nicht."))
+																		en="' does not exist.",de="' existiert nicht."))
 # not empty?
 l1 <- readLines(fn, n=1)
 if(length(l1)<1)     return(rt_warn(en="The file '",de="Die Datei '",fn,
