@@ -41,14 +41,12 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
     e <- sub("^Error in source.*_coscript.R:",msg,e)
     e <- gsub("\n"," ",e)
     e <- gsub("\\s+", " ", e)
+    if(any(grepl("unable to start data viewer", e)))
+       rt_warn("Kommentiere den View Aufruf aus. View f\u00FChrt auf CodeOcean zu einem Fehler.") else
     rt_warn(en="can not be executed. Make sure each line can be run.",
     				de="kann nicht ausgef\u00FChrt werden. Sorge, dass jede Zeile fehlerfrei l\u00E4uft.",
             "\n--- source() ", en="message: ", de="Meldung: ", e)
     }
-
-  # View Error in CO informative message
-  nocom <- try(as.character(parse(text=fnew)), silent=TRUE)
-  if(any(grepl("View(", nocom, fixed=TRUE))) rt_warn("Kommentiere den View Aufruf aus. View f\u00FChrt auf CodeOcean zu einem Fehler.")
 
   if(echo) return(readLines(lfile)) else return(fcontent)
 }
