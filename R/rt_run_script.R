@@ -45,5 +45,10 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
     				de="kann nicht ausgef\u00FChrt werden. Sorge, dass jede Zeile fehlerfrei l\u00E4uft.",
             "\n--- source() ", en="message: ", de="Meldung: ", e)
     }
+
+  # View Error in CO informative message
+  nocom <- try(as.character(parse(text=fnew)), silent=TRUE)
+  if(any(grepl("View(", nocom, fixed=TRUE))) rt_warn("Kommentiere den View Aufruf aus. View f\u00FChrt auf CodeOcean zu einem Fehler.")
+
   if(echo) return(readLines(lfile)) else return(fcontent)
 }
