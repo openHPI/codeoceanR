@@ -24,7 +24,9 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
   # exclude recursive score calls:
   fcontent <- readLines(filename, warn=FALSE, encoding="UTF-8")
   excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
-          grepl("rt_score("      , fcontent, fixed=TRUE)
+          grepl("rt_score("      , fcontent, fixed=TRUE) |
+          grepl("rt_plot1("      , fcontent, fixed=TRUE) | # to enable par checks
+          grepl("rt_plot2("      , fcontent, fixed=TRUE)
   fnew <- fcontent[!excl]
   tfile <- tempfile(fileext="_coscript.R")
   lfile <- tempfile(fileext="_colog.txt")
