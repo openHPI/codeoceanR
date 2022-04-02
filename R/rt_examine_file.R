@@ -47,6 +47,17 @@ if(!file.exists(fn)) return(rt_warn(en="The file '",de="Die Datei '",fn,
 l1 <- readLines(fn, n=1)
 if(length(l1)<1)     return(rt_warn(en="The file '",de="Die Datei '",fn,
                                     en="' should not be empty.",de="' sollte nicht leer sein."))
+
+# right number of rows?
+if(!is.null(value))
+{
+n_usr <- length(readLines(fn))
+n_cor <- nrow(value) + as.numeric(header)
+if(n_usr != n_cor)   return(rt_warn(en="The file '",de="Die Datei '",fn,
+                                    en="' should have ",de="' sollte ", n_cor,
+                                    en=" lines, not ", de=" Zeilen haben, nicht ", n_usr, "."))
+}
+
 # sep:
 if(!is.null(sep) && sep=="\t") sep <- "\\t" # escape backslash for charstrings
 if(!is.null(sep) && !grepl(sep,l1)) return(rt_warn(
