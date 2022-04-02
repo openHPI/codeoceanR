@@ -35,11 +35,8 @@ rt_has_value <- function(
 		if(!is.null(object)) object <- sub("\n$", "", object)
 		if(!is.null(value )) value  <- sub("\n$", "", value)
 	  }
-  if(is.numeric(value))
-  	{
-    object <- round(object, digits)
-    value  <- round(value , digits)
-    }
+  if(is.numeric(object)) object <- round(object, digits)
+  if(is.numeric(value )) value  <- round(value , digits)
 
 	toString2 <- function(x) if(is.null(x)) "NULL" else toString(x)
 
