@@ -42,8 +42,8 @@ ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,  "plot(1:5,\n  lw
 ck(F,"c.*7: argument 'lwd' should be '3', not '2'."          ,c("plot(1:5,"," lwd=2)")        ,'plot(1:5, lwd=3)'             )
                                                                                                                               #
 ck(F,"str2lang for c.*7 produced error:.*unexpected symbol"  ,"plot(1:5) points(2,3)"         ,'plot(1:5)'                    )
-ck(F,"str2lang for c.*7 produced error: parsing result not.*","plot(1:5)\n points(2,3)"       ,'plot(1:5)'                    )
-ck(F,"str2lang for c.*ing result not of length one, but 2"   ,"plot(1:5); points(2,3)"        ,'plot(1:5)'                    )
+ck(F,"may contain one single command only, not 2."           ,"plot(1:5)\n points(2,3)"       ,'plot(1:5)'                    )
+ck(F,"may contain one single command only, not 2."           ,"plot(1:5); points(2,3)"        ,'plot(1:5)'                    )
                                                                                                                               #
 ck(F,"c.*7 should not contain the argument 'a' more than onc","plot(1, a=2,a=3)"              ,'plot(1:5)'                    )
 ck(F,"c.*7 should not contain.*gument 'a, b' more than once.","plot(1, a=2,a=3, b=4,b=5,b=6)" ,'plot(1:5)'                    )

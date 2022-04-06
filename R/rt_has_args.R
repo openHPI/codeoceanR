@@ -58,6 +58,10 @@ if(length(code)>1) code <- paste(code, collapse="\n")
 if(ignAssign) code <- sub("^.*?<-","", code) # https://stackoverflow.com/a/9704260
 code2 <- try(str2lang(code), silent=TRUE)
 if(inherits(code2,"try-error"))
+	if(grepl("parsing result not of length one", code2))
+	return(rt_warn(cs, en=" may contain one single command only, not ",
+                 de=" darf nur einen einzigen Befehl enthalten, nicht ",
+                 strsplit(attr(code2,"condition")$message, "but ")[[1]][2], ".")) else
 	return(rt_warn("str2lang ",en="for ",de="f\u00FCr ",cs,en=" produced error: ",
 								 de=" erzeugte einen Fehler: ", attr(code2,"condition")$message))
 target <- gsub("\\\\", "\\\\\\\\", target)
