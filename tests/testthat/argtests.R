@@ -106,6 +106,9 @@ ck(F,"c.*7: argument 'x'[1] should be '5', not '2'."         ,"plot(a~e,data=ed)
 ck(F,"c.*7: argument 'x'[1] should be '5', not '2'."         ,"plot(a~e,data=ed)"             ,'plot(a~b, data=ed)'           )
 ck(T,""                                                      ,"plot(ed$b,ed$a,col=cv[ed$e])"  ,'plot(a~b, data=ed, col=cv[e])')
 
+ck(T,""                                                      ,'plot(1, xlab=paste0("Hi"))'    ,'plot(1, xlab="Hi")'           )
+ck(F,"c.*7: argument 'xlab' should be '\"Hi\"', not '\"Ho\"'",'plot(1, xlab=paste0("Ho"))'    ,'plot(1, xlab="Hi")'           )
+
 
 
 if(FALSE){

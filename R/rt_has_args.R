@@ -21,6 +21,12 @@
 #' rt_has_args("plot(c(1,2,3,4,5))", "plot(1:5)", 7, nameonly=TRUE) # FALSE:
 #' # Tx: code section t7: argument 'x' should be '1:5', not 'c(1, 2, 3, 4, 5)'.
 #'
+#' cv <- c("orange", "mediumpurple2")
+#' rt_has_args('plot(1, xlab=paste0("Hi"))', 'plot(1, xlab="Hi")', 7) # TRUE
+#' rt_has_args('plot(1, xlab=paste0("Ho"))', 'plot(1, xlab="Hi")', 7) # FALSE
+#' rt_has_args('length(1:2)','length(cv)', 7)                # F: class char not int
+#' rt_has_args('length(1:2)','length(cv)', 7, nameonly=TRUE) # F: 'cv' not '1:2'
+#'
 #' # See more in unit tests at "codeoceanR/tests/testthat/argtests.R"
 #'
 #' @param code     Charstring with user (student) code.
@@ -108,18 +114,23 @@ obs <- obs[!obs %in% c("expr")]
 for(n in obs) assign(n, get(n,parent.frame(2)))
 attachdata <- try(attach(eval(u_arg$data), warn.conflicts=FALSE), silent=TRUE)
 if(inherits(attachdata, "try-error")) return(rt_warn(en="Not a valid value for argument 'data': ",
-    de="Kein gültiger Wert für das Argument 'data': ", u_arg$data))
+    de="Kein g\u00FCltiger Wert f\u00FCr das Argument 'data': ", u_arg$data))
 
 # Evaluate/deparse arguments:
 # eval environment in formula call?
-argfun <- function(x) if(is.character(x)) dQuote(x, '"') else
-	                    if(nameonly       ) deparse(x) else
-	                    	                  eval(x)
+argfun <- function(x)
+  {
+  if(is.character(x)) return(dQuote(x, '"'))
+  if(nameonly       ) return(deparse(x)    )
+  y <- eval(x)
+  if(is.character(y)) y <- dQuote(y, '"')
+  return(y)
+  }
 u_arg <- try(lapply(u_arg, argfun), silent=TRUE)
 i_arg <- try(lapply(i_arg, argfun), silent=TRUE)
 if(inherits(u_arg,"try-error")) return(rt_warn(
 	cs,en=" could not be evaluated: ", de=" konnte nicht ausgef\u00FChrt werden: ", sub("\n$","",u_arg)))
-if(inherits(i_arg,"try-error")) return(rt_warn(
+if(inherits(i_arg,"try-error")) return(rt_warn(en="solution code for ", de="Musterl\u00F6sung f\u00FCr ",
 	cs,en=" could not be evaluated: ", de=" konnte nicht ausgef\u00FChrt werden: ", sub("\n$","",i_arg)))
 
 # if not named, formula is matched to 'x' in plot & boxplot, to 'height' in barplot

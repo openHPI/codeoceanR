@@ -63,6 +63,12 @@ rt_has_args("plot(c(1,2,3,4,5))", "plot(1:5)", 7               ) # TRUE
 rt_has_args("plot(c(1,2,3,4,5))", "plot(1:5)", 7, nameonly=TRUE) # FALSE:
 # Tx: code section t7: argument 'x' should be '1:5', not 'c(1, 2, 3, 4, 5)'.
 
+cv <- c("orange", "mediumpurple2")
+rt_has_args('plot(1, xlab=paste0("Hi"))', 'plot(1, xlab="Hi")', 7) # TRUE
+rt_has_args('plot(1, xlab=paste0("Ho"))', 'plot(1, xlab="Hi")', 7) # FALSE
+rt_has_args('length(1:2)','length(cv)', 7)                # F: class char not int
+rt_has_args('length(1:2)','length(cv)', 7, nameonly=TRUE) # F: 'cv' not '1:2'
+
 # See more in unit tests at "codeoceanR/tests/testthat/argtests.R"
 
 }
