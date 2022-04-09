@@ -34,7 +34,9 @@ DEFAULT: FALSE}
 \item{class, intnum, dim, names, hasval, stepwise, stepnames}{Passed to \link{rt_test_object}, see \link{rt_test_task}}
 
 \item{alt}{list of alternately accepted inputs.
-Use list(argname="anyval") to skip value test. DEFAULT: NULL}
+Use list(argname="anyval") to skip value test.
+Use list(arg='"charstring"') with double quotation marks.
+DEFAULT: NULL}
 
 \item{opt}{Charstring vector of arguments that are optional.
 Mostly for the formula interface, I guess. DEFAULT: NULL}

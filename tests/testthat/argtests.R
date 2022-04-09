@@ -109,6 +109,11 @@ ck(T,""                                                      ,"plot(ed$b,ed$a,co
 ck(T,""                                                      ,'plot(1, xlab=paste0("Hi"))'    ,'plot(1, xlab="Hi")'           )
 ck(F,"c.*7: argument 'xlab' should be '\"Hi\"', not '\"Ho\"'",'plot(1, xlab=paste0("Ho"))'    ,'plot(1, xlab="Hi")'           )
 
+ck(T,""                                                      ,'plot(1:2, lty=3)'              , 'plot(1:2, lty=3)', alt=list(lty=2))
+ck(T,""                                                      ,'plot(1:2, lty=2)'              , 'plot(1:2, lty=3)', alt=list(lty=2))
+ck(T,""                                                      ,'plot(1:2, lty=3)'              , 'plot(1:2, lty=3)', alt=list(lty="dashed"))
+ck(F,"ent 'lty' should have class 'numeric', not 'character'",'plot(1:2, lty="dashed")'       , 'plot(1:2, lty=3)', alt=list(lty="dashed"))
+ck(T,""                                                      ,'plot(1:2, lty="dashed")'       , 'plot(1:2, lty=3)', alt=list(lty='"dashed"'))
 
 
 if(FALSE){
@@ -120,6 +125,5 @@ ed <- data.frame(a=1:4, b=5:8, c=6:7, e=6:9) # correctly F with e
 rt_has_args("plot(a~c,data=ed)", plot(formula=a~b, data=ed), 7)
 rt_has_args("plot(a~c,data=ed)", plot(ed$b, ed$a), 7)
 # possibly has to do with attach. R CHECK frowns upon that anyways
-
 
 }

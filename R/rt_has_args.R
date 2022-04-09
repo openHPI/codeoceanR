@@ -36,7 +36,9 @@
 #'                 DEFAULT: FALSE
 #' @param class,intnum,dim,names,hasval,stepwise,stepnames Passed to [rt_test_object], see [rt_test_task]
 #' @param alt      list of alternately accepted inputs.
-#'                 Use list(argname="anyval") to skip value test. DEFAULT: NULL
+#'                 Use list(argname="anyval") to skip value test.
+#'                 Use list(arg='"charstring"') with double quotation marks.
+#'                 DEFAULT: NULL
 #' @param opt      Charstring vector of arguments that are optional.
 #'                 Mostly for the formula interface, I guess. DEFAULT: NULL
 #' @param ignAssign Remove assignment part from code? DEFAULT: FALSE
