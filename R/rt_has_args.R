@@ -129,7 +129,10 @@ argfun <- function(x)
 u_arg <- try(lapply(u_arg, argfun), silent=TRUE)
 i_arg <- try(lapply(i_arg, argfun), silent=TRUE)
 if(inherits(u_arg,"try-error")) return(rt_warn(
-	cs,en=" could not be evaluated: ", de=" konnte nicht ausgef\u00FChrt werden: ", sub("\n$","",u_arg)))
+	cs,en=" could not be evaluated: ", de=" konnte nicht ausgef\u00FChrt werden: ",
+	sub("\n$","",u_arg),
+	en=if(grepl("nt is missing",u_arg)) ". This indicates code like plot(x,y,) with no last arg.",
+	de=if(grepl("nt is missing",u_arg)) ". Dies weist hin auf Code wie plot(x,y,) ohne letztes Argument."))
 if(inherits(i_arg,"try-error")) return(rt_warn(en="solution code for ", de="Musterl\u00F6sung f\u00FCr ",
 	cs,en=" could not be evaluated: ", de=" konnte nicht ausgef\u00FChrt werden: ", sub("\n$","",i_arg)))
 
