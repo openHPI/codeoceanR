@@ -31,6 +31,9 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
   tfile <- tempfile(fileext="_coscript.R")
   lfile <- tempfile(fileext="_colog.txt")
   writeLines(fnew, tfile)
+  # ignore file.show calls when Scoring in CodeOcean
+  nullfun <- function(...) NULL
+  assign("file.show", nullfun, envir=parent.frame())
   # actually source the (modified) file:
   sink(lfile)
   if(!quiet)
