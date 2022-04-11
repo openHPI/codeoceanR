@@ -116,7 +116,7 @@ obs <- obs[!obs %in% c("expr")]
 for(n in obs) assign(n, get(n,parent.frame(2)))
 attachdata <- try(attach(eval(u_arg$data), warn.conflicts=FALSE), silent=TRUE)
 if(inherits(attachdata, "try-error")) return(rt_warn(en="Not a valid value for argument 'data': ",
-    de="Kein g\u00FCltiger Wert f\u00FCr das Argument 'data': ", u_arg$data))
+    de="Kein g\u00FCltiger Wert f\u00FCr das Argument 'data': ", deparse(u_arg$data)))
 
 # Evaluate/deparse arguments:
 # eval environment in formula call?
