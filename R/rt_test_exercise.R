@@ -32,6 +32,11 @@ if(inherits(trytests, "try-error"))
 	rt_env(fail=1:99) # reset to zero to avoid 100% score up to failed rt_test_task
   }
 # For succesfull testing, write results in CodeOcean format:
-cat(length(rt_test_env$success), "examples,",
+cat("\n", length(rt_test_env$success), "examples,",
     sum(rt_test_env$success, na.rm=TRUE), "passed\n")
 }
+
+# Note: the prefixed linebreak covers the (rare?) case of a student having
+# cat in a function (the last one called in the test script?) with a number,
+# hence getting e.g. "775 examples" instead of "5 examples".
+# rt_score hence removes double linebreaks when printing the message
