@@ -114,7 +114,7 @@ if(correct && !is.function(value))
 		{
 	  rt_warn("'",n,en="' must be atomic (a vector), not of class '",
 	  				de="' muss ein atomic vector sein, nicht class '",
-	  				toString(class(object)), "'", de="haben", ".")
+	  				toString(class(object)), "'", de=" haben", ".")
 	  return(rt_env(fail=tnumber))
 	  }
 	if(!isTRUE(all.equal(sort(object),sort(value))))
