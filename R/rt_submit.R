@@ -23,11 +23,11 @@ if(Sys.getenv("CODEOCEAN")=="true")
 de <- rt_default_language=="de"
 if(confirm) if(de)
 {
-rl <- readline("Dies ist meine endg\u00fcltige \u00dcbertragung des Punktestandes an openHPI (j/n): ")
+rl <- readline("Dies ist meine \u00dcbertragung des Punktestandes an openHPI (j/n): ")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Die Einreichung wurde abgebrochen.")
 } else
 {
-rl <- readline("This is my final grade submission to openHPI (y/n): ")
+rl <- readline("This is my grade submission to openHPI (y/n): ")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Submission has been canceled.")
 }
 
@@ -46,25 +46,20 @@ erm <- httr::http_condition(r, "error")$message
 if(!httr::status_code(r) %in% c(202, 207))
 	if(de)
 	warning("Scheinbar gab es einen Fehler bei der Punkte\u00fcbertragung, Pardon!",
-					"\nSende folgende Nachricht bitte an Berry, damit das zuk\u00fcnftig vermieden werden kann.",
+					"\nSende folgende Nachricht bitte an Berry, damit das zuk\u00fcnftig vermieden werden kann.\n",
 					toString(erm), call.=FALSE)
   else
   warning("Looks like something went wrong in the submission process. Sorry! ",
-					"\nPlease send to following message to Berry, so it can be avoided next time.",
-					"\n(Your grade will be added manually, so you really need to let him know.)\n",
+					"\nPlease send to following message to Berry, so it can be avoided next time.\n",
 					toString(erm), call.=FALSE)
 httr::stop_for_status(r) # if any, pass http errors to R
 
 # Message + score from codeOcean
 out <- httr::content(r, "parsed", "application/json")
 if(de)
-message(out$message, "\nDie \u00fcbertragene Bewertung ist ", round(out$score,2), "%.",
-				"\nArbeite gerne weiter an der Aufgabe, auch mit rt_score(), ",
-				"aber submitte bitte nicht nochmal. Danke :)")
+message(out$message, "\nDie \u00fcbertragene Bewertung ist ", round(out$score,2), "%.")
 else
-message(out$message, "\nThe submitted score is ", round(out$score,2), "%.",
-				"\nFeel free to continue the exercise, including running rt_score(), ",
-				"but don't submit again. Thanks :)")
+message(out$message, "\nThe submitted score is ", round(out$score,2), "%.")
 
 # Output
 return(invisible(r))
