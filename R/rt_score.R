@@ -117,6 +117,11 @@ if(out$status=="failed")
 	mout <- paste0(if(de) "Beim Testen deines Codes trat ein Problem auf:\n" else "A problem occured while testing:\n",
 	  out$stderr, if(de) "Bitte informiere Berry.\nFEHLER" else "Please report this to Berry.\nERROR", mout)
   }
+if(out$status=="out_of_memory")
+	{                              # happens e.g. with table(airquality)
+	mout <- paste0(if(de) "Dein Code verbraucht zuviel Arbeitsspeicher.\n" else "Your code uses too much memory.\n",
+								 out$status, ", ", out$stderr, mout)
+  }
 if(trimws(out$stderr)!="")
 	{
 	mout <- paste0(if(de)"Beim Testen deines Codes trat eine Warnung / Ausgabe auf:\n" else "A warning / output occured while testing:\n",
