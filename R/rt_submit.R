@@ -46,11 +46,11 @@ erm <- httr::http_condition(r, "error")$message
 if(!httr::status_code(r) %in% c(202, 207))
 	if(de)
 	warning("Scheinbar gab es einen Fehler bei der Punkte\u00fcbertragung, Pardon!",
-					"\nSende diese (vollst\u00E4ndige) Nachricht bitte an Berry.\n",
+					"\nSende diese (vollst\u00E4ndige) Nachricht bitte an Berry, wenn sie permanent ist.\n",
 					toString(erm), call.=FALSE)
   else
   warning("Looks like something went wrong in the submission process. Sorry! ",
-					"\nPlease send this (complete) message to Berry.\n",
+					"\nPlease send this (complete) message to Berry if it is persistent.\n",
 					toString(erm), call.=FALSE)
 httr::stop_for_status(r) # if any, pass http errors to R
 
