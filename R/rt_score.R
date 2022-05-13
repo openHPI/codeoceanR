@@ -99,10 +99,10 @@ if(submit) return(r)
 out <- httr::content(r, "parsed", "application/json")[[1]]
 mout <- out$stdout # message output
 mout <- sub("Rscript.*tests.R\n", "", mout)
-mout <- gsub("AssertionError: ", "- ", mout, fixed=TRUE)
+mout <- gsub("AssertionError: ", "-", mout, fixed=TRUE)
 mout <- gsub("\r\n", "\n", mout) # without this, a trailing \r remains from the original \r\n
 mout <- sub("\n$", "", mout)     # since my R 4.2.0 / httr 1.4.2 setup (Apr 2022)
-mout <- gsub("\n\\s*\n", "\n", mout) # see note at end of rt_test_exercise
+mout <- gsub("\n\\s*\n\\s*", "\n", mout) # see note at end of rt_test_exercise
 if(de) mout <- sub("(\\d{1,}) examples, (\\d{1,}) passed","\\1 Aufgaben, \\2 gel\u00F6st", mout)
 mout <- paste0(mout, ", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")
