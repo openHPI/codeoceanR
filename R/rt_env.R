@@ -39,5 +39,5 @@ as.list(env)
 }
 
 # non-exported package-global default language setting:
-rt_default_language <- "de" # for RMOOC March 2022
+rt_default_language <- "en" # de for RMOOC March 2022
 # Student: use codeoceanR:::rt_env(lang="de") or "en" in your script to change the language.
