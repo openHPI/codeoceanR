@@ -76,6 +76,8 @@ target <- gsub("\\\\", "\\\\\\\\", target)
 target <- str2lang(target)
 
 # User function
+if(is.symbol(code2)) return(rt_warn(cs,en=" must contain a function/operator call.",
+																		de=" muss eine Funktion / Operator aufrufen."))
 u_fun <- try(code2[[1]], silent=TRUE)
 if(inherits(u_fun,"try-error"))
 	return(rt_warn(cs,en=" could not be executed. ",de=" kann nicht ausgef\u00FChrt werden. ",
