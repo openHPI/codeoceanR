@@ -15,6 +15,7 @@ rt_test_task(
   class = NULL,
   intnum = TRUE,
   dim = TRUE,
+  funname = FALSE,
   names = TRUE,
   hasval = TRUE,
   stepwise = NULL,
@@ -64,6 +65,9 @@ Run through \link{rt_has_class}. DEFAULT: NULL (class of \code{value})}
 \item{dim}{Check dimension (length or nrow+ncol)?
 If FALSE, \code{names}, column classes and \code{hasval} are also not checked.
 DEFAULT: TRUE}
+
+\item{funname}{Check for function name as character string? Can have brackets.
+DEFAULT: FALSE}
 
 \item{names}{Check names (or rownames/colnames)?
 If FALSE, column classes in data.frames are not checked!

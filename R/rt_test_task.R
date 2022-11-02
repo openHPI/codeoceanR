@@ -33,6 +33,8 @@
 #' @param dim      Check dimension (length or nrow+ncol)?
 #'                 If FALSE, `names`, column classes and `hasval` are also not checked.
 #'                 DEFAULT: TRUE
+#' @param funname  Check for function name as character string? Can have brackets.
+#'                 DEFAULT: FALSE
 #' @param names    Check names (or rownames/colnames)?
 #'                 If FALSE, column classes in data.frames are not checked!
 #'                 DEFAULT: TRUE
@@ -72,6 +74,7 @@ zero=TRUE,
 class=NULL,
 intnum=TRUE,
 dim=TRUE,
+funname=FALSE,
 names=TRUE,
 hasval=TRUE,
 stepwise=NULL,
@@ -148,7 +151,7 @@ if(zero && is.function(value) && identical(rt_gives("echo",object(),value=TRUE),
   }
 
 # test_object ----
-if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, names=names,
+if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, funname=funname, names=names,
 	hasval=hasval, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
 
 } # end !null(value)

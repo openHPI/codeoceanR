@@ -6,7 +6,7 @@
 #' @param object,value object to be checked against value
 #' @param name         Object name used in messages
 #' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
-#' @param class,intnum,dim,names,hasval,stepwise,stepnames See [rt_test_task]
+#' @param class,intnum,dim,funname,names,hasval,stepwise,stepnames See [rt_test_task]
 rt_test_object <- function(
 object,
 value,
@@ -15,6 +15,7 @@ qmark=TRUE,
 class=NULL,
 intnum=TRUE,
 dim=TRUE,
+funname=FALSE,
 names=TRUE,
 hasval=TRUE,
 stepwise=NULL,
@@ -63,6 +64,16 @@ if(dim && isarr)
 			  length(dv),en=" dimensions, not ",de=" Dimensionen haben, nicht ",length(do),"."))
 	if(!rt_has_value(do, dv, paste0("dim(",name,")"), stepwise=FALSE, qmark=qmark) ) return(FALSE)
   }
+
+# funname ----
+if(funname)
+{
+ empty <- name == ""
+ # browser()
+ if(!empty && strsplit(object,"(", fixed=TRUE)[[1]][1] == value) return(TRUE)
+ return(rt_warn(en="The correct answer for '", de="Die richtige Antwort f\u00FCr '",name,
+                en="' is not '",de="' ist nicht '", toString(object), "'."))
+}
 
 # names ----
 if(names)

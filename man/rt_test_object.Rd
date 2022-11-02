@@ -12,6 +12,7 @@ rt_test_object(
   class = NULL,
   intnum = TRUE,
   dim = TRUE,
+  funname = FALSE,
   names = TRUE,
   hasval = TRUE,
   stepwise = NULL,
@@ -25,7 +26,7 @@ rt_test_object(
 
 \item{qmark}{Include ' marks around \code{name}? DEFAULT: TRUE}
 
-\item{class, intnum, dim, names, hasval, stepwise, stepnames}{See \link{rt_test_task}}
+\item{class, intnum, dim, funname, names, hasval, stepwise, stepnames}{See \link{rt_test_task}}
 }
 \value{
 TRUE or FALSE, depending on whether full test is passed or failed
