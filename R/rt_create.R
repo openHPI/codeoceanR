@@ -14,11 +14,13 @@
 #'                "\" (on Windows) must be changed to "/".
 #'                DEFAULT: NULL, meaning to use [file.choose()]
 #' @param deletezip If the exercise folder was created sucessfully, delete the original zip file? DEFAULT: TRUE
+#' @param ask     Ask whether browser tab has been closed? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create <- function(
 zipfile=NULL,
 deletezip=TRUE,
+ask=TRUE,
 ...
 )
 {
@@ -28,13 +30,13 @@ if(de)
 {
 message("Falls noch nicht geschehen, schlie\u00dfe bitte den Browser Tab mit der CodeOcean Aufgabe.",
 				"\nSonst speichert CodeOcean periodisch das dortige leere Skript.")
-rl <- readline("Ich habe den Browser Tab geschlossen (j/n, dann Enter): ")
-if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("First close the browser tab.")
+rl <- ifelse(ask, readline("Ich habe den Browser Tab geschlossen (j/n, dann Enter): "), "y")
+if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Bitte erst den Browser Tab schließen.")
 } else
 {
 message("If you haven't already, please close the browser tab with the CodeOcean exercise.",
 				"\nOtherwise CodeOcean will autosave the _empty_ script there.")
-rl <- readline("I have closed the browser tab (y/n, then Enter): ")
+rl <- ifelse(ask, readline("I have closed the browser tab (y/n, then Enter): "), "y")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("First close the browser tab.")
 }
 # File management:

@@ -4,7 +4,7 @@
 \alias{rt_create}
 \title{Create exercise folder from zip file}
 \usage{
-rt_create(zipfile = NULL, deletezip = TRUE, ...)
+rt_create(zipfile = NULL, deletezip = TRUE, ask = TRUE, ...)
 }
 \arguments{
 \item{zipfile}{Path to zip file (or, if unzipped, any of the files within the folder).
@@ -12,6 +12,8 @@ rt_create(zipfile = NULL, deletezip = TRUE, ...)
 DEFAULT: NULL, meaning to use \code{\link[=file.choose]{file.choose()}}}
 
 \item{deletezip}{If the exercise folder was created sucessfully, delete the original zip file? DEFAULT: TRUE}
+
+\item{ask}{Ask whether browser tab has been closed? DEFAULT: TRUE}
 
 \item{\dots}{Further arguments passed to \code{\link{unzip}}}
 }
