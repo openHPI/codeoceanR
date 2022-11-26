@@ -108,6 +108,8 @@ mout <- paste0(mout, ", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")
   mout <- paste0(if(de) "Das Testen deines Codes hat zulange gedauert (" else
   "Testing your code took too long (", round(out$container_execution_time,1), " sec)", mout)
+if(out$status=="container_depleted")
+  mout <- paste0(mout, "\nCodeOcean has an issue (container_depleted), please report to Berry.")
 if(out$status=="failed")
 	{
 	out2 <- out
