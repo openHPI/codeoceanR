@@ -47,7 +47,8 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
     e <- gsub("\n"," ",e)
     e <- gsub("\\s+", " ", e)
     if(any(grepl("unable to start data viewer", e)))
-       rt_warn("Kommentiere den View Aufruf aus. View f\u00FChrt auf CodeOcean zu einem Fehler.") else
+       rt_warn(en="Comment out the View call. View() leads to an error on CodeOcean.",
+       				de="Kommentiere den View Aufruf aus. View f\u00FChrt auf CodeOcean zu einem Fehler.") else
     rt_warn(en="can not be executed. Make sure each line can be run.",
     				de="kann nicht ausgef\u00FChrt werden. Sorge, dass jede Zeile fehlerfrei l\u00E4uft.",
             "\n--- source() ", en="message: ", de="Meldung: ", e)
