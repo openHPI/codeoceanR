@@ -31,7 +31,7 @@ if(de)
 message("Falls noch nicht geschehen, schlie\u00dfe bitte den Browser Tab mit der CodeOcean Aufgabe.",
 				"\nSonst speichert CodeOcean periodisch das dortige leere Skript.")
 rl <- ifelse(ask, readline("Ich habe den Browser Tab geschlossen (j/n, dann Enter): "), "y")
-if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Bitte erst den Browser Tab schließen.")
+if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Bitte erst den Browser Tab schlie\u00DFen.")
 } else
 {
 message("If you haven't already, please close the browser tab with the CodeOcean exercise.",

@@ -1,7 +1,7 @@
 Package: codeoceanR
 Title: Test R tasks with CodeOcean at HPI
-Version: 0.8.46
-Date: 2022-12-05
+Version: 0.8.47
+Date: 2022-12-20
 Authors@R: 
     person(given = "Berry",
            family = "Boessenkool",
@@ -16,4 +16,4 @@ Suggests:
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3

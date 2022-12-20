@@ -26,7 +26,7 @@ dir <- dir[!grepl("shared$", dir)] # safety check...
 dir <- paste0(dir, "/sources")
 berryFunctions::checkFile(dir, warnonly=warnonly)
 # temporary id folder:
-dir <- dir(dir, pattern="^s-[a-zA-Z0-9]{8}$", full.names=TRUE)
+dir <- dir(dir, pattern="^s.*-[a-zA-Z0-9]{8}$", full.names=TRUE) # s (old) or session (new Rstudio)
 fn  <- dir(dir, pattern=  "^[a-zA-Z0-9]{8}$", full.names=TRUE)
 # Finish if no files are open:
 if(length(fn)==0) return(NULL)
