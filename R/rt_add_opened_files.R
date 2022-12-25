@@ -37,6 +37,7 @@ id <- rt_nextlargestid(  dir(sfdir)[!grepl("contents",dir(sfdir))]   )
 # determine type:
 type <- switch(tools::file_ext(file),
 	R="r_source",
+	py="python",
 	txt="text",
 	md="markdown")
 # Write file metadata:
