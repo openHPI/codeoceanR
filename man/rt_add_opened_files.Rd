@@ -7,11 +7,11 @@
 rt_add_opened_files(files, dir = ".", contextid = rt_get_context_id())
 }
 \arguments{
+\item{files}{Filename(s) to be added, without path, must be present at \code{dir}.}
+
 \item{dir}{Target directory with a .Rproj file. DEFAULT: "." \code{\link[=getwd]{getwd()}}}
 
 \item{contextid}{Hexadecimal user ID, see \code{\link[=rt_get_context_id]{rt_get_context_id()}}}
-
-\item{file}{Filename(s) to be added, without path, must be present at \code{dir}.}
 }
 \value{
 expanded filenames, invisibly.

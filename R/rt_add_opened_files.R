@@ -8,7 +8,7 @@
 #' @importFrom berryFunctions checkFile normalizePathCP
 #' @importFrom tools file_ext
 #'
-#' @param file Filename(s) to be added, without path, must be present at `dir`.
+#' @param files Filename(s) to be added, without path, must be present at `dir`.
 #' @param dir  Target directory with a .Rproj file. DEFAULT: "." [getwd()]
 #' @param contextid Hexadecimal user ID, see [rt_get_context_id()]
 #'
