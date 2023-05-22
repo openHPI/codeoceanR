@@ -83,7 +83,8 @@ Die Aufgaben sind in separate Dateien aufgeteilt. Sie können unabhängig vonein
 Ich empfehle, immer die gesamte Aufgabe zu lesen, bevor du mit der Arbeit daran beginnst ;-)
 
 Denke daran, ein Objekt explizit aufzurufen, um seinen Wert in der `AUSFÜHREN`-Ausgabe zu sehen.  
-`head(x)` / `str(x)` / `summary(x)` funktionieren wie in Rstudio, `plot(x)` Ausgaben werden nur zwischen `rt_plot1()`/`rt_plot2()` angezeigt.
+`head(x)` / `str(x)` / `summary(x)` funktionieren wie in Rstudio.  
+`plot(x)`-Ausgaben werden nur zwischen `rt_plot1()`/`rt_plot2()` angezeigt.
 
 Wenn `BEWERTEN` dir mitteilt, dass *'Skript_x.R' nicht ausgeführt werden kann*, können nach dem Fehler keine Punkte für Aufgaben (in diesem Skript) vergeben werden.
 

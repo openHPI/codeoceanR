@@ -83,7 +83,8 @@ The tasks are split in separate files. Each can be run independently. Scoring ha
 I suggest to always read the entire task before starting to work on it ;-)
 
 Remember to explicitely call an object to see its value in the `RUN` output.  
-`head(x)` / `str(x)` / `summary(x)` work fine, `plot(x)` outputs are only shown if the call is between `rt_plot1()`/`rt_plot2()`.
+`head(x)` / `str(x)` / `summary(x)` work fine.  
+`plot(x)` outputs are only shown if the call is between `rt_plot1()`/`rt_plot2()`.
 
 If `SCORE` tells you *'script_x.R' can not be executed*, you cannot get points for tasks (in that script) after the error.
 
@@ -99,6 +100,8 @@ To reset only a single file, click the button on the bottom right of the screen.
 
 It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
+
+For more on CodeOcean and CodeHarbor, see the corresponding article and slides at the [SPLICE 2021 workshop](https://cssplice.github.io/SIGCSE21/proceedings.html).
 
 Exercises are accessed through openHPI but run and tested at CodeOcean, from which grades are passed back.
 The tasks can also be solved in Rstudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, debugging, keyboard shortcuts and integrated graphics, help, package manager, ...
