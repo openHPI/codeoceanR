@@ -5,6 +5,8 @@ jump to [students](#students) / [teachers](#teachers) / [developers](#developers
 
 # students
 
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022/sections) course.*
+
 ### **setup** _(once only)_
 
 - Create a folder for all the exercises
@@ -98,6 +100,8 @@ To reset only a single file, click the button on the bottom right of the screen.
 
 
 # teachers
+
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022/sections) course.*
 
 It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
@@ -225,7 +229,7 @@ All functions in the package are prefixed with `rt_` (R test) for nice autocompl
 This entire project profited from great info from Sebastian Serth, <sebastian.serth@hpi.de>.  
 Experiences are based on the 2019 class "fundamentals of programming in digital health" with 31 participants.  
 For the 2020 class, code was bundeled into an R package. Exercises can now be run locally in Rstudio. 
-For the 2021 class and the 2022 MOOC (in prep), the test suite was completely rewritten and test script length reduced greatly.
+For the 2021 class and the [2022 MOOC](https://open.hpi.de/courses/programmieren-r2022), the test suite was completely rewritten and test script length reduced greatly.
 
 The source code for codeOcean itself is online at <https://github.com/openHPI/codeocean/>
 
