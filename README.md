@@ -5,7 +5,7 @@ jump to [students](#students) / [teachers](#teachers) / [developers](#developers
 
 # students
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022/sections) course.*
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022) course.*
 
 ### **setup** _(once only)_
 
@@ -101,7 +101,7 @@ To reset only a single file, click the button on the bottom right of the screen.
 
 # teachers
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022/sections) course.*
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022) course.*
 
 It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
