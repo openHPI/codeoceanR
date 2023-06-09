@@ -1,4 +1,6 @@
 # Structure of task files
+# Some more examples and remarks can be found at https://codeocean.openhpi.de/exercises/721/implement
+
 
 # codeoceanR:::rt_env(lang="de") # you as student can choose German messages if you like
 

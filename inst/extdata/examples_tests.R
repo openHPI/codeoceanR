@@ -47,10 +47,9 @@ rt_test_task(6, multiChoice, c(2,4), correct=TRUE)
 # Functions can be checked with different inputs:
 inputVec <- round(rnorm(30),1)
 solution <- function(y) sqrt(replace(y, y<0, NaN)) # could also use suppressWarnings()
-# if 'solution' is defined before rt_run_script, students could write silentRoot <- solution
-rt_test_task(7, silentRoot, solution, inputs='inputVec', export="inputVec",
-             rt_gives_warning(silentRoot(-5), ""))
-# with explicitely named argument and a vector at the same time:
+rt_test_task(7, silentRoot, solution, inputs=inputVec,
+             rt_gives("warning", silentRoot(-5), ""))
+
 rt_test_task(8, silentRoot, solution, inputs=list("y=6", rt_vec(inputVec[1:10])))
 
 

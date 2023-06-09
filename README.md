@@ -1,6 +1,7 @@
 # CodeOcean graded exercises for R
 
-By Berry Boessenkool, 2020-2022, [berry-b@gmx.de](mailto:berry-b@gmx.de)
+By Berry Boessenkool, 2020-2023, [berry-b@gmx.de](mailto:berry-b@gmx.de)  
+jump to [students](#students) / [teachers](#teachers) / [developers](#developers)
 
 # students
 
@@ -112,7 +113,7 @@ You can't stress enough that participants need to run "Score" / `rt_score()` ver
 
 ## initial setup
 
-The openHPI admins will have to create a dummy CodeOcean exercise in OpenHPI for you the first time.  
+The [openHPI admins](https://open.hpi.de/pages/contact) will have to create a CodeOcean exercise in OpenHPI for you the first time.  
 To be logged in, open CodeOcean from openHPI through "Launch exercise tool".  
 Then you can either go to <https://codeocean.openhpi.de/exercises/new>
 or copy my [master template exercise](https://codeocean.openhpi.de/exercises/721). 
