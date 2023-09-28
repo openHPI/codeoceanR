@@ -2,3 +2,4 @@
 ^\.Rproj\.user$
 datasets/
 LIESMICH.md
+^cran-comments\.md$
