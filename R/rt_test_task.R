@@ -120,6 +120,8 @@ if(correct && !is.function(value))
 	  				toString(class(object)), "'", de=" haben", ".")
 	  return(rt_env(fail=tnumber))
 	  }
+	if(!rt_has_class(object, class(value), name=n, intnum=intnum))
+			return(rt_env(fail=tnumber))
 	if(!isTRUE(all.equal(sort(object),sort(value))))
 		{
 		toString2 <- function(x)
