@@ -5,7 +5,7 @@ jump to [students](#students) / [teachers](#teachers) / [developers](#developers
 
 # students
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022) course.*
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2023) course.*
 
 ### **setup** _(once only)_
 
@@ -17,12 +17,12 @@ install.packages("remotes")
 remotes::install_github("openHPI/codeoceanR")
 ```
 
-- On **Windows**: ignore the **Rtools warning**. If you like, [install](https://cran.r-project.org/bin/windows/Rtools) it at e.g. `C:/Rtools` (compiler paths may not have spaces) and run in R: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
+- On **Windows**: ignore the **Rtools warning**. If you like, [install](https://cran.r-project.org/bin/windows/Rtools/) it at e.g. `C:/Rtools` (compiler paths may not have spaces) and run in R: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
 - On **Linux**: first run in terminal (STRG+ALT+T): `sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+` and `sudo apt-get update` and `sudo apt install libcurl4-openssl-dev libssl-dev r-cran-rjson`. Then in R the code above. If it fails, follow the instructions from installing the dependencies in R: `install.packages("curl")` and then with `"openssl"`, `"httr"` and `"rjson"`.
 
 Potential problems (and solutions):
 
-- For "Failed to install ... **Permission denied**": set write permissions (rightklick on folder - properties - security - edit - select user - full control - OK). Turn off virus scanner or reboot computer.
+- For "Failed to install ... **Permission denied**": set write permissions (rightclick on folder - properties - security - edit - select user - full control - OK). Turn off virus scanner or reboot computer.
 - Permanently use **custom folder for packages**: in R `cat('R_LIBS_USER="C:/path/to/library"', file= "~/.Renviron", append=TRUE)`. After R restart, should be the first result from `.libPaths()`.
 - For "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
 - If only an **old version of R** is possible: for rjson `install.packages("devtools")` and `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
@@ -101,7 +101,7 @@ To reset only a single file, click the button on the bottom right of the screen.
 
 # teachers
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2022) course.*
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2023) course.*
 
 It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.

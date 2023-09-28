@@ -1,5 +1,5 @@
 Package: codeoceanR
-Title: Test R tasks with CodeOcean at HPI
+Title: Test R Tasks with 'CodeOcean' at 'HPI'
 Version: 0.8.50
 Date: 2023-09-28
 Authors@R: 
@@ -7,13 +7,13 @@ Authors@R:
            family = "Boessenkool",
            role = c("aut", "cre"),
            email = "berry-b@gmx.de")
-Description: Test R tasks that can be graded using CodeOcean at HPI.
+Description: Test R exercises that can be autograded using 'CodeOcean' at 'HPI'.
 Imports: berryFunctions, httr, rjson, base64enc
 Suggests: 
     remotes,
     rstudioapi,
     testthat
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
