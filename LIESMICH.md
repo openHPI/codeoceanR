@@ -9,22 +9,11 @@
 - Führe den folgenden Code (in R / Rstudio) aus, um das Paket `codeoceanR` zu installieren:
 
 ```r
-install.packages("remotes")
+install.packages("remotes") # ignoriere die Rtools Warnung
 remotes::install_github("openHPI/codeoceanR")
 ```
 
-- Auf **Windows**: ignoriere die **Rtools Warnung**. Wenn gewünscht,  [installiere](https://cran.r-project.org/bin/windows/Rtools) es zB in `C:/Rtools` (Compiler Pfade dürfen keine Leerzeichen haben) und führe in R aus: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
-- Auf **Linux**: führe zuerst im Terminal (STRG+ALT+T) aus: `sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+` und `sudo apt-get update` und `sudo apt install libcurl4-openssl-dev libssl-dev r-cran-rjson`. Dann in R den Code oben. Wenn das nicht klappt, folge den Anweisungen beim Installieren der einzelnen Abhängigkeiten in R: `install.packages("curl")` und dann mit `"openssl"`, `"httr"` und `"rjson"`.
-
-Mögliche Probleme (und Lösungen):
-
-- Bei "Failed to install ... **Permission denied**": Schreibrechte setzen (rechtsklick auf Ordner - Eigenschaften - Sicherheit - Bearbeiten - Benutzer auswählen - Vollzugriff setzen - OK). Dazu Virenscanner ausschalten oder Rechner neustarten.
-- Dauerhaft **benutzerdefinierten Ordner für Pakete** verwenden: in R `cat('R_LIBS_USER="C:/Pfad/zum/library"', file= "~/.Renviron", append=TRUE)`. Sollte nach R Neustart erste Ausgabe von `.libPaths()` sein.
-- Bei "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
-- Falls nur eine **alte Version von R** möglich ist: für rjson `install.packages("devtools")` und `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
-- Wenn du einen **anderen Editor** als Rstudio nutzen willst: verwende unten NICHT `rt_create()`, sondern entpacke den ZIP Ordner manuell.
-- Bei `rt_create()` Fehlermeldung "Could not load the **Qt platform plugin xcb**": VIELLEICHT!! EIGENES RISIKO: `sudo apt remove libxcb-xinerama0` und `sudo apt install libxcb-xinerama0`, siehe [hier](https://open.hpi.de/courses/programmieren-r2022/question/5a424cfa-3a86-4215-9337-9337e52c8277)
-
+Für mögliche Probleme (und Lösungen) bei der Installation, siehe [unten](#probleme).
 
 ### **Vorgehensweise** _(für jede Übung)_
 
@@ -94,3 +83,19 @@ Klicke auf den Pfeil oben links (oder *Verstecken* unten rechts), um die Anweisu
 
 Um eine komplette Übung zurückzusetzen, klicke auf die Schaltfläche mit der rückwärts laufenden Uhr im Dateifenster auf der linken Seite.  
 Um nur eine einzelne Datei zurückzusetzen, klicke auf die Schaltfläche unten rechts auf dem Bildschirm.  
+
+
+### Probleme
+
+Gelegentlich gibt es Probleme bei der [Installation](#setup-nur-einmal) des `codeoceanR` Pakets aus github. 
+Hier sind einige Lösungen, die dir helfen könnten.
+
+- Auf **Windows**: Wenn Rtools installiert werden soll (das ist),  [installiere](https://cran.r-project.org/bin/windows/Rtools) es zB in `C:/Rtools` (Compiler Pfade dürfen keine Leerzeichen haben) und führe in R aus: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
+- Auf **Linux**: führe zuerst im Terminal (STRG+ALT+T) aus: `sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+` und `sudo apt-get update` und `sudo apt install libcurl4-openssl-dev libssl-dev r-cran-rjson`. Dann in R den Code oben. Wenn das nicht klappt, folge den Anweisungen beim Installieren der einzelnen Abhängigkeiten in R: `install.packages("curl")` und dann mit `"openssl"`, `"httr"` und `"rjson"`.
+
+- Bei "Failed to install ... **Permission denied**": Schreibrechte setzen (rechtsklick auf Ordner - Eigenschaften - Sicherheit - Bearbeiten - Benutzer auswählen - Vollzugriff setzen - OK). Dazu Virenscanner ausschalten oder Rechner neustarten.
+- Dauerhaft **benutzerdefinierten Ordner für Pakete** verwenden: in R `cat('R_LIBS_USER="C:/Pfad/zum/library"', file= "~/.Renviron", append=TRUE)`. Sollte nach R Neustart erste Ausgabe von `.libPaths()` sein.
+- Bei "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
+- Falls nur eine **alte Version von R** möglich ist: für rjson `install.packages("devtools")` und `devtools::install_version("rjson", version="0.2.20", repos="http://cran.us.r-project.org")`
+- Wenn du einen **anderen Editor** als Rstudio nutzen willst: verwende unten NICHT `rt_create()`, sondern entpacke den ZIP Ordner manuell.
+- Bei `rt_create()` Fehlermeldung "Could not load the **Qt platform plugin xcb**": VIELLEICHT!! EIGENES RISIKO: `sudo apt remove libxcb-xinerama0` und `sudo apt install libxcb-xinerama0`, siehe [hier](https://open.hpi.de/courses/programmieren-r2022/question/5a424cfa-3a86-4215-9337-9337e52c8277)
