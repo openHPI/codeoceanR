@@ -40,7 +40,7 @@ take exercise:
 - work on task 2
 - `CTRL + SHIFT + S`
 - ...
-- when finished: run `codeoceanR::rt_submit()`
+- when finished, if wanted: run `codeoceanR::rt_submit()`
 
 `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
 `codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.  

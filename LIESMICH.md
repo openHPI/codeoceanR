@@ -37,7 +37,7 @@ Verwende `rt_create` nur einmal pro Aufgabe. Starte das Aufgabenprojekt später 
 - Löse Aufgabe 2
 - STRG + SHIFT + S
 - ...
-- wenn fertig: `codeoceanR::rt_submit()` ausführen
+- wenn fertig und erwünscht: `codeoceanR::rt_submit()` ausführen
 
 `codeoceanR::rt_score()` überträgt deinen Code zur Bewertung an CodeOcean. Führe dies häufig aus.  
 `codeoceanR::rt_submit()` am Ende sendet die Bewertung an openHPI. Führe dies nur einmal aus.  
