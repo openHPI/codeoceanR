@@ -11,6 +11,7 @@ rt_test_task(
   ...,
   solved = NULL,
   correct = FALSE,
+  igncase = FALSE,
   zero = TRUE,
   class = NULL,
   intnum = TRUE,
@@ -52,6 +53,9 @@ DEFAULT: NULL}
 \item{correct}{Custom value message for multiple choice tasks?
 No further tests (except ...-tests) are run if correct=TRUE.
 Do not set to TRUE for objects that cannot be sorted. DEFAULT: FALSE}
+
+\item{igncase}{If \code{correct=TRUE} and \code{object} is a string,
+ignore upper/lowercase and spaces? DEFAULT: FALSE}
 
 \item{zero}{Check for pre-assigned objects (to 0) with special message?
 Only needs to be FALSE if the intended value is 0. DEFAULT: TRUE}

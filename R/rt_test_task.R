@@ -24,6 +24,8 @@
 #' @param correct  Custom value message for multiple choice tasks?
 #'                 No further tests (except ...-tests) are run if correct=TRUE.
 #'                 Do not set to TRUE for objects that cannot be sorted. DEFAULT: FALSE
+#' @param igncase  If `correct=TRUE` and `object` is a string,
+#'                 ignore upper/lowercase and spaces? DEFAULT: FALSE
 #' @param zero     Check for pre-assigned objects (to 0) with special message?
 #'                 Only needs to be FALSE if the intended value is 0. DEFAULT: TRUE
 #' @param class    Class(es) that are acceptable. Test is passed if any of the classes matches.
@@ -70,6 +72,7 @@ value=NULL,
 ...,
 solved=NULL,
 correct=FALSE,
+igncase=FALSE,
 zero=TRUE,
 class=NULL,
 intnum=TRUE,
@@ -122,6 +125,11 @@ if(correct && !is.function(value))
 	  }
 	if(!rt_has_class(object, class(value), name=n, intnum=intnum))
 			return(rt_env(fail=tnumber))
+	if(igncase && is.character(tolower(object)))
+	  {
+		object <- gsub(" ", "", tolower(object), fixed=TRUE)
+		value  <- gsub(" ", "", tolower(value ), fixed=TRUE)
+	  }
 	if(!isTRUE(all.equal(sort(object),sort(value))))
 		{
 		toString2 <- function(x)
