@@ -1,6 +1,6 @@
 #' @title Create exercise folder from zip file
 #' @description Create exercise folder from zip file, with a `.Rproj` file and try to open that in Rstudio.
-#'              On Mac OS, the exercise file gets unzipped upon downloading, hence any file within the folder can be used.
+#'              On Mac Safari, the exercise file gets unzipped upon downloading, hence any file within the folder can be used.
 #' @return exdir, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct-Dec 2020
 #' @keywords file
@@ -66,6 +66,14 @@ if(zipped)
   	stop("exdir already exists. Please choose a new location. exdir='", exdir, "'")
   unzip(zipfile=zipfile, exdir=exdir, ...)
   }
+
+# check for .Rproj file from previous rt_create calls:
+nproj <- length(dir(exdir, pattern=".Rproj"))
+if(nproj>0) if(de) stop("\nEs gibt bereits eine .Rproj Datei im exdir.\n",
+												"\u00D6ffne diese anstatt `rt_create` erneut zu verwenden.\nexdir='",
+												exdir, "'") else stop("\nexdir already has an .Rproj file.\n",
+												"Open it manually instead of running `rt_create` again.\nexdir='",
+												exdir, "'")
 
 # create .Rproj File
 rprojfile <- sub("FProg2._R_", "", basename(exdir))
