@@ -4,7 +4,7 @@
 \alias{rt_create}
 \title{Create exercise folder from zip file}
 \usage{
-rt_create(zipfile = NULL, deletezip = TRUE, ask = TRUE, ...)
+rt_create(zipfile = NULL, deletezip = TRUE, ask = TRUE, open = TRUE, ...)
 }
 \arguments{
 \item{zipfile}{Path to zip file (or, if unzipped, any of the files within the folder).
@@ -14,6 +14,8 @@ DEFAULT: NULL, meaning to use \code{\link[=file.choose]{file.choose()}}}
 \item{deletezip}{If the exercise folder was created sucessfully, delete the original zip file? DEFAULT: TRUE}
 
 \item{ask}{Ask whether browser tab has been closed? DEFAULT: TRUE}
+
+\item{open}{Open the created .Rproj file? DEFAULT: TRUE}
 
 \item{\dots}{Further arguments passed to \code{\link{unzip}}}
 }
@@ -25,7 +27,7 @@ Create exercise folder from zip file, with a \code{.Rproj} file and try to open 
 On Mac Safari, the exercise file gets unzipped upon downloading, hence any file within the folder can be used.
 }
 \seealso{
-\href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
+\code{\link[=rt_create_all]{rt_create_all()}}, \href{https://github.com/openHPI/codeoceanR/tree/main/inst/extdata}{exercise example} on github
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct-Dec 2020

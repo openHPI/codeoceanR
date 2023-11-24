@@ -8,36 +8,40 @@
 #' @importFrom tools file_path_sans_ext
 #' @importFrom utils unzip
 #' @export
-#' @seealso [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
+#' @seealso [rt_create_all()], [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #'
 #' @param zipfile Path to zip file (or, if unzipped, any of the files within the folder).
 #'                "\" (on Windows) must be changed to "/".
 #'                DEFAULT: NULL, meaning to use [file.choose()]
 #' @param deletezip If the exercise folder was created sucessfully, delete the original zip file? DEFAULT: TRUE
 #' @param ask     Ask whether browser tab has been closed? DEFAULT: TRUE
+#' @param open    Open the created .Rproj file? DEFAULT: TRUE
 #' @param \dots   Further arguments passed to \code{\link{unzip}}
 #'
 rt_create <- function(
 zipfile=NULL,
 deletezip=TRUE,
 ask=TRUE,
+open=TRUE,
 ...
 )
 {
 # Notify about closing tab:
 de <- rt_default_language=="de"
+if(ask){
 if(de)
 {
 message("Falls noch nicht geschehen, schlie\u00dfe bitte den Browser Tab mit der CodeOcean Aufgabe.",
 				"\nSonst speichert CodeOcean periodisch das dortige leere Skript.")
-rl <- ifelse(ask, readline("Ich habe den Browser Tab geschlossen (j/n, dann Enter): "), "y")
+rl <- readline("Ich habe den Browser Tab geschlossen (j/n, dann Enter): ")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("Bitte erst den Browser Tab schlie\u00DFen.")
 } else
 {
 message("If you haven't already, please close the browser tab with the CodeOcean exercise.",
 				"\nOtherwise CodeOcean will autosave the _empty_ script there.")
-rl <- ifelse(ask, readline("I have closed the browser tab (y/n, then Enter): "), "y")
+rl <- readline("I have closed the browser tab (y/n, then Enter): ")
 if(!tolower(substr(rl,1,1)) %in% c("y","j")) stop("First close the browser tab.")
+}
 }
 # File management:
 if(is.null(zipfile))
@@ -85,10 +89,12 @@ cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", 
 rt_add_opened_files(rt_read_cofile(paste0(exdir,"/.co"))$files$name, dir=exdir)
 
 # try to open Rproject:
+if(open){
 if(de)
 message("rt_create \u00f6ffnet jetzt ", rprojfile, "\n\u00d6ffne diese Datei manuell, wenn n\u00f6tig.") else
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)
+}
 
 # delete zipfile:
 if(deletezip && zipped) file.remove(zipfile)
