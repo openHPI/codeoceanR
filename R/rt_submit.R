@@ -43,7 +43,7 @@ if(is.null(r)) stop("rt_score result is NULL, probably rt_local_score has been i
 # https://httpstatuses.com/
 
 erm <- httr::http_condition(r, "error")$message
-if(!httr::status_code(r) %in% c(202, 207))
+if(!httr::status_code(r) %in% c(200, 202, 207))
 	if(de)
 	warning("Scheinbar gab es einen Fehler bei der Punkte\u00fcbertragung, Pardon!",
 					"\nSende diese (vollst\u00E4ndige) Nachricht bitte an Berry, wenn sie permanent ist.\n",
