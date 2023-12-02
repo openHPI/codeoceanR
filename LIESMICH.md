@@ -28,6 +28,8 @@ Für mögliche Probleme (und Lösungen) bei der Installation, siehe [unten](#pro
 
 Verwende `rt_create` nur einmal pro Aufgabe. Starte das Aufgabenprojekt später durch öffnen der `zz_*.Rproj` Datei im Dateibrowser.
 
+Lade mehrere Zip-Dateien runter (ohne entpacken!) und nutze `codeoceanR::rt_create_all` um alle auf einmal zu verarbeiten.
+
 
 Übung bearbeiten:
 
@@ -37,10 +39,8 @@ Verwende `rt_create` nur einmal pro Aufgabe. Starte das Aufgabenprojekt später 
 - Löse Aufgabe 2
 - STRG + SHIFT + S
 - ...
-- wenn fertig und erwünscht: `codeoceanR::rt_submit()` ausführen
 
 `codeoceanR::rt_score()` überträgt deinen Code zur Bewertung an CodeOcean. Führe dies häufig aus.  
-`codeoceanR::rt_submit()` am Ende sendet die Bewertung an openHPI. Führe dies nur einmal aus.  
 
 
 ### Design
@@ -66,7 +66,6 @@ Denke daran, immer von der openHPI-Plattform aus auf die Aufgaben zuzugreifen.
 - Klicke auf `BEWERTEN`, um zu sehen, wie viele der Tests du bestanden hast. Ändere deine Lösungen, falls nötig. Wiederhole `BEWERTEN`.  
 Ignoriere Meldungen für Aufgaben, an denen du noch nicht gearbeitet hast (sie zeigen an, wie viel Arbeit noch übrig ist). Die _T1: Meldung_ (für Test 1) entspricht immer der Aufgabennummer.
 - Führe `AUSFÜHREN` und `BEWERTEN` häufig aus, um Fehler leicht zu finden.
-- Wenn du zufrieden bist, klicke nach einem Bewerten auf `EINREICHEN` (rechts unten).
 
 Die Aufgaben sind in separate Dateien aufgeteilt. Sie können unabhängig voneinander ausgeführt werden. Die Bewertung erfolgt für alle Dateien auf einmal.  
 Ich empfehle, immer die gesamte Aufgabe zu lesen, bevor du mit der Arbeit daran beginnst ;-)

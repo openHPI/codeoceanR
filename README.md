@@ -32,6 +32,7 @@ prepare exercise:
 
 use `rt_create` only once per excercise. Start the project later by opening the `zz_*.Rproj` file in your file browser.
 
+download several exercise files (without unzupping!) and run `codeoceanR::rt_create_all()` to process them all in one go.
 
 take exercise:
 
@@ -40,10 +41,8 @@ take exercise:
 - work on task 2
 - `CTRL + SHIFT + S`
 - ...
-- when finished, if wanted: run `codeoceanR::rt_submit()`
 
 `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
-`codeoceanR::rt_submit()` at the end submits the score to openHPI. Run this only once.  
 
 
 ### design
@@ -69,7 +68,6 @@ Remember to always access this from the openHPI platform.
 - Click `SCORE` to see how many of the tests you pass. Change your solutions if needed. `SCORE` again.  
 Ignore messages for tasks you haven't worked on yet (they show how much work is left).
 - `RUN` and `SCORE` often to easily find the location of mistakes.
-- Finally, when you’re content, click `SUBMIT`.
 
 The tasks are split in separate files. Each can be run independently. Scoring happens for all files at once.  
 I suggest to always read the entire task before starting to work on it ;-)
