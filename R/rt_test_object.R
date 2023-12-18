@@ -68,7 +68,7 @@ if(dim && isarr)
 # funname ----
 if(funname)
 {
- empty <- name == ""
+ empty <- object == ""
  # browser()
  if(!empty && strsplit(object,"(", fixed=TRUE)[[1]][1] == value) return(TRUE)
  return(rt_warn(en="The correct answer for '", de="Die richtige Antwort f\u00FCr '",name,
