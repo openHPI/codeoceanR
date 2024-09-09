@@ -44,10 +44,10 @@ if(is.null(path))
  path <- rstudioapi::selectDirectory(msg)
  }
 # create exes:
-exes <- dir(path, pattern="\\.zip$", full=TRUE)
+exes <- dir(path, pattern="\\.zip$", full.names=TRUE)
 if(length(exes)<1) if(de) stop("Keine zip Dateien gefunden in ", path) else stop("No zip files found at ", path)
 exdirs <- sapply(exes, rt_create, ask=FALSE, open=FALSE, ..., USE.NAMES=FALSE)
-exprojs <- dir(exdirs, pattern="\\.Rproj$", full=TRUE)
+exprojs <- dir(exdirs, pattern="\\.Rproj$", full.names=TRUE)
 exprojs <- gsub(paste0(path,"/"), "", exprojs)
 msg <- if(de) "\nErledigt!\n\u00D6ffne manuell folgende Dateien unter " else "\nDone!\nManually open the following files at "
 message(msg, path, ":\n- ", paste(exprojs, collapse="\n- "))
