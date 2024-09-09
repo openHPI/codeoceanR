@@ -19,28 +19,36 @@ callfile <- NULL
 if(!endsWith(tfile, "test.py"))
   {
 	callfile <- basename(tfile)
+	bonus <- grepl("bonus", readLines(tfile,n=1), ignore.case=TRUE)
 	tfile <- sub("s[kc]ript[0-9]*\\.py$","test.py",tfile)
+	if(bonus) tfile <- sub("test.py", "testbonus.py", tfile)
   }
 
-message("-- running py_local_score on ", basename(tfile),
+message("-- running py_local_score on ", tfile,
 				if(!is.null(callfile)) paste0(", called from ", callfile))
 
 berryFunctions::checkFile(tfile)
-if(!endsWith(tfile, "test.py")) stop("tfile must end in *test.py, but does not. ", tfile)
+if(!(endsWith(tfile,"test.py")|endsWith(tfile,"testbonus.py")))
+	stop("tfile must end in *test.py, but does not. ", tfile)
 
 # Save all changes (py_local_score is not for students anyways):
 rstudioapi::documentSaveAll()
 
 # Actually run tests:
-tr <- suppressWarnings(system2(paste("python3","-B -m unittest", tfile), stderr=TRUE))
-# Format output
+pycmd <- "python3"
+if(Sys.info()["nodename"] == "DESKTOP-4RIP043") pycmd <- "python"
+pyfile <- paste("-B -m unittest", basename(tfile))
+tr <- suppressWarnings(system2(pycmd, pyfile, stderr=TRUE))
+# Format output:
 tr1 <- tr[1]
 tr <- tr[startsWith(tr, "FAIL:") | startsWith(tr, "AssertionError:")]
 tr <- gsub("AssertionError:", ":", tr, fixed=TRUE)
-tr <- gsub("FAIL: test_task_", "\n", tr, fixed=TRUE)
+tr <- gsub("FAIL: test", "\n", tr, fixed=TRUE)
 tr <- gsub("p..test.Script", "", tr)
 tr <- paste(tr, collapse="")
 tr <- sub("\n","",tr)
+tr <- gsub(sub("py$","",basename(tfile)),"",tr)
+# browser()
 message(tr, "\n", tr1)
 return(invisible(NULL))
 }
