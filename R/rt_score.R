@@ -67,19 +67,23 @@ body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
 
 # Post to CodeOcean:
 r <- try(httr::POST(url=co_url, body=body, config=httr::content_type("application/json")), silent=TRUE)
-if(inherits(r, "try-error"))
-erm <- r else
-erm <- httr::http_condition(r, "error")$message
-
-if(grepl("Timeout was reached", erm) || # default timeout after 10 secs
-   grepl("Forbidden", erm)) # reported in the forum
+# catch some errors:
+erm <- ifelse(inherits(r, "try-error"), r, httr::http_condition(r, "error")$message)
+if(grepl("fatal SSL/TLS alert", erm))
+  erm <- paste0(erm,"\nSebastian says: openssl must support TLS 1.3.
+  Berry says: update git for windows for the newest openssl, set TLS 1.3 (link below) and restart PC.
+  https://answers.microsoft.com/en-us/windows/forum/all/how-to-enable-tls-13-in-windows-10/f9ab4993-4758-4de3-a7f9-54a47b61cc77
+  What actually helped was   library(httr); set_config(config(ssl_verifypeer = 0L))
+  https://stackoverflow.com/a/71736921")
+if(grepl("Timeout was reached", erm) || grepl("Forbidden", erm)) # forbidden reported in the forum
 	if(de)
 	warning("Bist du \u00fcber ein VPN online? Versuche es nochmal ohne Proxy. Alternativ hilft vielleicht Folgendes:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))', call.=FALSE)
   else
 	warning("You might be connected through a VPN. Try again without a proxy. Alternatively, the following might help:\n",
 	'httr::set_config(httr::use_proxy(url="your.proxy.ip", port="port", username="user",password="pw"))', call.=FALSE)
-if(inherits(r, "try-error")) return(warning("httr::POST failed with: ", r))
+# stop for failures:
+if(inherits(r, "try-error")) return(warning("httr::POST failed with: ", erm))
 
 if(httr::status_code(r) >= 300)
   {
