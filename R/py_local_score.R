@@ -15,17 +15,13 @@ py_local_score <- function(tfile=NULL)
 if(is.null(tfile)) tfile <- rstudioapi::documentPath()
 # tfile <- "C:/Dropbox/R/kurs/pymooc/aufgaben/sipl32_skript1.py"
 # tfile <- "C:/Dropbox/R/kurs/py_exercises/p32script1.py"
-callfile <- NULL
+callfile <- basename(tfile)
 if(!endsWith(tfile, "test.py"))
   {
-	callfile <- basename(tfile)
 	bonus <- grepl("bonus", readLines(tfile,n=1), ignore.case=TRUE)
 	tfile <- sub("s[kc]ript[0-9]*\\.py$","test.py",tfile)
 	if(bonus) tfile <- sub("test.py", "testbonus.py", tfile)
   }
-
-message("-- running py_local_score on ", tfile,
-				if(!is.null(callfile)) paste0(", called from ", callfile))
 
 berryFunctions::checkFile(tfile)
 if(!(endsWith(tfile,"test.py")|endsWith(tfile,"testbonus.py")))
@@ -33,14 +29,23 @@ if(!(endsWith(tfile,"test.py")|endsWith(tfile,"testbonus.py")))
 
 # Save all changes (py_local_score is not for students anyways):
 rstudioapi::documentSaveAll()
+rstudioapi::executeCommand('activateConsole')
 
 # Actually run tests:
 pycmd <- "python3"
 if(Sys.info()["nodename"] == "DESKTOP-4RIP043") pycmd <- "python"
 pyfile <- paste("-B -m unittest", basename(tfile))
-tr <- suppressWarnings(system2(pycmd, pyfile, stderr=TRUE))
+message(paste0("-- running   ", pycmd," ", pyfile,"   called from ", callfile))
+tp <- suppressWarnings(system2(pycmd, pyfile, stderr=TRUE))
+tr <- tp
 # Format output:
 tr1 <- tr[1]
+if(length(tr)<20) # catch development issues
+	{
+	message(paste(tr, collapse="\n"))
+	return(invisible(NULL))
+  }
+# browser()
 tr <- tr[startsWith(tr, "FAIL:") | startsWith(tr, "AssertionError:")]
 tr <- gsub("AssertionError:", ":", tr, fixed=TRUE)
 tr <- gsub("FAIL: test", "\n", tr, fixed=TRUE)
@@ -48,7 +53,6 @@ tr <- gsub("p..test.Script", "", tr)
 tr <- paste(tr, collapse="")
 tr <- sub("\n","",tr)
 tr <- gsub(sub("py$","",basename(tfile)),"",tr)
-# browser()
 message(tr, "\n", tr1)
-return(invisible(NULL))
+return(invisible(tp))
 }
