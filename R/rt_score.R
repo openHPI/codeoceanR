@@ -66,7 +66,8 @@ body <- paste0('{"remote_evaluation": {"validation_token": "',co_token,
 							 '","files_attributes": {',fileattr,'}}}')
 
 # Post to CodeOcean:
-r <- try(httr::POST(url=co_url, body=body, config=httr::content_type("application/json")), silent=TRUE)
+# rt_gives to suppress info: Initiating curl with CURL_SSL_BACKEND: openssl
+r <- rt_gives_echo(try(httr::POST(url=co_url, body=body, config=httr::content_type("application/json")), silent=TRUE))$value
 # catch some errors:
 erm <- ifelse(inherits(r, "try-error"), r, httr::http_condition(r, "error")$message)
 if(grepl("fatal SSL/TLS alert", erm))
@@ -101,6 +102,18 @@ if(submit) return(r)
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]
+# Python output:
+if(grepl("test01", out$stderr)){
+mout <- paste(unlist(out$error_messages), collapse="\n")
+# browser()
+mout <- paste0(mout, "\nPassed tests: ", out$passed, " out of ", out$count,", Score: ", round(out$score*100), "%")
+if(out$status=="timeout")            mout <- paste0(mout, "\nTesting your code took too long (",round(out$container_execution_time,1)," sec).")
+if(out$status=="container_depleted") mout <- paste0(mout, "\nCodeOcean has an issue (container_depleted), please report to Berry.")
+if(out$status=="out_of_memory")      mout <- paste0(mout, "\nYour code uses too much memory.")
+message(mout) # print messages + score from codeOcean
+return(invisible(if(fullout) r else out))
+} # End Python
+# R output (rest untill end of function):
 mout <- out$stdout # message output
 mout <- sub("Rscript.*tests.R\n", "", mout)
 mout <- gsub("AssertionError: ", "-", mout, fixed=TRUE)
