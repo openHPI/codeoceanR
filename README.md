@@ -1,11 +1,11 @@
 # CodeOcean graded exercises for R
 
-By Berry Boessenkool, 2020-2023, [berry-b@gmx.de](mailto:berry-b@gmx.de)  
+By Berry Boessenkool, 2020-2024, [berry-b@gmx.de](mailto:berry-b@gmx.de)  
 jump to [students](#students) / [teachers](#teachers) / [developers](#developers)
 
 # students
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2023) course.*
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2024) course.*
 
 ### **setup** _(once only)_
 
@@ -26,13 +26,18 @@ prepare exercise:
 - through OpenHPI, go to the CodeOcean exercise
 - **download** it to the folder mentioned above, no need to unzip
 - **close** the CodeOcean browser **tab**
+
+_For one exercise:_
 - **run** (in R / Rstudio Console) `codeoceanR::rt_create()`
 - **confirm** to have closed the tab
 - **select** the exercise file. _If unzipped (the default on Mac OS Safari), any file within the task folder._
 
+_For several exercises at once:_
+- **download** without unzipping!
+- **run** `codeoceanR::rt_create_all()`
+
 use `rt_create` only once per excercise. Start the project later by opening the `zz_*.Rproj` file in your file browser.
 
-download several exercise files (without unzupping!) and run `codeoceanR::rt_create_all()` to process them all in one go.
 
 take exercise:
 
