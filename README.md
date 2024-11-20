@@ -21,25 +21,27 @@ For potential installation issues (and solutions), see [below](#issues).
 
 ### **procedure** _(for each exercise)_
 
-prepare exercise:
+#### prepare exercise:
 
 - through OpenHPI, go to the CodeOcean exercise
 - **download** it to the folder mentioned above, no need to unzip
 - **close** the CodeOcean browser **tab**
 
 _For one exercise:_
+
 - **run** (in R / Rstudio Console) `codeoceanR::rt_create()`
 - **confirm** to have closed the tab
 - **select** the exercise file. _If unzipped (the default on Mac OS Safari), any file within the task folder._
 
 _For several exercises at once:_
+
 - **download** without unzipping!
 - **run** `codeoceanR::rt_create_all()`
 
 use `rt_create` only once per excercise. Start the project later by opening the `zz_*.Rproj` file in your file browser.
 
 
-take exercise:
+#### take exercise:
 
 - work on task 1
 - save & source the script with `CTRL + SHIFT + S`, this will run `codeoceanR::rt_score()`
@@ -62,7 +64,7 @@ take exercise:
 use `rt_create(deletezip=FALSE)` to not delete the zip file if task creation was successful.  
 
 
-### codeOcean in browser
+### CodeOcean in browser
 
 **Don't open several tabs** of an exercise. The autosave could overwrite all you've done from a second (unused=empty) tab.  
 For the same reason, **don't use the back button** of your browser.  
@@ -108,7 +110,7 @@ Here are some solutions that may help you.
 
 # teachers
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2023) course.*
+*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2024) course.*
 
 It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
@@ -133,7 +135,7 @@ Potentially, admins must first duplicate it for you and set you as the author.
 ## exercise acces point on openHPI
 
 On OpenHPI, go to Course administration - Course structure and content, e.g. 
-[url for fprog2020](https://open.hpi.de/courses/fprog-wi-2020/sections).  
+[url for fprog2024](https://open.hpi.de/courses/hpi-dh-fprog2024/sections).  
 In the desired section, click "Add item"
 
 - **Title**: e.g. exercise 3
@@ -160,7 +162,7 @@ All file types & roles etc can be seen in my master template exercise at <https:
 You can only have one 'main' file, the rest must be 'executable file (similar to main file)'.  
 The structure of task and test scripts can also be seen at <https://github.com/openHPI/codeoceanR/tree/main/inst/extdata>  
 A collection of tasks can be requested through [Berry](mailto:berry-b@gmx.de) or [Sebastian](mailto:sebastian.serth@hpi.de).  
-There's an overview of all R exercises at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  
+There's an overview of all R exercises at <https://codeocean.openhpi.de/exercises?&q[execution_environment_id_eq]=28>  or <https://codeocean.openhpi.de/exercises?page=1&per_page=150&q%5Btitle_start%5D=fp_r+>
 
 The Makefile run: could have `Rscript ${FILENAME}` as well, 
 but then the run output does not contain the calls, making error sources harder to find.  
