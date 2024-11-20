@@ -72,10 +72,19 @@ r <- rt_gives_echo(try(httr::POST(url=co_url, body=body, config=httr::content_ty
 erm <- ifelse(inherits(r, "try-error"), r, httr::http_condition(r, "error")$message)
 if(grepl("fatal SSL/TLS alert", erm))
   erm <- paste0(erm,"\nSebastian says: openssl must support TLS 1.3.
-  Berry says: update git for windows for the newest openssl, set TLS 1.3 (link below) and restart PC.
+-------------
+Berry says: run the following two lines in R:
+  if(!requireNamespace('usethis', quietly=TRUE)) install.packages('usethis')
+  usethis::edit_r_environ()
+Then add the following, save the file and restart R (CTRL + SHIFT + F10, CMD + SHIFT + 0):
+  CURL_SSL_BACKEND=openssl
+-------------
+Further info / alternative approaches:
+  https://stackoverflow.com/a/64373553/1587132
+  https://stackoverflow.com/a/71736921
+  update git for windows for the newest openssl, set TLS 1.3 (link below) and restart PC.
   https://answers.microsoft.com/en-us/windows/forum/all/how-to-enable-tls-13-in-windows-10/f9ab4993-4758-4de3-a7f9-54a47b61cc77
-  What actually helped was   library(httr); set_config(config(ssl_verifypeer = 0L))
-  https://stackoverflow.com/a/71736921")
+")
 if(grepl("Timeout was reached", erm) || grepl("Forbidden", erm)) # forbidden reported in the forum
 	if(de)
 	warning("Bist du \u00fcber ein VPN online? Versuche es nochmal ohne Proxy. Alternativ hilft vielleicht Folgendes:\n",
