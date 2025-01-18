@@ -43,10 +43,13 @@ if(length(plotfiles)>maxn)
   warning(length(plotfiles), " plots were created. Only plotting ", maxn,". Change maxn for more.")
   plotfiles2 <- plotfiles2[seq_len(maxn)]
   }
+out <- vector()
 for(pf in plotfiles2)
   {
   if(file.size(pf) < 1) next
-  cat(paste0('<img src="data:image/png;base64,',base64enc::base64encode(pf),'">\n\n'))
+  out[pf] <- paste0('<img src="data:image/png;base64,',base64enc::base64encode(pf),'">\n\n')
+  cat(out[pf])
   }
 unlink(plotfiles)
+return(invisible(out))
 }
