@@ -14,8 +14,19 @@
 rt_check_for_unsaved_files <- function(dir=".", warnonly=FALSE)
 {
 de <- rt_default_language=="de"
+dir <- berryFunctions::normalizePathCP(dir)
+if(rt_user_data_dir()!="" && dir==berryFunctions::normalizePathCP("."))
+  {
+  pfile <- dir(dir, ".Rproj", full.names=TRUE)
+  if(length(pfile)!=1) stop(length(pfile)," .Rproj files found in ",dir)
+  proj <- readLines(pfile)
+  pid <- grep("ProjectId", proj, value=TRUE)
+  if(length(pid)!=1) stop(length(pid)," ProjectId instances found in ",pfile)
+  pid <- sub("ProjectId: ", "", pid)
+  if(nchar(pid)!=36) stop("ProjectId should have 32+4 characters, not ",nchar(pid)," (in ",pfile,")")
+	dir <- paste0(dirname(rt_user_data_dir()),"/", pid)
+  } else dir <- paste0(dir, "/.Rproj.user")
 # check dir:
-dir <- berryFunctions::normalizePathCP(paste0(dir, "/.Rproj.user"))
 if(warnonly && !dir.exists(dir)) return(if(de)
 	message("rt_score pr\u00FCft nicht auf ungespeicherte Datei\u00E4nderungen (dies ist kein Rstudio Rprojekt).") else
 	message("Not checking for unsaved file changes (this is not an Rstudio Rproject)."))
