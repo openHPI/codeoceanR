@@ -160,8 +160,15 @@ formula2xy <- function(xx)
     }
   xx
   }
+
 u_arg <- formula2xy(u_arg)
 i_arg <- formula2xy(i_arg)
+
+if("snumber" %in% names(i_arg)) # happens with rt_has_args('BOD["Demand"]', 'BOD[,"Demand"]', snumber=8)
+  {
+  sel <- which(names(i_arg)=="snumber")
+  names(i_arg)[sel] <- names(u_arg)[sel]
+  }
 
 # Presence and value of arguments:
 for(n in names(i_arg))

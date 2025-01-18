@@ -1,6 +1,13 @@
-^zz_codeoceanR\.Rproj$
-^\.Rproj\.user$
+.git/
+.gitignore
+.Rhistory
+.Rprofile
+.Rproj.user/
+cran-comments.md
 datasets/
 LIESMICH.md
-^cran-comments\.md$
-^CRAN-SUBMISSION$
+README.md
+tests/
+zz_codeoceanR.Rproj
+^.*\.Rproj$
+^\.Rproj\.user$
