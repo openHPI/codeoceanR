@@ -4,7 +4,12 @@
 \alias{rt_add_opened_files}
 \title{Add files to list of Rstudio opened source documents}
 \usage{
-rt_add_opened_files(files, dir = ".", contextid = rt_get_context_id())
+rt_add_opened_files(
+  files,
+  dir = ".",
+  contextid = rt_get_context_id(),
+  userdir = rt_user_data_dir()
+)
 }
 \arguments{
 \item{files}{Filename(s) to be added, without path, must be present at \code{dir}.}
@@ -12,6 +17,8 @@ rt_add_opened_files(files, dir = ".", contextid = rt_get_context_id())
 \item{dir}{Target directory with a .Rproj file. DEFAULT: "." \code{\link[=getwd]{getwd()}}}
 
 \item{contextid}{Hexadecimal user ID, see \code{\link[=rt_get_context_id]{rt_get_context_id()}}}
+
+\item{userdir}{user data path, see \code{\link[=rt_user_data_dir]{rt_user_data_dir()}}}
 }
 \value{
 expanded filenames, invisibly.

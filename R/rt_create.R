@@ -79,14 +79,18 @@ if(nproj>0) if(de) stop("\nEs gibt bereits eine .Rproj Datei im exdir.\n",
 												"Open it manually instead of running `rt_create` again.\nexdir='",
 												exdir, "'")
 
+# GUID:
+rprojid <- ""
+guid <- rt_user_data_dir()
+if(!guid=="") rprojid <- paste0("\nProjectId: ",basename(guid))
 # create .Rproj File
 rprojfile <- sub("FProg2._R_", "", basename(exdir))
 rprojfile <- paste0(exdir, "/zz_",rprojfile,".Rproj")
 rprojfile <- berryFunctions::normalizePathCP(rprojfile)
-cat("Version: 1.0\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile)
+cat("Version: 1.0",rprojid,"\n\nRestoreWorkspace: No\nSaveWorkspace: No\nEncoding: UTF-8", file=rprojfile, sep="")
 
 # put exercise scripts to Rstudio opened files list:
-rt_add_opened_files(rt_read_cofile(paste0(exdir,"/.co"))$files$name, dir=exdir)
+rt_add_opened_files(rt_read_cofile(paste0(exdir,"/.co"))$files$name, dir=exdir, userdir=guid)
 
 # try to open Rproject:
 if(open){

@@ -11,9 +11,14 @@
 #' @param files Filename(s) to be added, without path, must be present at `dir`.
 #' @param dir  Target directory with a .Rproj file. DEFAULT: "." [getwd()]
 #' @param contextid Hexadecimal user ID, see [rt_get_context_id()]
+#' @param userdir user data path, see [rt_user_data_dir()]
 #'
-rt_add_opened_files <- function(files, dir=".", contextid=rt_get_context_id())
-{
+rt_add_opened_files <- function(
+ files,
+ dir=".",
+ contextid=rt_get_context_id(),
+ userdir=rt_user_data_dir()
+){
 # check files and dir ----
 fullfiles <- paste0(dir,"/",files)
 names(fullfiles) <- files
@@ -26,7 +31,8 @@ if(!any(grepl(".Rproj$", dir(dir))))
 		stop("Es gibt keine .Rproj Datei im Verzeichnis ", dir) else
 	  stop("There is no .Rproj file at dir ", dir)
 # create hidden directory for list of Rstudio opened source documents:
-sfdir <- paste0(dir, "/.Rproj.user/",contextid,"/sources/per/t/")
+if(userdir=="") userdir <- paste0(dir, "/.Rproj.user")
+sfdir <- paste0(userdir,"/",contextid,"/sources/per/t/")
 if(!dir.exists(sfdir)) dir.create(sfdir, recursive=TRUE)
 
 # actually add files ----
@@ -60,7 +66,7 @@ file.copy(from=fullfiles[file], to=paste0(sfdir, id, "-contents"))
 }
 
 # set active tab to first ----
-panedir <- paste0(dir, "/.Rproj.user/",contextid,"/pcs/")
+panedir <- paste0(userdir,"/",contextid,"/pcs/")
 if(!dir.exists(panedir)) dir.create(panedir)
 cat('{
     "activeTab": 0
