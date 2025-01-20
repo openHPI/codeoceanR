@@ -10,10 +10,12 @@
 #' @export
 #' @param \dots File name(s)
 #' @param size [file.size] beyond which files are not replaced. DEFAULT: 1e4
+#' @param enfolder Internally for Berry: Should file in english task folder be replaced? DEFAULT: FALSE
 #'
 rt_full_file <- function(
 ...,
-size=1e4
+size=1e4,
+enfolder=FALSE
 )
 {
 fn <- c(...)
@@ -29,7 +31,7 @@ ff <- function(..., not=TRUE)
 if(Sys.getenv("CODEOCEAN")=="true") return(ff(en="on",de="auf"," browser-CodeOcean"))
 wd <- paste0(getwd(),"/")
 if(grepl("kurs/de_aufgaben/", wd)) return(ff("in German task development folder"))
-if(grepl("kurs/en_exercises/", wd)) return(ff("in English task development folder"))
+if(!enfolder && grepl("kurs/en_exercises/", wd)) return(ff("in English task development folder"))
 out <- vector()
 for(name in fn)
 {

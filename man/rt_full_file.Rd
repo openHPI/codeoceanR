@@ -4,12 +4,14 @@
 \alias{rt_full_file}
 \title{Get full file locally}
 \usage{
-rt_full_file(..., size = 10000)
+rt_full_file(..., size = 10000, enfolder = FALSE)
 }
 \arguments{
 \item{\dots}{File name(s)}
 
 \item{size}{\link{file.size} beyond which files are not replaced. DEFAULT: 1e4}
+
+\item{enfolder}{Internally for Berry: Should file in english task folder be replaced? DEFAULT: FALSE}
 }
 \value{
 filename if replacement happened, FALSE with ff-prefixed \link{rt_warn} otherwise
