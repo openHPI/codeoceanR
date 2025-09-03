@@ -37,6 +37,7 @@ if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
   }
 
 # Warn if files are changed but not saved:
+if(rstudioapi::isAvailable()) # not in VScode or Terminal (outside of Rstudio)
 rt_check_for_unsaved_files(dir, warnonly=TRUE)
 
 # get CO token + url + file IDs/names:

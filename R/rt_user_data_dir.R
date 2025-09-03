@@ -4,6 +4,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2025
 #' @seealso [rt_add_opened_files()]
 #' @keywords internal
+#' @importFrom rstudioapi readRStudioPreference
 #'
 rt_user_data_dir <- function()
 {
