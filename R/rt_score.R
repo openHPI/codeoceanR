@@ -36,9 +36,11 @@ if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
 	return(rt_local_score())
   }
 
+# check if Rstudio is running (not the case in VScode or terminal)
+is_rs <- try(rstudioapi::isAvailable(), silent=TRUE)
+if(inherits(is_rs,"try-error")) is_rs <- FALSE
 # Warn if files are changed but not saved:
-if(rstudioapi::isAvailable()) # not in VScode or Terminal (outside of Rstudio)
-rt_check_for_unsaved_files(dir, warnonly=TRUE)
+if(is_rs) rt_check_for_unsaved_files(dir, warnonly=TRUE)
 
 # get CO token + url + file IDs/names:
 co <- rt_read_cofile(cofile)
