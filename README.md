@@ -1,11 +1,11 @@
 # CodeOcean graded exercises for R
 
-By Berry Boessenkool, 2020-2024, [berry-b@gmx.de](mailto:berry-b@gmx.de)  
+By Berry Boessenkool, 2020-2025, [berry-b@gmx.de](mailto:berry-b@gmx.de)  
 jump to [students](#students) / [teachers](#teachers) / [developers](#developers)
 
 # students
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2024) course.*
+*Watch lesson I1.3 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2025) course.*
 
 ### **setup** _(once only)_
 
