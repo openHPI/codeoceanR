@@ -103,6 +103,10 @@ berryFunctions::openFile(rprojfile)
 # delete zipfile:
 if(deletezip && zipped) file.remove(zipfile)
 
+# delete unnecessary files:
+file.remove(paste0(exdir, "/Exercise.txt"))
+unlink(paste0(exdir, "/.scripts"), recursive=TRUE)
+
 # Output:
 return(invisible(exdir))
 }
