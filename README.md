@@ -10,6 +10,7 @@ jump to [students](#students) / [teachers](#teachers) / [developers](#developers
 ### **setup** _(once only)_
 
 - Create a folder for all the exercises
+- If on MacOS Safari: Settings > General > uncheck the option "Open safe files after downloading"
 - Run the following code (in R / Rstudio) to install the `codeoceanR` package:
 
 ```r
@@ -18,27 +19,16 @@ remotes::install_github("openHPI/codeoceanR")
 ```
 For potential installation issues (and solutions), see [below](#issues).
 
-
 ### **procedure** _(for each exercise)_
 
-#### prepare exercise:
+#### prepare exercises:
 
-- through OpenHPI, go to the CodeOcean exercise
-- **download** it to the folder mentioned above, no need to unzip
-- **close** the CodeOcean browser **tab**
-
-_For one exercise:_
-
-- **run** (in R / Rstudio Console) `codeoceanR::rt_create()`
-- **confirm** to have closed the tab
-- **select** the exercise file. _If unzipped (the default on Mac OS Safari), any file within the task folder._
-
-_For several exercises at once:_
-
-- **download** without unzipping!
-- **run** `codeoceanR::rt_create_all()`
-
-use `rt_create` only once per excercise. Start the project later by opening the `zz_*.Rproj` file in your file browser.
+- through OpenHPI, go to each CodeOcean exercise of the week
+- (reset if accessed last year), then **download** them to the folder mentioned above, DO NOT UNZIP
+- **close** the CodeOcean browser **tabs**
+- **run** (in R / Rstudio Console) `codeoceanR::rt_create_all()`
+- **confirm** to have closed the tabs and **select** the exercise folder
+- **Start** a project by opening the `zz_*.Rproj` file via your file browser
 
 
 #### take exercise:
