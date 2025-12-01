@@ -7,9 +7,9 @@ jump to [students](#students) / [teachers](#teachers) / [developers](#developers
 
 *Watch lesson I1.3 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2025) course.*
 
-### **setup** _(once only)_
+### **setup** (once)
 
-- Create a folder for all the exercises
+- Create a folder for all the exercises (in a sensible location)
 - If on MacOS Safari: Settings > General > uncheck the option "Open safe files after downloading"
 - Run the following code (in R / Rstudio) to install the `codeoceanR` package:
 
@@ -19,24 +19,21 @@ remotes::install_github("openHPI/codeoceanR")
 ```
 For potential installation issues (and solutions), see [below](#issues).
 
-### **procedure** _(for each exercise)_
-
-#### prepare exercises:
+### **weekly**
 
 - through OpenHPI, go to each CodeOcean exercise of the week
 - (reset if accessed last year), then **download** them to the folder mentioned above, DO NOT UNZIP
 - **close** the CodeOcean browser **tabs**
 - **run** (in R / Rstudio Console) `codeoceanR::rt_create_all()`
 - **confirm** to have closed the tabs and **select** the exercise folder
-- **Start** a project by opening the `zz_*.Rproj` file via your file browser
 
+### **per exercise**
 
-#### take exercise:
-
+- **Start** a project by opening the `zz_*.Rproj` file via your file browser (new Rstudio instance) or the Rstudio file panel
 - work on task 1
 - save & source the script with `CTRL + SHIFT + S`, this will run `codeoceanR::rt_score()`
 - work on task 2
-- `CTRL + SHIFT + S`
+- `CTRL + SHIFT + S` (potentially multiple times)
 - ...
 
 `codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
