@@ -31,9 +31,13 @@ if(inherits(trytests, "try-error"))
           "Please post the message (below) in the forum (if already reported, please upvote).\n----------\n", trytests, "\n----------")
 	rt_env(fail=1:99) # reset to zero to avoid 100% score up to failed rt_test_task
   }
+# Get succes vector without named bonus tasks:
+success_no_bonus <- rt_test_env$success
+if(!is.null(names(success_no_bonus)))
+	success_no_bonus <- success_no_bonus[names(success_no_bonus) == ""]
 # For succesfull testing, write results in CodeOcean format:
-cat("\n", length(rt_test_env$success), "examples,",
-    sum(rt_test_env$success, na.rm=TRUE), "passed\n")
+cat("\n", length(success_no_bonus), "examples,",
+    sum(success_no_bonus, na.rm=TRUE), "passed\n")
 }
 
 # Note: the prefixed linebreak covers the (rare?) case of a student having
