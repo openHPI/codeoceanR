@@ -5,7 +5,7 @@
 #' @return Vector with number of total and passed tests, invisibly
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
 #' @seealso [rt_score] for students. [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
-#' @keywords test
+#' @keywords internal test
 #' @importFrom berryFunctions checkFile normalizePathCP
 #'
 #' @param tfile Name of *tests.R file to be run.

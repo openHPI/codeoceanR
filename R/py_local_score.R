@@ -4,7 +4,7 @@
 #'              Requires *test.py script to be present (hidden on CodeOcean and not downloaded in zip folder).
 #' @return NULL
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Sept 2024
-#' @keywords test
+#' @keywords internal test
 #' @importFrom berryFunctions checkFile normalizePathCP
 #' @param tfile Name of *test.py file to be run.
 #'              DEFAULT: NULL (will be obtained from currently open File in Rstudio)

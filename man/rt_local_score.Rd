@@ -25,4 +25,5 @@ Requires *tests.R script to be present (hidden on CodeOcean and not downloaded i
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Oct 2020
 }
+\keyword{internal}
 \keyword{test}
