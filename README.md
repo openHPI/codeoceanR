@@ -1,11 +1,11 @@
 # CodeOcean graded exercises for R
 
-By Berry Boessenkool, 2020-2025, [berry-b@gmx.de](mailto:berry-b@gmx.de)  
+By Berry Boessenkool, 2020-2026, [berry-b@gmx.de](mailto:berry-b@gmx.de)  
 jump to [students](#students) / [teachers](#teachers) / [developers](#developers)
 
 # students
 
-*Watch lesson I1.3 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2025) course.*
+*Watch lesson i.3 in the fundamentals of programming course linked [here](https://brry.github.io/course/).*
 
 ### **setup** (once)
 
@@ -231,9 +231,9 @@ The source code for codeOcean itself is online at <https://github.com/openHPI/co
 
 
 
- Updating codeoceanR on the CO-server is a two-step process:  
-- In [GH docker actions](https://github.com/openHPI/dockerfiles/actions/workflows/r-4.yml) (be logged in), click 'Run workflow' then again 'Run workflow'. Wait 5 minutes.  
-- In [CO execution environment](https://codeocean.openhpi.de/execution_environments/28), from the dropdown next to 'Edit', click 'Synchronize'. Should be done in a few seconds. Try to do this when no one is scoring exercises, as all running containers are interrupted.
-Note that changes to the run/test commands in the [Dockerfile](https://github.com/openHPI/dockerfiles/blob/master/co_execenv_r/4/Dockerfile) are not synchronized.  
+ Updating codeoceanR on the CO-server has a few steps:  
+- If needed, update the [Dockerfile](https://github.com/openHPI/dockerfiles/blob/master/co_execenv_r/4/Dockerfile). Note that changes to the `run`/`test` commands are not synchronized.  
+- In [GH docker actions](https://github.com/openHPI/dockerfiles/actions/workflows/r-4.yml) (be logged in), click 'Run workflow' then again 'Run workflow'. Wait ca 5 minutes.  
+- Ask Armin Kirchner to, in the [CO execution environment](https://codeocean.openhpi.de/execution_environments/28), from the dropdown next to 'Edit', click 'Synchronize'. This should be done in a few seconds. Try to do this when no one is scoring exercises, as all running containers are interrupted.
 - Copy `packageVersion("codeoceanR")` to any script and run it to check whether the update was successfull.
 
