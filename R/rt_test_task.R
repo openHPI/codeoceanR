@@ -43,13 +43,18 @@
 #' @param hasval   Run [rt_has_value]? DEFAULT: TRUE
 #' @param stepwise stepwise parameter in [rt_has_value]. TRUE for arrays. DEFAULT: NULL
 #' @param stepnames stepwise parameter for names check. DEFAULT: NULL
+#' @param ndefinitions Maximum number of times `object` may be defined (assigned to)
+#'                 in `script`. DEFAULT: 1
 #' @param section  Section number to be read with [rt_script_section] into `code`
 #'                 which is then available in ... tests.
 #'                 For manual evaluation, use [`eval`]`(`[`str2expression`]`(code))`,
 #'                 not [`str2lang`], in case students use line breaks.
 #'                 `section` DEFAULT: NULL
 #' @param script   Exercise script content from [rt_run_script].
-#'                 Passed to [rt_script_section]. DEFAULT: NULL
+#'                 Passed to [rt_script_section] and used for `ndefinitions`.
+#'                 DEFAULT: NULL (the script content most recently returned by
+#'                 [rt_run_script] is used, so this normally does not need to
+#'                 be given explicitly)
 #' @param solcode  Solution code (charstring) to be checked with [rt_has_args]. DEFAULT: NULL
 #' @param nameonly Literal checks? Passed to [rt_has_args]. DEFAULT: FALSE
 #' @param alt      List of alternative arguments. Passed to [rt_has_args]. DEFAULT: NULL
@@ -82,6 +87,7 @@ names=TRUE,
 hasval=TRUE,
 stepwise=NULL,
 stepnames=FALSE,
+ndefinitions=1,
 section=NULL,
 script=NULL,
 solcode=NULL,
@@ -95,6 +101,7 @@ export=NULL
 {
 n <- deparse(substitute(object))
 rt_env(id=tnumber)
+if(is.null(script)) script <- rt_env()$script # set by the most recent rt_run_script call
 
 # Exit this function through return() right after the first rt_warn message
 
@@ -163,6 +170,21 @@ if(zero && is.function(value) && identical(rt_gives("echo",object(),value=TRUE),
 # test_object ----
 if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, funname=funname, names=names,
 	hasval=hasval, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
+
+# ndefinitions ----
+if(!is.null(script) && !is.null(ndefinitions))
+	{
+	ndef <- rt_count_assignments(script, n)
+	if(!is.na(ndef) && ndef > ndefinitions)
+		{
+		rt_warn(en="Only define '",de="Definiere '",n,
+						en="' ",de="' nur ", ndefinitions,
+						en=if(ndefinitions==1)" time" else " times",
+						de=" mal", en=", not ",de=", nicht ", ndef,
+						en=if(ndef==1)" time." else " times.", de=" mal.")
+		return(rt_env(fail=tnumber))
+		}
+	}
 
 } # end !null(value)
 

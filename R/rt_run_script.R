@@ -17,12 +17,14 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
   rt_env(id=paste0(" ", filename))
   if(!file.exists(filename)) {
   	rt_env(info=paste0("script failed: ",filename))
+  	rt_env(script=character(0)) # invalidate stale script from an earlier rt_run_script call
   	rt_warn(en="This file does not exist: '",de="Diese Datei existiert nicht: ", filename,
   					en="'. current getwd: ", de="'. Aktuelles getwd Verzeichnis: ", getwd())
   	return(FALSE)
   	}
-  # exclude recursive score calls:
   fcontent <- readLines(filename, warn=FALSE, encoding="UTF-8")
+  rt_env(script=fcontent) # so rt_test_task can use it without being passed explicitly
+  # exclude recursive score calls:
   excl <- grepl("rt_local_score(", fcontent, fixed=TRUE) |
           grepl("rt_score("      , fcontent, fixed=TRUE) |
           grepl("rt_plot1("      , fcontent, fixed=TRUE) | # to enable par checks

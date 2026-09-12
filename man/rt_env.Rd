@@ -4,7 +4,14 @@
 \alias{rt_env}
 \title{interact with rt_test_env}
 \usage{
-rt_env(id = NULL, lang = NULL, pass = NULL, fail = NULL, info = NULL)
+rt_env(
+  id = NULL,
+  lang = NULL,
+  pass = NULL,
+  fail = NULL,
+  info = NULL,
+  script = NULL
+)
 }
 \arguments{
 \item{id}{Number or charstring to be set as task ID for \link{rt_warn} messages.
@@ -18,6 +25,11 @@ Currently, "en" and "de" are implemented. DEFAULT: NULL}
 \item{fail}{Number of task(s) to set as failed. DEFAULT: NULL}
 
 \item{info}{Free-form information to be added. Used in rt_run_script. DEFAULT: NULL}
+
+\item{script}{Charstring vector to be stored as the most recently run student
+script, normally set internally by \link{rt_run_script} so that
+\link{rt_test_task} can use it (e.g. for \code{section} or \code{ndefinitions})
+without it having to be passed explicitly each time. DEFAULT: NULL}
 }
 \value{
 If \code{id}, \code{lang} or no arguments are given, list with the env content.\cr

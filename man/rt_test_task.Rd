@@ -21,6 +21,7 @@ rt_test_task(
   hasval = TRUE,
   stepwise = NULL,
   stepnames = FALSE,
+  ndefinitions = 1,
   section = NULL,
   script = NULL,
   solcode = NULL,
@@ -83,6 +84,9 @@ DEFAULT: TRUE}
 
 \item{stepnames}{stepwise parameter for names check. DEFAULT: NULL}
 
+\item{ndefinitions}{Maximum number of times \code{object} may be defined (assigned to)
+in \code{script}. DEFAULT: 1}
+
 \item{section}{Section number to be read with \link{rt_script_section} into \code{code}
 which is then available in ... tests.
 For manual evaluation, use \code{\link{eval}}\code{(}\code{\link{str2expression}}\verb{(code))},
@@ -90,7 +94,10 @@ not \code{\link{str2lang}}, in case students use line breaks.
 \code{section} DEFAULT: NULL}
 
 \item{script}{Exercise script content from \link{rt_run_script}.
-Passed to \link{rt_script_section}. DEFAULT: NULL}
+Passed to \link{rt_script_section} and used for \code{ndefinitions}.
+DEFAULT: NULL (the script content most recently returned by
+\link{rt_run_script} is used, so this normally does not need to
+be given explicitly)}
 
 \item{solcode}{Solution code (charstring) to be checked with \link{rt_has_args}. DEFAULT: NULL}
 

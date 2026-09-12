@@ -11,3 +11,4 @@ tests/
 zz_codeoceanR.Rproj
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^\.posit/assistant$

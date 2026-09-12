@@ -15,16 +15,21 @@
 #' @param pass Number of task(s) to set as successfull. DEFAULT: NULL
 #' @param fail Number of task(s) to set as failed. DEFAULT: NULL
 #' @param info Free-form information to be added. Used in rt_run_script. DEFAULT: NULL
+#' @param script Charstring vector to be stored as the most recently run student
+#'             script, normally set internally by [rt_run_script] so that
+#'             [rt_test_task] can use it (e.g. for `section` or `ndefinitions`)
+#'             without it having to be passed explicitly each time. DEFAULT: NULL
 #'
 rt_env <- function(
 id=NULL,
 lang=NULL,
 pass=NULL,
 fail=NULL,
-info=NULL
+info=NULL,
+script=NULL
 )
 {
-empty <- list(id="nid", success=vector(), lang=rt_default_language, info="")
+empty <- list(id="nid", success=vector(), lang=rt_default_language, info="", script=NULL)
 env <- dynGet("rt_test_env", ifnotfound=empty, minframe=0)
 
 if(!is.null(id))   {env$id <- id; return(as.list(env))}
@@ -33,6 +38,7 @@ if(!is.null(lang)) {if(!lang %in% c("en","de")) stop("lang must be 'en' or 'de',
 if(!is.null(pass)) {env$success[pass] <- TRUE  ; return(TRUE )}
 if(!is.null(fail)) {env$success[fail] <- FALSE ; return(FALSE)}
 if(!is.null(info)) {env$info <- c(env$info,info); return(as.list(env))}
+if(!is.null(script)) {env$script <- script; return(as.list(env))}
 
 # return for empty rt_env() call:
 as.list(env)
