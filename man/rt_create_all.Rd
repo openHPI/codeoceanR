@@ -9,7 +9,7 @@ rt_create_all(path = NULL, ...)
 \arguments{
 \item{path}{Folder containing (several) downloaded zip files.
 "\" (on Windows) must be changed to "/".
-DEFAULT: NULL, meaning to use \code{\link[rstudioapi:file-dialogs]{rstudioapi::selectDirectory()}}}
+DEFAULT: NULL, meaning to use \code{\link[rstudioapi:selectDirectory]{rstudioapi::selectDirectory()}}}
 
 \item{\dots}{Further arguments passed to \code{\link{rt_create}}}
 }

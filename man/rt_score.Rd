@@ -8,7 +8,7 @@ rt_score(dir = ".", submit = FALSE, fullout = FALSE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
-Must contain ".co" and all the "script_n.R" files
+Must contain ".co" and all the "script_n.R" (or python) files
 referenced there, with the changes by the student, saved.
 DEFAULT: "."}
 

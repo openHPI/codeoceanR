@@ -27,7 +27,7 @@ rt_plot2() # preceding plots are displayed at the end of CO printout
 
 }
 \seealso{
-\code{\link[=png]{png()}}, \code{\link[base64enc:base64]{base64enc::base64encode()}}
+\code{\link[=png]{png()}}, \code{\link[base64enc:base64encode]{base64enc::base64encode()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Mar 2022
