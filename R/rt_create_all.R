@@ -20,6 +20,7 @@ path=NULL,
 ...
 )
 {
+stop("deprecated. Use   codeoceanR::unzip_exes(path='.')")
 # Notify about closing tab:
 de <- rt_default_language=="de"
 if(de)

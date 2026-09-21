@@ -24,10 +24,12 @@ export(rt_test_task)
 export(rt_update_package)
 export(rt_vec)
 export(rt_warn)
+export(unzip_exes)
 importFrom(base64enc,base64encode)
 importFrom(berryFunctions,
   checkFile,
   l2df,
+  newFilename,
   normalizePathCP,
   openFile
 )
