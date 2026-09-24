@@ -9,9 +9,12 @@ jump to [students](#students) / [teachers](#teachers) / [developers](#developers
 
 ### **setup** (once)
 
+*only needed if you did not follow [fpsetup](https://github.com/brry/fpsetup#software-installation-guide)!*
+
 - Create a folder for all the exercises (in a sensible location)
 - If on MacOS Safari: Settings > General > uncheck the option "Open safe files after downloading"
-- Run the following code (in R / Rstudio) to install the `codeoceanR` package:
+- In RStudio, click File - New Project - Existing directory and choose the folder from above
+- Run the following code (in R / RStudio) to install the `codeoceanR` package:
 
 ```r
 install.packages("remotes") # ignore the Rtools warning
@@ -19,37 +22,33 @@ remotes::install_github("openHPI/codeoceanR")
 ```
 For potential installation issues (and solutions), see [below](#issues).
 
+- set the scoring keyboard shortcut with:
+
+```r
+remotes::install_github("brry/rskey")
+rskey::setKeyboardBindings()
+```
+
+Scoring defaults to CTRL/CMD + SHIFT + Y. To change it, go to RStudio - Tools - Modify Keyboard Shortcurts,
+Filter (search) for "score", click on the field and change it.
+
+
 ### **weekly**
 
 - through OpenHPI, go to each CodeOcean exercise of the week
 - (reset if accessed last year), then **download** them to the folder mentioned above, DO NOT UNZIP
 - **close** the CodeOcean browser **tabs**
-- **run** (in R / Rstudio Console) `codeoceanR::rt_create_all()`
-- **confirm** to have closed the tabs and **select** the exercise folder
+- **open** the `.Rproj` file from the exercise folder
+- **run** (in RStudio Console) `codeoceanR::unzip_exes()`
+- **open** (in RStudio Files) the wanted files in the exercise folder
 
 ### **per exercise**
 
-- **Start** a project by opening the `zz_*.Rproj` file via your file browser (new Rstudio instance) or the Rstudio file panel
 - work on task 1
-- save & source the script with `CTRL + SHIFT + S`, this will run `codeoceanR::rt_score()`
+- save & score the script with `CTRL + SHIFT + Y`
 - work on task 2
-- `CTRL + SHIFT + S` (potentially multiple times)
+- `CTRL + SHIFT + Y` (potentially multiple times)
 - ...
-
-`codeoceanR::rt_score()` transfers your code to CodeOcean for scoring. Run this frequently.  
-
-
-### design
-
-`rt_create()` should
-
-- create a new folder with a `.Rproj` file
-- open the Project in Rstudio
-- with the `script_n.R` files already opened
-- have everything prepared so `rt_score()` works out of the box.
-
-use `rt_create(deletezip=FALSE)` to not delete the zip file if task creation was successful.  
-
 
 ### CodeOcean in browser
 
@@ -91,25 +90,25 @@ Here are some solutions that may help you.
 - Permanently use **custom folder for packages**: in R `cat('R_LIBS_USER="C:/path/to/library"', file= "~/.Renviron", append=TRUE)`. After R restart, should be the first result from `.libPaths()`.
 - For "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
 - If only an **old version of R** is possible: for rjson `remotes::install_version("rjson", "0.2.20")`
-- If you use **another editor** than Rstudio: don't run `rt_create()` below, instead unzip the file manually.
+- If you use **another editor** than RStudio: don't run `rt_create()` below, instead unzip the file manually.
 - For `rt_create()` error message "Could not load the **Qt platform plugin xcb**": MAYBE! AT OWN RISK: `sudo apt remove libxcb-xinerama0` and `sudo apt install libxcb-xinerama0`, see [here](https://open.hpi.de/courses/programmieren-r2022/question/5a424cfa-3a86-4215-9337-9337e52c8277)
 
 
 # teachers
 
-*Watch lesson 1.4 in the [fundamentals of programming](https://open.hpi.de/courses/hpi-dh-fprog2024) course.*
+*Watch lesson 1.3 in the [fundamentals of programming](https://brry.github.io/course/) course.*
 
 It takes a bit of effort to initialize interactive R coding exercises in openHPI / CodeOcean, but it's worth it. 
 The mostly automatic system enables you to put most day-to-day focus on developing good exercises instead of grading them.
 
 For more on CodeOcean and CodeHarbor, see the corresponding article and slides at the [SPLICE 2021 workshop](https://cssplice.github.io/SIGCSE21/proceedings.html).
 
-Exercises are accessed through openHPI but run and tested at CodeOcean, from which grades are passed back.
-The tasks can also be solved in Rstudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, debugging, keyboard shortcuts and integrated graphics, help, package manager, ...
+Exercises are accessed through openHPI (or moodle), but run and tested at CodeOcean, from which grades are passed back.
+The tasks can also be solved in RStudio, which is greatly recommended because it is the habitual _and_ future environment with interactivity, autocompletion, syntax highlighting, debugging, keyboard shortcuts and integrated graphics, help, package manager, ...
 
 Some participants had a hard time getting started in a time-pressed graded exercise setting.  
 I suggest to first use the system at least twice(!) non-graded or non-time-pressured!  
-You can't stress enough that participants need to run "Score" / `rt_score()` very often.  
+You can't stress enough that participants need to score very often.  
 
 ## initial setup
 
@@ -122,7 +121,7 @@ Potentially, admins must first duplicate it for you and set you as the author.
 ## exercise acces point on openHPI
 
 On OpenHPI, go to Course administration - Course structure and content, e.g. 
-[url for fprog2024](https://open.hpi.de/courses/hpi-dh-fprog2024/sections).  
+[url for fprog2026](https://open.hpi.de/learn/hpi-dh-fprog2026/sections).  
 In the desired section, click "Add item"
 
 - **Title**: e.g. exercise 3
@@ -164,7 +163,7 @@ emphasize to never touch raw data and use `read.table(...,skip=n)` instead.
 
 ## Testing
 
-I suggest developing (and testing) the tasks within Rstudio.
+I suggest developing (and testing) the tasks within RStudio.
 
 In the test script, have `rt_run_script()` right before the actual tests.
 That way, you can check for the value of `n` even if students create `n` 
@@ -190,7 +189,7 @@ Students can have their own copy of e.g. `iris`, hence use `datasets::iris`
 
 
 
-## CO instead of Rstudio
+## CO instead of RStudio
 
 If students use CodeOcean directly instead of downloading and working locally,
 the following hints are especially important.
@@ -224,7 +223,7 @@ All functions in the package are prefixed with `rt_` (R test) for nice autocompl
 
 This entire project profited from great info from Sebastian Serth, <sebastian.serth@hpi.de>.  
 Experiences are based on the 2019 class "fundamentals of programming in digital health" with 31 participants.  
-For the 2020 class, code was bundeled into an R package. Exercises can now be run locally in Rstudio. 
+For the 2020 class, code was bundeled into an R package. Exercises can now be run locally in RStudio. 
 For the 2021 class and the [2022 MOOC](https://open.hpi.de/courses/programmieren-r2022), the test suite was completely rewritten and test script length reduced greatly.
 
 The source code for codeOcean itself is online at <https://github.com/openHPI/codeocean/>
