@@ -15,14 +15,12 @@
 #' @param collapse    Replacement for linebreaks. For nice inclusion in messages or
 #'                    custom grepl tests without if(grepl(...)) error the condition has length > 1.
 #'                    DEFAULT: NULL (not collapsed)
-#' @param maxlen      Maximum allowed length of lines of code. DEFAULT: 95
 #'
 rt_script_section <- function(
 script,
 snumber,
 name=deparse(substitute(script)),
-collapse=NULL,
-maxlen=95
+collapse=NULL
 ){
   force(name)
   if(isFALSE(script)) return(FALSE) # non-existent files
@@ -42,11 +40,6 @@ maxlen=95
   sl <- sl[sl!=""]
   sl <- sl[!grepl("^#", sl)]
   if(length(sl)<1) return(rt_warn(en="The code section t",de="Der Code Abschnitt t",snumber,en=" is empty.", de=" ist leer."))
-  long <- nchar(sl)>maxlen
-  if(any(long))	return(rt_warn(
-  	en="Use line breaks in code section t",de="Nutze Zeilenumbr\u00FCche in Code Abschnitt t",
-  	snumber,": max ",maxlen, en=" symbols per line, not ",de=" Zeichen pro Zeile, nicht ",
-  	paste0(nchar(sl)[long],collapse=","),"."))
   if(!is.null(collapse)) sl <- paste(sl, collapse=collapse)
   # remove duplicate ";" if someone has ; at the end of a line in their script already
   sl <- gsub(";;", ";", sl, fixed=TRUE)

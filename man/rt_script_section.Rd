@@ -8,8 +8,7 @@ rt_script_section(
   script,
   snumber,
   name = deparse(substitute(script)),
-  collapse = NULL,
-  maxlen = 95
+  collapse = NULL
 )
 }
 \arguments{
@@ -22,8 +21,6 @@ rt_script_section(
 \item{collapse}{Replacement for linebreaks. For nice inclusion in messages or
 custom grepl tests without if(grepl(...)) error the condition has length > 1.
 DEFAULT: NULL (not collapsed)}
-
-\item{maxlen}{Maximum allowed length of lines of code. DEFAULT: 95}
 }
 \value{
 FALSE for failure, otherwise selected lines of the script,

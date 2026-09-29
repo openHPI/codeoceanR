@@ -12,8 +12,10 @@
 #'                 Errors are handled separately. DEFAULT: TRUE
 #' @param echo     If TRUE, return the [sink()] log of [source()] with `echo=TRUE`
 #'                 instead of the raw script lines.
+#' @param maxlen   Maximum allowed length of lines of code, checked across the
+#'                 whole script. DEFAULT: 95
 #'
-rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
+rt_run_script <- function(filename, quiet=TRUE, echo=FALSE, maxlen=95){
   rt_env(id=paste0(" ", filename))
   if(!file.exists(filename)) {
   	rt_env(info=paste0("script failed: ",filename))
@@ -30,6 +32,19 @@ rt_run_script <- function(filename, quiet=TRUE, echo=FALSE){
           grepl("rt_plot1("      , fcontent, fixed=TRUE) | # to enable par checks
           grepl("rt_plot2("      , fcontent, fixed=TRUE)
   fnew <- fcontent[!excl]
+  # line length check, across the whole script:
+  sl <- trimws(fnew)
+  idx <- which(!excl) # original fcontent line numbers, aligned with sl
+  long <- nchar(sl)>maxlen
+  if(any(long)) {
+  	rt_env(info=paste0("script lines too long: ",filename))
+  	rt_warn(en="Use line breaks in the script",de="Nutze Zeilenumbr\u00FCche im Skript",
+  					": max ",maxlen, en=" symbols per line, not ",de=" Zeichen pro Zeile, nicht ",
+  					paste0(nchar(sl)[long],collapse=","),
+  					en=". First offending line: ",de=". Erste betroffene Zeile: ",
+  					idx[which(long)[1]],".")
+  	return(FALSE)
+  	}
   tfile <- tempfile(fileext="_coscript.R")
   lfile <- tempfile(fileext="_colog.txt")
   writeLines(fnew, tfile)

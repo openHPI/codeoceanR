@@ -4,7 +4,7 @@
 \alias{rt_run_script}
 \title{run student-submitted scripts}
 \usage{
-rt_run_script(filename, quiet = TRUE, echo = FALSE)
+rt_run_script(filename, quiet = TRUE, echo = FALSE, maxlen = 95)
 }
 \arguments{
 \item{filename}{Path of script to be run}
@@ -14,6 +14,9 @@ Errors are handled separately. DEFAULT: TRUE}
 
 \item{echo}{If TRUE, return the \code{\link[=sink]{sink()}} log of \code{\link[=source]{source()}} with \code{echo=TRUE}
 instead of the raw script lines.}
+
+\item{maxlen}{Maximum allowed length of lines of code, checked across the
+whole script. DEFAULT: 95}
 }
 \value{
 FALSE for failure, otherwise contents of the script, output of \code{\link[=readLines]{readLines()}}
