@@ -7,6 +7,7 @@
 #' @param name         Object name used in messages
 #' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
 #' @param class,intnum,dim,funname,names,hasval,stepwise,stepnames See [rt_test_task]
+#' @param badparam Forbidden function argument names, see [rt_test_task].
 rt_test_object <- function(
 object,
 value,
@@ -19,7 +20,8 @@ funname=FALSE,
 names=TRUE,
 hasval=TRUE,
 stepwise=NULL,
-stepnames=FALSE
+stepnames=FALSE,
+badparam=NULL
 )
 {
 force(name)
@@ -29,7 +31,21 @@ if(is.null(class)) class <- class(value)
 if(!rt_has_class(object, class, name=name, intnum=intnum, qmark=qmark)) return(FALSE)
 
 
-if(!dim || is.function(value)) return(TRUE)
+if(!dim || is.function(value))
+  {
+  # badparam ----
+  if(is.function(value) && is.function(object) && !is.null(badparam))
+    {
+    pn <- if(qmark) paste0("'", name, "'") else name
+    pnames <- names(formals(object))
+    bad <- pnames[pnames %in% badparam]
+    if(length(bad)>0) return(rt_warn(
+      en="Rename the argument '",de="Benenne das Argument '",bad[1],
+      en="' of ",de="' von ",pn,
+      en=" to something more meaningful.", de=" aussagekr\u00E4ftiger um."))
+    }
+  return(TRUE)
+  }
 # all other tests are too error-prone if dim is unchecked.
 # Should be TRUE to enable tests for class only by setting dim=FALSE
 

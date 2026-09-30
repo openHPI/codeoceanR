@@ -69,6 +69,10 @@
 #'                 DEFAULT: NULL
 #' @param export   Character vector with object names to be assigned into evaluation environment.
 #'                 DEFAULT: NULL
+#' @param badparam Character vector of function argument names that students
+#'                 should rename, e.g. a pre-provided placeholder name.
+#'                 Actually tested in [rt_test_object] so that it is early feedback.
+#'                 DEFAULT: NULL
 #'
 rt_test_task <- function(
 tnumber,
@@ -96,7 +100,8 @@ alt=NULL,
 opt=NULL,
 ignAssign=FALSE,
 inputs=NULL,
-export=NULL
+export=NULL,
+badparam=NULL
 )
 {
 n <- deparse(substitute(object))
@@ -169,7 +174,7 @@ if(zero && is.function(value) && identical(rt_gives("echo",object(),value=TRUE),
 
 # test_object ----
 if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, funname=funname, names=names,
-	hasval=hasval, stepwise=stepwise, stepnames=stepnames)) return(rt_env(fail=tnumber))
+	hasval=hasval, stepwise=stepwise, stepnames=stepnames, badparam=badparam)) return(rt_env(fail=tnumber))
 
 # ndefinitions ----
 if(!is.null(script) && !is.null(ndefinitions))

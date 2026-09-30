@@ -30,7 +30,8 @@ rt_test_task(
   opt = NULL,
   ignAssign = FALSE,
   inputs = NULL,
-  export = NULL
+  export = NULL,
+  badparam = NULL
 )
 }
 \arguments{
@@ -118,6 +119,11 @@ For single-argument functions, numerical input works fine, too.
 DEFAULT: NULL}
 
 \item{export}{Character vector with object names to be assigned into evaluation environment.
+DEFAULT: NULL}
+
+\item{badparam}{Character vector of function argument names that students
+should rename, e.g. a pre-provided placeholder name.
+Actually tested in \link{rt_test_object} so that it is early feedback.
 DEFAULT: NULL}
 }
 \value{

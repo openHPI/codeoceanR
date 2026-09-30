@@ -16,7 +16,8 @@ rt_test_object(
   names = TRUE,
   hasval = TRUE,
   stepwise = NULL,
-  stepnames = FALSE
+  stepnames = FALSE,
+  badparam = NULL
 )
 }
 \arguments{
@@ -27,6 +28,8 @@ rt_test_object(
 \item{qmark}{Include ' marks around \code{name}? DEFAULT: TRUE}
 
 \item{class, intnum, dim, funname, names, hasval, stepwise, stepnames}{See \link{rt_test_task}}
+
+\item{badparam}{Forbidden function argument names, see \link{rt_test_task}.}
 }
 \value{
 TRUE or FALSE, depending on whether full test is passed or failed
