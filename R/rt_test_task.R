@@ -73,6 +73,10 @@
 #'                 should rename, e.g. a pre-provided placeholder name.
 #'                 Actually tested in [rt_test_object] so that it is early feedback.
 #'                 DEFAULT: NULL
+#' @param globalok Character vector of object names that `object` (if a function)
+#'                 is allowed to use as a global rather than as an argument/local
+#'                 variable. Only the function body is scanned (not default
+#'                 argument values), see [rt_no_globals]. DEFAULT: NULL
 #'
 rt_test_task <- function(
 tnumber,
@@ -101,7 +105,8 @@ opt=NULL,
 ignAssign=FALSE,
 inputs=NULL,
 export=NULL,
-badparam=NULL
+badparam=NULL,
+globalok=NULL
 )
 {
 n <- deparse(substitute(object))
@@ -173,8 +178,10 @@ if(zero && is.function(value) && identical(rt_gives("echo",object(),value=TRUE),
   }
 
 # test_object ----
-if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim, funname=funname, names=names,
-	hasval=hasval, stepwise=stepwise, stepnames=stepnames, badparam=badparam)) return(rt_env(fail=tnumber))
+if(!rt_test_object(object, value, name=n, class=class, intnum=intnum, dim=dim,
+									 funname=funname, names=names, hasval=hasval, stepwise=stepwise,
+									 stepnames=stepnames, badparam=badparam, globalok=globalok))
+	return(rt_env(fail=tnumber))
 
 # ndefinitions ----
 if(!is.null(script) && !is.null(ndefinitions))

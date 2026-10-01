@@ -11,6 +11,7 @@ export(rt_has_args)
 export(rt_has_class)
 export(rt_has_value)
 export(rt_is_OS)
+export(rt_no_globals)
 export(rt_plot1)
 export(rt_plot2)
 export(rt_run_script)
@@ -33,6 +34,7 @@ importFrom(berryFunctions,
   normalizePathCP,
   openFile
 )
+importFrom(codetools,findGlobals)
 importFrom(grDevices,
   graphics.off,
   png,

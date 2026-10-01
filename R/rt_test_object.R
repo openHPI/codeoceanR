@@ -8,6 +8,7 @@
 #' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
 #' @param class,intnum,dim,funname,names,hasval,stepwise,stepnames See [rt_test_task]
 #' @param badparam Forbidden function argument names, see [rt_test_task].
+#' @param globalok Object names allowed as globals within a function, see [rt_test_task].
 rt_test_object <- function(
 object,
 value,
@@ -21,7 +22,8 @@ names=TRUE,
 hasval=TRUE,
 stepwise=NULL,
 stepnames=FALSE,
-badparam=NULL
+badparam=NULL,
+globalok=NULL
 )
 {
 force(name)
@@ -33,16 +35,21 @@ if(!rt_has_class(object, class, name=name, intnum=intnum, qmark=qmark)) return(F
 
 if(!dim || is.function(value))
   {
-  # badparam ----
-  if(is.function(value) && is.function(object) && !is.null(badparam))
+  if(is.function(value) && is.function(object))
     {
     pn <- if(qmark) paste0("'", name, "'") else name
-    pnames <- names(formals(object))
-    bad <- pnames[pnames %in% badparam]
-    if(length(bad)>0) return(rt_warn(
-      en="Rename the argument '",de="Benenne das Argument '",bad[1],
-      en="' of ",de="' von ",pn,
-      en=" to something more meaningful.", de=" aussagekr\u00E4ftiger um."))
+    # globals ----
+    if(!rt_no_globals(object, name, globalok=globalok, qmark=qmark)) return(FALSE)
+    # badparam ----
+    if(!is.null(badparam))
+      {
+      pnames <- names(formals(object))
+      bad <- pnames[pnames %in% badparam]
+      if(length(bad)>0) return(rt_warn(
+        en="Rename the argument '",de="Benenne das Argument '",bad[1],
+        en="' of ",de="' von ",pn,
+        en=" to something more meaningful.", de=" aussagekr\u00E4ftiger um."))
+      }
     }
   return(TRUE)
   }

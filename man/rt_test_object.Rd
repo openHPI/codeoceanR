@@ -17,7 +17,8 @@ rt_test_object(
   hasval = TRUE,
   stepwise = NULL,
   stepnames = FALSE,
-  badparam = NULL
+  badparam = NULL,
+  globalok = NULL
 )
 }
 \arguments{
@@ -30,6 +31,8 @@ rt_test_object(
 \item{class, intnum, dim, funname, names, hasval, stepwise, stepnames}{See \link{rt_test_task}}
 
 \item{badparam}{Forbidden function argument names, see \link{rt_test_task}.}
+
+\item{globalok}{Object names allowed as globals within a function, see \link{rt_test_task}.}
 }
 \value{
 TRUE or FALSE, depending on whether full test is passed or failed

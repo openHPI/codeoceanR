@@ -31,7 +31,8 @@ rt_test_task(
   ignAssign = FALSE,
   inputs = NULL,
   export = NULL,
-  badparam = NULL
+  badparam = NULL,
+  globalok = NULL
 )
 }
 \arguments{
@@ -125,6 +126,11 @@ DEFAULT: NULL}
 should rename, e.g. a pre-provided placeholder name.
 Actually tested in \link{rt_test_object} so that it is early feedback.
 DEFAULT: NULL}
+
+\item{globalok}{Character vector of object names that \code{object} (if a function)
+is allowed to use as a global rather than as an argument/local
+variable. Only the function body is scanned (not default
+argument values), see \link{rt_no_globals}. DEFAULT: NULL}
 }
 \value{
 TRUE or FALSE, indicating whether all tests passed. Also changes \link{rt_env} status.

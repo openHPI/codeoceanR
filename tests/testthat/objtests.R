@@ -22,6 +22,17 @@ fun <- function(x) data.frame(x)
 ck(F, "'fun(1:5)' should have class 'numeric', not 'data.frame'.", rt_test_task(7, fun, sol, inputs=c("1:5", "4:2)")))
 
 
+# globals ----
+globalthing <- 10
+badglob  <- function(x) x + globalthing
+goodglob <- function(x, y=globalthing) x + y # default value only: not flagged
+solglob  <- function(x) x + 1
+ck(F, "Do not use the global object 'globalthing' in the function 'badglob'.",  rt_test_object(badglob, solglob))
+ck(T, "",                                                                       rt_test_object(badglob, solglob, globalok="globalthing"))
+ck(T, "",                                                                       rt_test_object(goodglob, solglob))
+ck(F, "Do not use the global object 'globalthing' in the function 'badglob'.",  rt_test_task(7, badglob, solglob, inputs="1"))
+
+
 
 # class ----
 ck(T,"",                                                                  rt_test_object(1:5, seq(1,5,1)))
