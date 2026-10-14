@@ -4,13 +4,11 @@
 \alias{rt_score}
 \title{upload exercise to codeOcean}
 \usage{
-rt_score(dir = NULL, submit = FALSE, fullout = FALSE)
+rt_score(dir = NULL, fullout = FALSE)
 }
 \arguments{
 \item{dir}{Path to exercise folder with ".co" and the R/py scripts.
 DEFAULT: NULL (get from currently open document)}
-
-\item{submit}{Submit grade to openHPI? Only to be set when called from \code{\link[=rt_submit]{rt_submit()}}!.}
 
 \item{fullout}{Return full \code{\link[httr:POST]{httr::POST()}} output, instead of
 \link[httr:content]{httr::content}\verb{("parsed", "application/json")[[1]]}?

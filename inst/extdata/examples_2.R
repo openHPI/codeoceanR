@@ -45,5 +45,3 @@ silentRoot(-3:3) # should not give a warning
 # The function argument name should be y. You can change this above.
 
 
-# When you are done, submit your score to openHPI with:
-# codeoceanR::rt_submit()

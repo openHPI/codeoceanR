@@ -13,12 +13,11 @@
 #'
 #' @param dir Path to exercise folder with ".co" and the R/py scripts.
 #'            DEFAULT: NULL (get from currently open document)
-#' @param submit Submit grade to openHPI? Only to be set when called from [rt_submit()]!.
 #' @param fullout Return full [httr::POST()] output, instead of
 #'            [httr::content]`("parsed", "application/json")[[1]]`?
 #'            Mainly for development debugging. DEFAULT: FALSE
 #'
-rt_score <- function(dir=NULL, submit=FALSE, fullout=FALSE)
+rt_score <- function(dir=NULL, fullout=FALSE)
 {
 # Avoid recursive posting, so we can have rt_score() in the exercise script:
 if(Sys.getenv("CODEOCEAN")=="true") return("Not running rt_score in browser-CodeOcean.")
@@ -49,7 +48,6 @@ co <- rt_read_cofile(cofile)
 co_token <- co$token
 co_url   <- co$url
 co_files <- co$files
-if(submit) co_url <- sub("evaluate", "submit", co_url)
 co_files$name <-  paste0(dir, "/", co_files$name)
 berryFunctions::checkFile(co_files$name)
 
@@ -112,7 +110,6 @@ if(httr::status_code(r) >= 300)
 	warning(w, call.=FALSE)
   return(invisible(r))
   }
-if(submit) return(r)
 
 # Output:
 out <- httr::content(r, "parsed", "application/json")[[1]]

@@ -10,17 +10,7 @@ fn_s <- paste0(name,"_",1:6,".R")
 fc_s <- paste0("codeoceanR::rt_score()\n\n",
 					paste0("# A",1:10," ----", collapse="\n\n"),
 					'\n\n\n\n# Now continue in "',fn_s[2:6],'"\n\n',
-"# When you are done, submit your score to openHPI with:
-# codeoceanR::rt_submit()
-
-# If you want to see your score on openHPI, submit it with:
-# codeoceanR::rt_submit()
-# This is optional: for the grade, the maximum score within 90 minutes is used,
-# even if later scores were lower.
-# If within 10 min extra time, 80% of your total score is better than the previous,
-# it will be used instead.
-
-# Feel free to continue working on the grex afterwards to learn from it.
+"# Feel free to continue working on the grex afterwards to learn from it.
 
 # If you have no further questions, feel free to leave now.
 # Please do so quietly, to not disturb your fellow classmates. Thanks :)
@@ -285,8 +275,6 @@ if(requireNamespace("pbapply", quietly=TRUE)) lapply <- pbapply::pblapply
 out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
 out <- tail(unlist(out),1)
-cat("\n\n\n# submit for grading ----\n\n# codeoceanR::rt_submit() # in the console (!),",
-		"confirm you really want to submit\n\n", file=out, append=TRUE)
 #
 # put scripts to Rstudio opened files list:
 rt_add_opened_files(dir(dir,pattern="script_"), dir=dir)

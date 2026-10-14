@@ -17,7 +17,6 @@ export(rt_plot2)
 export(rt_run_script)
 export(rt_score)
 export(rt_set_context_id)
-export(rt_submit)
 export(rt_test)
 export(rt_test_exercise)
 export(rt_test_object)
@@ -45,8 +44,7 @@ importFrom(httr,
   content,
   content_type,
   http_condition,
-  status_code,
-  stop_for_status
+  status_code
 )
 importFrom(rjson,toJSON)
 importFrom(rstudioapi,
