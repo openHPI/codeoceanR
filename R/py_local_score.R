@@ -14,18 +14,19 @@ py_local_score <- function(tfile=NULL)
 # Obtain test file for currently selected document:
 if(is.null(tfile)) tfile <- rstudioapi::documentPath()
 # tfile <- "C:/Dropbox/R/kurs/pymooc/aufgaben/sipl32_skript1.py"
-# tfile <- "C:/Dropbox/R/kurs/py_exercises/p32script1.py"
+# tfile <- "C:/Dropbox/R/kurs/py_exercises/p32_Loops1.py"
 callfile <- basename(tfile)
-if(!endsWith(tfile, "test.py"))
+if(!endsWith(tfile, "_tests.py"))
   {
 	bonus <- grepl("bonus", readLines(tfile,n=1), ignore.case=TRUE)
-	tfile <- sub("s[kc]ript[0-9]*\\.py$","test.py",tfile)
-	if(bonus) tfile <- sub("test.py", "testbonus.py", tfile)
+	tfile <- sub("_?[0-9]+\\.py$","_tests.py",tfile)
+	if(bonus) tfile <- sub("_tests.py", "_testsbonus.py", tfile)
+	tfile <- file.path(dirname(tfile), tolower(basename(tfile))) # CodeOcean module names are case-sensitive
   }
 
 berryFunctions::checkFile(tfile)
-if(!(endsWith(tfile,"test.py")|endsWith(tfile,"testbonus.py")))
-	stop("tfile must end in *test.py, but does not. ", tfile)
+if(!(endsWith(tfile,"_tests.py")|endsWith(tfile,"_testsbonus.py")))
+	stop("tfile must end in *_tests.py, but does not. ", tfile)
 
 # Save all changes (py_local_score is not for students anyways):
 rstudioapi::documentSaveAll()
@@ -49,7 +50,8 @@ if(length(tr)<20) # catch development issues
 tr <- tr[startsWith(tr, "FAIL:") | startsWith(tr, "AssertionError:")]
 tr <- gsub("AssertionError:", ":", tr, fixed=TRUE)
 tr <- gsub("FAIL: test", "\n", tr, fixed=TRUE)
-tr <- gsub("p..test.Script", "", tr)
+# Strip "<module>.ScriptN" from unittest output, module name now varies in length
+tr <- gsub("p[0-9]+[A-Za-z0-9_]*\\.Script", "", tr)
 tr <- paste(tr, collapse="")
 tr <- sub("\n","",tr)
 tr <- gsub(sub("py$","",basename(tfile)),"",tr)

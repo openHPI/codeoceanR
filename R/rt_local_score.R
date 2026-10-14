@@ -19,7 +19,7 @@ if(is.null(tfile)) tfile <- rstudioapi::documentPath()
 if(!endsWith(tfile, "tests.R"))
   {
 	callfile <- basename(tfile)
-	tfile <- sub(".R$","_tests.R", sub("_[0-9]*\\.R$",".R",tfile))
+	tfile <- sub(".R$","_tests.R", sub("_?[0-9]*\\.R$",".R",tfile))
   } else callfile <- NULL
 #tfile <- c("a1.R","a_1.R","a_03_3_lis.R","a_03_4_arr_1.R","a_03_4_arr_2.R")#, "a_03_4_arr_tests.R")
 # aufgabe1.R                                       -> aufgabe1_tests.R
