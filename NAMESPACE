@@ -29,8 +29,7 @@ importFrom(berryFunctions,
   checkFile,
   l2df,
   newFilename,
-  normalizePathCP,
-  openFile
+  normalizePathCP
 )
 importFrom(codetools,findGlobals)
 importFrom(grDevices,

@@ -4,27 +4,14 @@
 \alias{rt_create_all}
 \title{Create exercise folders from several zip files}
 \usage{
-rt_create_all(path = NULL, ...)
+rt_create_all(...)
 }
 \arguments{
-\item{path}{Folder containing (several) downloaded zip files.
-"\" (on Windows) must be changed to "/".
-DEFAULT: NULL, meaning to use \code{\link[rstudioapi:selectDirectory]{rstudioapi::selectDirectory()}}}
-
-\item{\dots}{Further arguments passed to \code{\link{rt_create}}}
-}
-\value{
-dirnames, invisibly
+\item{\dots}{Ignored arguments}
 }
 \description{
-Create exercise folder from all existing zip files.
-Unlike \code{\link[=rt_create]{rt_create()}}, this is not compatible with Mac Safari autounzipping.
-Also, the exercises are not opened in Rstudio.
-}
-\seealso{
-\code{\link[=rt_create]{rt_create()}}
+Obsolete, use \code{\link[=unzip_exes]{unzip_exes()}}
 }
 \author{
 Berry Boessenkool, \email{berry-b@gmx.de}, Nov 2023
 }
-\keyword{file}
