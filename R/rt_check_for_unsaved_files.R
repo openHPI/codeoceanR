@@ -7,7 +7,8 @@
 #' @seealso [rt_score]
 #'
 #' @param dir      Path to (processed) exercise folder.
-#'                 Must contain ".Rproj.user" folder. DEFAULT: "."
+#'                 Must contain ".Rproj" file pointing to ".Rproj.user" folder.
+#'                 DEFAULT: "."
 #' @param warnonly Logical: Only issue a [warning] instead of an
 #'                 error with [stop]? DEFAULT: FALSE
 #'

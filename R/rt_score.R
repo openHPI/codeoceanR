@@ -11,21 +11,27 @@
 #' @importFrom berryFunctions checkFile normalizePathCP
 #' @export
 #'
-#' @param dir Path to (processed) exercise folder.
-#'            Must contain ".co" and all the "script_n.R" (or python) files
-#'            referenced there, with the changes by the student, saved.
-#'            DEFAULT: "."
+#' @param dir Path to exercise folder with ".co" and the R/py scripts.
+#'            DEFAULT: NULL (get from currently open document)
 #' @param submit Submit grade to openHPI? Only to be set when called from [rt_submit()]!.
 #' @param fullout Return full [httr::POST()] output, instead of
 #'            [httr::content]`("parsed", "application/json")[[1]]`?
 #'            Mainly for development debugging. DEFAULT: FALSE
 #'
-rt_score <- function(dir=".", submit=FALSE, fullout=FALSE)
+rt_score <- function(dir=NULL, submit=FALSE, fullout=FALSE)
 {
 # Avoid recursive posting, so we can have rt_score() in the exercise script:
 if(Sys.getenv("CODEOCEAN")=="true") return("Not running rt_score in browser-CodeOcean.")
 de <- rt_default_language=="de"
-
+# check if Rstudio is running (not the case in VScode or terminal)
+is_rs <- try(rstudioapi::isAvailable(), silent=TRUE)
+if(inherits(is_rs,"try-error")) is_rs <- FALSE
+# Get dir of current document:
+if(is.null(dir) & is_rs){
+rstudioapi::documentSave()
+dir <- dirname(rstudioapi::documentPath())
+}
+if(is.null(dir)) dir <- "." # old default, for VScode
 # Check directory and file
 dir <- berryFunctions::normalizePathCP(dir)
 berryFunctions::checkFile(dir)
@@ -35,12 +41,8 @@ if(!file.exists(cofile) && length(dir(dir, pattern=".*tests\\.R"))>0 )
 	{
 	return(rt_local_score())
   }
-
-# check if Rstudio is running (not the case in VScode or terminal)
-is_rs <- try(rstudioapi::isAvailable(), silent=TRUE)
-if(inherits(is_rs,"try-error")) is_rs <- FALSE
 # Warn if files are changed but not saved:
-if(is_rs) rt_check_for_unsaved_files(dir, warnonly=TRUE)
+if(is_rs) rt_check_for_unsaved_files(dirname(dir), warnonly=TRUE)
 
 # get CO token + url + file IDs/names:
 co <- rt_read_cofile(cofile)

@@ -14,13 +14,13 @@ dir <- berryFunctions::normalizePathCP(dirname(cofile))
 if(!file.exists(cofile))
   if(rt_default_language=="de")
   stop("Dies ist kein Verzeichnis mit einer CodeOcean Aufgabe: ", dir,
-    "\nDie '.co' Datei existiert nicht. ",
-    "Hast du rt_create() ausgef\u00fchrt? Wurde die 'zz_*.Rproj' Datei ge\u00f6ffnet?\n",
-    "Rechtsoben in Rstudio sollte das R-Projekt-Symbol den Namen der Aufgabe zeigen.", call.=FALSE) else
-  stop("You're not in a CodeOcean exercise directory. ",
-    "The file '.co' does not exist. \nYou're at '", dir, "'\n",
-    "Make sure you have run rt_create() and the 'zz_*.Rproj' file has been opened.\n",
-    "In Rstudio on the top right, the R Project symbol should show the exercise name.", call.=FALSE)
+    "\nDie '.co' Datei existiert nicht.",
+    "\nHast du rt_unzip_exes() ausgef\u00fchrt? Wurde die '00_*.Rproj' Datei ge\u00f6ffnet?",
+    "\nRechtsoben in Rstudio sollte das R-Projekt-Symbol den Kursordner zeigen.", call.=FALSE) else
+  stop("This is not a CodeOcean exercise directory: ", dir,
+    "\nThe file '.co' does not exist.",
+    "\nDid you run rt_unzip_exes()? Did you open the '00_*.Rproj' file?",
+    "\nThe Rstudio top right R Project symbol should show your course folder name.", call.=FALSE)
 
 co <- readLines(cofile, warn=FALSE)
 out <- list()

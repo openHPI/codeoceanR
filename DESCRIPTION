@@ -1,7 +1,7 @@
 Package: codeoceanR
 Title: Test R Tasks with 'CodeOcean' at 'HPI'
-Version: 0.8.81
-Date: 2026-09-30
+Version: 0.8.82
+Date: 2026-10-14
 Authors@R: 
     person(given = "Berry",
            family = "Boessenkool",
@@ -17,4 +17,4 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/openHPI/codeoceanR
 BugReports: https://github.com/openHPI/codeoceanR/issues
-Config/roxygen2/version: 8.1.0
+Config/roxygen2/version: 8.1.1

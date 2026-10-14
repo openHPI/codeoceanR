@@ -8,7 +8,8 @@ rt_check_for_unsaved_files(dir = ".", warnonly = FALSE)
 }
 \arguments{
 \item{dir}{Path to (processed) exercise folder.
-Must contain ".Rproj.user" folder. DEFAULT: "."}
+Must contain ".Rproj" file pointing to ".Rproj.user" folder.
+DEFAULT: "."}
 
 \item{warnonly}{Logical: Only issue a \link{warning} instead of an
 error with \link{stop}? DEFAULT: FALSE}

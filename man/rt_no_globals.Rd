@@ -40,5 +40,5 @@ rt_no_globals(f2, "f2", globalok="default_val") # explicitly allowed
 Used in \link{rt_test_object}, \link[codetools:findGlobals]{codetools::findGlobals}
 }
 \author{
-Berry Boessenkool, \email{berry-b@gmx.de}, Sep 2026
+Berry Boessenkool, \email{berry-b@gmx.de}, Sep 2026, created by Claude sonnet 5
 }
