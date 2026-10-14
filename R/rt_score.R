@@ -130,12 +130,14 @@ return(invisible(if(fullout) r else out))
 } # End Python
 # R output (rest untill end of function):
 mout <- out$stdout # message output
+mout <- paste0(sub("_tests.R",":\n",out$filename), mout)
 mout <- sub("Rscript.*tests.R\n", "", mout)
 mout <- gsub("AssertionError: ", "-", mout, fixed=TRUE)
 mout <- gsub("\r\n", "\n", mout) # without this, a trailing \r remains from the original \r\n
 mout <- sub("\n$", "", mout)     # since my R 4.2.0 / httr 1.4.2 setup (Apr 2022)
 mout <- gsub("\n\\s*\n\\s*", "\n", mout) # see note at end of rt_test_exercise
 if(de) mout <- sub("(\\d{1,}) examples, (\\d{1,}) passed","\\1 Aufgaben, \\2 gel\u00F6st", mout)
+mout <- sub("(\\d{1,}) examples, (\\d{1,}) passed","\\1 tasks, \\2 passed", mout)
 mout <- paste0(mout, ", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")
   mout <- paste0(if(de) "Das Testen deines Codes hat zulange gedauert (" else
