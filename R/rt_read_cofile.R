@@ -15,11 +15,11 @@ if(!file.exists(cofile))
   if(rt_default_language=="de")
   stop("Dies ist kein Verzeichnis mit einer CodeOcean Aufgabe: ", dir,
     "\nDie '.co' Datei existiert nicht.",
-    "\nHast du rt_unzip_exes() ausgef\u00fchrt? Wurde die '00_*.Rproj' Datei ge\u00f6ffnet?",
+    "\nHast du unzip_exes() ausgef\u00fchrt? Wurde die '00_*.Rproj' Datei ge\u00f6ffnet?",
     "\nRechtsoben in Rstudio sollte das R-Projekt-Symbol den Kursordner zeigen.", call.=FALSE) else
   stop("This is not a CodeOcean exercise directory: ", dir,
     "\nThe file '.co' does not exist.",
-    "\nDid you run rt_unzip_exes()? Did you open the '00_*.Rproj' file?",
+    "\nDid you run unzip_exes()? Did you open the '00_*.Rproj' file?",
     "\nThe Rstudio top right R Project symbol should show your course folder name.", call.=FALSE)
 
 co <- readLines(cofile, warn=FALSE)

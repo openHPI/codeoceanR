@@ -90,7 +90,6 @@ Here are some solutions that may help you.
 - Permanently use **custom folder for packages**: in R `cat('R_LIBS_USER="C:/path/to/library"', file= "~/.Renviron", append=TRUE)`. After R restart, should be the first result from `.libPaths()`.
 - For "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
 - If only an **old version of R** is possible: for rjson `remotes::install_version("rjson", "0.2.20")`
-- For `rt_create()` error message "Could not load the **Qt platform plugin xcb**": MAYBE! AT OWN RISK: `sudo apt remove libxcb-xinerama0` and `sudo apt install libxcb-xinerama0`, see [here](https://open.hpi.de/courses/programmieren-r2022/question/5a424cfa-3a86-4215-9337-9337e52c8277)
 
 
 # teachers
