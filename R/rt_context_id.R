@@ -2,7 +2,6 @@
 #' @description Internal function to find the User-specific 8 digit hexadecimal id for .Rproj.user ID
 #' @return Hexadecimal ID charstring
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2020
-#' @seealso [rt_add_opened_files()]
 #' @keywords internal
 #'
 rt_get_context_id <- function()

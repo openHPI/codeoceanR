@@ -2,7 +2,6 @@
 #' @description Internal function to find the project-specific path for .Rproj.user
 #' @return path
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Jan 2025
-#' @seealso [rt_add_opened_files()]
 #' @keywords internal
 #' @importFrom rstudioapi readRStudioPreference
 #'

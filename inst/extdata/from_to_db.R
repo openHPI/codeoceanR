@@ -276,9 +276,6 @@ out <- lapply(1:nrow(df), function(i)
 	rt_add_task(tdb=tdb, id=df$id[i], task_nr=df$task[i], script_nr=df$script[i], dir=dir))
 out <- tail(unlist(out),1)
 #
-# put scripts to Rstudio opened files list:
-rt_add_opened_files(dir(dir,pattern="script_"), dir=dir)
-rt_add_opened_files("tests.R", dir=dir)
 # try to open Rproject:
 message("Opening ", rprojfile, "\nOpen manually if this fails.")
 berryFunctions::openFile(rprojfile)

@@ -3,7 +3,6 @@
 #'         Only necessary on Mac OS, not Windows.
 #' @return Hexadecimal ID charstring
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2020
-#' @seealso [rt_add_opened_files()]
 #' @keywords internal
 #'
 #' @param dir folder like ".Rproj.user/CONTEXT_ID/sources/per/t/"
