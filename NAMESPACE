@@ -3,7 +3,6 @@
 export(rt_contains)
 export(rt_create)
 export(rt_create_all)
-export(rt_due_warn)
 export(rt_examine_file)
 export(rt_full_file)
 export(rt_gives)

@@ -29,7 +29,6 @@ trytests <- try({
 # submission time ----
 
 task_id <- ""
-rt_due_warn("2020-11-30 16:30") # 16:00 CET is 15:00 UTC
 
 
 }, silent=TRUE)
