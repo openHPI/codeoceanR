@@ -22,14 +22,7 @@ Für mögliche Probleme (und Lösungen) bei der Installation, siehe [unten](#pro
 - Gehe über OpenHPI zur CodeOcean-Übung
 - **Herunterladen** (Abwärtspfeil links im Dateifenster) der gesamten Aufgabe in den o.g Ordner auf dem PC, kein Entpacken erforderlich
 - **Schließe** den CodeOcean-Browser **Tab**
-- **Führe aus** (in R / Rstudio Konsole) `codeoceanR::rt_create()`
-- **Bestätige**, die Registerkarte geschlossen zu haben
-- **Wähle** die Übungsdatei aus. _Wenn entpackt (Standard unter Mac OS Safari), irgendeine Datei innerhalb des Aufgabenordners._
-
-Verwende `rt_create` nur einmal pro Aufgabe. Starte das Aufgabenprojekt später durch öffnen der `zz_*.Rproj` Datei im Dateibrowser.
-
-Lade mehrere Zip-Dateien runter (ohne entpacken!) und nutze `codeoceanR::rt_create_all` um alle auf einmal zu verarbeiten.
-
+- **Führe aus** (in R / Rstudio Konsole) `codeoceanR::unzip_exes()`
 
 Übung bearbeiten:
 
@@ -41,18 +34,6 @@ Lade mehrere Zip-Dateien runter (ohne entpacken!) und nutze `codeoceanR::rt_crea
 - ...
 
 `codeoceanR::rt_score()` überträgt deinen Code zur Bewertung an CodeOcean. Führe dies häufig aus.  
-
-
-### Design
-
-`rt_create()` sollte
-
-- einen neuen Ordner mit einer `.Rproj`-Datei erstellen
-- das Projekt in Rstudio öffnen
-- mit den bereits angezeigten `Skript_n.R` Dateien
-- so, dass `rt_score()` sofort funktioniert.
-
-Verwende `rt_create(deletezip=FALSE)`, um die Zip-Datei nicht zu löschen, wenn die Aufgabenerstellung erfolgreich war.  
 
 
 ### codeOcean im Browser
@@ -96,5 +77,4 @@ Hier sind einige Lösungen, die dir helfen könnten.
 - Dauerhaft **benutzerdefinierten Ordner für Pakete** verwenden: in R `cat('R_LIBS_USER="C:/Pfad/zum/library"', file= "~/.Renviron", append=TRUE)`. Sollte nach R Neustart erste Ausgabe von `.libPaths()` sein.
 - Bei "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
 - Falls nur eine **alte Version von R** möglich ist: für rjson `remotes::install_version("rjson", "0.2.20")`
-- Wenn du einen **anderen Editor** als Rstudio nutzen willst: verwende unten NICHT `rt_create()`, sondern entpacke den ZIP Ordner manuell.
 - Bei `rt_create()` Fehlermeldung "Could not load the **Qt platform plugin xcb**": VIELLEICHT!! EIGENES RISIKO: `sudo apt remove libxcb-xinerama0` und `sudo apt install libxcb-xinerama0`, siehe [hier](https://open.hpi.de/courses/programmieren-r2022/question/5a424cfa-3a86-4215-9337-9337e52c8277)
