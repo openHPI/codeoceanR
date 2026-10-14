@@ -2,7 +2,7 @@
 #' @description upload complete exercise, message CO Score results
 #' @return [httr::content()] output of response to http request, invisibly.
 #'         Or [httr::POST()] response, if `fullout=TRUE`.
-#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020
+#' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Oct 2020 - Oct 2026
 #' @seealso [rt_local_score] for teachers, [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords test
 #' @importFrom httr POST content_type content status_code http_condition
