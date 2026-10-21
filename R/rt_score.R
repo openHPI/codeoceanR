@@ -116,7 +116,13 @@ out <- httr::content(r, "parsed", "application/json")[[1]]
 # Python output:
 if(grepl("test01", out$stderr)){
 mout <- paste(unlist(out$error_messages), collapse="\n")
-# browser()
+# Include filename in output:
+fn <- sub("_tests?\\.(py|R)$", "", out$filename)
+if(length(fn)==1 && !is.na(fn) && fn!=""){
+  # Capitalize first letter after number prefix (e.g. p21_strings -> p21_Strings)
+  fn <- sub("^(p?[0-9]+_)?(.)", "\\1\\U\\2", fn, perl=TRUE)
+  mout <- paste0(fn, ":\n", mout)
+}
 mout <- paste0(mout, "\nPassed tests: ", out$passed, " out of ", out$count,", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")            mout <- paste0(mout, "\nTesting your code took too long (",round(out$container_execution_time,1)," sec).")
 if(out$status=="container_depleted") mout <- paste0(mout, "\nCodeOcean has an issue (container_depleted), please report to Berry.")
