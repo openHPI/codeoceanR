@@ -116,24 +116,22 @@ out <- httr::content(r, "parsed", "application/json")[[1]]
 # Python output:
 if(grepl("test01", out$stderr)){
 mout <- paste(unlist(out$error_messages), collapse="\n")
-# Include filename in output:
+# Include filename in header:
 fn <- sub("_tests?\\.(py|R)$", "", out$filename)
-if(length(fn)==1 && !is.na(fn) && fn!=""){
-  # Capitalize first letter after number prefix (e.g. p21_strings -> p21_Strings)
-  fn <- sub("^(p?[0-9]+_)?(.)", "\\1\\U\\2", fn, perl=TRUE)
-  mout <- paste0(fn, ":\n", mout)
-}
+# Capitalize first letter after number prefix (e.g. p21_strings -> p21_Strings)
+fn <- sub("^(p?[0-9]+_)?(.)", "\\1\\U\\2", fn, perl=TRUE)
+header <- paste("SCORING RESULTS for", fn)
 mout <- paste0(mout, "\nPassed tests: ", out$passed, " out of ", out$count,", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")            mout <- paste0(mout, "\nTesting your code took too long (",round(out$container_execution_time,1)," sec).")
 if(out$status=="container_depleted") mout <- paste0(mout, "\nCodeOcean has an issue (container_depleted), please report to Berry.")
 if(out$status=="out_of_memory")      mout <- paste0(mout, "\nYour code uses too much memory.")
-mout <- paste0("---------------\nSCORING RESULTS\n---------------\n", mout)
+mout <- paste0("---------------\n", header, "\n---------------\n", mout)
 message(mout) # print messages + score from codeOcean
 return(invisible(if(fullout) r else out))
 } # End Python
 # R output (rest untill end of function):
 mout <- out$stdout # message output
-mout <- paste0(sub("_tests.R",":\n",out$filename), mout)
+header <- paste("SCORING RESULTS for", sub("_tests?\\.R$", "", out$filename))
 mout <- sub("Rscript.*tests.R\n", "", mout)
 mout <- gsub("AssertionError: ", "-", mout, fixed=TRUE)
 mout <- gsub("\r\n", "\n", mout) # without this, a trailing \r remains from the original \r\n
@@ -166,6 +164,7 @@ if(trimws(out$stderr)!="")
 	mout <- paste0(if(de)"Beim Testen deines Codes trat eine Warnung / Ausgabe auf:\n" else "A warning / output occured while testing:\n",
 		out$stderr, mout)
   }
+mout <- paste0("---------------\n", header, "\n---------------\n", mout)
 message(mout) # print messages + score from codeOcean
 return(invisible(if(fullout) r else out))
 }
