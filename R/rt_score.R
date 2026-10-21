@@ -127,7 +127,7 @@ show_result <- function(mout)
 # Python output:
 if(grepl("test01", out$stderr)){
 mout <- paste(unlist(out$error_messages), collapse="\n")
-mout <- paste0(mout, "\nPassed tests: ", out$passed, " out of ", out$count,", Score: ", round(out$score*100), "%")
+mout <- paste0(mout, if(nzchar(mout)) "\n", "Passed tests: ", out$passed, " out of ", out$count,", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")            mout <- paste0(mout, "\nTesting your code took too long (",round(out$container_execution_time,1)," sec).")
 if(out$status=="container_depleted") mout <- paste0(mout, "\nCodeOcean has an issue (container_depleted), please report to Berry.")
 if(out$status=="out_of_memory")      mout <- paste0(mout, "\nYour code uses too much memory.")
