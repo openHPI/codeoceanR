@@ -126,7 +126,20 @@ show_result <- function(mout)
   }
 # Python output:
 if(grepl("test01", out$stderr)){
-mout <- paste(unlist(out$error_messages), collapse="\n")
+errmsg <- unlist(out$error_messages)
+# Tracebacks of tests that raised errors (e.g. SyntaxError), not mere assertion FAILs:
+blocks <- strsplit(out$stderr, "\r?\n=+\r?\n")[[1]]
+blocks <- blocks[grepl("^ERROR: ", blocks)]
+# Replace the message of erroring tests, the traceback is appended below:
+err_ids <- sub("^ERROR: (test[0-9]+).*$", "\\1", sapply(strsplit(blocks, "\n"), `[`, 1))
+for(id in err_ids)
+  errmsg[startsWith(errmsg, paste0(id, ":"))] <- paste0(id,
+    ": --- Test script failed, Sorry! Please report Traceback + Error below to Berry so it can be fixed. ---")
+mout <- paste(errmsg, collapse="\n")
+blocks <- sub("^ERROR: ([^\r\n]*)\r?\n-+\r?\n", "\\1\n", blocks)
+blocks <- sub("\r?\n-{10,}\r?\n.*$", "", blocks) # drop trailing "Ran n tests" summary (last block)
+if(length(blocks)>0) mout <- paste0(mout, if(nzchar(mout)) "\n", "\n--- PLEASE REPORT THIS TO BERRY! ---\n",
+                                    paste(trimws(blocks), collapse="\n\n"))
 mout <- paste0(mout, if(nzchar(mout)) "\n", "Passed tests: ", out$passed, " out of ", out$count,", Score: ", round(out$score*100), "%")
 if(out$status=="timeout")            mout <- paste0(mout, "\nTesting your code took too long (",round(out$container_execution_time,1)," sec).")
 if(out$status=="container_depleted") mout <- paste0(mout, "\nCodeOcean has an issue (container_depleted), please report to Berry.")
