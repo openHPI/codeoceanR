@@ -92,8 +92,12 @@ To reset only a single file, click the button on the bottom right of the screen.
 Occasionally, the [installation](#setup-once-only) of the `codeoceanR` package from github causes issues. 
 Here are some solutions that may help you.
 
-- On **Windows**: If you want to install Rtools (this is optional), [install](https://cran.r-project.org/bin/windows/Rtools/) it at e.g. `C:/Rtools` (compiler paths may not have spaces) and run in R: `cat('PATH="${RTOOLS40_HOME}\\usr\\bin;${PATH}"', file= "~/.Renviron", append=TRUE)`
-- On **Linux**: first run in terminal (STRG+ALT+T): `sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+` and `sudo apt-get update` and `sudo apt install libcurl4-openssl-dev libssl-dev r-cran-rjson`. Then in R the code above. If it fails, follow the instructions from installing the dependencies in R: `install.packages("curl")` and then with `"openssl"`, `"httr"` and `"rjson"`.
+- On **Windows**: If you want to install Rtools (this is optional), [install](https://cran.r-project.org/bin/windows/Rtools/) the version matching your R version (e.g. Rtools45 for R 4.5.x/4.6.x) at the default location (compiler paths may not have spaces). 
+- On **Linux**: first run in terminal (STRG+ALT+T) line by line:  
+`sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+`  
+`sudo apt-get update`  
+`sudo apt install libcurl4-openssl-dev libssl-dev r-cran-rjson`  
+If it fails, follow the instructions you receive when installing the dependencies in R: `install.packages("curl")` and then with `"openssl"`, `"httr"` and `"rjson"`.
 - For "Failed to install ... **Permission denied**": set write permissions (rightclick on folder - properties - security - edit - select user - full control - OK). Turn off virus scanner or reboot computer.
 - Permanently use **custom folder for packages**: in R `cat('R_LIBS_USER="C:/path/to/library"', file= "~/.Renviron", append=TRUE)`. After R restart, should be the first result from `.libPaths()`.
 - For "**Failed to R CMD build** package": `remotes::install_github("openHPI/codeoceanR", build=FALSE)`
