@@ -55,6 +55,9 @@ Filter (search) for "score", click on the field and change it.
 
 This info should be obsolete. Solve the exercises in your IDE!
 
+<details>
+<summary>Click to expand</summary>
+
 **Don't open several tabs** of an exercise. The autosave could overwrite all you've done from a second (unused=empty) tab.  
 For the same reason, **don't use the back button** of your browser.  
 Thanks to autosave, **you can refresh** the tab or reopen it later to continue working on the tasks.  
@@ -80,6 +83,8 @@ Click the arrow on the top left (or *hide* at the bottom right) to hide the inst
 
 To reset a complete exercise, click the backwards clock button in the file panel on the left.  
 To reset only a single file, click the button on the bottom right of the screen.  
+
+</details>
 
 
 ### issues
