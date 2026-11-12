@@ -11,9 +11,10 @@ jump to [students](#students) / [teachers](#teachers) / [developers](#developers
 
 *only needed if you did not follow [fpsetup](https://github.com/brry/fpsetup#software-installation-guide)!*
 
-- Create a folder for all the exercises (in a sensible location)
-- If on MacOS Safari: Settings > General > uncheck the option "Open safe files after downloading"
-- In RStudio, click File - New Project - Existing directory and choose the folder from above
+- Create a folder for all the exercises (in a sensible location, with a short name without spaces).
+- If on MacOS Safari: Settings > General > uncheck the option "Open safe files after downloading".
+- In your browser, set the downloading files option to always ask for the location.
+- In RStudio, click File - New Project - Existing directory and choose the folder from above.
 - Run the following code (in R / RStudio) to install the `codeoceanR` package:
 
 ```r
@@ -29,7 +30,7 @@ remotes::install_github("brry/rskey")
 rskey::setKeyboardBindings()
 ```
 
-Scoring defaults to CTRL/CMD + SHIFT + Y. To change it, go to RStudio - Tools - Modify Keyboard Shortcurts,
+Scoring defaults to `ALT` + `S`. To change it, go to RStudio - Tools - Modify Keyboard Shortcurts,
 Filter (search) for "score", click on the field and change it.
 
 
@@ -45,12 +46,14 @@ Filter (search) for "score", click on the field and change it.
 ### **per exercise**
 
 - work on task 1
-- save & score the script with `CTRL + SHIFT + Y`
+- save & score the script with `ALT + S`
 - work on task 2
-- `CTRL + SHIFT + Y` (potentially multiple times)
+- `ALT + S` (potentially multiple times)
 - ...
 
 ### CodeOcean in browser
+
+This info should be obsolete. Solve the exercises in your IDE!
 
 **Don't open several tabs** of an exercise. The autosave could overwrite all you've done from a second (unused=empty) tab.  
 For the same reason, **don't use the back button** of your browser.  
