@@ -30,7 +30,7 @@ remotes::install_github("brry/rskey")
 rskey::setKeyboardBindings()
 ```
 
-Scoring defaults to `ALT` + `S`. To change it, go to RStudio - Tools - Modify Keyboard Shortcurts,
+Scoring defaults to `ALT` + `S`. If you want to change it, go to RStudio - Tools - Modify Keyboard Shortcurts,
 Filter (search) for "score", click on the field and change it.
 
 
