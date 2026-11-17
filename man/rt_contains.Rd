@@ -32,7 +32,11 @@ Remember to set fixed=FALSE as well. DEFAULT: \code{value}}
 \item{fixed}{Fixed match in \link{grepl}? DEFAULT: TRUE}
 
 \item{remcom}{Remove comments from script before checking presence?
-Experimental feature, uses \code{\link[=parse]{parse()}}.
+Uses \link{rt_remove_comments}, so the remaining code is matched
+as written (e.g. \code{.5} is not turned into \code{0.5},
+and a pipe is not turned into nested calls).
+Lines are joined, so patterns can span line breaks.
+Set to FALSE for objects that are not R code (e.g. file names).
 DEFAULT: NA (yes, if object has length >1  and \code{value}
 is a character string)}
 

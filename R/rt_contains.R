@@ -23,7 +23,11 @@
 #' @param qmark        Include ' marks around `name`? DEFAULT: TRUE
 #' @param fixed        Fixed match in [grepl]? DEFAULT: TRUE
 #' @param remcom       Remove comments from script before checking presence?
-#'                     Experimental feature, uses [parse()].
+#'                     Uses [rt_remove_comments], so the remaining code is matched
+#'                     as written (e.g. `.5` is not turned into `0.5`,
+#'                     and a pipe is not turned into nested calls).
+#'                     Lines are joined, so patterns can span line breaks.
+#'                     Set to FALSE for objects that are not R code (e.g. file names).
 #'                     DEFAULT: NA (yes, if object has length >1  and `value`
 #'                     is a character string)
 #' @param ignore_space Remove spaces before comparison? DEFAULT: TRUE
@@ -48,9 +52,10 @@ if(is.character(value))
   {
 	if(is.na(remcom)) remcom <- length(object) > 1
 	if(remcom){
-		object <- try(as.character(parse(text=object)), silent=TRUE)
-		if(inherits(object, "try-error")) return(rt_warn(
-			pn, en=" raises error: ", de=" erzeugt Fehler: ", attr(object,"condition")$message))
+		object <- rt_remove_comments(object)
+		if(anyNA(object)) return(rt_warn(
+			pn, en=" can not be parsed (syntax error).", de=" kann nicht geparst werden (Syntaxfehler)."))
+			object <- paste(object, collapse="\n") # so that patterns can span line breaks
 	  }
   if(ignore_space) {
     object <- gsub("\\s", "", object)
