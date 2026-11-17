@@ -22,6 +22,13 @@ source("objtests.R")
 })
 
 
+# rt_count + rt_remove_comments ----
+
+test_that("rt_count and rt_remove_comments work correctly", {
+source("counttests.R")
+})
+
+
 # rt_has_args ----
 
 test_that("rt_has_args warns correctly", {
