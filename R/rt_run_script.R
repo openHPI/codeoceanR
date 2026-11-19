@@ -6,6 +6,7 @@
 #'          [exercise example](https://github.com/openHPI/codeoceanR/tree/main/inst/extdata) on github
 #' @keywords file
 #' @export
+#' @importFrom utils View
 #'
 #' @param filename Path of script to be run
 #' @param quiet    If TRUE, suppress printed output, messages and warnings.

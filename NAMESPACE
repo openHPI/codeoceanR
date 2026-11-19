@@ -37,6 +37,7 @@ importFrom(grDevices,
   png,
   xy.coords
 )
+importFrom(graphics,plot)
 importFrom(httr,
   POST,
   content,
@@ -55,11 +56,14 @@ importFrom(rstudioapi,
 importFrom(stats,rnorm)
 importFrom(tools,file_path_sans_ext)
 importFrom(utils,
+  View,
   browseURL,
   compareVersion,
   download.file,
+  getParseData,
   install.packages,
   packageDescription,
+  read.table,
   str,
   unzip
 )

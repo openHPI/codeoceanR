@@ -4,6 +4,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Dec 2021
 #' @seealso [rt_test_task]
 #' @export
+#' @importFrom utils read.table
 #' @examples
 #' \dontrun{ # exclude file writing from CRAN checks
 #' write.table(iris, "iri.txt")

@@ -6,6 +6,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Nov 2021
 #' @seealso [str2lang], [match.call]
 #' @importFrom grDevices xy.coords
+#' @importFrom graphics plot
 #' @export
 #' @examples
 #' rt_has_args("plot(1:5, lwd=2)", "plot(1:5, lwd=3)", 7)

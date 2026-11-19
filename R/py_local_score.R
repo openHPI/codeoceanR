@@ -6,6 +6,7 @@
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Sept 2024
 #' @keywords internal test
 #' @importFrom berryFunctions checkFile normalizePathCP
+#' @importFrom rstudioapi documentPath documentSave
 #' @param tfile Name of *test.py file to be run.
 #'              DEFAULT: NULL (will be obtained from currently open File in Rstudio)
 #'
