@@ -147,6 +147,7 @@ if(names && !oneD && !is.array(value)) # not for matrix/array, not if names were
 if(hasval)
   if(oneD) # 1D
   {
+  if(!names) {object <- unname(object) ; value <- unname(value)} # names must not cause value mismatch
   if(!rt_has_value(object,value, name=name, stepwise=stepwise, qmark=qmark)) return(FALSE)
   } else
   if(isarr) # 3D
