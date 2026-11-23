@@ -92,6 +92,8 @@ To reset only a single file, click the button on the bottom right of the screen.
 Occasionally, the [installation](#setup-once-only) of the `codeoceanR` package from github causes issues. 
 Here are some solutions that may help you.
 
+- For the error "**Bad credentials**" (HTTP 401) run in R:  
+  `gitcreds::gitcreds_delete()` # confirm to delete
 - On **Windows**: If you want to install Rtools (this is optional), [install](https://cran.r-project.org/bin/windows/Rtools/) the version matching your R version (e.g. Rtools45 for R 4.5.x/4.6.x) at the default location (compiler paths may not have spaces). 
 - On **Linux**: first run in terminal (STRG+ALT+T) line by line:  
 `sudo add-apt-repository ppa:c2d4u.team/c2d4u4.0+`  
