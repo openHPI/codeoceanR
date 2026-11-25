@@ -30,6 +30,9 @@ solglob  <- function(x) x + 1
 ck(F, "Do not use the global object 'globalthing' in the function 'badglob'.",  rt_test_object(badglob, solglob))
 ck(T, "",                                                                       rt_test_object(badglob, solglob, globalok="globalthing"))
 ck(T, "",                                                                       rt_test_object(goodglob, solglob))
+helperfun <- function(x) x + 1
+funglob   <- function(x) helperfun(x) # global function: always ok
+ck(T, "",                                                                       rt_test_object(funglob, solglob))
 ck(F, "Do not use the global object 'globalthing' in the function 'badglob'.",  rt_test_task(7, badglob, solglob, inputs="1"))
 
 

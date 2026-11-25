@@ -24,6 +24,7 @@ Detect whether a student-defined function references objects
 defined at script level (globals) instead of using its own arguments/locals.
 Default argument values such as \verb{function(x, y=default_val)} are stripped
 before scanning, so they are never flagged (only the function body is).
+Global objects that are functions (helpers, recursion) are always allowed.
 }
 \examples{
 default_val <- 5

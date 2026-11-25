@@ -3,6 +3,7 @@
 #' defined at script level (globals) instead of using its own arguments/locals.
 #' Default argument values such as `function(x, y=default_val)` are stripped
 #' before scanning, so they are never flagged (only the function body is).
+#' Global objects that are functions (helpers, recursion) are always allowed.
 #' @return TRUE / FALSE
 #' @author Berry Boessenkool, \email{berry-b@@gmx.de}, Sep 2026, created by Claude sonnet 5
 #' @seealso Used in [rt_test_object], [codetools::findGlobals]
@@ -35,7 +36,9 @@ if(length(ff)>0) for(nm in names(ff)) ff[[nm]] <- quote(expr=)
 formals(fun) <- ff
 g <- suppressWarnings(codetools::findGlobals(fun, merge=TRUE))
 scriptobjs <- ls(environment(fun), all.names=TRUE)
-bad <- g[g %in% scriptobjs & !g %in% globalok]
+# Functions (e.g. helpers or recursion) are always allowed.
+isfun <- vapply(g, function(n) is.function(get0(n, envir=environment(fun))), logical(1))
+bad <- g[g %in% scriptobjs & !g %in% globalok & !isfun]
 if(length(bad)>0) return(rt_warn(
   en="Do not use the global object '", de="Verwende nicht das globale Objekt '",
   bad[1], en="' in the function ", de="' in der Funktion ", pn, "."))
