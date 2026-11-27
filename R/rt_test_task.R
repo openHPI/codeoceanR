@@ -173,7 +173,8 @@ if(zero && identical(object, 0))
   }
 if(zero && is.function(value) && identical(rt_gives("echo",object(),value=TRUE),0))
   {
-  rt_warn("'",n,"()' ",en="should not return 0.",de="sollte nicht 0 zur\u00FCckgeben.")
+  rt_warn(en="Replace the 0 in '",de="Ersetze die 0 in '",n,
+  				en="()' with the solution code.",de="()' mit dem L\u00F6sungscode.")
   return(rt_env(fail=tnumber))
   }
 
